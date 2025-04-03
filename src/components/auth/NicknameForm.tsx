@@ -13,7 +13,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const NicknameForm = ({ userId }: { userId: string }) => {
+const NicknameForm = ({ userId }: { userId: any }) => {
   const {
     register,
     handleSubmit,
@@ -23,11 +23,15 @@ const NicknameForm = ({ userId }: { userId: string }) => {
   });
 
   const onSubmit = async (data: FormData) => {
-    await supabase.from("users").insert({
+    const {error} = await supabase.from("users").insert({
       id: userId,
       nickname: data.nickname,
       profile_image: "",
     });
+
+    if (error) {
+        console.error("삽입 실패:", error.message)
+      }
     location.href = "/"; // 홈으로 리다이렉트
   };
 
