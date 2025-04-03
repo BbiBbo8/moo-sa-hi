@@ -12,6 +12,7 @@
     "@hookform/resolvers": "^5.0.0",
     "@supabase/supabase-js": "^2.49.4",
     "@tanstack/react-query": "^5.71.1",
+    "axios": "^1.8.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.486.0",
