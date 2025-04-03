@@ -3,7 +3,7 @@
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 // 지도 컴포넌트 (props로 location 데이터 전달 받음)
-const MapComponent = ({
+const MapGeolocation = ({
   location,
   setCenter,
 }: {
@@ -26,4 +26,4 @@ const MapComponent = ({
   );
 };
 
-export default MapComponent;
+export default MapGeolocation;

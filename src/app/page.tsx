@@ -1,5 +1,9 @@
-
+import MapMarkerArrangement from "@/components/MapMarkerArrangement";
 
 export default function Home() {
-  return <div>Home Page</div>;
+  return (
+    <div>
+      <MapMarkerArrangement />
+    </div>
+  );
 }

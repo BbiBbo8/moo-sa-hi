@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 
 // 위치 데이터를 가져오는 비동기 함수
-const fetchLocation = (): Promise<{ lat: number; lng: number }> => {
+const fetchuseGeolocation = (): Promise<{ lat: number; lng: number }> => {
   return new Promise((resolve, reject) => {
     // 브라우저가 Geolcation API 지원하는지 확인
     if (!navigator.geolocation) {
@@ -22,8 +22,8 @@ const fetchLocation = (): Promise<{ lat: number; lng: number }> => {
 };
 
 // Mutation을 활용한 위치 정보 요청 훅
-export const useLocationMutation = () => {
+export const usefetchuseGeolocationMutation = () => {
   return useMutation({
-    mutationFn: fetchLocation, // fetchLocation 함수 실행
+    mutationFn: fetchuseGeolocation, // fetchuseGeolocation 함수 실행
   });
 };
