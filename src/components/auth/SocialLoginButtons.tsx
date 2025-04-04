@@ -8,7 +8,7 @@ function SocialLoginButtons() {
         await supabase.auth.signInWithOAuth({
             provider,
             options: {
-                redirectTo: `${location.origin}/auth/callback`,
+                redirectTo: `http://localhost:3000/auth/callback`,
             },
         });
     }

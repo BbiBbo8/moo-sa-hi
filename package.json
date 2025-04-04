@@ -11,6 +11,7 @@
   "dependencies": {
     "@hookform/resolvers": "^5.0.0",
     "@radix-ui/react-slot": "^1.1.2",
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/supabase-js": "^2.49.4",
     "@tanstack/react-query": "^5.71.1",
     "axios": "^1.8.4",
@@ -29,7 +30,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^20.17.29",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
