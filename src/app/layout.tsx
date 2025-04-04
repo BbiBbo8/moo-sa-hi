@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import TabNavigateBar from "@/components/TabNavigateBar";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "무사히",
   description: "대피소 정보 공유 사이트" /* 임의대로 작성한 내용. 추후 수정 */,
 };
+
+const API = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&libraries=services,clusterer&autoload=false`;
 
 export default function RootLayout({
   children,
@@ -17,6 +20,7 @@ export default function RootLayout({
       <body>
         <main>{children}</main>
         <TabNavigateBar />
+        <Script src={API} strategy="beforeInteractive" />
       </body>
     </html>
   );
