@@ -1,7 +1,11 @@
-import React from "react";
+"use client";
 
-const SignInPage = () => {
-  return <div>SignInPage</div>;
+import SocialLoginButtons from "@/components/auth/SocialLoginButtons";
+
+export default function Signinpage() {
+  return (
+    <div>
+      <SocialLoginButtons/>
+    </div>
+  ) 
 };
-
-export default SignInPage;
