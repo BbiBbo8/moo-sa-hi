@@ -1,46 +1,50 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { useState } from "react";
 import { supabase } from "@/supabase/client";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
-const schema = z.object({
-  nickname: z.string().min(2, "닉네임은 두 글자 이상!"),
-});
+interface Props {
+  userId: string;
+}
 
-type FormData = z.infer<typeof schema>;
+export default function NicknameForm({ userId }: Props) {
+  const [nickname, setNickname] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-const NicknameForm = ({ userId }: { userId: any }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: {},
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
-  });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
 
-  const onSubmit = async (data: FormData) => {
-    const {error} = await supabase.from("users").insert({
+    const { error } = await supabase.from("users").insert({
       id: userId,
-      nickname: data.nickname,
-      profile_image: "",
+      nickname,
     });
 
+    setLoading(false);
+
     if (error) {
-        console.error("삽입 실패:", error.message)
-      }
-    location.href = "/"; // 홈으로 리다이렉트
+      alert("닉네임 등록 중 오류가 발생했습니다.");
+    } else {
+      router.push("/"); // 등록 완료 후 홈으로 이동
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Input placeholder="닉네임 입력" {...register("nickname")} />
-      <Button type="submit">등록</Button>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <Input
+        type="text"
+        placeholder="닉네임을 입력하세요"
+        value={nickname}
+        onChange={(e) => setNickname(e.target.value)}
+        required
+      />
+      <Button type="submit" disabled={loading}>
+        {loading ? "등록 중..." : "닉네임 등록"}
+      </Button>
     </form>
   );
-};
-
-export default NicknameForm;
+}
