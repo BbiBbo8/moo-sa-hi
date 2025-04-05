@@ -12,6 +12,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ThumbsUp } from "lucide-react";
 
 const CommunityDailyPage = () => {
+  const USEFULNUM = 10;
+
   return (
     <main className="min-w-screen h-screen flex flex-col justify-center items-center">
       <Card className="pt-3">
@@ -35,7 +37,10 @@ const CommunityDailyPage = () => {
             />
 
             {/* "유용해요 아이콘 & 개수" */}
-            <section></section>
+            <section className="flex flex-row justify-between items-row">
+              <span>유용해요 {USEFULNUM}개</span>
+              <ThumbsUp></ThumbsUp>
+            </section>
           </CardDescription>
         </CardHeader>
         <CardContent>
