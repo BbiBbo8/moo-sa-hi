@@ -16,6 +16,7 @@ const CommunityDailyPage = () => {
     <main className="min-w-screen h-screen flex flex-col justify-center items-center">
       <Card className="pt-3">
         <CardHeader className="w-[300px] h-[400px] p-3">
+          {/* 작성자 아바타 이미지 & 닉네임*/}
           <section className="flex flex-row items-center gap-2 pb-2">
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" />
@@ -32,6 +33,9 @@ const CommunityDailyPage = () => {
               height={300}
               className="w-[280px] h-[350px]"
             />
+
+            {/* "유용해요 아이콘 & 개수" */}
+            <section></section>
           </CardDescription>
         </CardHeader>
         <CardContent>
