@@ -60,17 +60,17 @@ const CommunityDailyPage = () => {
         defaultValue="account"
         className="w-[400px] flex flex-col justify-center items-center"
       >
-        <TabsList className="absolute top-16">
-          <TabsTrigger value="account">Account</TabsTrigger>
-          <TabsTrigger value="password">Password</TabsTrigger>
+        <TabsList className="absolute top-16 rounded-full [&>*]:rounded-full">
+          <TabsTrigger value="account">대피소</TabsTrigger>
+          <TabsTrigger value="password">일상</TabsTrigger>
         </TabsList>
         <section className="absolute top-32">
           <TabsContent value="account">대피소 커뮤니티 페이지</TabsContent>
           <TabsContent value="password">
-            <section className="flex flex-col justify-center gap-20">
+            <section className="flex flex-col justify-center gap-10">
               {DUMMY_DATA.map((data) => {
                 return (
-                  <Card key={data.id} className="w-[350px] p-5 pb-10 gap-3">
+                  <Card key={data.id} className="w-[330px] p-5 pb-10 gap-3">
                     <CardHeader className="p-0">
                       {/* 작성자 아바타 이미지 & 닉네임*/}
                       <section className="flex flex-row items-center gap-2">
@@ -99,7 +99,7 @@ const CommunityDailyPage = () => {
                       </Carousel>
 
                       {/* "유용해요 아이콘 & 개수" */}
-                      <section className="flex flex-row justify-between items-row">
+                      <section className="flex flex-row justify-between items-row mt-2">
                         <span className="text-gray-500">
                           유용해요 {data.numOfBeingUseful}개
                         </span>
