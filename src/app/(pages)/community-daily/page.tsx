@@ -19,6 +19,7 @@ import { ThumbsUp } from "lucide-react";
 const CommunityDailyPage = () => {
   type DummyData = {
     id: number;
+    userProfile: StaticImageData;
     userName: string;
     imgUrl: StaticImageData;
     numOfBeingUseful: number;
@@ -29,6 +30,7 @@ const CommunityDailyPage = () => {
   const DUMMY_DATA: DummyData[] = [
     {
       id: 1,
+      userProfile: sampleImage1,
       userName: "user1",
       imgUrl: sampleImage1,
       numOfBeingUseful: 3,
@@ -38,6 +40,7 @@ const CommunityDailyPage = () => {
     },
     {
       id: 2,
+      userProfile: sampleImage4,
       userName: "user2",
       imgUrl: sampleImage2,
       numOfBeingUseful: 12334,
@@ -46,6 +49,7 @@ const CommunityDailyPage = () => {
     },
     {
       id: 3,
+      userProfile: sampleImage5,
       userName: "user3",
       imgUrl: sampleImage3,
       numOfBeingUseful: 87,
@@ -75,7 +79,8 @@ const CommunityDailyPage = () => {
                       {/* 작성자 아바타 이미지 & 닉네임*/}
                       <section className="flex flex-row items-center gap-2">
                         <Avatar>
-                          <AvatarImage src="https://github.com/shadcn.png" />
+                          <AvatarImage src={data.userProfile.src} />{" "}
+                          {/* 유저 프로필사진을 불러온 후 뒤에 .src를 명시적으로 뒤에 붙여 Next.js의 Image 최적화 시스템이 사용하는 경로 문자열을 정확히 가져올 수 있음*/}
                           <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
                         <span>{data.userName}</span>
