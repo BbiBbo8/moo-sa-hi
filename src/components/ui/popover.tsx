@@ -11,6 +11,7 @@ const Popover = PopoverPrimitive.Root
 // popover를 실행시키는 트리거
 const PopoverTrigger = PopoverPrimitive.Trigger
 
+// popover의 추가 기능인데 쓰이지 않음
 const PopoverAnchor = PopoverPrimitive.Anchor
 
 // 트리거가 충족되면 보일 컨텐츠
