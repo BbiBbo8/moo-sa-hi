@@ -5,12 +5,15 @@ import * as PopoverPrimitive from "@radix-ui/react-popover"
 
 import { cn } from "@/lib/utils"
 
+// pop을 묶는 큰 묶음
 const Popover = PopoverPrimitive.Root
 
+// popover를 실행시키는 트리거
 const PopoverTrigger = PopoverPrimitive.Trigger
 
 const PopoverAnchor = PopoverPrimitive.Anchor
 
+// 트리거가 충족되면 보일 컨텐츠
 const PopoverContent = React.forwardRef<
   React.ComponentRef<typeof PopoverPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
