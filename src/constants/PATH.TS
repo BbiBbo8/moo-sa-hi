@@ -1,4 +1,4 @@
-interface path {
+interface Path {
   HOME: string;
   SIGNIN: string;
   PROFILE: string;
@@ -7,7 +7,7 @@ interface path {
   MAP: string;
   CREATE: string;
 }
-const PATH: path = {
+const PATH: Path = {
   HOME: "/",
   SIGNIN: "/sign-in",
   PROFILE: "/profile",
