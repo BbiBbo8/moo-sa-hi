@@ -1,5 +1,6 @@
 "use client";
 
+import ShelterList from "@/components/map/ShelterList";
 import { Input } from "@/components/ui/input";
 import { useMapStore } from "@/store/useMapStore";
 import { Search } from "lucide-react";
@@ -11,7 +12,7 @@ const MapPage = () => {
   const { center, setCenter } = useMapStore();
 
   return (
-    <div className="flex justify-center flex-col max-w-[393px] mx-auto h-[852px] items-center ">
+    <div className="flex justify-center flex-col max-w-[393px] mx-auto h-[852px] items-center relative overflow-hidden ">
       <div className="flex flex-row justify-center relative">
         <Input
           type="text"
@@ -19,7 +20,7 @@ const MapPage = () => {
           placeholder="입력해주세요"
         />
         <button className="cursor-pointer">
-          <Search className="absolute top-8 z-[999] left-[140px] active:text-blue-500" />
+          <Search className="absolute top-8 z-20 left-[140px] active:text-blue-500" />
         </button>
       </div>
       <Map
@@ -42,6 +43,9 @@ const MapPage = () => {
           }}
         ></MapMarker>
       </Map>
+      <div className="flex justify-center">
+        <ShelterList />
+      </div>
     </div>
   );
 };
