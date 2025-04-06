@@ -6,11 +6,15 @@ import {
 
 import React from 'react'
 import { Input } from "./ui/input"
+import { Button } from "./ui/button"
 
 function ProfileEditPop() {
   return (
     <Popover>
-  <PopoverTrigger>프로필 수정</PopoverTrigger>
+  <PopoverTrigger asChild>
+    {/* 가시성 확보 위해 추가로 버튼 컴포넌트 사용 */}
+    <Button>프로필 수정</Button>
+    </PopoverTrigger> 
   <PopoverContent className="w-80">
     <div className="grid gap-4">
       <div className="space-y-2">
