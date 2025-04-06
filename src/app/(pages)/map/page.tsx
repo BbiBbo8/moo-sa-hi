@@ -1,7 +1,7 @@
 "use client";
 
-import { InputSearch } from "@/components/map/InputSearch";
 import ShelterList from "@/components/map/ShelterList";
+import { InputSearch } from "@/components/map/InputSearch";
 import { useMapStore } from "@/store/useMapStore";
 import { useRef } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
@@ -11,7 +11,7 @@ const MapPage = () => {
   const { center, setCenter } = useMapStore();
 
   return (
-    <div className="flex justify-center flex-col max-w-[393px] mx-auto h-[852px] relative items-center overflow-hidden">
+    <div className="flex justify-center flex-col max-w-[393px] mx-auto h-[852px] items-center relative overflow-hidden ">
       <div className="flex flex-row justify-center relative">
         <InputSearch/>
       </div>
