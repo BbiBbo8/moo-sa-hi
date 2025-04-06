@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import ProfileEditPop from "./ProfileEditPop";
 
 function ProfileCard() {
   return (
@@ -10,10 +10,10 @@ function ProfileCard() {
         <span className="text-xs font-light">추가 설명</span>
       </div>
       {/* 아바타 들어갈 곳 */}
-      <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback>아바타</AvatarFallback>
-      </Avatar>
+      <figure>
+    <div>아바타</div>
+    <ProfileEditPop/>
+      </figure>
       {/* 해당 기능은 도전 기능입니다 뼈대만 존재 */}
       <div className="flex flex-row justify-evenly">
         <div>
