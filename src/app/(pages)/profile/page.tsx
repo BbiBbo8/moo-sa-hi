@@ -5,8 +5,9 @@ import ProfileCard from "@/components/ProfileCard";
 const ProfilePage = () => {
   return (
     <section className="text-center">
+      {/* 프로필 내용이 들어갈 위치 */}
       <ProfileCard />
-      {/* 테스트 코드용. 아래에 탭이 들어갑니다 */}
+      {/* 탭이 들어갈 위치 */}
       <ProfileTabs />
     </section>
   );
