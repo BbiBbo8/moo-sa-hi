@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 function ProfileCard() {
   return (
-    <div className="flex flex-col gap-6 rounded-xl border py-6 shadow-sm">
+    <div className="flex flex-col gap-3 rounded-xl border py-4 shadow-sm">
       <div className="gap-2">
         <h3 className="text-lg font-bold">닉네임</h3>
         {/* 이외 추가 설명이 있다면 들어갈 곳 */}
