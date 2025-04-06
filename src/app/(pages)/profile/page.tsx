@@ -5,10 +5,10 @@ import ProfileCard from "@/components/ProfileCard";
 
 const ProfilePage = () => {
   return (
-    <section>
-    <ProfileCard/>
+    <section className="text-center">
+      <ProfileCard />
       {/* 테스트 코드용. 아래에 프로필 수정 모달(pop)이 들어갑니다 */}
-      <ProfileEditPop/>
+      <ProfileEditPop />
       {/* 테스트 코드용. 아래에 탭이 들어갑니다 */}
       <ProfileTabs />
     </section>
