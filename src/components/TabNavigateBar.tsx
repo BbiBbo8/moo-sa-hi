@@ -5,7 +5,7 @@ import PATH from '../constants/PATH';
 
 function TabNavigateBar() {
   return (
-    <div className='p-1 inline-flex w-full items-center justify-between text-center relative'>
+    <div className='p-1 inline-flex w-full items-center justify-between text-center fixed bottom-0'>
         <Link href={PATH.HOME}>
             <Home className='w-24 text-center'/>
             <h5>홈</h5>
