@@ -20,7 +20,7 @@ function ProfileEditPop() {
             </p>
         </div>
         <div className="grid gap-2">
-            <div className="grid grid-cols-3 items-center gap-4">
+            <div className="grid grid-cols-3 items-center gap-4"> {/* 닉네임 수정칸 */}
               <label htmlFor="nickname">닉네임</label>
               <Input
                 id="nickname"
@@ -28,7 +28,7 @@ function ProfileEditPop() {
                 className="col-span-2 h-8"
               />
             </div>
-            <div className="grid grid-cols-3 items-center gap-4">
+            <div className="grid grid-cols-3 items-center gap-4"> {/* 아바타 수정칸 */}
               <label htmlFor="avatar">아바타</label>
               <Input
                 id="avatar"
@@ -36,7 +36,7 @@ function ProfileEditPop() {
                 className="col-span-2 h-8"
               />
             </div>
-            <div className="grid grid-cols-3 items-center gap-4">
+            <div className="grid grid-cols-3 items-center gap-4"> {/* 임시로 만든 추가수정칸 */}
               <label htmlFor="sample-value1">추가사항</label>
               <Input
                 id="sample-value1"
@@ -44,7 +44,7 @@ function ProfileEditPop() {
                 className="col-span-2 h-8"
               />
             </div>
-            <div className="grid grid-cols-3 items-center gap-4">
+            <div className="grid grid-cols-3 items-center gap-4"> {/* 임시로 만든 추가수정칸 */}
               <label htmlFor="sample-value2">추가사항</label>
               <Input
                 id="sample-value1"
