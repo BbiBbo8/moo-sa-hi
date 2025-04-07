@@ -3,15 +3,16 @@ import ProfileEditPop from "./ProfileEditPop";
 
 function ProfileCard() {
   return (
-    <div className="bg-accent flex flex-col gap-3 rounded-xl border py-4 pl-6 shadow-sm">
-      <div className="flex-row gap-2">
-        <h3 className="text-lg font-bold">닉네임</h3>
-        <h3 className="text-md">@email.com</h3>
-        {/* 이외 추가 설명이 있다면 들어갈 곳 */}
-        <span className="text-xs font-light">추가 설명</span>
+    <div className="bg-accent flex flex-col gap-3 rounded-xl border py-4 shadow-sm">
+      <div className="flex-row">
+        <div className="gap-2">
+          <h3 className="text-lg font-bold">닉네임</h3>
+          <h3 className="text-md">@email.com</h3>
+          {/* 이외 추가 설명이 있다면 들어갈 곳 */}
+          <span className="text-xs font-light">추가 설명</span>
+        </div>
         {/* 아바타 들어갈 곳 */}
-        <figure className="h-24 w-24 rounded-full border bg-gray-200">
-          <div>아바타</div>
+        <figure className="h-24 w-24 rounded-full border bg-gray-200 text-end">
           <ProfileEditPop />
         </figure>
       </div>
