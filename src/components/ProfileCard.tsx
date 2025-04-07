@@ -1,7 +1,7 @@
 import React from "react";
 import ProfileEditPop from "./ProfileEditPop";
 
-function ProfileCard() {
+const ProfileCard = () => {
   return (
     <div className="bg-accent flex flex-col gap-3 rounded-xl border py-4 shadow-sm">
       <div className="flex-row">
@@ -33,6 +33,6 @@ function ProfileCard() {
       </div>
     </div>
   );
-}
+};
 
 export default ProfileCard;
