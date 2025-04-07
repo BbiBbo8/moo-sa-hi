@@ -13,7 +13,10 @@ const MapPage = () => {
   return (
     <div className="flex justify-center flex-col max-w-[393px] mx-auto h-[852px] items-center relative overflow-hidden ">
       <div className="flex flex-row justify-center relative">
-        <InputSearch/>
+        <div className="flex justify-center">
+          <InputSearch />
+        </div>
+         
       </div>
       <Map
         id="map"

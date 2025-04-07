@@ -1,14 +1,10 @@
 "use client"
-import * as React from "react";
 
 import { useState } from "react"
 import { Search } from "lucide-react"
-import { Input } from "../ui/input";
-import { Command, CommandEmpty, CommandGroup, CommandList } from "../ui/command";
-import { CommandItem } from "cmdk";
 
-
-
+import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
+import { Input } from "@/components/ui/input"
 
 // 더미 데이터
 const sampleData = [
