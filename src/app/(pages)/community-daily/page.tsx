@@ -1,3 +1,5 @@
+"use client"
+
 import Image, { StaticImageData } from "next/image";
 import sampleImage1 from "../../../../public/sampleScreenshot.png";
 import sampleImage2 from "../../../../public/shorty.jpeg";
@@ -15,6 +17,8 @@ import {
 } from "@/components/ui/carousel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ThumbsUp } from "lucide-react";
+import { useQuery } from "@tanstack/react-query"
+import { supabase } from "@/supabase/client";
 
 const CommunityDailyPage = () => {
   type DummyData = {
@@ -58,6 +62,26 @@ const CommunityDailyPage = () => {
     },
   ];
 
+  const fetchPosts = async() => {
+    const { data, error } = await supabase.from("daily_post").select("*");
+    if (error) {
+      throw new Error(error.message);
+    }
+    return data;
+  }
+
+    const {data: posts, isLoading, error } = useQuery<PostData[]>({
+      queryKey: ["posts"],
+      queryFn: fetchPosts,
+    })
+    if (isLoading) {
+      return <p>로딩 중...</p>
+    }
+    if (error) {
+      return <p>에러 발생: {error.message}</p>
+    }
+  
+
   return (
     <main className="relative min-w-screen h-screen flex flex-col justify-center items-center">
       <Tabs
@@ -72,14 +96,14 @@ const CommunityDailyPage = () => {
           <TabsContent value="account">대피소 커뮤니티 페이지</TabsContent>
           <TabsContent value="password">
             <section className="flex flex-col justify-center gap-10">
-              {DUMMY_DATA.map((data) => {
+              {posts.map((data) => {
                 return (
                   <Card key={data.id} className="w-[330px] p-5 pb-10 gap-3">
                     <CardHeader className="p-0">
                       {/* 작성자 아바타 이미지 & 닉네임*/}
                       <section className="flex flex-row items-center gap-2">
                         <Avatar>
-                          <AvatarImage src={data.userProfile.src} />{" "}
+                          <AvatarImage src={data.userProfile} />{" "}
                           {/* 유저 프로필사진을 불러온 후 뒤에 .src를 명시적으로 뒤에 붙여 Next.js의 Image 최적화 시스템이 사용하는 경로 문자열을 정확히 가져올 수 있음*/}
                           <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
