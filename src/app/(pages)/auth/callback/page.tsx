@@ -1,39 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { supabase } from "@/supabase/client";
-import NicknameForm from "@/components/auth/NicknameForm";
 
-const callbackPage = () => {
-  const [userId, setUserId] = useState<any | null>(null);
+export default function CallbackPage() {
+  const router = useRouter();
 
   useEffect(() => {
-    const getUser = async () => {
+    const hash = window.location.hash;
+    const params = new URLSearchParams(hash.slice(1));
+    const access_token = params.get("access_token");
+    const refresh_token = params.get("refresh_token");
+
+    if (!access_token || !refresh_token) {
+      router.replace("/auth/auth-code-error");
+      return;
+    }
+
+    supabase.auth.setSession({ access_token, refresh_token }).then(async ({ error }) => {
+      if (error) {
+        console.error("세션 설정 실패:", error);
+        return router.replace("/auth/auth-code-error");
+      }
+
       const {
         data: { user },
-      }  
-      = await supabase.auth.getUser();
-      
-      if (user) {
-        const { data } = await supabase
-          .from("users")
-          .select("*")
-          .eq("id", user.id)
-          .single();
-        if (data) {
-          window.location.href = "/"; // 데이터가 이미 있다면 → 홈으로
-        } else {
-          setUserId(user.id); // 아니면 닉네임 등록 페이지로
-        }
-      }
-    };
-    getUser();
+      } = await supabase.auth.getUser();
+
+      const { data: existingUser } = await supabase
+        .from("users")
+        .select("nickname")
+        .eq("id", user?.id)
+        .single();
+
+      router.replace(existingUser?.nickname ? "/" : "/auth/nickname");
+    });
   }, []);
 
-  return (
-    <div>
-      <NicknameForm userId={userId} />
-    </div>
-  );
-};
-export default NicknameForm;
+  return <div className="p-6 text-center">로그인 처리 중...</div>;
+}

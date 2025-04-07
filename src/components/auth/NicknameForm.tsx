@@ -1,46 +1,59 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { supabase } from "@/supabase/client";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
-const schema = z.object({
-  nickname: z.string().min(2, "닉네임은 두 글자 이상!"),
+const nicknameSchema = z.object({
+  nickname: z
+    .string()
+    .min(2, "닉네임은 최소 2자 이상이어야 합니다.")
+    .max(10, "닉네임은 최대 10자까지 가능합니다."),
 });
 
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof nicknameSchema>;
 
-const NicknameForm = ({ userId }: { userId: any }) => {
+export default function NicknameForm({ userId }: { userId: string }) {
   const {
     register,
     handleSubmit,
-    formState: {},
+    formState: { errors, isSubmitting },
   } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(nicknameSchema),
   });
 
-  const onSubmit = async (data: FormData) => {
-    const {error} = await supabase.from("users").insert({
+  const router = useRouter();
+
+  const onSubmit = async ({ nickname }: FormData) => {
+    const { error } = await supabase.from("users").insert({
       id: userId,
-      nickname: data.nickname,
-      profile_image: "",
+      nickname,
     });
 
     if (error) {
-        console.error("삽입 실패:", error.message)
-      }
-    location.href = "/"; // 홈으로 리다이렉트
+      alert("닉네임 등록 실패");
+    } else {
+      router.push("/");
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Input placeholder="닉네임 입력" {...register("nickname")} />
-      <Button type="submit">등록</Button>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <Input
+        placeholder="닉네임 입력"
+        {...register("nickname")}
+        disabled={isSubmitting}
+      />
+      {errors.nickname && (
+        <p className="text-sm text-red-500">{errors.nickname.message}</p>
+      )}
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "등록 중..." : "닉네임 등록"}
+      </Button>
     </form>
   );
-};
-
-export default NicknameForm;
+}
