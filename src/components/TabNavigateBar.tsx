@@ -16,11 +16,6 @@ function TabNavigateBar() {
         <MapPin className="ml-2 w-12 text-center" />
         <h5 className="text-xs">대피소 지도</h5>
       </Link>
-      <Link href={PATH.CREATE}>
-        {/* 게시글 작성 페이지로 이동 */}
-        <PencilLine className="w-12 text-center" />
-        <h5 className="text-xs">글작성</h5>
-      </Link>
       <Link href={PATH.COMMUNITYSHELTER}>
         {/* 커뮤니티 (기본은 대피소 커뮤니티)로 이동 */}
         <FileText className="w-12 text-center" />
