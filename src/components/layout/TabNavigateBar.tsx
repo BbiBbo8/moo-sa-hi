@@ -1,7 +1,14 @@
+<<<<<<< HEAD:src/components/TabNavigateBar.tsx
 import React from "react";
 import { FileText, Home, MapPin, UserRound } from "lucide-react";
 import Link from "next/link";
 import PATH from "../constants/PATH";
+=======
+import React from 'react'
+import { FileText, Home, MapPin, UserRound } from 'lucide-react';
+import Link from 'next/link';
+import PATH from '@/constants/PATH';
+>>>>>>> dev:src/components/layout/TabNavigateBar.tsx
 
 function TabNavigateBar() {
   return (
