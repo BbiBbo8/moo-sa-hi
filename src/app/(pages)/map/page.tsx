@@ -1,9 +1,8 @@
 "use client";
 
 import ShelterList from "@/components/map/ShelterList";
-import { Input } from "@/components/ui/input";
+import { InputSearch } from "@/components/map/InputSearch"
 import { useMapStore } from "@/store/useMapStore";
-import { Search } from "lucide-react";
 import { useRef } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
@@ -14,14 +13,10 @@ const MapPage = () => {
   return (
     <div className="flex justify-center flex-col max-w-[393px] mx-auto h-[852px] items-center relative overflow-hidden ">
       <div className="flex flex-row justify-center relative">
-        <Input  // shadcn Input 태그
-          type="text"
-          className="w-[343px] h-[48px] bg-white absolute top-5 z-10 p-3"
-          placeholder="입력해주세요"
-        />
-        <button className="cursor-pointer">
-          <Search className="absolute top-8 z-20 left-[140px] active:text-blue-500" /> {/* lucide 검색 아이콘 */}
-        </button>
+        <div className="flex justify-center">
+          <InputSearch />
+        </div>
+         
       </div>
       <Map
         id="map"
