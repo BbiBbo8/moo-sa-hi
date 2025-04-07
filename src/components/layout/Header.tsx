@@ -11,6 +11,13 @@ import { ArrowLeft } from "lucide-react";
 
   // 현재 랜딩 페이지인지 확인하기
   const isLandingPage = pathname === "/";
+  // 헤더 숨길 페이지 목록
+  const hiddenRoutes = ["/post-create"];
+
+  // 특정 페이지에서 헤더 안 보이게
+  if (hiddenRoutes.includes(pathname)) {
+    return null;
+  }
 
   const handleBack = () => {
     router.back();

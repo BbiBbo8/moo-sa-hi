@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import TabNavigateBar from "@/components/TabNavigateBar";
-import Header from "@/components/Header";
+import TabNavigateBar from "@/components/layout/TabNavigateBar";
+import Header from "@/components/layout/Header";
 
 export const metadata: Metadata = {
   title: "무사히",
