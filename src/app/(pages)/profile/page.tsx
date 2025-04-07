@@ -1,16 +1,18 @@
 import React from "react";
 import ProfileTabs from "@/components/ProfileTabs";
-import ProfileEditPop from "@/components/ProfileEditPop";
+import ProfileCard from "@/components/ProfileCard";
 
 const ProfilePage = () => {
   return (
-    <>
-      <div>page</div>
-      {/* 테스트 코드용. 아래에 프로필 수정 모달(pop)이 들어갑니다 */}
-      <ProfileEditPop/>
-      {/* 테스트 코드용. 아래에 탭이 들어갑니다 */}
+    <section className="m-auto my-2 p-2 text-center">
+      <div className="w-full justify-center">
+        <h2 className="bg-gray-200 text-2xl font-semibold">로고</h2>
+      </div>
+      {/* 프로필 내용이 들어갈 위치 */}
+      <ProfileCard />
+      {/* 탭이 들어갈 위치 */}
       <ProfileTabs />
-    </>
+    </section>
   );
 };
 

@@ -1,8 +1,8 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const ProfileTabs = () => {
   return (
-    <Tabs defaultValue="post" className="w-[400px]">
+    <Tabs defaultValue="post" className="mt-4 w-full">
       <TabsList>
         {/* 탭 메뉴 */}
         <TabsTrigger value="post">작성 게시글</TabsTrigger>
