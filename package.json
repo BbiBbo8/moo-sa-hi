@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gen:types": "supabase gen types typescript --project-id bhnbzyjeffcgqflkipgt --schema public > database.types.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.0",
@@ -39,8 +40,16 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
+    "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "supabase": "^2.20.5",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp",
+      "supabase"
+    ]
   }
 }
