@@ -4,6 +4,7 @@ import "./globals.css";
 import Script from "next/script";
 import TabNavigateBar from "@/components/layout/TabNavigateBar";
 import Header from "@/components/layout/Header";
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "무사히",
@@ -20,8 +21,8 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-      <Header />
-        <main>{children}</main>
+        <Header />
+        <Providers>{children}</Providers>
         <TabNavigateBar />
         <Script src={API} strategy="beforeInteractive" />
       </body>
