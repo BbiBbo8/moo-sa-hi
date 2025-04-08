@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@/supabase/client";
 import NicknameForm from "@/components/auth/NicknameForm";
+import createClient from "@/supabase/client";
 
 export default function NicknamePage() {
   const [userId, setUserId] = useState<string | null>(null);

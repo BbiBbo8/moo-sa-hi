@@ -1,8 +1,8 @@
 "use client"; // 로그인 버튼 컴포넌트가 클라이언트 컴포넌트이기 때문에 무조건 client.ts를 사용
 
-import { createClient } from "@/supabase/client";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
+import createClient from "@/supabase/client";
 
 export const LogoutButton = () => {
   const router = useRouter();
