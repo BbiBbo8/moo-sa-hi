@@ -9,7 +9,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { PlusCircleIcon } from "lucide-react";
 
-function ProfileEditPop() {
+const ProfileEditPop = () => {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -74,6 +74,6 @@ function ProfileEditPop() {
       </PopoverContent>
     </Popover>
   );
-}
+};
 
 export default ProfileEditPop;
