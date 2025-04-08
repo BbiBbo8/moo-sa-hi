@@ -21,47 +21,6 @@ import { useQuery } from "@tanstack/react-query";
 import createClient from "@/supabase/client";
 
 const CommunityDailyPage = () => {
-  type DummyData = {
-    id: number;
-    userProfile: StaticImageData;
-    userName: string;
-    imgUrl: StaticImageData;
-    numOfBeingUseful: number;
-    postTitle: string;
-    postContent: string;
-  };
-
-  const DUMMY_DATA: DummyData[] = [
-    {
-      id: 1,
-      userProfile: sampleImage1,
-      userName: "user1",
-      imgUrl: sampleImage1,
-      numOfBeingUseful: 3,
-      postTitle: "국가는 재해를 예방",
-      postContent:
-        "국가는 재해를 예방하고 그 위험으로부터 국민을 보호하기 위하여 노력하여야 한다.",
-    },
-    {
-      id: 2,
-      userProfile: sampleImage4,
-      userName: "user2",
-      imgUrl: sampleImage2,
-      numOfBeingUseful: 12334,
-      postTitle: "더미데이터",
-      postContent: "산들림 미쁘다 별하 이플 우리는 달볓 옅구름 그루잠 도담도담",
-    },
-    {
-      id: 3,
-      userProfile: sampleImage5,
-      userName: "user3",
-      imgUrl: sampleImage3,
-      numOfBeingUseful: 87,
-      postTitle: "로렘 입슐랭",
-      postContent: "노트북 곰다시 이플 옅구름 컴퓨터 아련 책방 소록소록 여우비",
-    },
-  ];
-
   const fetchPosts = async () => {
     const supabase = createClient();
     const { data, error } = await supabase.from("daily_post").select("*");
