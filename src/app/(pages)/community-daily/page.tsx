@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image, { StaticImageData } from "next/image";
 import sampleImage1 from "../../../../public/sampleScreenshot.png";
@@ -17,10 +17,8 @@ import {
 } from "@/components/ui/carousel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ThumbsUp } from "lucide-react";
-import { useQuery } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query";
 import { createClient } from "@/supabase/client";
-
-const supabase = createClient();
 
 const CommunityDailyPage = () => {
   type DummyData = {
@@ -64,31 +62,35 @@ const CommunityDailyPage = () => {
     },
   ];
 
-  const fetchPosts = async() => {
+  const fetchPosts = async () => {
+    const supabase = createClient();
     const { data, error } = await supabase.from("daily_post").select("*");
     if (error) {
       throw new Error(error.message);
     }
     return data;
+  };
+
+  const {
+    data: posts,
+    isLoading,
+    error,
+  } = useQuery<PostData[]>({
+    queryKey: ["posts"],
+    queryFn: fetchPosts,
+  });
+  if (isLoading) {
+    return <p>로딩 중...</p>;
+  }
+  if (error) {
+    return <p>에러 발생: {error.message}</p>;
   }
 
-    const {data: posts, isLoading, error } = useQuery<PostData[]>({
-      queryKey: ["posts"],
-      queryFn: fetchPosts,
-    })
-    if (isLoading) {
-      return <p>로딩 중...</p>
-    }
-    if (error) {
-      return <p>에러 발생: {error.message}</p>
-    }
-  
-
   return (
-    <main className="relative min-w-screen h-screen flex flex-col justify-center items-center">
+    <main className="relative flex h-screen min-w-screen flex-col items-center justify-center">
       <Tabs
         defaultValue="account"
-        className="w-[400px] flex flex-col justify-center items-center"
+        className="flex w-[400px] flex-col items-center justify-center"
       >
         <TabsList className="absolute top-16 rounded-full [&>*]:rounded-full">
           <TabsTrigger value="account">대피소</TabsTrigger>
@@ -98,9 +100,9 @@ const CommunityDailyPage = () => {
           <TabsContent value="account">대피소 커뮤니티 페이지</TabsContent>
           <TabsContent value="password">
             <section className="flex flex-col justify-center gap-10">
-              {posts.map((data) => {
+              {posts.map(data => {
                 return (
-                  <Card key={data.id} className="w-[330px] p-5 pb-10 gap-3">
+                  <Card key={data.id} className="w-[330px] gap-3 p-5 pb-10">
                     <CardHeader className="p-0">
                       {/* 작성자 아바타 이미지 & 닉네임*/}
                       <section className="flex flex-row items-center gap-2">
@@ -114,29 +116,29 @@ const CommunityDailyPage = () => {
                     </CardHeader>
                     <CardContent className="p-0">
                       <Carousel className="relative border-2 border-black">
-                        <CarouselContent className=" z-0">
+                        <CarouselContent className="z-0">
                           <CarouselItem>
                             <Image
                               src={data.imgUrl}
                               alt="sampleImage"
                               width={330}
                               height={350}
-                              className="w-[330px] h-[350px]"
+                              className="h-[350px] w-[330px]"
                             />
                           </CarouselItem>
                         </CarouselContent>
-                        <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10" />
-                        <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
+                        <CarouselPrevious className="absolute top-1/2 left-2 z-10 -translate-y-1/2" />
+                        <CarouselNext className="absolute top-1/2 right-2 z-10 -translate-y-1/2" />
                       </Carousel>
 
                       {/* "유용해요 아이콘 & 개수" */}
-                      <section className="flex flex-row justify-between items-row mt-2">
+                      <section className="items-row mt-2 flex flex-row justify-between">
                         <span className="text-gray-500">
                           유용해요 {data.numOfBeingUseful}개
                         </span>
                         <ThumbsUp></ThumbsUp>
                       </section>
-                      <section className="flex flex-col p-0 mt-2 mb-4 gap-2">
+                      <section className="mt-2 mb-4 flex flex-col gap-2 p-0">
                         <CardTitle>{data.postTitle}</CardTitle>
                         <p className="text-sm">{data.postContent}</p>
                       </section>
