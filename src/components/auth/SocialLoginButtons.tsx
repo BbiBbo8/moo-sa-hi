@@ -1,11 +1,12 @@
-"use client";
+"use client"; // 로그인 버튼 컴포넌트가 클라이언트 컴포넌트이기 때문에 무조건 client.ts를 사용
 
-import { supabase } from "@/supabase/client";
+import { createClient } from "@/supabase/client";
 import { Button } from "@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
 import Image from "next/image";
 
 export default function SocialLoginButtons() {
+  const supabase = createClient();
   const handleLogin = async (provider: "google" | "kakao") => {
     await supabase.auth.signInWithOAuth({
       provider,
@@ -22,7 +23,7 @@ export default function SocialLoginButtons() {
         type="button"
         variant="outline"
         onClick={() => handleLogin("google")}
-        className="flex items-center justify-center gap-2 bg-white border border-gray-300 text-black hover:bg-gray-50"
+        className="flex items-center justify-center gap-2 border border-gray-300 bg-white text-black hover:bg-gray-50"
       >
         <FcGoogle size={18} />
         구글 로그인
@@ -34,12 +35,7 @@ export default function SocialLoginButtons() {
         onClick={() => handleLogin("kakao")}
         className="flex items-center justify-center gap-2 bg-yellow-300 text-black hover:bg-yellow-400"
       >
-        <Image
-          src="/kakao_logo.png"
-          alt="Kakao"
-          width={18}
-          height={18}
-        />
+        <Image src="/kakao_logo.png" alt="Kakao" width={18} height={18} />
         카카오 로그인
       </Button>
     </div>

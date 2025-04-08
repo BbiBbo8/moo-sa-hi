@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { supabase } from "@/supabase/client";
+import { createClient } from "@/supabase/client";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,7 @@ const formSchema = z.object({
     .max(10, "닉네임은 최대 10자까지 가능합니다."),
   profile_image: z
     .custom<FileList>()
-    .refine((files) => files?.length === 1, "이미지를 업로드 해주세요."),
+    .refine(files => files?.length === 1, "이미지를 업로드 해주세요."),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -34,6 +34,8 @@ export default function NicknameForm({ userId }: { userId: string }) {
   const router = useRouter();
 
   const onSubmit = async (data: FormData) => {
+    const supabase = createClient();
+
     // 파일 경로 지정 (유저 ID 기반으로 고유 경로 설정)
     const file = data.profile_image[0];
     const fileExt = file.name.split(".").pop();
