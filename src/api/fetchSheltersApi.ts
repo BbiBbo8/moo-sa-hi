@@ -1,11 +1,5 @@
 import axios from 'axios';
-
-type Shelter = {
-  name: string;
-  address: string;
-  lat: number;
-  lng: number;
-};
+import { Shelter } from '@/types/shelter';
 
 // 위도/경도 도,분,초를 실수형 위도/경도로 변환(10진수)
 const dmsToDecimal = (deg: string, min: string, sec: string): number => {
