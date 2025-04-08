@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import MapGeolocationComponent from "@/components/map/MapGeolocationComponent";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import PATH from "@/constants/PATH";
 
 export default function LandingMapPreview() {
   const [center, setCenter] = useState<{ lat: number; lng: number } | null>(null);
@@ -20,7 +21,7 @@ export default function LandingMapPreview() {
   };
 
   const handleMapClick = (): void => {
-    router.push("/map");
+    router.push(PATH.MAP);
   };
 
   return (
