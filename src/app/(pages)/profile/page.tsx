@@ -1,6 +1,6 @@
 import React from "react";
-import ProfileTabs from "@/components/ProfileTabs";
-import ProfileCard from "@/components/ProfileCard";
+import ProfileTabs from "@/components/profile/ProfileTabs";
+import ProfileCard from "@/components/profile/ProfileCard";
 
 const ProfilePage = () => {
   return (

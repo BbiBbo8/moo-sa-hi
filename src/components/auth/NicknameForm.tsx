@@ -3,11 +3,11 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createClient } from "@/supabase/client";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ProfileImageInput from "./ProfileImageInput";
+import createClient from "@/supabase/client";
 
 // zod 유효성 스키마 정의
 const formSchema = z.object({

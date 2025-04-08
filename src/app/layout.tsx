@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
 import Script from "next/script";
 import TabNavigateBar from "@/components/layout/TabNavigateBar";
 import Header from "@/components/layout/Header";
-import Providers from "./providers";
+import ReactQueryProvider from "../providers/providers";
 
 export const metadata: Metadata = {
   title: "무사히",
@@ -22,7 +21,7 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <Header />
-        <Providers>{children}</Providers>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
         <TabNavigateBar />
         <Script src={API} strategy="beforeInteractive" />
       </body>

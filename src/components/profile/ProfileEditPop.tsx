@@ -5,8 +5,8 @@ import {
 } from "@/components/ui/PopOver";
 
 import React from "react";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import { PlusCircleIcon } from "lucide-react";
 
 const ProfileEditPop = () => {
