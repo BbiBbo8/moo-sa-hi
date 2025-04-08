@@ -13,7 +13,7 @@ export default function LandingMapPreview() {
   return (
     <Card
       onClick={handleClick}
-      className="w-full h-56 bg-muted flex items-center justify-center rounded-lg cursor-pointer hover:opacity-90 transition"
+      className="w-full h-56 flex items-center justify-center rounded-lg transition"
     >
     </Card>
   );
