@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import MapGeolocationComponent from "@/components/map/MapGeolocationComponent";
-import { Card } from "../ui/card";
-import { Button } from "../ui/button";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function LandingMapPreview() {
   const [center, setCenter] = useState<{ lat: number; lng: number } | null>(null);
