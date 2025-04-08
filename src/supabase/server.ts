@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { Database } from "../../database.types";
 
+// client createClient와 겹치지 않도록 임시로 수정해두었음
 const createSC = async () => {
   // 서버 컴포넌트나 layout, SSR 페이지 등에서만 사용
   const cookieStore = await cookies();
