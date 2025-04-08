@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import TabNavigateBar from "@/components/TabNavigateBar";
+
 import Script from "next/script";
 import TabNavigateBar from "@/components/layout/TabNavigateBar";
 import Header from "@/components/layout/Header";

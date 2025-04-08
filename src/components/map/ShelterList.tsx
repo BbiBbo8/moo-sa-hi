@@ -1,6 +1,4 @@
 "use client";
-import * as React from "react";
-
 import { useState } from "react";
 
   //더미 데이터
