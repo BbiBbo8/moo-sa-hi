@@ -4,7 +4,6 @@ import getUser from "@/supabase/getUser";
 
 const ProfileCard = async () => {
   const userData = await getUser();
-  console.log(userData);
   return (
     <div className="bg-accent flex flex-col gap-3 rounded-xl border py-4 shadow-sm">
       <div className="flex-row">
