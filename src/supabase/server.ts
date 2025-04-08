@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { Database } from "../../database.types";
 
-export async function createClient() {
+const createSC = async () => {
   // 서버 컴포넌트나 layout, SSR 페이지 등에서만 사용
   const cookieStore = await cookies();
   return createServerClient<Database>(
@@ -28,4 +28,6 @@ export async function createClient() {
       },
     },
   );
-}
+};
+
+export default createSC;
