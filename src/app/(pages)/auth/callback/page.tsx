@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/supabase/client";
+import { createClient } from "@/supabase/client";
 import NicknameForm from "@/components/auth/NicknameForm";
+
+const supabase = createClient();
 
 const callbackPage = () => {
   const [userId, setUserId] = useState<any | null>(null);

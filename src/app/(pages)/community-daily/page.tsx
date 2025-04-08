@@ -18,7 +18,9 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ThumbsUp } from "lucide-react";
 import { useQuery } from "@tanstack/react-query"
-import { supabase } from "@/supabase/client";
+import { createClient } from "@/supabase/client";
+
+const supabase = createClient();
 
 const CommunityDailyPage = () => {
   type DummyData = {

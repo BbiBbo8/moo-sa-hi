@@ -3,9 +3,11 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { supabase } from "@/supabase/client";
+import { createClient } from "@/supabase/client";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+
+const supabase = createClient();
 
 const schema = z.object({
   nickname: z.string().min(2, "닉네임은 두 글자 이상!"),
