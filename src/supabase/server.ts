@@ -4,7 +4,6 @@ import { Database } from "../../database.types";
 
 export async function createClient() { // 서버 컴포넌트나 layout, SSR 페이지 등에서만 사용
   const cookieStore = await cookies();
-
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
