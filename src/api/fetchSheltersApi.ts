@@ -10,23 +10,14 @@ const dmsToDecimal = (deg: string, min: string, sec: string): number => {
   );
 };
 
-// api호출하여 데이터 받아오기
+// api 호출하여 데이터 받아오기
 export const fetchShelters = async (): Promise<Shelter[]> => {
   try {
     const res = await axios.get(
-      "https://www.safetydata.go.kr/V2/api/DSSP-IF-00195",
-      {
-        params: {
-          serviceKey: "68E27K47S9W1D8II",
-          returnType: "json",
-        },
-      },
-      'https://www.safetydata.go.kr//V2/api/DSSP-IF-00195',
+      'https://www.safetydata.go.kr/V2/api/DSSP-IF-00195',
       {
         params: {
           serviceKey: '68E27K47S9W1D8II',
-          pageNo: 1,
-          numOfRows: 1000,
           returnType: 'json',
         },
       }
@@ -44,8 +35,7 @@ export const fetchShelters = async (): Promise<Shelter[]> => {
 
     return parsedShelters;
   } catch (error) {
-    console.error("API 호출 또는 데이터 가공 실패:", error);
+    console.error('API 호출 또는 데이터 가공 실패:', error);
     return [];
   }
 };
-
