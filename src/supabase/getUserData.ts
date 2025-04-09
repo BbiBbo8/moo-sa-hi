@@ -6,7 +6,7 @@ import createClient from "./client";
 const getUserData = () => {
   const supabase = createClient();
 
-  const getUser = async () => {
+  const fetchUser = async () => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -26,7 +26,7 @@ const getUserData = () => {
     console.log("auth의 metadata=", users);
     return { user, users };
   };
-  return getUser();
+  return fetchUser();
 };
 
 export default getUserData;
