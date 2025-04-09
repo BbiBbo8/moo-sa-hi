@@ -1,9 +1,19 @@
+"use client";
+
 import React from "react";
 import { FileText, Home, MapPin, UserRound } from "lucide-react";
 import Link from "next/link";
 import PATH from "@/constants/PATH";
+import { usePathname } from "next/navigation";
 
 const TabNavigateBar = () => {
+  const pathname = usePathname();
+  // 지도 페이지에서 숨기기
+  const hiddenRoutes = PATH.MAP;
+  if (hiddenRoutes.includes(pathname)) {
+    return null;
+  }
+
   return (
     <div className="bg-accent fixed bottom-0 z-50 inline-flex w-full items-center justify-evenly p-1 text-center">
       <Link href={PATH.HOME}>
