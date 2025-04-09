@@ -13,7 +13,10 @@ const getUserData = () => {
     const { data: userMetaData, error } = await supabase
       .from("users")
       .select("*")
-      .eq("id", `${user?.id}`) /* 가져온 유저를 참조해 table 정보를 가져오기 */
+      .eq(
+        "id",
+        `${user?.id}`,
+      ) /* 가져온 유저를 참조해 users table 정보를 가져오기 */
       .single();
 
     if (error) {
@@ -22,6 +25,7 @@ const getUserData = () => {
     }
     return { user, userMetaData };
   };
+
   return fetchUser();
 };
 
