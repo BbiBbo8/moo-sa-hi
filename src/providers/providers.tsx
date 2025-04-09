@@ -32,7 +32,11 @@ function getQueryClient() {
   }
 }
 
-export default function Providers({ children }: { children: React.ReactNode }) {
+export default function QueryProviders({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   // 주의: Suspense 경계가 없는데 이 컴포넌트보다 아래에서 suspend될 가능성이 있다면, query client 초기화 시 useState 사용 피하기 (초기 렌더링 도중 suspend가 발생하면 React가 만든 client 인스턴스를 버릴 수 있기 때문)
   const queryClient = getQueryClient();
 
