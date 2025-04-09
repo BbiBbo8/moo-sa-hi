@@ -1,31 +1,29 @@
 import React from "react";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Button } from "../ui/button";
+import ShelterList from "./ShelterList";
 
 const ShelterDrawer = () => {
   return (
     <Drawer>
-      <DrawerTrigger>Open</DrawerTrigger>
+      {/* 드로어 열기 트리거 */}
+      <DrawerTrigger>
+        <div className="bg-muted mx-auto my-4 h-2 w-[100px] shrink-0 rounded-full" />
+      </DrawerTrigger>
+      {/* 드로어 내용 */}
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-          <DrawerDescription>This action cannot be undone.</DrawerDescription>
+          {/* 내용이 들어가지 않아도 title을 필수로 넣어야 한다 */}
+          <DrawerTitle />
+          <DrawerDescription>내 주변 대피소</DrawerDescription>
         </DrawerHeader>
-        <DrawerFooter>
-          <Button>Submit</Button>
-          <DrawerClose>
-            <Button variant="outline">Cancel</Button>
-          </DrawerClose>
-        </DrawerFooter>
+        <ShelterList />
       </DrawerContent>
     </Drawer>
   );
