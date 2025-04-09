@@ -5,9 +5,10 @@ import ProfileEditPop from "./ProfileEditPop";
 import getUserData from "@/supabase/getUserData";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import Loading from "@/app/(pages)/Loading";
+import { Database } from "../../../database.types";
 
 const ProfileCard = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<Database>();
   const [userAuth, setUserAuth] = useState(null);
   // 유저 정보를 다시 받아오기
   useEffect(() => {
