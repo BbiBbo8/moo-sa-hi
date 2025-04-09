@@ -14,6 +14,13 @@ const dmsToDecimal = (deg: string, min: string, sec: string): number => {
 export const fetchShelters = async (): Promise<Shelter[]> => {
   try {
     const res = await axios.get(
+      "https://www.safetydata.go.kr/V2/api/DSSP-IF-00195",
+      {
+        params: {
+          serviceKey: "68E27K47S9W1D8II",
+          returnType: "json",
+        },
+      },
       'https://www.safetydata.go.kr//V2/api/DSSP-IF-00195',
       {
         params: {
@@ -28,18 +35,17 @@ export const fetchShelters = async (): Promise<Shelter[]> => {
     const shelters = res.data?.data || [];
 
     // 데이터 가공
-    const parsedShelters: Shelter[] = shelters
-      .map((item: any) => ({
-        name: item.FCLT_NM, // 시설명
-        address: item.FCLT_ADDR_LOTNO, // 시설 주소 지번
-        lat: dmsToDecimal(item.LAT_PROVIN, item.LAT_MIN, item.LAT_SEC), // 위도
-        lng: dmsToDecimal(item.LOT_PROVIN, item.LOT_MIN, item.LOT_SEC), // 경도
-      }));
+    const parsedShelters: Shelter[] = shelters.map((item: any) => ({
+      name: item.FCLT_NM, // 시설명
+      address: item.FCLT_ADDR_LOTNO, // 시설 주소 지번
+      lat: dmsToDecimal(item.LAT_PROVIN, item.LAT_MIN, item.LAT_SEC), // 위도
+      lng: dmsToDecimal(item.LOT_PROVIN, item.LOT_MIN, item.LOT_SEC), // 경도
+    }));
 
     return parsedShelters;
-
   } catch (error) {
-    console.error('API 호출 또는 데이터 가공 실패:', error);
+    console.error("API 호출 또는 데이터 가공 실패:", error);
     return [];
   }
 };
+
