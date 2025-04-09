@@ -2,7 +2,7 @@
 
 import createClient from "@/supabase/client";
 import { FcGoogle } from "react-icons/fc";
-import Image from "next/image";
+import { RiKakaoTalkLine } from "react-icons/ri";
 
 export default function SocialLoginButtons() {
   const supabase = createClient();
@@ -33,12 +33,7 @@ export default function SocialLoginButtons() {
         className="w-14 h-14 bg-[#FEE500] rounded-full flex items-center justify-center shadow"
         aria-label="카카오 로그인"
       >
-        <Image
-          src="/kakao_logo.png"
-          alt="Kakao"
-          width={22}
-          height={22}
-        />
+        <RiKakaoTalkLine size={24} />
       </button>
     </div>
   );
