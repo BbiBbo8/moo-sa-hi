@@ -29,7 +29,6 @@ const ProfileCard = () => {
       <div className="flex-row">
         <div className="gap-2">
           <h3 className="text-lg font-bold">{user.nickname}</h3>
-          {/* user 테이블 내 email col은 없는 걸로 파악됨 임시로 uuid 표시 */}
           <h3 className="text-md">{userAuth.email}</h3>
           {/* 이외 추가 설명이 있다면 들어갈 곳 */}
           <span className="text-xs font-light">추가 설명</span>
