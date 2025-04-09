@@ -55,13 +55,18 @@ const CommunityDailyPage = () => {
           <TabsContent value="password">
             <section className="flex flex-col justify-center gap-10">
               {posts?.map(post => {
+                const imgSrc =
+                  typeof post.img_url === "string" &&
+                  post.img_url.startsWith("http")
+                    ? post.img_url
+                    : "/kakao_logo.png";
                 return (
                   <Card key={post.id} className="w-[330px] gap-3 p-5 pb-10">
                     <CardHeader className="p-0">
                       {/* 작성자 아바타 이미지 & 닉네임*/}
                       <section className="flex flex-row items-center gap-2">
                         <Avatar>
-                          <AvatarImage src={post} />{" "}
+                          <AvatarImage src={""} />{" "}
                           {/* 유저 프로필사진을 불러온 후 뒤에 .src를 명시적으로 뒤에 붙여 Next.js의 Image 최적화 시스템이 사용하는 경로 문자열을 정확히 가져올 수 있음*/}
                           <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
@@ -73,7 +78,7 @@ const CommunityDailyPage = () => {
                         <CarouselContent className="z-0">
                           <CarouselItem>
                             <Image
-                              src={post.img_url || ""}
+                              src={imgSrc}
                               alt="sampleImage"
                               width={330}
                               height={350}
