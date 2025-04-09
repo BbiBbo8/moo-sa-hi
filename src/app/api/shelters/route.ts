@@ -13,7 +13,6 @@ export async function GET() {
       params: {
         serviceKey: API_KEY,
         returnType: 'json',
-        pageNo: 1,
         numOfRows: 1000,
       },
     });
