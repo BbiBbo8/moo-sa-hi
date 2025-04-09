@@ -1,12 +1,21 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import ProfileEditPop from "./ProfileEditPop";
 import getUserData from "@/supabase/getUserData";
 
 const ProfileCard = () => {
-  const userData = getUserData();
-  console.log("userData=", userData);
+  useEffect(() => {
+    const getUser = async () => {
+      const userData = await getUserData();
+      console.log("userData=", userData);
+      return userData;
+    };
+    getUser();
+  }, []);
+
+  console.log(userData);
+
   return (
     <div className="bg-accent flex flex-col gap-3 rounded-xl border py-4 shadow-sm">
       <div className="flex-row">
