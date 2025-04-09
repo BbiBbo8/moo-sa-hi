@@ -3,7 +3,7 @@ import { FileText, Home, MapPin, UserRound } from "lucide-react";
 import Link from "next/link";
 import PATH from "@/constants/PATH";
 
-function TabNavigateBar() {
+const TabNavigateBar = () => {
   return (
     <div className="bg-accent fixed bottom-0 z-50 inline-flex w-full items-center justify-evenly p-1 text-center">
       <Link href={PATH.HOME}>
@@ -28,6 +28,6 @@ function TabNavigateBar() {
       </Link>
     </div>
   );
-}
+};
 
 export default TabNavigateBar;
