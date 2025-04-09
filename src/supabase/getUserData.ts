@@ -1,7 +1,7 @@
 import React from "react";
 import createClient from "./client";
 
-const getUser = async () => {
+const getUserData = async () => {
   const supabase = createClient();
   // 이후 로그인된 user id와 맞는 id 불러오는 로직으로 변경 예정
   const { data: users, error } = await supabase
@@ -17,4 +17,4 @@ const getUser = async () => {
   return users;
 };
 
-export default getUser;
+export default getUserData;
