@@ -1,11 +1,6 @@
 "use client";
 
 import Image, { StaticImageData } from "next/image";
-import sampleImage1 from "../../../../public/sampleScreenshot.png";
-import sampleImage2 from "../../../../public/shorty.jpeg";
-import sampleImage3 from "../../../../public/ugly.jpeg";
-import sampleImage4 from "../../../../public/고양이.jpeg";
-import sampleImage5 from "../../../../public/우리캐릭터2 1 (1).png";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -34,7 +29,7 @@ const CommunityDailyPage = () => {
     data: posts,
     isLoading,
     error,
-  } = useQuery<PostData[]>({
+  } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
   });
@@ -59,18 +54,18 @@ const CommunityDailyPage = () => {
           <TabsContent value="account">대피소 커뮤니티 페이지</TabsContent>
           <TabsContent value="password">
             <section className="flex flex-col justify-center gap-10">
-              {posts.map(data => {
+              {posts?.map(post => {
                 return (
-                  <Card key={data.id} className="w-[330px] gap-3 p-5 pb-10">
+                  <Card key={post.id} className="w-[330px] gap-3 p-5 pb-10">
                     <CardHeader className="p-0">
                       {/* 작성자 아바타 이미지 & 닉네임*/}
                       <section className="flex flex-row items-center gap-2">
                         <Avatar>
-                          <AvatarImage src={data.userProfile} />{" "}
+                          <AvatarImage src={post} />{" "}
                           {/* 유저 프로필사진을 불러온 후 뒤에 .src를 명시적으로 뒤에 붙여 Next.js의 Image 최적화 시스템이 사용하는 경로 문자열을 정확히 가져올 수 있음*/}
                           <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
-                        <span>{data.userName}</span>
+                        <span>{post.user_id}</span>
                       </section>
                     </CardHeader>
                     <CardContent className="p-0">
@@ -78,7 +73,7 @@ const CommunityDailyPage = () => {
                         <CarouselContent className="z-0">
                           <CarouselItem>
                             <Image
-                              src={data.imgUrl}
+                              src={post.img_url || ""}
                               alt="sampleImage"
                               width={330}
                               height={350}
@@ -93,13 +88,14 @@ const CommunityDailyPage = () => {
                       {/* "유용해요 아이콘 & 개수" */}
                       <section className="items-row mt-2 flex flex-row justify-between">
                         <span className="text-gray-500">
-                          유용해요 {data.numOfBeingUseful}개
+                          {/* 유용해요 {post.}개 */}
+                          유용해요 ㅇㅇㅇ개
                         </span>
                         <ThumbsUp></ThumbsUp>
                       </section>
                       <section className="mt-2 mb-4 flex flex-col gap-2 p-0">
-                        <CardTitle>{data.postTitle}</CardTitle>
-                        <p className="text-sm">{data.postContent}</p>
+                        <CardTitle>{post.title}</CardTitle>
+                        <p className="text-sm">{post.contents}</p>
                       </section>
                       <p className="text-gray-500">댓글 컴포넌트 들어갈 공간</p>
                     </CardContent>
