@@ -1,13 +1,16 @@
 import React from "react";
 import ProfileEditPop from "./ProfileEditPop";
+import getUser from "@/supabase/getUser";
 
-function ProfileCard() {
+const ProfileCard = async () => {
+  const userData = await getUser();
   return (
     <div className="bg-accent flex flex-col gap-3 rounded-xl border py-4 shadow-sm">
       <div className="flex-row">
         <div className="gap-2">
-          <h3 className="text-lg font-bold">닉네임</h3>
-          <h3 className="text-md">@email.com</h3>
+          <h3 className="text-lg font-bold">{userData.nickname}</h3>
+          {/* user 테이블 내 email col은 없는 걸로 파악됨 임시로 uuid 표시 */}
+          <h3 className="text-md">{userData.id}</h3>
           {/* 이외 추가 설명이 있다면 들어갈 곳 */}
           <span className="text-xs font-light">추가 설명</span>
         </div>
@@ -33,6 +36,6 @@ function ProfileCard() {
       </div>
     </div>
   );
-}
+};
 
 export default ProfileCard;

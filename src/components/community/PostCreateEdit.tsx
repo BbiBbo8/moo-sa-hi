@@ -8,10 +8,12 @@ import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/supabase/client";
+import createClient from "@/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import ShelterForm from "./form/ShelterForm";
 import DailyForm from "./form/DailyForm";
+
+const supabase = createClient();
 
 // Zod 스키마 정의 - 각 입력값에 대한 유효성 검사 설정
 const EditSchema = z.object({
@@ -43,6 +45,7 @@ function PostCreateEdit() {
     const tempUserId = "c785ad0d-bb9c-45ef-9c01-532e1117ba66"; // 나는 바보입니다. 왜 안되지 했더니 supabase 정책은  (auth.uid() = user_id) 넣어두곤 여기 비워둠요..
 
     if (category === "shelter") {
+      // 4월 9~11일에 걸쳐 대피소 위치, 현재 사용자 위치 등 예정
       return await supabase.from("shelter_post").insert({
         user_id: tempUserId,
         title: values.title,
@@ -53,19 +56,19 @@ function PostCreateEdit() {
         user_id: tempUserId,
         title: values.title,
         contents: values.contents,
-        img_url: "",
+        img_url: "", // 이미지 url 임시
       });
     }
   };
 
   // 등록 함수 - 유효성 통과 시 실행 (DB 저장 및 결과 처리)
   const onSubmit = async (values: FormData) => {
-    console.log("🔥 onSubmit 실행됨", values); // onSubmit이 호출되었는지 확인
+    console.log("onSubmit 실행", values); // onSubmit이 호출되었는지 확인
 
     // 🧪 로그인 없이 개발자용 임시 ID로 insert 테스트
     const insertResult = await handleInsert("dev-user-id-placeholder", values);
-    console.log("🔥 insert 결과:", insertResult);
-
+    console.log("insert 결과:", insertResult);
+    // 좀 더 안전한 방법이라고 하던데.. 긁어온거라..
     if (insertResult.error) {
       const errorMessage =
         insertResult.error?.message ?? "알 수 없는 오류가 발생했습니다.";

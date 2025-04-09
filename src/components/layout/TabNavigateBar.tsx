@@ -1,11 +1,11 @@
-import React from 'react'
-import { FileText, Home, MapPin, UserRound } from 'lucide-react';
-import Link from 'next/link';
-import PATH from '@/constants/PATH';
+import React from "react";
+import { FileText, Home, MapPin, UserRound } from "lucide-react";
+import Link from "next/link";
+import PATH from "@/constants/PATH";
 
 function TabNavigateBar() {
   return (
-    <div className="bg-accent fixed bottom-0 inline-flex w-full items-center justify-evenly p-1 text-center">
+    <div className="bg-accent fixed bottom-0 z-50 inline-flex w-full items-center justify-evenly p-1 text-center">
       <Link href={PATH.HOME}>
         {/* 랜딩 페이지(홈)으로 이동 */}
         <Home className="w-12 text-center" />
