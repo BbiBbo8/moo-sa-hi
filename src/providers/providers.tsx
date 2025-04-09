@@ -1,6 +1,6 @@
 "use client";
 
-// Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
+// QueryClientProvider는 내부적으로 useContext를 사용하기 때문에, 파일 맨 위에 'use client'를 작성해야 함
 import {
   isServer,
   QueryClient,
@@ -11,8 +11,7 @@ function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        // With SSR, we usually want to set some default staleTime
-        // above 0 to avoid refetching immediately on the client
+        // SSR을 사용할 경우, 클라이언트에서 즉시 다시 요청되는 것을 막기 위해 기본 staleTime을 0보다 크게 설정하는 것이 일반적
         staleTime: 60 * 1000,
       },
     },
@@ -23,23 +22,18 @@ let browserQueryClient: QueryClient | undefined = undefined;
 
 function getQueryClient() {
   if (isServer) {
-    // Server: always make a new query client
+    // 서버에서는 항상 새로운 QueryClient 인스턴스를 생성함
     return makeQueryClient();
   } else {
-    // Browser: make a new query client if we don't already have one
-    // This is very important, so we don't re-make a new client if React
-    // suspends during the initial render. This may not be needed if we
-    // have a suspense boundary BELOW the creation of the query client
+    // 브라우저에서는 QueryClient가 아직 없을 경우에만 새로 생성
+    // 이유 : 초기 렌더링 도중 React가 suspend되더라도 QueryClient가 다시 생성되지 않도록 하기 위해서다 (만약 QueryClient 생성 아래에 Suspense 경계가 있다면 이 로직은 필요 없을 수도 있음)
     if (!browserQueryClient) browserQueryClient = makeQueryClient();
     return browserQueryClient;
   }
 }
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  // NOTE: Avoid useState when initializing the query client if you don't
-  //       have a suspense boundary between this and the code that may
-  //       suspend because React will throw away the client on the initial
-  //       render if it suspends and there is no boundary
+  // 주의: Suspense 경계가 없는데 이 컴포넌트보다 아래에서 suspend될 가능성이 있다면, query client 초기화 시 useState 사용 피하기 (초기 렌더링 도중 suspend가 발생하면 React가 만든 client 인스턴스를 버릴 수 있기 때문)
   const queryClient = getQueryClient();
 
   return (
