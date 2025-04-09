@@ -1,35 +1,44 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ProfileEditPop from "./ProfileEditPop";
 import getUserData from "@/supabase/getUserData";
+import { Avatar, AvatarImage } from "../ui/avatar";
+import Loading from "@/app/(pages)/Loading";
 
 const ProfileCard = () => {
+  const [user, setUser] = useState(null);
+  const [userAuth, setUserAuth] = useState(null);
+  // 유저 정보를 다시 받아오기
   useEffect(() => {
     const getUser = async () => {
       const userData = await getUserData();
-      console.log("userData=", userData);
+      setUser(userData?.userMetaData);
+      setUserAuth(userData?.user);
       return userData;
     };
     getUser();
   }, []);
 
-  console.log(userData);
-
+  // 다 불러오기 전까지 로딩 중 보이기
+  if (user === null || userAuth === null) {
+    return <Loading />;
+  }
   return (
     <div className="bg-accent flex flex-col gap-3 rounded-xl border py-4 shadow-sm">
       <div className="flex-row">
         <div className="gap-2">
-          <h3 className="text-lg font-bold">{userData?.nickname}</h3>
+          <h3 className="text-lg font-bold">{user.nickname}</h3>
           {/* user 테이블 내 email col은 없는 걸로 파악됨 임시로 uuid 표시 */}
-          <h3 className="text-md">{userData?.email}</h3>
+          <h3 className="text-md">{userAuth.email}</h3>
           {/* 이외 추가 설명이 있다면 들어갈 곳 */}
           <span className="text-xs font-light">추가 설명</span>
         </div>
         {/* 아바타 들어갈 곳 */}
-        <figure className="h-24 w-24 rounded-full border bg-gray-200 text-end">
+        <Avatar className="size-16">
+          <AvatarImage src={userAuth.user_metadata.avatar_url} />
           <ProfileEditPop />
-        </figure>
+        </Avatar>
       </div>
       {/* 해당 기능은 도전 기능입니다 뼈대만 존재 */}
       <div className="flex flex-row justify-evenly">
