@@ -1,12 +1,12 @@
-"use client"; // 로그인 버튼 컴포넌트가 클라이언트 컴포넌트이기 때문에 무조건 client.ts를 사용
+"use client";
 
-import { Button } from "@/components/ui/button";
-import { FcGoogle } from "react-icons/fc";
-import Image from "next/image";
 import createClient from "@/supabase/client";
+import { FcGoogle } from "react-icons/fc";
+import { RiKakaoTalkLine } from "react-icons/ri";
 
 export default function SocialLoginButtons() {
   const supabase = createClient();
+
   const handleLogin = async (provider: "google" | "kakao") => {
     await supabase.auth.signInWithOAuth({
       provider,
@@ -17,27 +17,24 @@ export default function SocialLoginButtons() {
   };
 
   return (
-    <div className="flex flex-col gap-3">
-      {/* 구글 로그인 버튼 */}
-      <Button
-        type="button"
-        variant="outline"
+    <div className="flex justify-center gap-6">
+      {/* Google 로그인 */}
+      <button
         onClick={() => handleLogin("google")}
-        className="flex items-center justify-center gap-2 border border-gray-300 bg-white text-black hover:bg-gray-50"
+        className="w-14 h-14 bg-white rounded-full border flex items-center justify-center shadow"
+        aria-label="구글 로그인"
       >
-        <FcGoogle size={18} />
-        구글 로그인
-      </Button>
+        <FcGoogle size={24} />
+      </button>
 
-      {/* 카카오 로그인 버튼 */}
-      <Button
-        type="button"
+      {/* Kakao 로그인 */}
+      <button
         onClick={() => handleLogin("kakao")}
-        className="flex items-center justify-center gap-2 bg-yellow-300 text-black hover:bg-yellow-400"
+        className="w-14 h-14 bg-[#FEE500] rounded-full flex items-center justify-center shadow"
+        aria-label="카카오 로그인"
       >
-        <Image src="/kakao_logo.png" alt="Kakao" width={18} height={18} />
-        카카오 로그인
-      </Button>
+        <RiKakaoTalkLine size={24} />
+      </button>
     </div>
   );
 }
