@@ -1,4 +1,4 @@
-"use clinet";
+"use client";
 
 import React, { useEffect } from "react";
 import createClient from "./client";
@@ -17,15 +17,16 @@ const getUserData = () => {
         .select("*")
         .eq("id", `${user?.id}`) /* 테스트용 코드 */
         .single();
+
+      if (error) {
+        console.error("사용자 데이터 가져오기 실패:", error);
+        return null;
+      }
+
       console.log(user);
       console.log(users);
       return { user, users };
     };
-
-    // if (error) {
-    //   console.error("사용자 데이터 가져오기 실패:", error);
-    //   return null;
-    // }
     getUser();
   }, []);
   return;
