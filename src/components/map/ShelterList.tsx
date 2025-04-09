@@ -32,11 +32,11 @@ const ShelterList = () => {
       {dummyShelters.map(shelter => (
         <div
           key={shelter.id}
-          className="mb-2 flex items-center justify-between rounded-lg border border-gray-200 p-3"
+          className="mb-2 flex items-center justify-between p-3"
         >
           {/* 대피소 이름 및 주소 정보 */}
-          <div className="flex flex-col">
-            <span className="text-sm font-semibold">{shelter.name}</span>
+          <div className="flex flex-col gap-1">
+            <h5 className="text-md font-semibold">{shelter.name}</h5>
             <span className="text-xs text-gray-500">{shelter.address}</span>
           </div>
           {/* 대피소까지의 거리 */}
