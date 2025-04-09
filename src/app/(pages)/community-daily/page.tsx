@@ -1,8 +1,12 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ThumbsUp } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import createClient from "@/supabase/client";
 import {
   Carousel,
   CarouselContent,
@@ -10,18 +14,33 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ThumbsUp } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import createClient from "@/supabase/client";
 
 const CommunityDailyPage = () => {
   const fetchPosts = async () => {
     const supabase = createClient();
-    const { data, error } = await supabase.from("daily_post").select("*");
-    if (error) {
-      throw new Error(error.message);
-    }
+
+    const { data, error } = await supabase
+      .from("daily_post")
+      .select(
+        `
+        id,
+        title,
+        contents,
+        img_url,
+        user:user_id (
+          nickname,
+          profile_image
+        ),
+        helpfuls (
+          id,
+          daily_post_id,
+          shelter_post_id
+        )
+      `,
+      )
+      .order("created_at", { ascending: false });
+
+    if (error) throw new Error(error.message);
     return data;
   };
 
@@ -42,6 +61,7 @@ const CommunityDailyPage = () => {
 
   return (
     <main className="relative flex h-screen min-w-screen flex-col items-center justify-center">
+      {/* 페이지 변경 탭 */}
       <Tabs
         defaultValue="account"
         className="flex w-[400px] flex-col items-center justify-center"
@@ -50,27 +70,33 @@ const CommunityDailyPage = () => {
           <TabsTrigger value="account">대피소</TabsTrigger>
           <TabsTrigger value="password">일상</TabsTrigger>
         </TabsList>
+
         <section className="absolute top-32">
           <TabsContent value="account">대피소 커뮤니티 페이지</TabsContent>
           <TabsContent value="password">
             <section className="flex flex-col justify-center gap-10">
               {posts?.map(post => {
+                console.log(post.helpfuls); // 이렇게 찍어봐!
+
                 const imgSrc =
                   typeof post.img_url === "string" &&
                   post.img_url.startsWith("http")
                     ? post.img_url
                     : "/kakao_logo.png";
+
                 return (
                   <Card key={post.id} className="w-[330px] gap-3 p-5 pb-10">
                     <CardHeader className="p-0">
                       {/* 작성자 아바타 이미지 & 닉네임*/}
                       <section className="flex flex-row items-center gap-2">
                         <Avatar>
-                          <AvatarImage src={""} />{" "}
+                          <AvatarImage src={post.user?.profile_image || ""} />{" "}
                           {/* 유저 프로필사진을 불러온 후 뒤에 .src를 명시적으로 뒤에 붙여 Next.js의 Image 최적화 시스템이 사용하는 경로 문자열을 정확히 가져올 수 있음*/}
-                          <AvatarFallback>CN</AvatarFallback>
+                          <AvatarFallback>
+                            {post.user?.nickname?.[0] || "?"}
+                          </AvatarFallback>
                         </Avatar>
-                        <span>{post.user_id}</span>
+                        <span>{post.user?.nickname}</span>
                       </section>
                     </CardHeader>
                     <CardContent className="p-0">
@@ -94,7 +120,11 @@ const CommunityDailyPage = () => {
                       <section className="items-row mt-2 flex flex-row justify-between">
                         <span className="text-gray-500">
                           {/* 유용해요 {post.}개 */}
-                          유용해요 ㅇㅇㅇ개
+                          유용해요{" "}
+                          {post.helpfuls?.filter(
+                            h => h.daily_post_id === post.id,
+                          ).length ?? 0}
+                          개{" "}
                         </span>
                         <ThumbsUp></ThumbsUp>
                       </section>
