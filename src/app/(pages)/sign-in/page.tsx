@@ -1,11 +1,10 @@
-"use client";
+import SigninDrawer from "@/components/auth/SigninDrawer";
 
-import SocialLoginButtons from "@/components/auth/SocialLoginButtons";
-
-export default function Signinpage() {
+export default function Signintest() {
   return (
-    <div>
-      <SocialLoginButtons/>
-    </div>
-  ) 
-};
+    <main className="p-4">
+      {/* 로그인 버튼을 누르면 drawer가 열림 */}
+      <SigninDrawer />
+    </main>
+  );
+}
