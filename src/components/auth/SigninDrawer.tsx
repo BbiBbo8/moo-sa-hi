@@ -8,10 +8,10 @@ import {
   DrawerFooter,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import { FcGoogle } from "react-icons/fc"; // Google 아이콘
-import { SiKakaotalk } from "react-icons/si"; // Kakao 아이콘
 import SocialLoginButtons from "./SocialLoginButtons";
+import { useRouter } from "next/navigation";
 const SigninDrawer = () => {
+  const router = useRouter();
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -33,7 +33,10 @@ const SigninDrawer = () => {
           <SocialLoginButtons />
         </div>
         <DrawerFooter className="mt-6 border-t pt-4">
-          <button className="w-full text-center text-sm text-gray-500">
+          <button
+            className="w-full text-center text-sm text-gray-500"
+            onClick={() => router.back()}
+          >
             다음에 할래요
           </button>
         </DrawerFooter>
