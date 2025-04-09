@@ -21,9 +21,6 @@ const getUserData = () => {
       console.error("사용자 데이터 가져오기 실패:", error);
       return null;
     }
-
-    console.log("auth 정보=", user);
-    console.log("auth의 metadata=", users);
     return { user, users };
   };
   return fetchUser();
