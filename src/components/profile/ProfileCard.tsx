@@ -37,8 +37,8 @@ const ProfileCard = () => {
         {/* 아바타 들어갈 곳 */}
         <Avatar className="size-16">
           <AvatarImage src={userAuth.user_metadata.avatar_url} />
-          <ProfileEditPop />
         </Avatar>
+        <ProfileEditPop />
       </div>
       {/* 해당 기능은 도전 기능입니다 뼈대만 존재 */}
       <div className="flex flex-row justify-evenly">
