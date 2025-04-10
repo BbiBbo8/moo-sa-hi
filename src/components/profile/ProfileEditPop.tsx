@@ -84,9 +84,8 @@ const ProfileEditPop = () => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        {/* 프로필 수정 트리거 버튼 */}
-        <Button variant="outline" className="p-2">
-          <PlusCircleIcon className="h-5 w-5" />
+        <Button size="sm" className="bg-gray-400">
+          프로필 수정
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 rounded-lg p-4">
