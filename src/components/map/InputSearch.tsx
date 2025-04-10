@@ -34,7 +34,8 @@ export function InputSearch({ shelters }: InputSearchProps) {
 
     setResults(filtered);
   };
-  const { setLevel, setCenter } = useMapStore();
+  const { setLevel, setCenter } = useMapStore(); // 변경될 좌표와 지도 레벨
+  // shelter 선택 시 지도 중심 이동 + zoom 조절
   const handleSelectShelter = (shelter: Shelter) => {
     setCenter({ lat: shelter.lat, lng: shelter.lng });
     setLevel(4);

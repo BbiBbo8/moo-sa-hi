@@ -10,38 +10,43 @@ interface MapProps {
 }
 
 const MapPageComponent = ({ shelters }: MapProps) => {
-  const mapRef = useRef<kakao.maps.Map | null>(null);
+  const mapRef = useRef<kakao.maps.Map | null>(null); // 카카오 지도 객체를 저장
 
-  const center = useMapStore(state => state.center);
-  const level = useMapStore(state => state.level);
-  const setLevel = useMapStore(state => state.setLevel);
-  const setCenter = useMapStore(state => state.setCenter);
-  const reset = useMapStore(state => state.reset);
+  // zustand의 지도 상태 값 가져오기
+  const center = useMapStore(state => state.center); // 지도 중심 좌표
+  const level = useMapStore(state => state.level); // 지도 확대 레벨
+  const setLevel = useMapStore(state => state.setLevel); // 지도 확대 레벨 업데이트
+  const setCenter = useMapStore(state => state.setCenter); // 중심 좌표 업데이트
+  const reset = useMapStore(state => state.reset); // 상태를 기본값으로 초기화
 
-  // ✅ onCreate 시 초기값 반영
+  // 지도 생성 시 실행되는 함수
   const handleCreate = (map: kakao.maps.Map) => {
     mapRef.current = map;
 
-    // 지도에 zustand 초기값 강제 적용
-    map.setLevel(level);
-    map.setCenter(new kakao.maps.LatLng(center.lat, center.lng));
+    // zustand에 저장된 초기값을 지도에 직접 반영
+    map.setLevel(level); // 확대 레벨 설정
+    map.setCenter(new kakao.maps.LatLng(center.lat, center.lng)); // 중심 좌표설정
   };
 
+  // 상태 확인용 콘솔
   useEffect(() => {
     console.log("좌표 :", center);
     console.log("level :", level);
   }, [center, level]);
 
+  // 새로고침 시 축소된 지도로 되돌아가기
   useEffect(() => {
     reset();
   }, []);
 
+  // 확대/축소 레벨이 변경되면 지도에 적용
   useEffect(() => {
     if (mapRef.current) {
       mapRef.current.setLevel(level);
     }
   }, [level]);
 
+  // 중심 좌표가 변경되면 지도 이동
   useEffect(() => {
     if (mapRef.current) {
       mapRef.current.panTo(new kakao.maps.LatLng(center.lat, center.lng));
