@@ -24,7 +24,7 @@ const CommunityDailyPage = () => {
 
   return (
     <main className="relative flex h-screen min-w-screen flex-col items-center justify-center p-4">
-      {/* <CommunityTabs posts={posts!} />{" "} */}
+      {/* 고민 사항 : 윗부분 (로고, 검색창, 안내문)은 화면에 fixed로 고정하는 게 좋을까요? 불필요한 스크롤를 줄일 수 있는 점이 UX 좋을 것 같긴 합니다 */}
       <section className="absolute top-3 left-5 flex flex-row items-center gap-4">
         <Link href="/community-shelter">대피소</Link>
         <Link href="/community-daily">일상</Link>
@@ -40,7 +40,13 @@ const CommunityDailyPage = () => {
         </div>
       </section>
 
-      <section className="absolute top-40 justify-center gap-10">
+      <p className="absolute top-16 flex h-12 w-full items-center justify-center gap-2 bg-white">
+        {/* 아이콘 대용 네모 */}
+        <div className="h-5 w-5 bg-gray-200"></div>
+        대피소 관련 경험과 정보를 솔직하게 공유해주세요.
+      </p>
+
+      <section className="absolute top-30 flex w-full flex-col items-center justify-center px-4">
         {dailyPosts?.map(post => {
           console.log(post);
           return <DailyPost key={post.id} post={post} />;

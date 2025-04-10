@@ -8,6 +8,7 @@ export const fetchDailyPosts = async () => {
     .select(
       `
       id,
+      created_at,
       title,
       contents,
       img_url,
