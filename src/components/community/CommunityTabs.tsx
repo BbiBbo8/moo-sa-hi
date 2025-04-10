@@ -1,36 +1,45 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PostCard } from "@/components/community/PostCard";
-import { fetchPosts } from "@/supabase/getCommuniy";
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// import { DailyPost } from "@/components/community/DailyPost";
+// import { fetchDailyPosts } from "@/supabase/getCommuniy";
+// import { fetchShelterPosts } from "@/supabase/getCommuniy";
+// import { ShelterPost } from "./ShelterPost";
 
-type Post = Awaited<ReturnType<typeof fetchPosts>>[number];
-type CommunityTabsProps = {
-  posts: Post[];
-};
+// type Post = Awaited<ReturnType<typeof fetchDailyPosts>>[number];
+// type CommunityTabsProps = {
+//   posts: Post[];
+// };
 
-export const CommunityTabs = ({ posts }: CommunityTabsProps) => {
-  return (
-    <Tabs
-      defaultValue="account"
-      className="flex w-[400px] flex-col items-center justify-center"
-    >
-      <TabsList className="absolute top-16 rounded-full [&>*]:rounded-full">
-        <TabsTrigger value="account">대피소</TabsTrigger>
-        <TabsTrigger value="password">일상</TabsTrigger>
-      </TabsList>
+// export const CommunityTabs = ({ posts }: CommunityTabsProps) => {
+//   return (
+//     <Tabs
+//       defaultValue="shelter"
+//       className="flex w-[400px] flex-col items-center justify-center"
+//     >
+//       <TabsList className="absolute top-16 rounded-full [&>*]:rounded-full">
+//         <TabsTrigger value="shelter">대피소</TabsTrigger>
+//         <TabsTrigger value="daily">일상</TabsTrigger>
+//       </TabsList>
 
-      <section className="absolute top-32">
-        <TabsContent value="account">대피소 커뮤니티 페이지</TabsContent>
-        <TabsContent value="password">
-          <section className="flex flex-col justify-center gap-10">
-            {posts?.map(post => {
-              console.log(post.helpfuls);
-              return <PostCard key={post.id} post={post} />;
-            })}
-          </section>
-        </TabsContent>
-      </section>
-    </Tabs>
-  );
-};
+//       <section className="absolute top-32 m-4">
+//         <TabsContent value="shelter">
+//           <section className="grid grid-cols-2 gap-5">
+//             {posts?.map(post => {
+//               console.log(post.helpfuls);
+//               return <ShelterPost key={post.id} post={post} />;
+//             })}
+//           </section>
+//         </TabsContent>
+//         <TabsContent value="daily">
+//           <section className="flex flex-col justify-center gap-10">
+//             {posts?.map(post => {
+//               console.log(post.helpfuls);
+//               return <DailyPost key={post.id} post={post} />;
+//             })}
+//           </section>
+//         </TabsContent>
+//       </section>
+//     </Tabs>
+//   );
+// };
 
-export default Tabs;
+// export default Tabs;
