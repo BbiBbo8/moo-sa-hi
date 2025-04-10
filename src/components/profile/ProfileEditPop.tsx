@@ -9,15 +9,21 @@ import {
 import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { PlusCircleIcon } from "lucide-react";
 import createClient from "@/supabase/client";
 import { toast } from "sonner";
+import { z } from "zod";
 
 const ProfileEditPop = () => {
   const supabase = createClient();
 
   const [nickname, setNickname] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
+
+  // 닉네임 유효성 스키마 정의
+  const nicknameSchema = z
+    .string()
+    .min(2, { message: "닉네임은 최소 2자 이상이어야 해요." })
+    .max(20, { message: "닉네임은 최대 20자까지 가능해요." });
 
   // 사용자 정보 가져오기 및 예외 처리
   const getUserOrThrow = async () => {
@@ -30,6 +36,9 @@ const ProfileEditPop = () => {
   // 닉네임 또는 아바타 데이터를 users 테이블에 반영
   const handleUpdate = async () => {
     try {
+      // 닉네임 유효성 검사
+      nicknameSchema.parse(nickname);
+
       const user = await getUserOrThrow();
 
       const { error } = await supabase
