@@ -54,7 +54,12 @@ const ProfileEditPop = () => {
       toast.success("업데이트 완료!");
     } catch (err: any) {
       console.error(err);
-      toast.error(err.message || "업데이트 중 오류 발생");
+      // ZodError 인 경우 따로 처리
+      if (err instanceof z.ZodError) {
+        toast.error(err.errors[0].message);
+      } else {
+        toast.error(err.message || "업데이트 중 오류 발생");
+      }
     }
   };
 
