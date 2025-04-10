@@ -3,7 +3,7 @@ import "./globals.css";
 import Script from "next/script";
 import TabNavigateBar from "@/components/layout/TabNavigateBar";
 import Header from "@/components/layout/Header";
-import ReactQueryProvider from "../providers/providers";
+import QueryProviders from "../providers/providers";
 
 export const metadata: Metadata = {
   title: "무사히",
@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <Header />
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <QueryProviders>{children}</QueryProviders>
         <TabNavigateBar />
         <Script src={API} strategy="beforeInteractive" />
       </body>
