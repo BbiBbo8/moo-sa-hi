@@ -12,13 +12,13 @@ import {
 } from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
 import { Shelter } from "@/types/shelter";
+import { useMapStore } from "@/store/useMapStore";
 
 interface InputSearchProps {
   shelters: Shelter[];
-  setCenter: (lat: number, lng: number) => void;
 }
 
-export function InputSearch({ shelters, setCenter }: InputSearchProps) {
+export function InputSearch({ shelters }: InputSearchProps) {
   const [searchQuery, setSearchQuery] = useState(""); // 입력값 상태
   const [results, setResults] = useState<Shelter[]>([]); // 필터링 검색 결과
   const [isFocused, setIsFocused] = useState(false); // input 포커스 여부
@@ -33,6 +33,11 @@ export function InputSearch({ shelters, setCenter }: InputSearchProps) {
     });
 
     setResults(filtered);
+  };
+  const { setLevel, setCenter } = useMapStore();
+  const handleSelectShelter = (shelter: Shelter) => {
+    setCenter({ lat: shelter.lat, lng: shelter.lng });
+    setLevel(4);
   };
 
   return (
@@ -65,7 +70,7 @@ export function InputSearch({ shelters, setCenter }: InputSearchProps) {
                       key={item.name}
                       className="flex items-center justify-between"
                       onSelect={() => {
-                        setCenter(item.lat, item.lng);
+                        handleSelectShelter(item);
                         setSearchQuery("");
                         setResults([]);
                         setIsFocused(true);
