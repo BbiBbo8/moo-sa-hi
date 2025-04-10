@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import PATH from "@/constants/PATH";
 
-function Header() {
+const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -40,5 +40,5 @@ function Header() {
       <div className="h-5 w-5" />
     </header>
   );
-}
+};
 export default Header;

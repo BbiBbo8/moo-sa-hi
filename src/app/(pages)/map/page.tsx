@@ -5,6 +5,7 @@ import { useMapStore } from "@/store/useMapStore";
 import { useShelterStore } from "@/store/useShelterStore";
 import { useShelterMapEffect } from "@/hooks/useShelterMapEffect";
 import MapPageComponent from "@/components/map/MapPageComponent";
+import ShelterDrawer from "@/components/map/ShelterDrawer";
 
 const MapPage = () => {
   useShelterMapEffect();
@@ -25,7 +26,8 @@ const MapPage = () => {
       </div>
       <MapPageComponent center={center} shelters={shelters} />
       <div className="flex justify-center">
-        <ShelterList />
+        {/* <ShelterList /> */}
+        <ShelterDrawer />
       </div>
     </div>
   );

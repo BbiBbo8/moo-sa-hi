@@ -20,9 +20,8 @@ const SigninDrawer = () => {
 
       <DrawerContent className="rounded-t-2xl p-6">
         {/* 드래그 바 */}
-        <div className="mx-auto mb-4 h-1.5 w-10 rounded-full bg-gray-300" />
 
-        <DrawerTitle className="text-center text-lg font-semibold">
+        <DrawerTitle className="my-4 text-center text-lg font-semibold">
           로그인하면 더 많은
           <br />
           기능을 이용할 수 있어요!
