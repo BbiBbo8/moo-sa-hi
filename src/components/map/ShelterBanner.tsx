@@ -4,10 +4,10 @@ import React from "react";
 import { Copy } from "lucide-react";
 
 const ShelterBanner = () => {
+  // 복사 이벤트 발생 함수
   const handleCopyText = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      console.log("클릭 이벤트");
       alert("복사 완료!");
     } catch (e) {
       alert("복사 실패!");
@@ -15,6 +15,7 @@ const ShelterBanner = () => {
   };
   return (
     <div className="text-md flex w-full justify-evenly rounded-lg border px-4 py-3 text-center">
+      {/* 클릭 시 텍스트를 복사 */}
       <button onClick={() => handleCopyText("서울특별시 어쩌고")}>
         <Copy />
       </button>
