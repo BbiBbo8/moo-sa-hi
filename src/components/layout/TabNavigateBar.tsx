@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 const TabNavigateBar = () => {
   const pathname = usePathname();
   // 지도 페이지에서 숨기기
-  const hiddenRoutes = PATH.MAP;
+  const hiddenRoutes = [PATH.MAP];
   if (hiddenRoutes.includes(pathname)) {
     return null;
   }
