@@ -1,5 +1,4 @@
 import ShelterBanner from "@/components/map/ShelterBanner";
-import { Navigation, Share2 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -14,16 +13,6 @@ const ShelterDetailPage = () => {
         </h5>
       </div>
       <ShelterBanner />
-      <div className="flex justify-evenly gap-2 text-center">
-        <div className="text-md flex w-1/2 rounded-lg border px-4 py-3">
-          <Share2 className="w-12" />
-          <p>장소 공유</p>
-        </div>
-        <div className="text-md flex w-1/2 rounded-lg border px-4 py-3">
-          <Navigation className="w-12" />
-          <p>길 안내</p>
-        </div>
-      </div>
       <div className="bg-accent flex w-full flex-col gap-1 rounded-lg border px-4 py-3 text-sm">
         <p className="text-lg">
           담당 전화:{" "}
