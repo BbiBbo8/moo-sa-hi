@@ -8,10 +8,10 @@ const ShelterDeatailPage = ({
   };
 }) => {
   return (
-    <>
+    <div>
       <div>아이디 값: {params.id}</div>
       <CommentsInput />
-    </>
+    </div>
   );
 };
 
