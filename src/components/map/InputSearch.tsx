@@ -18,7 +18,7 @@ interface InputSearchProps {
   shelters: Shelter[];
 }
 
-export function InputSearch({ shelters }: InputSearchProps) {
+const InputSearch = ({ shelters }: InputSearchProps) => {
   const [searchQuery, setSearchQuery] = useState(""); // 입력값 상태
   const [results, setResults] = useState<Shelter[]>([]); // 필터링 검색 결과
   const [isFocused, setIsFocused] = useState(false); // input 포커스 여부
@@ -88,4 +88,6 @@ export function InputSearch({ shelters }: InputSearchProps) {
       )}
     </div>
   );
-}
+};
+
+export default InputSearch;

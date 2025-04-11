@@ -28,12 +28,6 @@ const MapPageComponent = ({ shelters }: MapProps) => {
     map.setCenter(new kakao.maps.LatLng(center.lat, center.lng)); // 중심 좌표설정
   };
 
-  // 상태 확인용 콘솔
-  useEffect(() => {
-    console.log("좌표 :", center);
-    console.log("level :", level);
-  }, [center, level]);
-
   // 새로고침 시 축소된 지도로 되돌아가기
   useEffect(() => {
     reset();

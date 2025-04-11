@@ -1,10 +1,11 @@
 "use client";
 // import ShelterList from "@/components/map/ShelterList";
-import { InputSearch } from "@/components/map/InputSearch";
+
 import { useShelterStore } from "@/store/useShelterStore";
 import { useShelterMapEffect } from "@/hooks/useShelterMapEffect";
 import MapPageComponent from "@/components/map/MapPageComponent";
 import ShelterDrawer from "@/components/map/ShelterDrawer";
+import InputSearch from "@/components/map/InputSearch";
 
 const MapPage = () => {
   useShelterMapEffect();
