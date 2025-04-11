@@ -25,7 +25,7 @@ export default function LandingMapPreview() {
   };
 
   return (
-    <section className="px-4 py-8">
+    <section className="mx-20px py-8">
       <Card className="p-4">
         {!center ? (
           <div className="text-center space-y-4">
