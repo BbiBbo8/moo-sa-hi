@@ -4,6 +4,7 @@ import Script from "next/script";
 import TabNavigateBar from "@/components/layout/TabNavigateBar";
 import Header from "@/components/layout/Header";
 import QueryProviders from "../providers/providers";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "무사히",
@@ -21,7 +22,10 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <Header />
-        <QueryProviders>{children}</QueryProviders>
+        <QueryProviders>
+          {children}
+          <Toaster />
+        </QueryProviders>
         <TabNavigateBar />
         <Script src={API} strategy="beforeInteractive" />
       </body>
