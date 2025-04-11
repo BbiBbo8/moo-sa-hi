@@ -1,60 +1,66 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/PopOver";
-
-import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import createClient from "@/supabase/client";
 import { toast } from "sonner";
 import { z } from "zod";
 
-const ProfileEditPop = () => {
+type ProfileEditPopProps = {
+  userId: string;
+  nickname: string;
+  avatarUrl: string;
+};
+
+const ProfileEditPop = ({
+  userId,
+  nickname,
+  avatarUrl,
+}: ProfileEditPopProps) => {
   const supabase = createClient();
 
-  const [nickname, setNickname] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
+  const [open, setOpen] = useState(false);
+  const [editNickname, setEditNickname] = useState(nickname);
+  const [editAvatarUrl, setEditAvatarUrl] = useState(avatarUrl);
 
-  // 닉네임 유효성 스키마 정의
+  // 닉네임 유효성 검사 스키마 정의
   const nicknameSchema = z
     .string()
     .min(2, { message: "닉네임은 최소 2자 이상이어야 해요." })
     .max(20, { message: "닉네임은 최대 20자까지 가능해요." });
 
-  // 사용자 정보 가져오기 및 예외 처리
-  const getUserOrThrow = async () => {
-    const { data, error } = await supabase.auth.getUser();
-    if (error || !data.user)
-      throw new Error("인증된 사용자를 찾을 수 없습니다.");
-    return data.user;
-  };
+  // 팝업이 열릴 때 기존 정보를 표시
+  useEffect(() => {
+    if (open) {
+      setEditNickname(nickname);
+      setEditAvatarUrl(avatarUrl);
+    }
+  }, [open, nickname, avatarUrl]);
 
-  // 닉네임 또는 아바타 데이터를 users 테이블에 반영
+  // users 테이블 업데이트
   const handleUpdate = async () => {
     try {
-      // 닉네임 유효성 검사
-      nicknameSchema.parse(nickname);
-
-      const user = await getUserOrThrow();
+      nicknameSchema.parse(editNickname);
 
       const { error } = await supabase
         .from("users")
         .update({
-          nickname,
-          profile_image: avatarUrl,
+          nickname: editNickname,
+          profile_image: editAvatarUrl,
         })
-        .eq("id", user.id);
+        .eq("id", userId);
 
       if (error) throw new Error("업데이트 실패");
 
       toast.success("업데이트 완료!");
+      setOpen(false); 
     } catch (err: any) {
-      console.error(err);
-      // ZodError 인 경우 따로 처리
       if (err instanceof z.ZodError) {
         toast.error(err.errors[0].message);
       } else {
@@ -63,11 +69,9 @@ const ProfileEditPop = () => {
     }
   };
 
-  // 파일 업로드 및 아바타 이미지 업데이트
+  // 프로필 이미지 업로드 (storage → public URL)로 변환 후 반영
   const handleAvatarUpload = async (file: File) => {
     try {
-      const user = await getUserOrThrow();
-
       const fileExt = file.name.split(".").pop();
       const fileName = `${Date.now()}.${fileExt}`;
 
@@ -77,70 +81,83 @@ const ProfileEditPop = () => {
 
       if (uploadError) throw new Error("이미지 업로드 실패");
 
-      const publicUrl = supabase.storage.from("avatars").getPublicUrl(fileName)
-        .data.publicUrl;
+      const publicUrl = supabase.storage
+        .from("avatars")
+        .getPublicUrl(fileName).data.publicUrl;
 
-      const { error: updateError } = await supabase
-        .from("users")
-        .update({ profile_image: publicUrl })
-        .eq("id", user.id);
-
-      if (updateError) throw new Error("프로필 이미지 저장 실패");
-
-      setAvatarUrl(publicUrl);
+      setEditAvatarUrl(publicUrl);
       toast.success("아바타 변경 완료!");
     } catch (err: any) {
-      console.error(err);
-      toast.error(err.message || "알 수 없는 오류가 발생했습니다.");
+      toast.error(err.message || "이미지 업로드 중 오류 발생");
     }
   };
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button size="sm" className="bg-gray-400">
           프로필 수정
         </Button>
       </PopoverTrigger>
+
       <PopoverContent className="w-80 rounded-lg p-4">
         <div className="grid gap-4">
-          {/* 타이틀 및 설명 */}
           <div className="space-y-1">
             <h4 className="text-base font-semibold">정보 수정</h4>
             <p className="text-muted-foreground text-sm">
               닉네임과 아바타를 바꿔보세요.
             </p>
           </div>
+
           <div className="grid gap-3">
-            {/* 닉네임 입력 필드 */}
+            {/* 닉네임 입력 */}
             <div className="grid grid-cols-3 items-center gap-4">
               <label htmlFor="nickname" className="text-sm">
                 닉네임
               </label>
               <Input
                 id="nickname"
-                value={nickname}
-                onChange={e => setNickname(e.target.value)}
+                value={editNickname}
+                onChange={e => setEditNickname(e.target.value)}
                 placeholder="닉네임 입력"
                 className="col-span-2 h-8 text-sm"
               />
             </div>
-            {/* 아바타 이미지 업로드 (추후에 드롭존 대체 예정) */}
+
+            {/* 아바타 이미지 업로드 */}
             <div className="grid grid-cols-3 items-center gap-4">
-              <label htmlFor="avatar" className="text-sm">
-                아바타
-              </label>
-              <input
-                id="avatar"
-                type="file"
-                accept="image/*"
-                onChange={e => {
-                  const file = e.target.files?.[0];
-                  if (file) handleAvatarUpload(file);
-                }}
-                className="col-span-2 text-sm"
-              />
+              <span className="text-sm">아바타</span>
+              <div className="col-span-2 flex items-center gap-2">
+                <input
+                  id="avatar"
+                  type="file"
+                  accept="image/*"
+                  onChange={e => {
+                    const file = e.target.files?.[0];
+                    if (file) handleAvatarUpload(file);
+                  }}
+                  className="hidden"
+                />
+                <Button
+                  size="sm"
+                  variant="outline"
+                  type="button"
+                  onClick={() => {
+                    document.getElementById("avatar")?.click();
+                  }}
+                >
+                  파일 선택
+                </Button>
+                {editAvatarUrl && (
+                  <img
+                    src={editAvatarUrl}
+                    alt="avatar preview"
+                    className="h-8 w-8 rounded-full"
+                  />
+                )}
+              </div>
             </div>
+
             {/* 저장 버튼 */}
             <div className="mt-2 flex justify-end">
               <Button size="sm" onClick={handleUpdate}>
