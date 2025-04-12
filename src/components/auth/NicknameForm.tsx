@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ProfileImageInput from "./ProfileImageInput";
 import createClient from "@/supabase/client";
+import PATH from "@/constants/PATH";
 
 // zod 유효성 스키마 정의
 const formSchema = z.object({
@@ -70,7 +71,7 @@ export default function NicknameForm({ userId }: { userId: string }) {
     if (dbError) {
       alert("닉네임 저장 실패");
     } else {
-      router.push("/");
+      router.push(PATH.HOME);
     }
   };
 

@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import createClient from "@/supabase/client";
+import PATH from "@/constants/PATH";
 
 export default function CallbackPage() {
   const router = useRouter();
@@ -12,7 +13,7 @@ export default function CallbackPage() {
     supabase.auth.getUser().then(async ({ data: { user }, error }) => {
       if (error || !user) {
         console.error("로그인 실패 또는 유저 없음", error);
-        router.replace("/auth/auth-code-error");
+        router.replace(PATH.AUTHERROR);
         return;
       }
 
@@ -22,7 +23,7 @@ export default function CallbackPage() {
         .eq("id", user.id)
         .single();
 
-      router.replace(existingUser?.nickname ? "/" : "/auth/nickname");
+      router.replace(existingUser?.nickname ? PATH.HOME : PATH.NICKNAME);
     });
   }, []);
 
