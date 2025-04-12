@@ -13,6 +13,7 @@ import SocialLoginButtons from "./SocialLoginButtons";
 
 const SigninDrawer = () => {
   const router = useRouter();
+  
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -37,7 +38,6 @@ const SigninDrawer = () => {
           >
             다음에 할래요
           </button>
-
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
