@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import createClient from "@/supabase/client";
+import { toast } from "sonner";
 
 const supabase = createClient();
 
@@ -36,10 +37,9 @@ const CommentsInput = () => {
             comments: data,
           })
           .select();
-
-        alert("저장 완료");
+        toast.info("댓글 작성 완료!");
       } catch (error) {
-        alert("오류 발생");
+        toast.error("댓글 작성 오류 발생");
       }
     };
 
