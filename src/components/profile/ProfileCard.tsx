@@ -5,6 +5,7 @@ import { Avatar, AvatarImage } from "../ui/avatar";
 import Loading from "@/app/(pages)/Loading";
 import { useUserData } from "@/hooks/useUserData";
 import Error from "@/app/(pages)/Error";
+import { LogoutButton } from "../auth/LogoutButton";
 
 const ProfileCard = () => {
   // react-query로 유저 정보 불러오기
@@ -27,6 +28,8 @@ const ProfileCard = () => {
           {/* 이외 추가 설명이 있다면 들어갈 곳 */}
           <span className="text-xs font-light">추가 설명</span>
         </div>
+        {/* TEST: 임시 로그아웃 버튼 추가 */}
+        <LogoutButton />
         {/* 아바타 들어갈 곳 */}
         <Avatar className="size-16">
           <AvatarImage src={userAuth.user_metadata.avatar_url} />
