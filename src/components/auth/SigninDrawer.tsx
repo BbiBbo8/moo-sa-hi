@@ -8,8 +8,9 @@ import {
   DrawerFooter,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import SocialLoginButtons from "./SocialLoginButtons";
 import { useRouter } from "next/navigation";
+import SocialLoginButtons from "./SocialLoginButtons";
+
 const SigninDrawer = () => {
   const router = useRouter();
   return (
@@ -17,10 +18,8 @@ const SigninDrawer = () => {
       <DrawerTrigger asChild>
         <Button variant="outline">로그인 테스트 버튼</Button>
       </DrawerTrigger>
-
       <DrawerContent className="rounded-t-2xl p-6">
         {/* 드래그 바 */}
-
         <DrawerTitle className="my-4 text-center text-lg font-semibold">
           로그인하면 더 많은
           <br />
@@ -38,9 +37,11 @@ const SigninDrawer = () => {
           >
             다음에 할래요
           </button>
+
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );
 };
+
 export default SigninDrawer;
