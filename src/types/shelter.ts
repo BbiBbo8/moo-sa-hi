@@ -1,6 +1,6 @@
-export type Shelter = {
-    name: string;
-    address: string;
-    lat: number;
-    lng: number;
-  };
+export interface Shelter {
+  name: string;
+  address: string;
+  lat: number;
+  lng: number;
+}
