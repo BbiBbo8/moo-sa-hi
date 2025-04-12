@@ -1,16 +1,5 @@
-// PATH 객체 타입 정의
-interface Path {
-  HOME: string;
-  SIGNIN: string;
-  PROFILE: string;
-  COMMUNITYSHELTER: string;
-  COMMUNITYDAILY: string;
-  MAP: string;
-  CREATE: string;
-}
-
-// pathparameter를 상수화 
-const PATH: Path = {
+// pathparameter를 상수화
+const PATH = {
   HOME: "/",
   SIGNIN: "/sign-in",
   PROFILE: "/profile",
@@ -18,6 +7,6 @@ const PATH: Path = {
   COMMUNITYDAILY: "/community-daily",
   MAP: "/map",
   CREATE: "/post-create",
-};
+} as const;
 
 export default PATH;
