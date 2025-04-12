@@ -7,6 +7,8 @@ const PATH = {
   COMMUNITYDAILY: "/community-daily",
   MAP: "/map",
   CREATE: "/post-create",
+  NICKNAME: "/auth/nickname",
+  AUTHERROR: "/auth/auth-code-error",
 } as const;
 
 export default PATH;
