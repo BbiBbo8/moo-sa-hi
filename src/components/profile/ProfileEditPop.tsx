@@ -12,11 +12,17 @@ import createClient from "@/supabase/client";
 import { toast } from "sonner";
 import { z } from "zod";
 
-type ProfileEditPopProps = {
+interface ProfileEditPopProps {
   userId: string;
   nickname: string;
   avatarUrl: string;
-};
+}
+
+// 닉네임 유효성 검사 스키마 정의
+const nicknameSchema = z
+  .string()
+  .min(2, { message: "닉네임은 최소 2자 이상이어야 해요." })
+  .max(20, { message: "닉네임은 최대 20자까지 가능해요." });
 
 const ProfileEditPop = ({
   userId,
@@ -28,12 +34,6 @@ const ProfileEditPop = ({
   const [open, setOpen] = useState(false);
   const [editNickname, setEditNickname] = useState(nickname);
   const [editAvatarUrl, setEditAvatarUrl] = useState(avatarUrl);
-
-  // 닉네임 유효성 검사 스키마 정의
-  const nicknameSchema = z
-    .string()
-    .min(2, { message: "닉네임은 최소 2자 이상이어야 해요." })
-    .max(20, { message: "닉네임은 최대 20자까지 가능해요." });
 
   // 팝업이 열릴 때 기존 정보를 표시
   useEffect(() => {
@@ -59,7 +59,7 @@ const ProfileEditPop = ({
       if (error) throw new Error("업데이트 실패");
 
       toast.success("업데이트 완료!");
-      setOpen(false); 
+      setOpen(false);
     } catch (err: any) {
       if (err instanceof z.ZodError) {
         toast.error(err.errors[0].message);
@@ -81,9 +81,8 @@ const ProfileEditPop = ({
 
       if (uploadError) throw new Error("이미지 업로드 실패");
 
-      const publicUrl = supabase.storage
-        .from("avatars")
-        .getPublicUrl(fileName).data.publicUrl;
+      const publicUrl = supabase.storage.from("avatars").getPublicUrl(fileName)
+        .data.publicUrl;
 
       setEditAvatarUrl(publicUrl);
       toast.success("아바타 변경 완료!");
