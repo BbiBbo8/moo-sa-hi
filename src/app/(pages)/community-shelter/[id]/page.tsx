@@ -1,15 +1,17 @@
-const ShelterDeatailPage = ({
+import ShelterPostDetail from "@/components/community/ShelterPostDetail";
+
+const shelterDetailPage = async ({
   params,
 }: {
-  params: {
-    id: number;
-  };
+  params: Promise<{ id: string }>;
 }) => {
+  const { id } = await params; // NOTE : Promise로 받기 때문에 async/await 필요
+  const numericId = Number(id);
+
   return (
-    <>
-      <div>아이디 값: {params.id}</div>
-    </>
+    <main>
+      <ShelterPostDetail id={numericId} />
+    </main>
   );
 };
-
-export default ShelterDeatailPage;
+export default shelterDetailPage;
