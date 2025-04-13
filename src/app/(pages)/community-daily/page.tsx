@@ -6,6 +6,7 @@ import { DailyPost } from "@/components/community/DailyPost";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import PATH from "@/constants/PATH";
+import Loading from "../Loading";
 
 const CommunityDailyPage = () => {
   const {
@@ -17,7 +18,7 @@ const CommunityDailyPage = () => {
     queryFn: fetchDailyPosts,
   });
   if (isLoading) {
-    return <p>로딩 중...</p>;
+    return <Loading />;
   }
   if (error) {
     return <p>에러 발생: {error.message}</p>;

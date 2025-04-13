@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Post } from "@/types/communityPost";
 import { getImageSrc } from "@/utils/getImageSrc";
 import { format } from "date-fns";
+import PATH from "@/constants/PATH";
 
 type PostCardProps = {
   post: Post;
@@ -17,7 +18,7 @@ export const DailyPost = ({ post }: PostCardProps) => {
   const formatted = format(new Date(post.created_at), "yyyy.MM.dd");
 
   return (
-    <Link href={`/community-daily/${post.id}`} className="h-full w-full">
+    <Link href={`${PATH.COMMUNITYDAILY}/${post.id}`} className="h-full w-full">
       <Card className="w-full rounded-none border-0 border-b border-gray-200 p-0 py-5 shadow-none">
         <CardContent className="right-0 bottom-4 left-0 flex flex-row items-center justify-between p-0">
           <div className="h-[80px] flex-1">

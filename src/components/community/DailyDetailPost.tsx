@@ -3,11 +3,12 @@
 import { useDailyPostDetailQuery } from "@/hooks/community/useDailyPostDetailQuery";
 import Image from "next/image";
 import { format } from "date-fns";
+import Loading from "@/app/(pages)/Loading";
 
 const DailyDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useDailyPostDetailQuery(id);
 
-  if (isLoading) return <p>로딩 중...</p>;
+  if (isLoading) return <Loading />;
   if (error) return <p>에러 발생: {error.message}</p>;
   if (!data) return null; // <= 이거 추가
 
