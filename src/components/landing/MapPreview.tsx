@@ -46,4 +46,5 @@ const LandingMapPreview = () => {
     </section>
   );
 }
+
 export default LandingMapPreview;

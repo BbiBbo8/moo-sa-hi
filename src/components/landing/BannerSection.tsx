@@ -18,4 +18,5 @@ const LandingBanner = () => {
     </section>
   );
 }
+
 export default LandingBanner;
