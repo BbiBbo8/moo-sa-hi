@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 
-export default function LandingBanner() {
+const LandingBanner = () => {
   return (
     <section className="relative w-full h-[300px] bg-blue-300 flex flex-col justify-center items-center text-center mx-20px">
       <h1 className="text-3xl font-bold mb-2">빠르고 안전한 대피소 찾기</h1>
@@ -18,3 +18,4 @@ export default function LandingBanner() {
     </section>
   );
 }
+export default LandingBanner;
