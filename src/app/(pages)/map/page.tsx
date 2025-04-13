@@ -1,43 +1,24 @@
 "use client";
+// import ShelterList from "@/components/map/ShelterList";
 
-import ShelterList from "@/components/map/ShelterList";
-import { InputSearch } from "@/components/map/InputSearch";
-import { useMapStore } from "@/store/useMapStore";
-import { useRef } from "react";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { useShelterStore } from "@/store/useShelterStore";
+import { useShelterMapEffect } from "@/hooks/useShelterMapEffect";
+import MapPageComponent from "@/components/map/MapPageComponent";
 import ShelterDrawer from "@/components/map/ShelterDrawer";
+import InputSearch from "@/components/map/InputSearch";
 
 const MapPage = () => {
-  const mapRef = useRef<kakao.maps.Map | null>(null); // 지도 참조 생성
-  const { center, setCenter } = useMapStore();
+  useShelterMapEffect();
 
+  const { shelters } = useShelterStore();
   return (
     <div className="relative mx-auto flex h-[852px] max-w-[393px] flex-col items-center justify-center overflow-hidden">
       <div className="relative flex flex-row justify-center">
-        <div className="flex justify-center px-4">
-          <InputSearch />
+        <div className="flex justify-center">
+          <InputSearch shelters={shelters} />
         </div>
       </div>
-      <Map
-        id="map"
-        center={center}
-        level={3} // 지도의 확대 레벨
-        onCreate={map => (mapRef.current = map)} // 지도 객체 저장
-        className="h-full w-full"
-      >
-        <MapMarker
-          position={center}
-          onClick={() => {
-            if (mapRef.current) {
-              // 마커 클릭 시 지도 중심을 이동시킴
-              mapRef.current.panTo(
-                new kakao.maps.LatLng(center.lat, center.lng),
-              );
-            }
-            setCenter({ lat: center.lat, lng: center.lng });
-          }}
-        ></MapMarker>
-      </Map>
+      <MapPageComponent shelters={shelters} />
       <div className="flex justify-center">
         {/* <ShelterList /> */}
         <ShelterDrawer />
