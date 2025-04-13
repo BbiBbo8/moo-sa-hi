@@ -1,8 +1,9 @@
 import createClient from "@/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import { format } from "date-fns";
 
-const DailyDeatailPage = ({
+const DailyDetailPage = ({
   params,
 }: {
   params: Promise<{
@@ -57,11 +58,8 @@ const DailyDeatailPage = ({
     <main>
       {dailyPostDetails?.map(post => {
         // TODO: 날짜 작성 형태(년도.월.일)를 형식에 맞춰 반환
-        const createdAt = post.created_at;
-        const date = new Date(createdAt);
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        const formatted = `${date.getFullYear()}.${month}.${day}`;
+        const formatted = format(new Date(post.created_at), "yyyy.MM.dd");
+
         return (
           <>
             <h1 className="text-[20px]">{post.title}</h1>
@@ -76,4 +74,4 @@ const DailyDeatailPage = ({
   );
 };
 
-export default DailyDeatailPage;
+export default DailyDetailPage;

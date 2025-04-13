@@ -1,14 +1,16 @@
-// 서버 컴포넌트니까 "use client"는 없어야 함
 import ShelterPostDetail from "@/components/community/ShelterPostDetail";
 
-const Page = ({ params }: { params: { id: string } }) => {
-  const id = Number(params.id);
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params; // NOTE : Promise로 받기 때문에 async/await 필요
+  const numericId = Number(id);
 
   return (
     <main>
-      <ShelterPostDetail id={id} /> {/* ✅ 클라이언트 컴포넌트 */}
+      <ShelterPostDetail id={numericId} />
     </main>
   );
-};
-
-export default Page;
+}
