@@ -24,7 +24,6 @@ const ProfileEditPop = ({
 }: ProfileEditPopProps) => {
   const supabase = createClient();
 
-  const [open, setOpen] = useState(false);
   const [editNickname, setEditNickname] = useState(nickname);
 
   // 닉네임 유효성 검사 스키마 정의
@@ -32,13 +31,6 @@ const ProfileEditPop = ({
     .string()
     .min(2, { message: "닉네임은 최소 2자 이상이어야 해요." })
     .max(10, { message: "닉네임은 최대 10자까지 가능해요." });
-
-  // 팝업이 열릴 때 기존 정보를 표시
-  useEffect(() => {
-    if (open) {
-      setEditNickname(nickname);
-    }
-  }, [open, nickname]);
 
   // users 테이블 업데이트
   const handleUpdate = async () => {
@@ -55,7 +47,6 @@ const ProfileEditPop = ({
       if (error) throw new Error("업데이트 실패");
 
       toast.success("업데이트 완료!");
-      setOpen(false); 
     } catch (err: any) {
       if (err instanceof z.ZodError) {
         toast.error(err.errors[0].message);
@@ -66,7 +57,7 @@ const ProfileEditPop = ({
   };
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover>
       <PopoverTrigger asChild>
         <Button size="sm" className="bg-gray-400">
           프로필 수정
