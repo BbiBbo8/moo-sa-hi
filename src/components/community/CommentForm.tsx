@@ -100,12 +100,7 @@ const CommentForm = () => {
                 />
               </FormControl>
               <FormMessage />
-              <Button
-                type="submit"
-                className="bg-blue-500 px-4 py-2 text-white"
-              >
-                등록
-              </Button>
+              <Button type="submit">등록</Button>
             </FormItem>
           )}
         />
