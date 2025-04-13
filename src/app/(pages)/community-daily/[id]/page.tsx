@@ -1,5 +1,3 @@
-"use client";
-
 import createClient from "@/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
@@ -7,13 +5,13 @@ import Image from "next/image";
 const DailyDeatailPage = ({
   params,
 }: {
-  params: {
+  params: Promise<{
     id: number;
-  };
+  }>;
 }) => {
   const fetchDailyPostDetail = async () => {
     const supabase = createClient();
-
+    const { id } = await params;
     const { data, error } = await supabase
       .from("daily_post")
       .select(
@@ -34,7 +32,7 @@ const DailyDeatailPage = ({
         )
       `,
       )
-      .eq("id", params.id);
+      .eq("id", id);
 
     if (error) throw new Error(error.message);
     return data;
@@ -58,7 +56,7 @@ const DailyDeatailPage = ({
   return (
     <main>
       {dailyPostDetails?.map(post => {
-        // 날짜 작성 형태(년도.월.일)를 형식에 맞춰 반환
+        // TODO: 날짜 작성 형태(년도.월.일)를 형식에 맞춰 반환
         const createdAt = post.created_at;
         const date = new Date(createdAt);
         const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -68,7 +66,7 @@ const DailyDeatailPage = ({
           <>
             <h1 className="text-[20px]">{post.title}</h1>
             <span>{formatted}</span>
-            {/* 한 게시글에 이미지가 여러 개면....이미지만을 위한 수파베이스 테이블을 만들어야하나???? :ㅇ */}
+            {/* NOTE: 한 게시글에 이미지가 여러 개면....이미지만을 위한 수파베이스 테이블을 만들어야하나???? :ㅇ */}
             <Image src={post.img_url || ""} alt="이미지가 없습니다." />
             <p>{post.contents}</p>
           </>
