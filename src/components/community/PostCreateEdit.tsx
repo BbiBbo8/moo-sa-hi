@@ -12,6 +12,7 @@ import createClient from "@/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import ShelterForm from "./form/ShelterForm";
 import DailyForm from "./form/DailyForm";
+import PATH from "@/constants/PATH";
 
 const supabase = createClient();
 
@@ -83,7 +84,7 @@ function PostCreateEdit() {
         title: "저장 완료",
         description: "게시글이 성공적으로 저장되었습니다.",
       });
-      router.push("/community");
+      router.push(PATH.COMMUNITYSHELTER);
     }
   };
 

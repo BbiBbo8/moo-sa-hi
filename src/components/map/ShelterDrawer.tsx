@@ -8,7 +8,6 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import ShelterList from "./ShelterList";
-import { Button } from "../ui/button";
 
 const ShelterDrawer = () => {
   return (
@@ -19,13 +18,13 @@ const ShelterDrawer = () => {
         <div className="bg-muted mx-auto my-4 h-2 w-[100px] shrink-0 rounded-full" />
       </DrawerTrigger>
       {/* 드로어 내용 */}
-      <DrawerContent>
+      <DrawerContent className="overflow-auto">
         <DrawerHeader>
           {/* 내용이 들어가지 않아도 title을 필수로 넣어야 한다 */}
           <DrawerTitle />
           <DrawerDescription>내 주변 대피소</DrawerDescription>
         </DrawerHeader>
-        <ShelterList />
+        <ShelterList /> {/* 대피소 리스트트 */}
       </DrawerContent>
     </Drawer>
   );
