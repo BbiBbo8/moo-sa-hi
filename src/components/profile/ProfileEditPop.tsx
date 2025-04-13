@@ -8,26 +8,24 @@ import {
 } from "@/components/ui/PopOver";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import createClient from "@/supabase/client";
 import { toast } from "sonner";
 import { z } from "zod";
+import createClient from "@/supabase/client";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-type ProfileEditPopProps = {
+interface ProfileEditPopProps {
   userId: string;
   nickname: string;
-  avatarUrl: string;
 };
 
 const ProfileEditPop = ({
   userId,
   nickname,
-  avatarUrl,
 }: ProfileEditPopProps) => {
   const supabase = createClient();
 
   const [open, setOpen] = useState(false);
   const [editNickname, setEditNickname] = useState(nickname);
-  const [editAvatarUrl, setEditAvatarUrl] = useState(avatarUrl);
 
   // 닉네임 유효성 검사 스키마 정의
   const nicknameSchema = z
@@ -39,9 +37,8 @@ const ProfileEditPop = ({
   useEffect(() => {
     if (open) {
       setEditNickname(nickname);
-      setEditAvatarUrl(avatarUrl);
     }
-  }, [open, nickname, avatarUrl]);
+  }, [open, nickname]);
 
   // users 테이블 업데이트
   const handleUpdate = async () => {
@@ -51,8 +48,7 @@ const ProfileEditPop = ({
       const { error } = await supabase
         .from("users")
         .update({
-          nickname: editNickname,
-          profile_image: editAvatarUrl,
+          nickname: editNickname
         })
         .eq("id", userId);
 
@@ -66,29 +62,6 @@ const ProfileEditPop = ({
       } else {
         toast.error(err.message || "업데이트 중 오류 발생");
       }
-    }
-  };
-
-  // 프로필 이미지 업로드 (storage → public URL)로 변환 후 반영
-  const handleAvatarUpload = async (file: File) => {
-    try {
-      const fileExt = file.name.split(".").pop();
-      const fileName = `${Date.now()}.${fileExt}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from("avatars")
-        .upload(fileName, file);
-
-      if (uploadError) throw new Error("이미지 업로드 실패");
-
-      const publicUrl = supabase.storage
-        .from("avatars")
-        .getPublicUrl(fileName).data.publicUrl;
-
-      setEditAvatarUrl(publicUrl);
-      toast.success("아바타 변경 완료!");
-    } catch (err: any) {
-      toast.error(err.message || "이미지 업로드 중 오류 발생");
     }
   };
 
@@ -122,40 +95,6 @@ const ProfileEditPop = ({
                 placeholder="닉네임 입력"
                 className="col-span-2 h-8 text-sm"
               />
-            </div>
-
-            {/* 아바타 이미지 업로드 */}
-            <div className="grid grid-cols-3 items-center gap-4">
-              <span className="text-sm">아바타</span>
-              <div className="col-span-2 flex items-center gap-2">
-                <input
-                  id="avatar"
-                  type="file"
-                  accept="image/*"
-                  onChange={e => {
-                    const file = e.target.files?.[0];
-                    if (file) handleAvatarUpload(file);
-                  }}
-                  className="hidden"
-                />
-                <Button
-                  size="sm"
-                  variant="outline"
-                  type="button"
-                  onClick={() => {
-                    document.getElementById("avatar")?.click();
-                  }}
-                >
-                  파일 선택
-                </Button>
-                {editAvatarUrl && (
-                  <img
-                    src={editAvatarUrl}
-                    alt="avatar preview"
-                    className="h-8 w-8 rounded-full"
-                  />
-                )}
-              </div>
             </div>
 
             {/* 저장 버튼 */}
