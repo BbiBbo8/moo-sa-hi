@@ -7,7 +7,7 @@ import { useShelters } from "@/hooks/shelter/useShelters";
 import Loading from "@/app/(pages)/Loading";
 import Error from "@/app/(pages)/Error";
 
-const MapPageComponent = () => {
+const MainMap = () => {
   const mapRef = useRef<kakao.maps.Map | null>(null); // 카카오 지도 객체를 저장
   const { data: shelters = [], isLoading, error } = useShelters(); // tanstackquery로 이용한 hook기능
 
@@ -76,4 +76,4 @@ const MapPageComponent = () => {
   );
 };
 
-export default MapPageComponent;
+export default MainMap;

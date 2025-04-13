@@ -1,6 +1,6 @@
 "use client";
 
-import MapPageComponent from "@/components/map/MapPageComponent";
+import MainMap from "@/components/map/MainMap";
 import ShelterDrawer from "@/components/map/ShelterDrawer";
 import InputSearch from "@/components/map/InputSearch";
 
@@ -12,7 +12,7 @@ const MapPage = () => {
           <InputSearch />
         </div>
       </div>
-      <MapPageComponent />
+      <MainMap />
       <div className="flex justify-center">
         <ShelterDrawer />
       </div>
