@@ -4,7 +4,7 @@ import { useDailyPostDetailQuery } from "@/hooks/community/useDailyPostDetailQue
 import Image from "next/image";
 import { format } from "date-fns";
 
-function DailyDetailPost({ id }: { id: number }) {
+const DailyDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useDailyPostDetailQuery(id);
 
   if (isLoading) return <p>로딩 중...</p>;
@@ -26,5 +26,5 @@ function DailyDetailPost({ id }: { id: number }) {
       <p>{data.contents}</p>
     </main>
   );
-}
+};
 export default DailyDetailPost;
