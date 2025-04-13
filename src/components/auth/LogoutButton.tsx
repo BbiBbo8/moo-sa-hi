@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import createClient from "@/supabase/client";
 import PATH from "@/constants/PATH";
 
-export const LogoutButton = () => {
+const LogoutButton = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -19,3 +19,5 @@ export const LogoutButton = () => {
   };
   return <Button onClick={handleLogout}>로그아웃</Button>;
 };
+
+export default LogoutButton;

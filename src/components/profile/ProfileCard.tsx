@@ -6,11 +6,12 @@ import getUserData from "@/supabase/getUserData";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import Loading from "@/app/(pages)/Loading";
 import { Database } from "../../../database.types";
-import { LogoutButton } from "../auth/LogoutButton";
+import LogoutButton from "../auth/LogoutButton";
 
 const ProfileCard = () => {
   const [user, setUser] = useState<Database>();
   const [userAuth, setUserAuth] = useState(null);
+  
   // 유저 정보를 다시 받아오기
   useEffect(() => {
     const getUser = async () => {

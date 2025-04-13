@@ -2,7 +2,7 @@ import AlertBanner from "@/components/landing/AlertBanner";
 import MapPreview from "@/components/landing/MapPreview";
 import LandingBanner from "@/components/landing/BannerSection";
 
-export default function HomePage() {
+const HomePage = () => {
   return (
     <main className="px-4 py-6 space-y-8">
       <>상단 배너</>
@@ -14,3 +14,5 @@ export default function HomePage() {
     </main>
   );
 }
+
+export default HomePage;
