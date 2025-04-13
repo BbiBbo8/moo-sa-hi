@@ -1,11 +1,11 @@
-export type Shelter = {
+export interface Shelter {
   name: string;
   address: string;
   lat: number;
   lng: number;
-};
+}
 
-export type ShelterApiResponse = {
+export interface ShelterApiResponse {
   response: {
     header: {
       resultCode: string;
@@ -27,4 +27,4 @@ export type ShelterApiResponse = {
       };
     };
   };
-};
+}
