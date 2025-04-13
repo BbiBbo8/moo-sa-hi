@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import createClient from "@/supabase/client";
+import PATH from "@/constants/PATH";
 
 const CallbackPage = () => {
   const router = useRouter();
@@ -10,11 +11,14 @@ const CallbackPage = () => {
 
   useEffect(() => {
     const handleAuthCallback = async () => {
-      const { data: { user }, error } = await supabase.auth.getUser();
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
 
       if (error || !user) {
         console.error("로그인 실패 또는 유저 없음", error);
-        router.replace("/auth/auth-code-error");
+        router.replace(PATH.AUTHERROR);
         return;
       }
 
@@ -30,13 +34,13 @@ const CallbackPage = () => {
         return;
       }
 
-      router.replace(existingUser?.nickname ? "/" : "/auth/nickname");
+      router.replace(existingUser?.nickname ? PATH.HOME : PATH.NICKNAME);
     };
 
     handleAuthCallback();
   }, []);
 
   return <div className="p-6 text-center">로그인 처리 중...</div>;
-}
+};
 
 export default CallbackPage;

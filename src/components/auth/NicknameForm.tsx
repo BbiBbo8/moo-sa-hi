@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import createClient from "@/supabase/client";
+import PATH from "@/constants/PATH";
 
 const formSchema = z.object({
   nickname: z
@@ -51,7 +52,7 @@ const NicknameForm = ({ userId }: { userId: string }) => {
     if (dbError) {
       alert("닉네임 저장 실패");
     } else {
-      router.push("/");
+      router.push(PATH.HOME);
     }
   };
 
