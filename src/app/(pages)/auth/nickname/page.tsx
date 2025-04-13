@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import NicknameForm from "@/components/auth/NicknameForm";
 import createClient from "@/supabase/client";
 
-export default function NicknamePage() {
+const NicknamePage = () => {
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -32,3 +32,5 @@ export default function NicknamePage() {
     </div>
   );
 }
+
+export default NicknamePage;
