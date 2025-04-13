@@ -2,7 +2,7 @@
 
 import { useGeolocationMutation } from "@/hooks/useMapGeolocation";
 import { useState } from "react";
-import MapGeolocationComponent from "./MapGeolocationComponent";
+import UserGeolocationMap from "./UserGeolocationMap";
 
 const MapGeolocation = () => {
   const [center, setCenter] = useState<{ lat: number; lng: number } | null>(
@@ -36,9 +36,7 @@ const MapGeolocation = () => {
       {error && <p>위치를 불러올 수 없습니다: {error.message}</p>}
 
       {/*  위치가 설정된 경우 지도 표시 */}
-      {center && (
-        <MapGeolocationComponent location={center} setCenter={setCenter} />
-      )}
+      {center && <UserGeolocationMap location={center} setCenter={setCenter} />}
       <h1 className="text-2xl font-bold">geolocation 현재 위치 불러오기</h1>
     </div>
   );

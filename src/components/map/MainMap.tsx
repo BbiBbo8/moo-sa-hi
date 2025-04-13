@@ -2,22 +2,21 @@
 
 import { useEffect, useRef } from "react";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
-import { Shelter } from "@/types/shelter";
 import { useMapStore } from "@/store/useMapStore";
+import { useShelters } from "@/hooks/shelter/useShelters";
+import Loading from "@/app/(pages)/Loading";
+import Error from "@/app/(pages)/Error";
 
-interface MapProps {
-  shelters: Shelter[];
-}
-
-const MapPageComponent = ({ shelters }: MapProps) => {
+const MainMap = () => {
   const mapRef = useRef<kakao.maps.Map | null>(null); // 카카오 지도 객체를 저장
+  const { data: shelters = [], isLoading, error } = useShelters(); // tanstackquery로 이용한 hook기능
 
   // zustand의 지도 상태 값 가져오기
-  const center = useMapStore(state => state.center); // 지도 중심 좌표
-  const level = useMapStore(state => state.level); // 지도 확대 레벨
-  const setLevel = useMapStore(state => state.setLevel); // 지도 확대 레벨 업데이트
-  const setCenter = useMapStore(state => state.setCenter); // 중심 좌표 업데이트
-  const reset = useMapStore(state => state.reset); // 상태를 기본값으로 초기화
+  const center = useMapStore(state => state.center);
+  const level = useMapStore(state => state.level);
+  const setLevel = useMapStore(state => state.setLevel);
+  const setCenter = useMapStore(state => state.setCenter);
+  const reset = useMapStore(state => state.reset);
 
   // 지도 생성 시 실행되는 함수
   const handleCreate = (map: kakao.maps.Map) => {
@@ -47,10 +46,13 @@ const MapPageComponent = ({ shelters }: MapProps) => {
     }
   }, [center]);
 
+  if (isLoading) return <Loading />;
+  if (error) return <Error />;
+
   return (
     <Map
-      center={center} // 초깃값으로만 사용됨
-      level={level} // 초기 level
+      center={center}
+      level={level}
       className="h-full w-full"
       onCreate={handleCreate}
       onZoomChanged={map => {
@@ -74,4 +76,4 @@ const MapPageComponent = ({ shelters }: MapProps) => {
   );
 };
 
-export default MapPageComponent;
+export default MainMap;

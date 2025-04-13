@@ -1,6 +1,6 @@
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
-const MapGeolocationComponent = ({
+const UserGeolocationMap = ({
   location,
   setCenter,
 }: {
@@ -23,4 +23,4 @@ const MapGeolocationComponent = ({
   );
 };
 
-export default MapGeolocationComponent;
+export default UserGeolocationMap;
