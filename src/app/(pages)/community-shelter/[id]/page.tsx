@@ -1,4 +1,4 @@
-import CommentForm from "@/components/community/CommentForm";
+import CommentForm from "@/components/community/form/CommentForm";
 
 const ShelterDetailPage = ({
   params,

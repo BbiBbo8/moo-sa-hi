@@ -10,9 +10,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+} from "../../ui/form";
+import { Button } from "../../ui/button";
+import { Input } from "../../ui/input";
 import { usePathname } from "next/navigation";
 import createClient from "@/supabase/client";
 import PATH from "@/constants/PATH";
