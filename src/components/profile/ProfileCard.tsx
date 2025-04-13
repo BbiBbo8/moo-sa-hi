@@ -6,6 +6,7 @@ import getUserData from "@/supabase/getUserData";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import Loading from "@/app/(pages)/Loading";
 import { Database } from "../../../database.types";
+import { LogoutButton } from "../auth/LogoutButton";
 
 const ProfileCard = () => {
   const [user, setUser] = useState<Database>();
@@ -34,11 +35,13 @@ const ProfileCard = () => {
           {/* 이외 추가 설명이 있다면 들어갈 곳 */}
           <span className="text-xs font-light">추가 설명</span>
         </div>
+        {/* TEST: 임시 로그아웃 버튼 추가 */}
+        <LogoutButton />
         {/* 아바타 들어갈 곳 */}
         <Avatar className="size-16">
           <AvatarImage src={userAuth.user_metadata.avatar_url} />
-          <ProfileEditPop />
         </Avatar>
+        <ProfileEditPop userId={userAuth.id} nickname={user.nickname} avatarUrl={userAuth.user_metadata.avatar_url} />
       </div>
       {/* 해당 기능은 도전 기능입니다 뼈대만 존재 */}
       <div className="flex flex-row justify-evenly">

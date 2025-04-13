@@ -1,11 +1,20 @@
 import { create } from "zustand";
 
-interface MapState {
+type MapStore = {
   center: { lat: number; lng: number };
+  level: number;
   setCenter: (center: { lat: number; lng: number }) => void;
-}
+  setLevel: (level: number) => void;
+  reset: () => void;
+};
 
-export const useMapStore = create<MapState>((set) => ({
-  center: { lat: 37.502322, lng: 127.044474 }, // 기본 좌표 (lat:위도 lng: 경도)
-  setCenter: (center) => set({ center }), // 새로운 객체로 상태 변경
+const initialCenter = { lat: 37.5665, lng: 126.978 }; // 서울시청
+const initialLevel = 13;
+
+export const useMapStore = create<MapStore>(set => ({
+  center: initialCenter,
+  level: initialLevel,
+  setCenter: center => set({ center }),
+  setLevel: level => set({ level }),
+  reset: () => set({ center: initialCenter, level: initialLevel }),
 }));
