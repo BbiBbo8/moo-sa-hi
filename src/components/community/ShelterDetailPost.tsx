@@ -17,7 +17,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
   const { data: shelters = [] } = useShelters(); // 대피소 목록 불러오기
 
   // TODO : 해당 페이지에서 선택된 주소를 기반으로 대피소를 선택해 주소를 zustand에 저장
-  const TEMP_SHELTER_NAME = "청구목욕탕"; // 임시값
+  // const TEMP_SHELTER_NAME = "청구목욕탕"; // TEST : 임시값 테스트 코드
 
   useEffect(() => {
     if (shelters.length === 0) {
@@ -25,7 +25,8 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
       return;
     }
     const matchedShelter = shelters.find(
-      shelter => shelter.name === TEMP_SHELTER_NAME,
+      // shelter => shelter.name === TEMP_SHELTER_NAME, // TEST : 임시값 테스트 코드
+      shelter => shelter.name === data?.adress,
     );
 
     if (matchedShelter) {
@@ -37,7 +38,8 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
 
       toast("해당 이름의 대피소를 찾을 수 없어요.");
     }
-  }, [shelters, setCenter, setLevel]);
+    // }, [shelters, setCenter, setLevel]); // TEST : 임시값 테스트 코드
+  }, [data?.adress, shelters, setCenter, setLevel]); // 현재 값이 없어 전체 지도로만 나옴.
 
   if (isLoading) return <Loading />;
   if (error) return <p>에러 발생: {error.message}</p>;
