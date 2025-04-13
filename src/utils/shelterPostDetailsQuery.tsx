@@ -11,6 +11,7 @@ const fetchShelterPostDetail = async (id: number) => {
       `
       id,
       created_at,
+      adress,
       title,
       contents,
       img_url,

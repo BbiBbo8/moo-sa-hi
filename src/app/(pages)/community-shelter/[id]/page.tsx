@@ -1,4 +1,4 @@
-import ShelterPostDetail from "@/components/community/ShelterPostDetail";
+import ShelterDetailPost from "@/components/community/ShelterDetailPost";
 
 const shelterDetailPage = async ({
   params,
@@ -10,7 +10,7 @@ const shelterDetailPage = async ({
 
   return (
     <main>
-      <ShelterPostDetail id={numericId} />
+      <ShelterDetailPost id={numericId} />
     </main>
   );
 };
