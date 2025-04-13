@@ -14,9 +14,13 @@ const ProfileCard = () => {
   const userAuth = data?.user;
 
   // 로딩 중일 때 로딩중 컴포넌트 표시
-  if (isLoading) return <Loading />;
+  if (isLoading) {
+    return <Loading />;
+  }
   // 불러오기 오류일 때 오류 컴포넌트 표시
-  if (error) return <Error />;
+  if (error) {
+    return <Error />;
+  }
 
   return (
     <div className="bg-accent flex flex-col gap-3 rounded-xl border py-4 shadow-sm">
