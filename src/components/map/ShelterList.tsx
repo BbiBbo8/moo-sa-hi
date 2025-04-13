@@ -1,37 +1,18 @@
-//더미 데이터
-const dummyShelters = [
-  {
-    id: 1,
-    name: "대피소 이름",
-    address: "서울특별시 ○○구 ○○동",
-    distance: 1.9,
-  },
-  {
-    id: 2,
-    name: "서울중앙대피소",
-    address: "서울특별시 강남구 역삼동",
-    distance: 2.3,
-  },
-  {
-    id: 3,
-    name: "서울중앙대피소",
-    address: "서울특별시 강남구 역삼동",
-    distance: 2.3,
-  },
-];
+import { useShelters } from "@/hooks/shelter/useShelters";
 
 const ShelterList = () => {
+  const { data: shelters = [] } = useShelters();
   return (
     <div className="p-4">
       {/* 대피소 개수 표시 */}
       <p className="mb-3 text-sm text-gray-500">
-        내 주변 대피소 {dummyShelters.length}
+        내 주변 대피소 {shelters.length}
       </p>
 
       {/* 대피소 목록 렌더링 */}
-      {dummyShelters.map(shelter => (
+      {shelters.map(shelter => (
         <div
-          key={shelter.id}
+          key={shelter.name + shelter.address}
           className="mb-2 flex items-center justify-between p-3"
         >
           {/* 대피소 이름 및 주소 정보 */}
@@ -39,8 +20,6 @@ const ShelterList = () => {
             <h5 className="text-md font-semibold">{shelter.name}</h5>
             <span className="text-xs text-gray-500">{shelter.address}</span>
           </div>
-          {/* 대피소까지의 거리 */}
-          <span className="text-sm text-gray-700">{shelter.distance}km</span>
         </div>
       ))}
     </div>
