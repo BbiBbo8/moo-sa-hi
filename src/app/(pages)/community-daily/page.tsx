@@ -5,6 +5,7 @@ import { fetchDailyPosts } from "@/supabase/getCommuniy";
 import { DailyPost } from "@/components/community/DailyPost";
 import Link from "next/link";
 import { Search } from "lucide-react";
+// NOTE: 저 자신에게 하는 말입니다! 까먹지 말고 Link는 상수화!!!!!!나현님께서 만들어주신 걸로
 
 const CommunityDailyPage = () => {
   const {
