@@ -13,7 +13,7 @@ import {
 } from "../ui/form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import useInsertComments from "./handleComment";
+import useInsertComments from "../../hooks/useInsertComment";
 
 const commentSchema = z.object({
   content: z
