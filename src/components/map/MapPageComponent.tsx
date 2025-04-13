@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
 import { useMapStore } from "@/store/useMapStore";
-import fetchSheltersApi from "@/app/api/fetchSheltersApi";
+import { useShelters } from "@/hooks/shelter/useShelters";
+import Loading from "@/app/(pages)/Loading";
+import Error from "@/app/(pages)/Error";
 
 const MapPageComponent = () => {
   const mapRef = useRef<kakao.maps.Map | null>(null); // 카카오 지도 객체를 저장
-  const [shelters, setShelters] = useState<Shelter[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const { data: shelters = [], isLoading, error } = useShelters(); // tanstackquery로 이용한 hook기능
 
   // zustand의 지도 상태 값 가져오기
   const center = useMapStore(state => state.center);
@@ -26,21 +26,6 @@ const MapPageComponent = () => {
     map.setLevel(level); // 확대 레벨 설정
     map.setCenter(new kakao.maps.LatLng(center.lat, center.lng)); // 중심 좌표설정
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchSheltersApi(); // 서버 함수 호출
-        setShelters(data);
-      } catch (err) {
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   // 새로고침 시 축소된 지도로 되돌아가기
   useEffect(() => {
@@ -60,6 +45,9 @@ const MapPageComponent = () => {
       mapRef.current.panTo(new kakao.maps.LatLng(center.lat, center.lng));
     }
   }, [center]);
+
+  if (isLoading) return <Loading />;
+  if (error) return <Error />;
 
   return (
     <Map

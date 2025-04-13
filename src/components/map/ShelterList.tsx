@@ -1,10 +1,7 @@
-import { Shelter } from "@/types/shelter";
+import { useShelters } from "@/hooks/shelter/useShelters";
 
-interface ShelterListProps {
-  shelters: Shelter[];
-}
-
-const ShelterList = ({ shelters }: ShelterListProps) => {
+const ShelterList = () => {
+  const { data: shelters = [] } = useShelters();
   return (
     <div className="p-4">
       {/* 대피소 개수 표시 */}

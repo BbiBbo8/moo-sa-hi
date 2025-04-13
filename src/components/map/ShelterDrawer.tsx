@@ -8,11 +8,8 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import ShelterList from "./ShelterList";
-import { Button } from "../ui/button";
-import { useShelterStore } from "@/store/useShelterStore";
 
 const ShelterDrawer = () => {
-  const { shelters } = useShelterStore();
   return (
     <Drawer>
       {/* 드로어 열기 트리거 */}
@@ -27,7 +24,7 @@ const ShelterDrawer = () => {
           <DrawerTitle />
           <DrawerDescription>내 주변 대피소</DrawerDescription>
         </DrawerHeader>
-        <ShelterList shelters={shelters} />
+        <ShelterList /> {/* 대피소 리스트트 */}
       </DrawerContent>
     </Drawer>
   );

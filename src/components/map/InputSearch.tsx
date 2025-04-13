@@ -13,16 +13,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Shelter } from "@/types/shelter";
 import { useMapStore } from "@/store/useMapStore";
+import { useShelters } from "@/hooks/shelter/useShelters";
 
-interface InputSearchProps {
-  shelters: Shelter[];
-}
-
-const InputSearch = ({ shelters }: InputSearchProps) => {
+const InputSearch = () => {
   const [searchQuery, setSearchQuery] = useState(""); // 입력값 상태
   const [results, setResults] = useState<Shelter[]>([]); // 필터링 검색 결과
   const [isFocused, setIsFocused] = useState(false); // input 포커스 여부
-
+  const { data: shelters = [] } = useShelters();
   // 검색 데이터 필터링
   const handleSearch = (value: string) => {
     setSearchQuery(value); // 입력값 상태 업데이트
