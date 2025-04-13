@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Popover,
   PopoverContent,
@@ -16,13 +16,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 interface ProfileEditPopProps {
   userId: string;
   nickname: string;
-};
+}
 
-const ProfileEditPop = ({
-  userId,
-  nickname,
-}: ProfileEditPopProps) => {
+const ProfileEditPop = ({ userId, nickname }: ProfileEditPopProps) => {
   const supabase = createClient();
+  const queryClient = useQueryClient();
 
   const [editNickname, setEditNickname] = useState(nickname);
 
@@ -32,29 +30,29 @@ const ProfileEditPop = ({
     .min(2, { message: "닉네임은 최소 2자 이상이어야 해요." })
     .max(10, { message: "닉네임은 최대 10자까지 가능해요." });
 
-  // users 테이블 업데이트
-  const handleUpdate = async () => {
-    try {
-      nicknameSchema.parse(editNickname);
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (newNickname: string) => {
+      nicknameSchema.parse(newNickname);
 
       const { error } = await supabase
         .from("users")
-        .update({
-          nickname: editNickname
-        })
+        .update({ nickname: newNickname })
         .eq("id", userId);
 
       if (error) throw new Error("업데이트 실패");
-
+    },
+    onSuccess: () => {
       toast.success("업데이트 완료!");
-    } catch (err: any) {
+      queryClient.invalidateQueries({ queryKey: ["userData"] });
+    },
+    onError: (err: any) => {
       if (err instanceof z.ZodError) {
         toast.error(err.errors[0].message);
       } else {
         toast.error(err.message || "업데이트 중 오류 발생");
       }
-    }
-  };
+    },
+  });
 
   return (
     <Popover>
@@ -90,7 +88,11 @@ const ProfileEditPop = ({
 
             {/* 저장 버튼 */}
             <div className="mt-2 flex justify-end">
-              <Button size="sm" onClick={handleUpdate}>
+              <Button
+                size="sm"
+                onClick={() => mutate(editNickname)}
+                disabled={isPending}
+              >
                 저장
               </Button>
             </div>
