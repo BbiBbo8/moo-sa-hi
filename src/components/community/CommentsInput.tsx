@@ -1,65 +1,94 @@
 "use client";
 
-import React from "react";
-import { Form, FormControl, FormField } from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Input } from "@/components/ui/input";
-import createClient from "@/supabase/client";
-import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
-const supabase = createClient();
+// 1. zod 스키마 정의
+const commentSchema = z.object({
+  content: z
+    .string()
+    .min(5, "댓글은 최소 5자 이상 입력해 주세요.")
+    .max(30, "댓글은 최대 30자까지만 입력할 수 있습니다."),
+});
 
-const CommentsInput = () => {
-  const FormSchema = z.object({
-    contents: z.string().max(30, {
-      message: "댓글의 글자수는 30자를 초과할 수 없습니다.",
-    }),
+// 2. TypeScript 타입 자동 추론
+type CommentFormData = z.infer<typeof commentSchema>;
+
+// 3. 컴포넌트
+const CommentForm = () => {
+  const [comments, setComments] = useState<CommentFormData[]>([]);
+
+  const {
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<CommentFormData>({
+    resolver: zodResolver(commentSchema),
   });
 
-  const InputForm = () => {
-    const form = useForm<z.infer<typeof FormSchema>>({
-      resolver: zodResolver(FormSchema),
-      defaultValues: {
-        contents: "",
-      },
-    });
+  const onSubmit = (values: CommentFormData) => {
+    setComments(prev => [...prev, values]);
+    reset();
+  };
 
-    const onSubmit = async (data: z.infer<typeof FormSchema>) => {
-      try {
-        await supabase
-          .from("comments")
-          .insert({
-            user_id: "someValue",
-            shelter_post_id: "null",
-            daily_post_id: "null",
-            comments: data,
-          })
-          .select();
-        toast.info("댓글 작성 완료!");
-      } catch (error) {
-        toast.error("댓글 작성 오류 발생");
-      }
-    };
+  const form = useForm<z.infer<typeof commentSchema>>({
+    resolver: zodResolver(commentSchema),
+    defaultValues: {
+      content: "",
+    },
+  });
 
-    return (
+  return (
+    <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
             control={form.control}
-            name="contents"
+            name="content"
             render={({ field }) => (
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
+              <FormItem>
+                <FormLabel>댓글</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="댓글"
+                    {...field}
+                    className="w-full border px-2 py-1"
+                  />
+                </FormControl>
+                <FormMessage />
+                <Button
+                  type="submit"
+                  className="bg-blue-500 px-4 py-2 text-white"
+                >
+                  댓글 작성
+                </Button>
+              </FormItem>
             )}
           />
-          <button type="submit">등록</button>
         </form>
       </Form>
-    );
-  };
+
+      <div className="mt-6 space-y-2">
+        {comments.map((comment, index) => (
+          <div key={index} className="rounded border p-2">
+            <p>{comment.content}</p>
+          </div>
+        ))}
+      </div>
+    </>
+  );
 };
 
-export default CommentsInput;
+export default CommentForm;
