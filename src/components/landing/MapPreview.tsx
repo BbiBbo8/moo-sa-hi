@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import PATH from "@/constants/PATH";
 
-export default function LandingMapPreview() {
+const LandingMapPreview = () => {
   const [center, setCenter] = useState<{ lat: number; lng: number } | null>(
     null,
   );
@@ -47,4 +47,6 @@ export default function LandingMapPreview() {
       </Card>
     </section>
   );
-}
+};
+
+export default LandingMapPreview;
