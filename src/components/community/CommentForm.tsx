@@ -1,48 +1,77 @@
-import PATH from "@/constants/PATH";
-import createClient from "@/supabase/client";
-import { usePathname } from "next/navigation";
-import React from "react";
-import { toast } from "sonner";
+"use client";
 
-const supabase = createClient();
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import useInsertComments from "./handleComment";
+
+const commentSchema = z.object({
+  content: z
+    .string()
+    .min(5, "댓글은 최소 5자 이상 입력해 주세요.")
+    .max(30, "댓글은 최대 30자까지만 입력할 수 있습니다."),
+});
+
+type CommentFormData = z.infer<typeof commentSchema>;
+
 const CommentForm = () => {
-  const pathname = usePathname();
-  const handleInsertComments = async () => {
-    try {
-      if (pathname.includes(PATH.COMMUNITYSHELTER) === true) {
-        await supabase
-          .from("comments")
-          .insert([
-            {
-              user_id: "11f37be0-4036-467b-b963-11b744903d1c",
-              shelter_post_id: 4,
-              daily_post_id: null,
-              comments: data,
-            },
-          ])
-          .select();
-        toast.info("댓글 작성 완료!");
-      } else {
-        await supabase
-          .from("comments")
-          .insert({
-            user_id: "11f37be0-4036-467b-b963-11b744903d1c",
-            shelter_post_id: null,
-            daily_post_id: 1,
-            comments: data,
-          })
-          .select();
-        toast.info("댓글 작성 완료!");
-      }
-    } catch (error) {
-      toast.error("댓글 작성 오류 발생");
-    }
+  const {
+    formState: { errors },
+    reset,
+  } = useForm<CommentFormData>({
+    resolver: zodResolver(commentSchema),
+  });
+
+  const onSubmit = (content: CommentFormData) => {
+    useInsertComments(content);
+    reset();
   };
+
+  const form = useForm<z.infer<typeof commentSchema>>({
+    resolver: zodResolver(commentSchema),
+    defaultValues: {
+      content: "",
+    },
+  });
+
   return (
-    <form>
-      <input placeholder="댓글을 입력해주세요" />
-      <button type="submit">댓글 달기</button>
-    </form>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name="content"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>댓글</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="댓글을 입력해주세요."
+                  {...field}
+                  className="w-full border px-2 py-1"
+                />
+              </FormControl>
+              <FormMessage />
+              <Button
+                type="submit"
+                className="bg-blue-500 px-4 py-2 text-white"
+              >
+                등록
+              </Button>
+            </FormItem>
+          )}
+        />
+      </form>
+    </Form>
   );
 };
 

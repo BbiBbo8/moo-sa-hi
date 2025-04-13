@@ -1,6 +1,6 @@
-import CommentsInput from "@/components/community/CommentsInput";
+import CommentForm from "@/components/community/CommentForm";
 
-const ShelterDeatailPage = ({
+const ShelterDetailPage = ({
   params,
 }: {
   params: {
@@ -10,9 +10,9 @@ const ShelterDeatailPage = ({
   return (
     <div>
       <div>아이디 값: {params.id}</div>
-      <CommentsInput />
+      <CommentForm />
     </div>
   );
 };
 
-export default ShelterDeatailPage;
+export default ShelterDetailPage;
