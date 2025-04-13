@@ -31,7 +31,7 @@ const ProfileEditPop = ({
   const nicknameSchema = z
     .string()
     .min(2, { message: "닉네임은 최소 2자 이상이어야 해요." })
-    .max(20, { message: "닉네임은 최대 20자까지 가능해요." });
+    .max(10, { message: "닉네임은 최대 10자까지 가능해요." });
 
   // 팝업이 열릴 때 기존 정보를 표시
   useEffect(() => {
