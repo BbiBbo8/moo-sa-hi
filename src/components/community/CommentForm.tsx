@@ -34,9 +34,11 @@ const CommentForm = () => {
   } = useForm<CommentFormData>({
     resolver: zodResolver(commentSchema),
   });
+
   const pathname = usePathname();
   const supabase = createClient();
 
+  // supabase에 작성된 댓글을 넣는 함수
   const handleInsertComments = async ({ content }: { content: string }) => {
     try {
       // 현재 pathname을 참조하여 대피소 커뮤니티일 때 대피소 댓글 insert
@@ -93,11 +95,7 @@ const CommentForm = () => {
             <FormItem>
               <FormLabel>댓글</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="댓글을 입력해주세요."
-                  {...field}
-                  className="w-full border px-2 py-1"
-                />
+                <Input placeholder="댓글을 입력해주세요." {...field} />
               </FormControl>
               <FormMessage />
               <Button type="submit">등록</Button>
