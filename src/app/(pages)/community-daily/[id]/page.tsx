@@ -12,7 +12,7 @@ const DailyDetailPage = async ({
 
   return (
     <main>
-      <DailyDetailPost id={2} />
+      <DailyDetailPost id={numericId} />
       <CommentForm postId={numericId} />
       <CommentList postId={numericId} />
     </main>
