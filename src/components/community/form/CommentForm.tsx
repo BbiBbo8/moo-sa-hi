@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { usePathname } from "next/navigation";
 import PATH from "@/constants/PATH";
 import { useUserData } from "@/hooks/useUserData";
+import { useInsertComment } from "@/hooks/useInsertComment";
 
 const commentSchema = z.object({
   content: z
@@ -41,44 +42,21 @@ const CommentForm = ({ postId }: { postId: number }) => {
   const { data, error, isLoading } = useUserData();
   const userId = data?.user?.id;
 
-  // supabase에 작성된 댓글을 넣는 함수
-  const handleInsertComments = async ({ content }: { content: string }) => {
-    try {
-      // 현재 pathname을 참조하여 대피소 커뮤니티일 때 대피소 댓글 insert
-      if (pathname.includes(PATH.COMMUNITYSHELTER)) {
-        await supabase
-          .from("comments")
-          .insert([
-            {
-              user_id: userId,
-              shelter_post_id: postId,
-              daily_post_id: null,
-              comments: content,
-            },
-          ])
-          .select();
-        toast.info("댓글 작성 완료!");
-      } else {
-        // 이외일 때 일상 댓글 insert
-        await supabase
-          .from("comments")
-          .insert({
-            user_id: userId,
-            shelter_post_id: null,
-            daily_post_id: postId,
-            comments: content,
-          })
-          .select();
-        toast.info("댓글 작성 완료!");
-      }
-    } catch (error) {
-      toast.error("댓글 작성 오류 발생");
-    }
-  };
+  // supabase에 작성된 댓글을 넣는 함수 호출
+  const insertCommentMutation = useInsertComment();
 
-  const onSubmit = (content: CommentFormData) => {
-    handleInsertComments(content);
-    reset();
+  const onSubmit = (formData: CommentFormData) => {
+    if (!userId) {
+      return;
+    }
+
+    insertCommentMutation.mutate({
+      content: formData.content,
+      userId,
+      postId,
+    });
+    // 댓글 입력 후 리셋
+    form.reset();
   };
 
   const form = useForm<z.infer<typeof commentSchema>>({
