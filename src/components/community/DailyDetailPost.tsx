@@ -9,33 +9,20 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import PATH from "@/constants/PATH";
 import { useEffect, useState } from "react";
-import CommentForm from "./form/CommentForm";
-import getUserData from "@/supabase/getUserData";
+import ConfirmModal from "./ConfirmModal";
 
 const DailyDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useDailyPostDetailQuery(id);
   const [toggleConfirmModal, setToggleConfirmModal] = useState(false);
-  const [currentUser, setCurrentUser] = useState<string | null>(null);
   const router = useRouter();
 
+  // TODO: 추후 react-query로 리팩토링하면 좋을 것 같다는 피드백 받음
   useEffect(() => {
     if (error) {
       toast("존재하지 않는 페이지입니다.");
       router.push(PATH.COMMUNITYDAILY);
     }
   }, [error, router]);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const userData = await getUserData();
-      console.log("userData", userData);
-      const userId = userData.user?.id;
-      if (userId) {
-        setCurrentUser(userId);
-      }
-    };
-    fetchUserData();
-  }, []);
 
   if (isLoading) {
     return <Loading />;
@@ -90,47 +77,14 @@ const DailyDetailPost = ({ id }: { id: number }) => {
           신고하기
         </button>
       </article>
-
       {/* 모달창 */}
-      {toggleConfirmModal && (
-        <>
-          <div
-            onClick={handleConfirmationModal} // 모달창 외 배경 클릭 시 모달창 닫도록 구현
-            className="fixed inset-0 z-10 bg-black/50"
-          ></div>
-          <article
-            onClick={e => e.stopPropagation()} // 모달창을 클릭해도 닫히기 않게 방지
-            className="fixed top-1/2 left-1/2 z-20 flex h-[128px] w-[312px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-6 rounded-xl border-2 bg-white text-gray-500"
-          >
-            게시글을 신고하시겠습니까?
-            <article className="flex flex-row gap-2 font-semibold text-black [&>*]:active:border-[#58999E] [&>*]:active:text-[#58999E]">
-              <button
-                type="button"
-                onClick={handleConfirmationModal}
-                className="h-[44px] w-[140px] rounded-lg border-1 border-gray-400"
-              >
-                닫기
-              </button>
-              {currentUser === data.user ? (
-                <button className="h-[44px] w-[140px] rounded-lg border-1 border-gray-400">
-                  삭제하기
-                </button>
-              ) : (
-                <button className="h-[44px] w-[140px] rounded-lg border-1 border-gray-400">
-                  신고하기
-                </button>
-              )}
-            </article>
-          </article>
-        </>
-      )}
-
-      {/* TEST: 화면에 보이는 회색 줄 부분입니다. 임시로 div태그를 사용했지만 이후 바뀔 예정입니다. 무슨 태그가 좋을까요? */}
-      <div className="h-4 min-w-screen bg-gray-200"></div>
-
-      <aside className="w-full pb-20">
-        <CommentForm />
-      </aside>
+      <ConfirmModal
+        id={id}
+        onOpen={toggleConfirmModal}
+        onClose={handleConfirmationModal}
+      />
+      <div className="h-4 min-w-screen bg-gray-200"></div>{" "}
+      {/* NOTE: 화면에 보이는 회색 줄 */}
     </section>
   );
 };
