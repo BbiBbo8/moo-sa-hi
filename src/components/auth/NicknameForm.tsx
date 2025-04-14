@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import createClient from "@/supabase/client";
 import PATH from "@/constants/PATH";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   nickname: z
@@ -50,8 +51,9 @@ const NicknameForm = ({ userId }: { userId: string }) => {
     });
 
     if (dbError) {
-      alert("닉네임 저장 실패");
+      toast.error("닉네임 저장 실패");
     } else {
+      toast.success("닉네임 저장 완료");
       router.push(PATH.HOME);
     }
   };
