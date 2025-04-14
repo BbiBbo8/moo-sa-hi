@@ -9,7 +9,7 @@ type PostCardProps = {
   post: Post;
 };
 
-export const ShelterPost = ({ post }: PostCardProps) => {
+const ShelterPost = ({ post }: PostCardProps) => {
   // NOTE: 날짜 작성 형태(년도.월.일)를 형식에 맞춰 반환
   const formatted = format(new Date(post.created_at), "yyyy.MM.dd");
 
@@ -37,3 +37,5 @@ export const ShelterPost = ({ post }: PostCardProps) => {
     </Link>
   );
 };
+
+export default ShelterPost;

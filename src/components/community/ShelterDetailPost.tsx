@@ -6,10 +6,10 @@ import { format } from "date-fns";
 import Loading from "@/app/(pages)/Loading";
 import MainMap from "../map/MainMap";
 import { useMapStore } from "@/store/useMapStore";
-import { Shelter } from "@/types/shelter";
 import { useEffect } from "react";
 import { useShelters } from "@/hooks/shelter/useShelters";
 import { toast } from "sonner";
+import Error from "@/app/(pages)/Error";
 
 const ShelterDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useShelterPostDetailQuery(id);
@@ -26,7 +26,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
     }
     const matchedShelter = shelters.find(
       // shelter => shelter.name === TEMP_SHELTER_NAME, // TEST : 임시값 테스트 코드
-      shelter => shelter.name === data?.adress,
+      shelter => shelter.name === data?.shelter_name,
     );
 
     if (matchedShelter) {
@@ -39,10 +39,10 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
       toast("해당 이름의 대피소를 찾을 수 없어요.");
     }
     // }, [shelters, setCenter, setLevel]); // TEST : 임시값 테스트 코드
-  }, [data?.adress, shelters, setCenter, setLevel]); // 현재 값이 없어 전체 지도로만 나옴.
+  }, [data?.shelter_name, shelters, setCenter, setLevel]); // 현재 값이 없어 전체 지도로만 나옴.
 
   if (isLoading) return <Loading />;
-  if (error) return <p>에러 발생: {error.message}</p>;
+  if (error) return <Error />;
   if (!data) return null;
 
   const timeCreated = format(new Date(data.created_at), "yyyy.MM.dd");
@@ -78,7 +78,6 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
         <section className="flex flex-col gap-2">
           <span>혼잡도: {data.people}</span>
           <span>위생상태: {data.cleanliness}</span>
-          <span>구호품: {data.supplies}</span>
         </section>
 
         <figure className="flex h-40 overflow-hidden rounded-2xl">

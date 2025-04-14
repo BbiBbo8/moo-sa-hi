@@ -11,12 +11,11 @@ const fetchShelterPostDetail = async (id: number) => {
       `
       id,
       created_at,
-      adress,
       title,
       contents,
+      shelter_name,
       img_url,
       people,
-      supplies,
       cleanliness,
       user:user_id (
         nickname,

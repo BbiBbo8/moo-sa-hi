@@ -4,12 +4,13 @@ import { useDailyPostDetailQuery } from "@/hooks/community/useDailyPostDetailQue
 import Image from "next/image";
 import { format } from "date-fns";
 import Loading from "@/app/(pages)/Loading";
+import Error from "@/app/(pages)/Error";
 
 const DailyDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useDailyPostDetailQuery(id);
 
   if (isLoading) return <Loading />;
-  if (error) return <p>에러 발생: {error.message}</p>;
+  if (error) return <Error />;
   if (!data) return null; // <= 이거 추가
 
   const timeCreated = format(new Date(data.created_at), "yyyy.MM.dd");

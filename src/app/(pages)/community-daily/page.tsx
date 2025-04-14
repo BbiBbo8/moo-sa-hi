@@ -2,11 +2,12 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchDailyPosts } from "@/supabase/getCommuniy";
-import { DailyPost } from "@/components/community/DailyPost";
+import DailyPost from "@/components/community/DailyPost";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import PATH from "@/constants/PATH";
 import Loading from "../Loading";
+import Error from "../Error";
 
 const CommunityDailyPage = () => {
   const {
@@ -21,13 +22,8 @@ const CommunityDailyPage = () => {
     return <Loading />;
   }
   if (error) {
-    return <p>에러 발생: {error.message}</p>;
+    return <Error />;
   }
-
-  const dailyPageSwitch = "일상";
-  const shelterPageSwitch = "대피소";
-  const searchPlaceholder = "키워드 검색";
-  const instruction = "대피소 관련 경험과 정보를 솔직하게 공유해주세요.";
 
   return (
     <main className="relative flex h-screen min-w-screen flex-col items-center justify-center p-4">
@@ -42,7 +38,7 @@ const CommunityDailyPage = () => {
         <div className="relative h-10 w-64 rounded-md bg-gray-100">
           <Search className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500" />
           <span className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-500">
-            {searchPlaceholder}
+            키워드 검색
           </span>
         </div>
       </section>
@@ -50,12 +46,11 @@ const CommunityDailyPage = () => {
       <div className="absolute top-16 flex h-12 w-full items-center justify-center gap-2 bg-white">
         {/* 아이콘 대용 네모 */}
         <div className="h-5 w-5 bg-gray-200"></div>
-        {instruction}
+        대피소 관련 경험과 정보를 솔직하게 공유해주세요.
       </div>
 
       <section className="absolute top-30 flex w-full flex-col items-center justify-center px-4">
         {dailyPosts?.map(post => {
-          console.log(post);
           return <DailyPost key={post.id} post={post} />;
         })}
       </section>

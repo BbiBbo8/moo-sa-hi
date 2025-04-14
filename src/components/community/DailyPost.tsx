@@ -11,7 +11,7 @@ type PostCardProps = {
   post: Post;
 };
 
-export const DailyPost = ({ post }: PostCardProps) => {
+const DailyPost = ({ post }: PostCardProps) => {
   const imgSrc = getImageSrc(post.img_url || undefined);
 
   // NOTE: 날짜 작성 형태(년도.월.일)를 형식에 맞춰 반환
@@ -49,3 +49,5 @@ export const DailyPost = ({ post }: PostCardProps) => {
     </Link>
   );
 };
+
+export default DailyPost;

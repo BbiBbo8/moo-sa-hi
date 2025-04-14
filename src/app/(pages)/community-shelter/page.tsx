@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
 import PATH from "@/constants/PATH";
 import Loading from "../Loading";
+import Error from "../Error";
 
 const CommunityShelterPage = () => {
   const pathname = usePathname();
@@ -25,7 +26,7 @@ const CommunityShelterPage = () => {
     return <Loading />;
   }
   if (error) {
-    return <p>에러 발생: {error.message}</p>;
+    return <Error />;
   }
 
   const dailyPageSwitch = "일상";
