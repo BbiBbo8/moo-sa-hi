@@ -40,7 +40,7 @@ const CommentList = ({ postId }: { postId: number }) => {
   }
 
   return (
-    <section className="m-4 mb-12 flex flex-col">
+    <section className="m-4 mb-12 flex flex-col gap-4">
       {comments?.map(comment => (
         <Card key={comment.id}>
           <CardContent>
