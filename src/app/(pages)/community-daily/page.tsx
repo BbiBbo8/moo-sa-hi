@@ -5,6 +5,7 @@ import { fetchDailyPosts } from "@/supabase/getCommuniy";
 import { DailyPost } from "@/components/community/DailyPost";
 import Link from "next/link";
 import { Search } from "lucide-react";
+import PATH from "@/constants/PATH";
 
 const CommunityDailyPage = () => {
   const {
@@ -31,8 +32,8 @@ const CommunityDailyPage = () => {
     <main className="relative flex h-screen min-w-screen flex-col items-center justify-center p-4">
       {/* 검색창, 로고 ==> fixed로 하기 & 안내문은 할 필요 x */}
       <section className="absolute top-3 left-5 flex flex-row items-center gap-4">
-        <Link href="/community-shelter">{shelterPageSwitch}</Link>
-        <Link href="/community-daily">{dailyPageSwitch}</Link>
+        <Link href={PATH.COMMUNITYSHELTER}>대피소</Link>
+        <Link href={PATH.COMMUNITYDAILY}>일상</Link>
         {/* 고민 사항 : 이미 만들어진 검색창 컴포넌트 사용할까 고민 중. 그런데 디테일이나 모달창이 나오는 부분등에서 차이가 꽤 많아서 따로 컴포넌트를 만들어야하나 고민됨.*/}
         {/* <div className="[&>*]:w-60">
           <InputSearch />

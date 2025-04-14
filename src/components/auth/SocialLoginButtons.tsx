@@ -4,7 +4,7 @@ import createClient from "@/supabase/client";
 import { FcGoogle } from "react-icons/fc";
 import { RiKakaoTalkLine } from "react-icons/ri";
 
-export default function SocialLoginButtons() {
+const SocialLoginButtons = () => {
   const supabase = createClient();
 
   const handleLogin = async (provider: "google" | "kakao") => {
@@ -21,7 +21,7 @@ export default function SocialLoginButtons() {
       {/* Google 로그인 */}
       <button
         onClick={() => handleLogin("google")}
-        className="w-14 h-14 bg-white rounded-full border flex items-center justify-center shadow"
+        className="flex h-14 w-14 items-center justify-center rounded-full border bg-white shadow"
         aria-label="구글 로그인"
       >
         <FcGoogle size={24} />
@@ -30,11 +30,13 @@ export default function SocialLoginButtons() {
       {/* Kakao 로그인 */}
       <button
         onClick={() => handleLogin("kakao")}
-        className="w-14 h-14 bg-[#FEE500] rounded-full flex items-center justify-center shadow"
+        className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FEE500] shadow"
         aria-label="카카오 로그인"
       >
         <RiKakaoTalkLine size={24} />
       </button>
     </div>
   );
-}
+};
+
+export default SocialLoginButtons;

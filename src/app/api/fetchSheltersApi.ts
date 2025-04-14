@@ -5,8 +5,8 @@ import axios from "axios";
 import { Shelter } from "@/types/shelter";
 
 const fetchSheltersApi = async (): Promise<Shelter[]> => {
-  const apiKey = process.env.NEXT_SHELTER_API_KEY;
-  const apiBase = process.env.NEXT_SHELTER_API_BASE_URL;
+  const apiKey = process.env.NEXT_SHELTER_API_KEY!;
+  const apiBase = process.env.NEXT_SHELTER_API_BASE_URL!;
 
   const res = await axios.get(apiBase, {
     params: {
