@@ -14,24 +14,23 @@ const CommentList = ({ postId }: { postId: number }) => {
   const user = data?.user;
 
   const {
-    data: CommentData,
-    error: commnetError,
+    data: comments,
+    error: commentError,
     isLoading: isCommentLoading,
-  } = useComments(postId);
-  const comments = CommentData;
+  } = useComments({ postId });
 
   // 로딩 중일 때 로딩중 컴포넌트 표시
   if (isLoading || isCommentLoading) {
     return <Loading />;
   }
   // 불러오기 오류일 때 오류 컴포넌트 표시
-  if (error || commnetError) {
+  if (error || commentError) {
     return <Error />;
   }
 
   //   댓글 작성자 여부 확인
-  const isOwned = () => {
-    if (user?.id === comments?.user_id) {
+  const isOwned = (commentUserId: string | null) => {
+    if (user?.id === commentUserId) {
       return true;
     } else {
       return false;
@@ -47,13 +46,15 @@ const CommentList = ({ postId }: { postId: number }) => {
 
   return (
     <section className="flex flex-col">
-      {comments.map(comment => (
+      {comments?.map(comment => (
         <Card key={comment.id}>
           <CardContent>
             <CardDescription>{comment.comments}</CardDescription>
           </CardContent>
-          {isOwned() && (
-            <Button onClick={id => handleDeleteComments(id)}>삭제</Button>
+          {isOwned(comment.user_id) && (
+            <Button onClick={() => handleDeleteComments(comment.id)}>
+              삭제
+            </Button>
           )}
         </Card>
       ))}
