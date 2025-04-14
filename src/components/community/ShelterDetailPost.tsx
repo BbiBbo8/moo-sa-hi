@@ -1,6 +1,6 @@
 "use client";
 
-import useShelterPostDetailQuery from "@/utils/shelterPostDetailsQuery";
+import useShelterPostDetailQuery from "@/utils/ShelterPostDetailsQuery";
 import Image from "next/image";
 import { format } from "date-fns";
 import Loading from "@/app/(pages)/Loading";
