@@ -121,7 +121,10 @@ const MainMap = () => {
                   className="absolute top-1 right-1 h-[13px] w-[14px]"
                   onClick={() => setSelectMarker(null)}
                 />
-                <div className="pr-6">{shelter.name}</div>
+                <div className="flex flex-col gap-0.5 pr-6 whitespace-nowrap">
+                  <span className="font-semibold">{shelter.name}</span>
+                  <span className="text-gray-600">{shelter.address}</span>
+                </div>
               </div>
             )}
           </MapMarker>
