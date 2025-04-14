@@ -13,6 +13,7 @@ import CommentForm from "./form/CommentForm";
 
 const DailyDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useDailyPostDetailQuery(id);
+  const [toggleConfirmModal, setToggleConfirmModal] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -35,6 +36,10 @@ const DailyDetailPost = ({ id }: { id: number }) => {
   }
 
   const timeCreated = format(new Date(data.created_at), "yyyy.MM.dd");
+
+  const handleConfirmationModal = () => {
+    return setToggleConfirmModal(toggleConfirmModal => !toggleConfirmModal);
+  };
 
   return (
     <section className="m-4 flex flex-col items-center gap-5">
@@ -65,11 +70,39 @@ const DailyDetailPost = ({ id }: { id: number }) => {
         </button>
         <button
           type="button"
+          onClick={handleConfirmationModal}
           className="justify-en items-end bg-blue-200 px-2 py-1 text-[12px]"
         >
           신고하기
         </button>
       </article>
+
+      {toggleConfirmModal && (
+        <>
+          <div
+            onClick={handleConfirmationModal} // 모달창 외 배경 클릭 시 모달창 닫도록 구현
+            className="fixed inset-0 z-10 bg-black/50"
+          ></div>
+          <article
+            onClick={e => e.stopPropagation()} // 모달창을 클릭해도 닫히기 않게 방지
+            className="fixed top-1/2 left-1/2 z-20 flex h-[128px] w-[312px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-6 rounded-xl border-2 bg-white text-gray-500"
+          >
+            게시글을 신고하시겠습니까?
+            <article className="flex flex-row gap-2 font-semibold text-black [&>*]:active:border-[#58999E] [&>*]:active:text-[#58999E]">
+              <button
+                type="button"
+                onClick={handleConfirmationModal}
+                className="h-[44px] w-[140px] rounded-lg border-1 border-gray-400"
+              >
+                닫기
+              </button>
+              <button className="h-[44px] w-[140px] rounded-lg border-1 border-gray-400">
+                신고하기
+              </button>
+            </article>
+          </article>
+        </>
+      )}
 
       {/* TEST: 화면에 보이는 회색 줄 부분입니다. 임시로 div태그를 사용했지만 이후 바뀔 예정입니다. 무슨 태그가 좋을까요? */}
       <div className="h-4 min-w-screen bg-gray-200"></div>
