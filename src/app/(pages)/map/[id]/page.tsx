@@ -32,22 +32,30 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <section className="flex flex-col gap-3 p-2">
-      {/* 지도 렌더링 */}
+      {/* 지도 */}
       <div className="bg-accent h-40 w-full text-center">
         {shelter?.lat && shelter?.lng && (
           <DetailMap lat={shelter.lat} lng={shelter.lng} name={shelter.name} />
         )}
       </div>
-      <div className="flex-col">
-        <h3 className="text-3xl font-semibold">
+
+      {/* 제목 + 출처 */}
+      <header className="flex-col">
+        <h1 className="text-3xl font-semibold">
           {shelter?.name ?? "정보없음"}
-        </h3>
-        <h5 className="mt-3 text-right text-xs text-gray-400">
+        </h1>
+        <p className="mt-3 text-right text-xs text-gray-400">
           행정 안전부 제공
-        </h5>
-      </div>
-      <ShelterExtraFeature address={shelter?.address} />
-      <div className="bg-accent flex w-full flex-col gap-1 rounded-lg border px-4 py-3 text-sm">
+        </p>
+      </header>
+
+      {/* 복사/공유 등 부가 기능 */}
+      <aside>
+        <ShelterExtraFeature address={shelter?.address} />
+      </aside>
+
+      {/* 상세 정보 */}
+      <section className="bg-accent flex w-full flex-col gap-1 rounded-lg border px-4 py-3 text-sm">
         <p className="text-lg">
           담당 전화:{" "}
           {shelter?.phone ? (
@@ -69,8 +77,10 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
         <p className="text-lg">
           평상시 활용유형: {shelter?.usageType ?? "정보없음"}
         </p>
-      </div>
-      <article className="relative p-2">
+      </section>
+
+      {/* 신고 안내 */}
+      <footer className="relative p-2">
         <p>대피소 정보 오류는 행정안전부 콜센터로 제보 바랍니다.</p>
         <p className="text-md">
           행정안전부 콜센터:{" "}
@@ -78,7 +88,7 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
             02-2100-3399
           </Link>
         </p>
-      </article>
+      </footer>
     </section>
   );
 };
