@@ -22,16 +22,16 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
       <div className="bg-accent flex w-full flex-col gap-1 rounded-lg border px-4 py-3 text-sm">
         <p className="text-lg">
           담당 전화:{" "}
-          <Link href="tel:02-000-0000" className="text-indigo-500">
+          <Link href="{`tel:${shelter.phone}`}" className="text-indigo-500">
             {/* a 태그로 자동 전화걸기 */}
-            02-000-0000
+            {shelter?.phone}
           </Link>
         </p>
-        <p className="text-lg">수용인원: 000명</p>
-        <p className="text-lg">시설 규모: 0000m</p>
-        <p className="text-lg">대피 장소: 지하</p>
-        <p className="text-lg">개방 여부: OPEN</p>
-        <p className="text-lg">평상시 활용유형: 주차장</p>
+        <p className="text-lg">수용인원: {shelter?.capacity}명</p>
+        <p className="text-lg">시설 규모: {shelter?.scale}</p>
+        <p className="text-lg">대피 장소: {shelter?.locationType}</p>
+        <p className="text-lg">개방 여부: {shelter?.isOpen}</p>
+        <p className="text-lg">평상시 활용유형: {shelter?.usageType}</p>
       </div>
       <article className="relative p-2">
         <p>대피소 정보 오류는 행정안전부 콜센터로 제보 바랍니다.</p>
