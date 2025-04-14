@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchShelterPosts } from "@/supabase/getCommuniy";
 import Link from "next/link";
-import { ShelterPost } from "@/components/community/ShelterPost";
+import ShelterPost from "@/components/community/ShelterPost";
 import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
 import PATH from "@/constants/PATH";
