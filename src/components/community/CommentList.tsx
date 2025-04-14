@@ -31,13 +31,13 @@ const CommentList = () => {
   };
 
   const supabase = createClient();
-
+  const commentId = 1; /* 임시작성 */
   //   댓글을 삭제하는 함수
   const handleDeleteComments = async () => {
     const { error } = await supabase
       .from("comments")
       .delete()
-      .eq("some_column", "someValue");
+      .eq("id", commentId);
   };
 
   return (
