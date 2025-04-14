@@ -3,6 +3,11 @@ import Link from "next/link";
 import React from "react";
 import fetchSheltersApi from "@/app/api/fetchSheltersApi";
 
+// Test ID: 3910000_S202400002
+// 대피소 디테일 테스트 해보실 분들은
+// http://localhost:3000/map/3910000_S202400002
+// 위 주소로 접속하시면 됩니다.
+
 const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
   // 모든 대피소 가져오기
   const shelters = await fetchSheltersApi();
@@ -16,7 +21,7 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
     if (code === "2" || code.includes("지상")) return "지상";
     return code;
   };
-  
+
   // 개방 여부 매핑
   const OpenStatus = (value?: string) => {
     if (value === "Y") return "개방중";
@@ -28,7 +33,9 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
     <section className="flex flex-col gap-3 p-2">
       <div className="bg-accent h-40 w-full text-center">지도</div>
       <div className="flex-col">
-        <h3 className="text-3xl font-semibold">{shelter?.name ?? "정보없음"}</h3>
+        <h3 className="text-3xl font-semibold">
+          {shelter?.name ?? "정보없음"}
+        </h3>
         <h5 className="mt-3 text-right text-xs text-gray-400">
           행정 안전부 제공
         </h5>
@@ -47,17 +54,23 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
         </p>
         <p className="text-lg">수용인원: {shelter?.capacity ?? "정보없음"}명</p>
         <p className="text-lg">시설 규모: {shelter?.scale ?? "정보없음"}</p>
-        <p className="text-lg">대피 장소: {FloorType(shelter?.locationType ?? "정보없음")}</p>
-        <p className="text-lg">개방 여부: {OpenStatus(shelter?.isOpen ?? "정보없음")}</p>
-        <p className="text-lg">평상시 활용유형: {shelter?.usageType ?? "정보없음"}</p>
+        <p className="text-lg">
+          대피 장소: {FloorType(shelter?.locationType ?? "정보없음")}
+        </p>
+        <p className="text-lg">
+          개방 여부: {OpenStatus(shelter?.isOpen ?? "정보없음")}
+        </p>
+        <p className="text-lg">
+          평상시 활용유형: {shelter?.usageType ?? "정보없음"}
+        </p>
       </div>
       <article className="relative p-2">
         <p>대피소 정보 오류는 행정안전부 콜센터로 제보 바랍니다.</p>
         <p className="text-md">
           행정안전부 콜센터:{" "}
-            <Link href={`tel:02-2100-3399`} className="text-indigo-500">
-              02-2100-3399
-            </Link>
+          <Link href={`tel:02-2100-3399`} className="text-indigo-500">
+            02-2100-3399
+          </Link>
         </p>
       </article>
     </section>
