@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import createClient from "@/supabase/client";
 import PATH from "@/constants/PATH";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   nickname: z
@@ -44,14 +45,15 @@ const NicknameForm = ({ userId }: { userId: string }) => {
   const onSubmit = async (data: FormData) => {
     const supabase = createClient();
 
-    const { error: dbError } = await supabase.from("users").insert({
+    const { error: dbError } = await supabase.from("users").upsert({
       id: userId,
       nickname: data.nickname,
     });
 
     if (dbError) {
-      alert("닉네임 저장 실패");
+      toast.error("닉네임 저장 실패");
     } else {
+      toast.success("닉네임 저장 완료");
       router.push(PATH.HOME);
     }
   };
@@ -77,7 +79,7 @@ const NicknameForm = ({ userId }: { userId: string }) => {
           )}
         />
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "등록 중..." : "닉네임 + 프로필 저장"}
+          {isSubmitting ? "등록 중..." : "저장하기"}
         </Button>
       </form>
     </Form>
