@@ -4,14 +4,15 @@ import useShelterPostDetailQuery from "@/utils/shelterPostDetailsQuery";
 import Image from "next/image";
 import { formatTime } from "@/utils/formatTime";
 import Loading from "@/app/(pages)/Loading";
-import MainMap from "../map/MainMap";
+import MainMap from "../../map/MainMap";
 import { useMapStore } from "@/store/useMapStore";
 import { useEffect, useState } from "react";
 import { useShelters } from "@/hooks/shelter/useShelters";
 import { toast } from "sonner";
 import Error from "@/app/(pages)/Error";
 import ConfirmModal from "./ConfirmModal";
-import DetailMap from "../detail/DetailMap";
+import DetailMap from "../../detail/DetailMap"; // NOTE: DetailMap을 쓸지 말지 아직 확실히 결론짓지 않아서 임시로 나둠
+import PostButtons from "./PostButtons";
 
 const ShelterDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useShelterPostDetailQuery(id);
@@ -99,24 +100,17 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
           {/* <DetailMap lat={37.5503} lng={126.9971} name={"우리동네"} /> */}
         </figure>
       </article>
-      <button className="flex h-[40px] w-[120px] items-center justify-center rounded-sm bg-gray-200 text-sm">
-        유용해요
-      </button>
-      <button
-        type="button"
-        onClick={handleConfirmationModal}
-        className="justify-en items-end bg-blue-200 px-2 py-1 text-[12px]"
-      >
-        신고하기
-      </button>
+      <PostButtons onClickReport={handleConfirmationModal} />
+
       {/* 모달창 */}
       <ConfirmModal
         id={id}
         onOpen={toggleConfirmModal}
         onClose={handleConfirmationModal}
       />
-      <div className="h-4 min-w-screen bg-gray-200"></div>{" "}
+
       {/* NOTE: 화면에 보이는 회색 줄 */}
+      <div className="h-4 min-w-screen bg-gray-200"></div>
     </section>
   );
 };

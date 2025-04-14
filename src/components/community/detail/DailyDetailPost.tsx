@@ -10,6 +10,7 @@ import PATH from "@/constants/PATH";
 import { useEffect, useState } from "react";
 import ConfirmModal from "./ConfirmModal";
 import { formatTime } from "@/utils/formatTime";
+import PostButtons from "./PostButtons";
 
 const DailyDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useDailyPostDetailQuery(id);
@@ -67,16 +68,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
           {data.contents}
         </p>
 
-        <button className="flex h-[40px] w-[120px] items-center justify-center rounded-sm bg-gray-200 text-sm">
-          유용해요
-        </button>
-        <button
-          type="button"
-          onClick={handleConfirmationModal}
-          className="justify-en items-end bg-blue-200 px-2 py-1 text-[12px]"
-        >
-          신고하기
-        </button>
+        <PostButtons onClickReport={handleConfirmationModal} />
       </article>
       {/* 모달창 */}
       <ConfirmModal
@@ -84,8 +76,9 @@ const DailyDetailPost = ({ id }: { id: number }) => {
         onOpen={toggleConfirmModal}
         onClose={handleConfirmationModal}
       />
-      <div className="h-4 min-w-screen bg-gray-200"></div>{" "}
+
       {/* NOTE: 화면에 보이는 회색 줄 */}
+      <div className="h-4 min-w-screen bg-gray-200"></div>
     </section>
   );
 };

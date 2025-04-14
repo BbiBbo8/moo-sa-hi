@@ -1,6 +1,6 @@
 import CommentList from "@/components/community/CommentList";
 import CommentForm from "@/components/community/form/CommentForm";
-import ShelterDetailPost from "@/components/community/ShelterDetailPost";
+import ShelterDetailPost from "@/components/community/detail/ShelterDetailPost";
 
 const shelterDetailPage = async ({
   params,
