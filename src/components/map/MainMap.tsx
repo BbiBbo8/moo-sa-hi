@@ -6,10 +6,14 @@ import { useMapStore } from "@/store/useMapStore";
 import { useShelters } from "@/hooks/shelter/useShelters";
 import Loading from "@/app/(pages)/Loading";
 import Error from "@/app/(pages)/Error";
+import { useMarkerStore } from "@/store/useMarkerStore";
 
 const MainMap = () => {
   const mapRef = useRef<kakao.maps.Map | null>(null); // 카카오 지도 객체를 저장
   const { data: shelters = [], isLoading, error } = useShelters(); // tanstackquery로 이용한 hook기능
+
+  // 대피소 중 현재 지도에 보이는 것만 필터링해서 zustand useMarkerStore에 저장
+  const setMarkedShelter = useMarkerStore(state => state.setMarkedShelter);
 
   // zustand의 지도 상태 값 가져오기
   const center = useMapStore(state => state.center);
@@ -17,6 +21,22 @@ const MainMap = () => {
   const setLevel = useMapStore(state => state.setLevel);
   const setCenter = useMapStore(state => state.setCenter);
   const reset = useMapStore(state => state.reset);
+
+  useEffect(() => {
+    // shelters 데이터가 없으면 아무것도 않함함
+    if (!mapRef.current || !shelters) return;
+
+    // 현재 지도의 영역 보이는 범위를 가져옴옴
+    const bounds = mapRef.current.getBounds();
+
+    // 전체 대피소 지도 화면 안에 있는 대피소만 필터링
+    const check = shelters.filter(shelter =>
+      bounds.contain(new kakao.maps.LatLng(shelter.lat, shelter.lng)),
+    );
+
+    // 필터링된 대피소 목록을 useMarkerStore 전역 상태로 저장장
+    setMarkedShelter(check);
+  }, [shelters, center, level]);
 
   // 지도 생성 시 실행되는 함수
   const handleCreate = (map: kakao.maps.Map) => {
@@ -46,6 +66,25 @@ const MainMap = () => {
     }
   }, [center]);
 
+  // 마커 클러스터 이동 로직
+  const handleClusterClick = (
+    _target: kakao.maps.MarkerClusterer,
+    cluster: kakao.maps.Cluster,
+  ) => {
+    const center = cluster.getCenter(); // 중심 위치 구하기
+    if (center && mapRef.current) {
+      mapRef.current.panTo(center); // 지도 이동
+      setCenter({ lat: center.getLat(), lng: center.getLng() }); // 상태 업데이트
+    }
+  };
+
+  // 마커 클릭 로직
+  const handleMarkerClick = (lat: number, lng: number) => {
+    const newCenter = new kakao.maps.LatLng(lat, lng);
+    mapRef.current?.panTo(newCenter); // 지도 이동
+    setCenter({ lat, lng }); // 상태 업데이트
+  };
+
   if (isLoading) return <Loading />;
   if (error) return <Error />;
 
@@ -59,16 +98,16 @@ const MainMap = () => {
         setLevel(map.getLevel());
       }}
     >
-      <MarkerClusterer averageCenter={true} minLevel={10}>
+      <MarkerClusterer
+        averageCenter={true}
+        minLevel={10}
+        onClusterclick={handleClusterClick}
+      >
         {shelters.map((shelter, index) => (
           <MapMarker
             key={`${shelter.name}-${index}`}
             position={{ lat: shelter.lat, lng: shelter.lng }}
-            onClick={() => {
-              const newCenter = new kakao.maps.LatLng(shelter.lat, shelter.lng);
-              mapRef.current?.panTo(newCenter);
-              setCenter({ lat: shelter.lat, lng: shelter.lng });
-            }}
+            onClick={() => handleMarkerClick(shelter.lat, shelter.lng)}
           />
         ))}
       </MarkerClusterer>
