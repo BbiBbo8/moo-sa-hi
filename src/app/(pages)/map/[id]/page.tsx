@@ -2,6 +2,7 @@ import ShelterExtraFeature from "@/components/map/ShelterExtraFeature";
 import Link from "next/link";
 import React from "react";
 import fetchSheltersApi from "@/app/api/fetchSheltersApi";
+import DetailMap from "@/components/detail/DetailMap";
 
 // Test ID: 3910000_S202400002
 // 대피소 디테일 테스트 해보실 분들은
@@ -31,7 +32,9 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <section className="flex flex-col gap-3 p-2">
-      <div className="bg-accent h-40 w-full text-center">지도</div>
+      <div className="bg-accent h-40 w-full text-center">{(shelter?.lat && shelter?.lng) && (
+  <DetailMap lat={shelter.lat} lng={shelter.lng} name={shelter.name} />
+)}</div>
       <div className="flex-col">
         <h3 className="text-3xl font-semibold">
           {shelter?.name ?? "정보없음"}
