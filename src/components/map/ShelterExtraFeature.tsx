@@ -30,7 +30,8 @@ const ShelterExtraFeature = ({
         >
           <Copy />
         </button>
-        <h5>{address ?? "주소 정보 없음"}</h5>
+        {/* 트렁케이트: 주소가 길 경우 생략 줄 넘침 방지 ex)00동 ... */}
+        <h5 className="truncate">{address ?? "주소 정보 없음"}</h5>
       </div>
       {/* 장소 공유와 길 안내는 추후 도전 기능으로 추가 */}
       <div className="flex justify-evenly gap-2 text-center">
