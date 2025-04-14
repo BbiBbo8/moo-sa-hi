@@ -47,7 +47,7 @@ const CommentList = () => {
           <CardContent>
             <CardDescription>{comment.comments}</CardDescription>
           </CardContent>
-          {isOwned() && <Button>삭제</Button>}
+          {isOwned() && <Button onClick={handleDeleteComments}>삭제</Button>}
         </Card>
       ))}
     </section>
