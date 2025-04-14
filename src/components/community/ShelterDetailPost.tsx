@@ -1,6 +1,6 @@
 "use client";
 
-import useShelterPostDetailQuery from "@/utils/ShelterPostDetailsQuery";
+import useShelterPostDetailQuery from "@/utils/shelterPostDetailsQuery";
 import Image from "next/image";
 import { format } from "date-fns";
 import Loading from "@/app/(pages)/Loading";
@@ -41,9 +41,15 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
     // }, [shelters, setCenter, setLevel]); // TEST : 임시값 테스트 코드
   }, [data?.shelter_name, shelters, setCenter, setLevel]); // 현재 값이 없어 전체 지도로만 나옴.
 
-  if (isLoading) return <Loading />;
-  if (error) return <Error />;
-  if (!data) return null;
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error />;
+  }
+  if (!data) {
+    return null;
+  }
 
   const timeCreated = format(new Date(data.created_at), "yyyy.MM.dd");
 

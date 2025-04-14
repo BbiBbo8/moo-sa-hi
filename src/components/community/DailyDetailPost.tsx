@@ -5,13 +5,33 @@ import Image from "next/image";
 import { format } from "date-fns";
 import Loading from "@/app/(pages)/Loading";
 import Error from "@/app/(pages)/Error";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import PATH from "@/constants/PATH";
+import { useEffect } from "react";
 
 const DailyDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useDailyPostDetailQuery(id);
+  const router = useRouter();
 
-  if (isLoading) return <Loading />;
-  if (error) return <Error />;
-  if (!data) return null; // <= 이거 추가
+  useEffect(() => {
+    if (error) {
+      toast("존재하지 않는 페이지입니다.");
+      router.push(PATH.COMMUNITYDAILY);
+    }
+  }, [error, router]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
+
+  if (!data) {
+    return null;
+  }
 
   const timeCreated = format(new Date(data.created_at), "yyyy.MM.dd");
 
