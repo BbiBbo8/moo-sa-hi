@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 // 공통 폼 필드 타입 정의
 export type PostFormData = {
@@ -7,11 +7,10 @@ export type PostFormData = {
   image?: File | null; // Daily용 이미지
 };
 
-
 // 공통 스키마
 const postEditor = z.object({
-  title: z.string().min(1, '제목을 입력해주세요'),
-  contents: z.string().min(1, '본문을 입력해주세요'),
+  title: z.string().min(1, "제목을 입력해주세요"),
+  contents: z.string().min(1, "본문을 입력해주세요"),
   image: z.any().optional(),
 });
 
@@ -23,6 +22,6 @@ export const getPayload = (data: PostFormData) => {
   return {
     title: data.title,
     contents: data.contents,
-    img_url: data.image ? data.image.name : '',
+    img_url: data.image ? data.image.name : "",
   };
 };
