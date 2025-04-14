@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { useUserData } from "@/hooks/useUserData";
 import Loading from "@/app/(pages)/Loading";
 import Error from "@/app/(pages)/Error";
+import createClient from "@/supabase/client";
 
 const CommentList = () => {
   const { data, error, isLoading } = useUserData();
@@ -28,6 +29,15 @@ const CommentList = () => {
     }
   };
 
+  const supabase = createClient();
+
+  const handleDeleteComments = async () => {
+    const { error } = await supabase
+      .from("comments")
+      .delete()
+      .eq("some_column", "someValue");
+  };
+
   return (
     <section className="flex flex-col">
       {comments.map(comment => (
@@ -35,7 +45,7 @@ const CommentList = () => {
           <CardContent>
             <CardDescription>{comment.comments}</CardDescription>
           </CardContent>
-          {isOwned && <Button>삭제</Button>}
+          {isOwned() && <Button>삭제</Button>}
         </Card>
       ))}
     </section>
