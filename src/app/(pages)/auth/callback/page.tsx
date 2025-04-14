@@ -1,46 +1,43 @@
-"use client";
+import { redirect } from "next/navigation";
+import createSC from "@/supabase/server";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import createClient from "@/supabase/client";
-import PATH from "@/constants/PATH";
+const CallbackPage = async () => {
+  const supabase = await createSC();
 
-const CallbackPage = () => {
-  const router = useRouter();
-  const supabase = createClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
 
-  useEffect(() => {
-    const handleAuthCallback = async () => {
-      const {
-        data: { user },
-        error,
-      } = await supabase.auth.getUser();
+  if (error || !user) {
+    console.error("세션 없음 또는 인증 실패", error);
+    redirect("/auth/auth-code-error");
+  }
 
-      if (error || !user) {
-        console.error("로그인 실패 또는 유저 없음", error);
-        router.replace(PATH.AUTHERROR);
-        return;
-      }
+  // users 테이블 조회
+  const { data: existingUser } = await supabase
+    .from("users")
+    .select("nickname")
+    .eq("id", user.id)
+    .maybeSingle();
 
-      const { data: existingUser, error: userError } = await supabase
-        .from("users")
-        .select("nickname")
-        .eq("id", user.id)
-        .single();
+  // 유저 없으면 자동 삽입
+  if (!existingUser) {
+    const { error: insertError } = await supabase.from("users").insert({
+      id: user.id,
+      nickname: "",
+    });
 
-      if (userError) {
-        console.error("유저 조회 실패", userError);
-        router.replace("/auth/auth-code-error");
-        return;
-      }
+    if (insertError) {
+      console.error("유저 삽입 실패", insertError);
+      redirect("/auth/auth-code-error");
+    }
 
-      router.replace(existingUser?.nickname ? PATH.HOME : PATH.NICKNAME);
-    };
+    redirect("/auth/nickname");
+  }
 
-    handleAuthCallback();
-  }, []);
-
-  return <div className="p-6 text-center">로그인 처리 중...</div>;
+  // 닉네임 여부에 따라 라우팅
+  redirect(existingUser.nickname ? "/" : "/auth/nickname");
 };
 
 export default CallbackPage;

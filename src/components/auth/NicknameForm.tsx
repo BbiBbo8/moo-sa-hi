@@ -77,7 +77,7 @@ const NicknameForm = ({ userId }: { userId: string }) => {
           )}
         />
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "등록 중..." : "닉네임 + 프로필 저장"}
+          {isSubmitting ? "등록 중..." : "저장하기"}
         </Button>
       </form>
     </Form>
