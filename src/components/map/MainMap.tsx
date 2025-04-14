@@ -114,14 +114,14 @@ const MainMap = () => {
             }
           >
             {selectMarker === shelter.name && (
-              <div className="relative min-w-[150px] p-2 text-sm text-black">
+              <div className="relative min-w-[150px] p-2 text-sm whitespace-nowrap text-black">
                 <img
                   alt="close"
                   src="https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
                   className="absolute top-1 right-1 h-[13px] w-[14px]"
                   onClick={() => setSelectMarker(null)}
                 />
-                <div>{shelter.name}</div>
+                <div className="pr-6">{shelter.name}</div>
               </div>
             )}
           </MapMarker>
