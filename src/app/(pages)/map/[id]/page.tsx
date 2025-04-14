@@ -22,10 +22,13 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
       <div className="bg-accent flex w-full flex-col gap-1 rounded-lg border px-4 py-3 text-sm">
         <p className="text-lg">
           담당 전화:{" "}
-          <Link href="{`tel:${shelter.phone}`}" className="text-indigo-500">
-            {/* a 태그로 자동 전화걸기 */}
-            {shelter?.phone}
-          </Link>
+          {shelter?.phone ? (
+            <Link href={`tel:${shelter.phone}`} className="text-indigo-500">
+              {shelter.phone}
+            </Link>
+          ) : (
+            "정보 없음"
+          )}
         </p>
         <p className="text-lg">수용인원: {shelter?.capacity}명</p>
         <p className="text-lg">시설 규모: {shelter?.scale}</p>

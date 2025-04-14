@@ -30,7 +30,7 @@ const fetchSheltersApi = async (): Promise<Shelter[]> => {
     capacity: item.SHNT_PSBLTY_NOPE, // 대피가능인원수
     scale: `${item.FCLT_SCL}${item.SCL_UNIT}`, // 시설규모
     manager: item.MNG_INST_NM, // 관리기관명
-    phone: item.TEL_NO, // 관리기관전화번호
+    phone: item.MNG_INST_TELNO, // 관리기관전화번호
     locationType: item.GRND_UDGD_SE, // 지상지하구분
     isOpen: item.OPN_YN, // 개방여부
     usageType: item.ORTM_UTLZ_TYPE, // 평상시활용유형
