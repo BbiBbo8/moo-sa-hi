@@ -32,9 +32,12 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <section className="flex flex-col gap-3 p-2">
-      <div className="bg-accent h-40 w-full text-center">{(shelter?.lat && shelter?.lng) && (
-  <DetailMap lat={shelter.lat} lng={shelter.lng} name={shelter.name} />
-)}</div>
+      {/* 지도 렌더링 */}
+      <div className="bg-accent h-40 w-full text-center">
+        {shelter?.lat && shelter?.lng && (
+          <DetailMap lat={shelter.lat} lng={shelter.lng} name={shelter.name} />
+        )}
+      </div>
       <div className="flex-col">
         <h3 className="text-3xl font-semibold">
           {shelter?.name ?? "정보없음"}
