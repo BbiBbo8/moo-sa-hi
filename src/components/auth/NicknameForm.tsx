@@ -44,7 +44,7 @@ const NicknameForm = ({ userId }: { userId: string }) => {
   const onSubmit = async (data: FormData) => {
     const supabase = createClient();
 
-    const { error: dbError } = await supabase.from("users").insert({
+    const { error: dbError } = await supabase.from("users").upsert({
       id: userId,
       nickname: data.nickname,
     });
