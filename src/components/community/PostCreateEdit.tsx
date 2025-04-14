@@ -8,72 +8,79 @@ import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import createClient from "@/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import ShelterForm from "./form/ShelterForm";
 import DailyForm from "./form/DailyForm";
-import PATH from "@/constants/PATH";
+import ImageDropzone from "./form/ImageDropzone";
+import { useQuery } from "@tanstack/react-query";
 
 const supabase = createClient();
 
-// Zod 스키마 정의 - 각 입력값에 대한 유효성 검사 설정
+// Zod 스키마를 기반으로 타입 정의
 const EditSchema = z.object({
   title: z.string().min(1, "제목을 입력해주세요"),
   contents: z.string().min(1, "내용을 입력해주세요"),
+  imgUrl: z.string().optional(),
 });
 
-// 스키마 기반 타입 정의 - 리훅폼과 타입 연결
 export type FormData = z.infer<typeof EditSchema>;
 
-function PostCreateEdit() {
+const PostCreateEdit = () => {
   const router = useRouter();
   const { toast } = useToast();
 
-  // useForm 훅으로 폼 설정 - zodResolver를 통해 Zod 유효성 검사 연결
+  const [category, setCategory] = useState<"shelter" | "daily">("shelter");
+  const [imgUrl, setImgUrl] = useState<string | null>(null);
+
+  // DB 로그인 유저 정보 가져오기
+  const {
+    data: user,
+    isPending,
+    isError,
+  } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (error || !data.user)
+        throw new Error("유저 정보를 불러오지 못했습니다.");
+      return data.user;
+    },
+  });
+
+  // 리액트 훅 폼
   const form = useForm<FormData>({
     resolver: zodResolver(EditSchema),
     defaultValues: {
       title: "",
       contents: "",
+      imgUrl: "",
     },
   });
 
-  // 상태값으로 카테고리 구분 - shelter(대피소) or daily(일상)
-  const [category, setCategory] = useState<"shelter" | "daily">("shelter"); // shelter가 디폴트
+  // 게시글 삽입
+  const handlePostInsert = async (values: FormData) => {
+    const payload = {
+      title: values.title,
+      contents: values.contents,
+      img_url: imgUrl ?? "",
+    };
 
-  // DB에 게시글 저장하는 함수 - 카테고리에 따라 해당 테이블에 저장
-  const handleInsert = async (userId: string, values: FormData) => {
-    const tempUserId = "c785ad0d-bb9c-45ef-9c01-532e1117ba66"; // 나는 바보입니다. 왜 안되지 했더니 supabase 정책은  (auth.uid() = user_id) 넣어두곤 여기 비워둠요..
-
-    if (category === "shelter") {
-      // 4월 9~11일에 걸쳐 대피소 위치, 현재 사용자 위치 등 예정
-      return await supabase.from("shelter_post").insert({
-        user_id: tempUserId,
-        title: values.title,
-        contents: values.contents,
-      });
-    } else {
-      return await supabase.from("daily_post").insert({
-        user_id: tempUserId,
-        title: values.title,
-        contents: values.contents,
-        img_url: "", // 이미지 url 임시
-      });
-    }
+    return category === "shelter"
+      ? await supabase.from("shelter_post").insert(payload)
+      : await supabase.from("daily_post").insert(payload);
   };
 
-  // 등록 함수 - 유효성 통과 시 실행 (DB 저장 및 결과 처리)
+  // 등록 핸들러
   const onSubmit = async (values: FormData) => {
-    console.log("onSubmit 실행", values); // onSubmit이 호출되었는지 확인
+    if (!user?.id) return;
 
-    // 🧪 로그인 없이 개발자용 임시 ID로 insert 테스트
-    const insertResult = await handleInsert("dev-user-id-placeholder", values);
-    console.log("insert 결과:", insertResult);
-    // 좀 더 안전한 방법이라고 하던데.. 긁어온거라..
+    const insertResult = await handlePostInsert(values);
+
     if (insertResult.error) {
       const errorMessage =
         insertResult.error?.message ?? "알 수 없는 오류가 발생했습니다.";
-      console.error("insert 실패 사유:", errorMessage);
       toast({
         title: "저장 실패",
         description: errorMessage,
@@ -84,33 +91,75 @@ function PostCreateEdit() {
         title: "저장 완료",
         description: "게시글이 성공적으로 저장되었습니다.",
       });
-      router.push(PATH.COMMUNITYSHELTER);
+      router.push("/community");
     }
   };
 
+  const handleRemoveImage = () => {
+    setImgUrl(null);
+  };
+
+  // 로딩 & 에러 처리
+  if (isPending) return <div>로딩 중...</div>;
+
+  if (isError || !user) {
+    toast({
+      title: "유저 정보 오류",
+      description: "로그인 정보를 불러올 수 없습니다.",
+      variant: "destructive",
+    });
+    return null;
+  }
+
   return (
-    // Form 컴포넌트로 전체 폼 상태를 context로 전달
     <Form {...form}>
-      {/* 실제 form 태그 */}
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        {/* 카테고리 선택, 등록 버튼 */}
         <div className="flex items-center justify-between">
-          {/* 탭 전환 UI - 타입 사용하여 에러 방지 */}
           <Tabs
             value={category}
-            onValueChange={value => setCategory(value as "shelter" | "daily")}
+            onValueChange={(value: string) =>
+              setCategory(value as "shelter" | "daily")
+            }
           >
             <TabsList>
               <TabsTrigger value="shelter">대피소</TabsTrigger>
               <TabsTrigger value="daily">일상</TabsTrigger>
             </TabsList>
           </Tabs>
-
-          {/* 등록 버튼 */}
           <Button type="submit">등록</Button>
         </div>
 
-        {/* 카테고리에 따라 폼 필드 렌더링 */}
+        <div className="space-y-4">
+          {/* Dropzone : 업로드한 이미지 url로 전달 */}
+          <ImageDropzone
+            userId={user.id} // img 저장에는 여전히 userId필요
+            category={category}
+            onUploadComplete={(url: string | null) => setImgUrl(url)}
+          />
+
+          {imgUrl && (
+            <div className="relative h-auto w-64">
+              <Image
+                src={imgUrl}
+                alt="미리보기"
+                width={256}
+                height={192}
+                className="rounded-md border border-gray-200 object-cover"
+              />
+              <Button
+                type="button"
+                variant="destructive"
+                size="sm"
+                className="mt-2"
+                onClick={handleRemoveImage}
+              >
+                이미지 삭제
+              </Button>
+            </div>
+          )}
+        </div>
+
+        {/* 선택된 카테고리에 따라 폼 렌더링 */}
         {category === "shelter" ? (
           <ShelterForm form={form} />
         ) : (
@@ -119,6 +168,6 @@ function PostCreateEdit() {
       </form>
     </Form>
   );
-}
+};
 
 export default PostCreateEdit;
