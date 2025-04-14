@@ -2,11 +2,13 @@ import AlertBanner from "@/components/landing/AlertBanner";
 import MapPreview from "@/components/landing/MapPreview";
 import LandingBanner from "@/components/landing/BannerSection";
 import SigninDrawer from "@/components/auth/SigninDrawer";
+import LogoutButton from "@/components/auth/LogoutButton";
 
 const HomePage = () => {
   return (
     <main className="px-4 py-6 space-y-8">
       <SigninDrawer />
+      <LogoutButton />
       <>상단 배너</>
       <AlertBanner />
       <>지도 미리보기 클릭시 = map페이지로 이동</>
