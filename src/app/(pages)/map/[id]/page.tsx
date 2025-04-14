@@ -53,7 +53,12 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
       </div>
       <article className="relative p-2">
         <p>대피소 정보 오류는 행정안전부 콜센터로 제보 바랍니다.</p>
-        <p>02-2100-3399</p>
+        <p className="text-md">
+          행정안전부 콜센터:{" "}
+            <Link href={`tel:02-2100-3399`} className="text-indigo-500">
+              02-2100-3399
+            </Link>
+        </p>
       </article>
     </section>
   );
