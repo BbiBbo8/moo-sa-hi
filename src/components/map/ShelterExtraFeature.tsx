@@ -5,10 +5,11 @@ import { Copy, Navigation, Share2 } from "lucide-react";
 
 interface ShelterExtraFeatureProps {
   address?: string;
-  addressRoad?: string;
 }
 
-const ShelterExtraFeature = ({ address, addressRoad }: ShelterExtraFeatureProps) => {
+const ShelterExtraFeature = ({
+  address
+}: ShelterExtraFeatureProps) => {
   // 복사 이벤트 발생 함수
   const handleCopyText = async (text: string) => {
     try {
@@ -22,10 +23,14 @@ const ShelterExtraFeature = ({ address, addressRoad }: ShelterExtraFeatureProps)
     <>
       <div className="text-md flex w-full justify-evenly rounded-lg border px-4 py-3 text-center">
         {/* 클릭 시 텍스트를 복사 */}
-        <button onClick={() => handleCopyText("서울특별시 어쩌고")}>
+        <button
+          onClick={() =>
+            handleCopyText(address ?? "주소 정보 없음")
+          }
+        >
           <Copy />
         </button>
-        <h5>서울특별시 지역동 어느길 0000-0000</h5>
+        <h5>{address ?? "주소 정보 없음"}</h5>
       </div>
       {/* 장소 공유와 길 안내는 추후 도전 기능으로 추가 */}
       <div className="flex justify-evenly gap-2 text-center">

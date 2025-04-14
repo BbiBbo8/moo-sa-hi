@@ -33,7 +33,7 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
           행정 안전부 제공
         </h5>
       </div>
-      <ShelterExtraFeature />
+      <ShelterExtraFeature address={shelter?.address} />
       <div className="bg-accent flex w-full flex-col gap-1 rounded-lg border px-4 py-3 text-sm">
         <p className="text-lg">
           담당 전화:{" "}
