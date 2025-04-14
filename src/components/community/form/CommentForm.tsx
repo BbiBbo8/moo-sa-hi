@@ -93,7 +93,6 @@ const CommentForm = () => {
           name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>댓글</FormLabel>
               <FormControl>
                 <Input placeholder="댓글을 입력해주세요." {...field} />
               </FormControl>
