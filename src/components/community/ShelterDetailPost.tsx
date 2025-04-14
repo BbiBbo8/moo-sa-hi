@@ -11,6 +11,7 @@ import { useShelters } from "@/hooks/shelter/useShelters";
 import { toast } from "sonner";
 import Error from "@/app/(pages)/Error";
 import ConfirmModal from "./ConfirmModal";
+import DetailMap from "../detail/DetailMap";
 
 const ShelterDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useShelterPostDetailQuery(id);
@@ -69,17 +70,18 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
           </span>
         </header>
 
-        <div className="flex items-center justify-center">
-          <figure className="flex h-[350px] w-[350px] items-center justify-center rounded-3xl border-2 border-gray-400">
-            이미지
-            {/* <Image
-          src={data.img_url || ""}
-          alt="이미지가 없습니다."
-          width={300}
-          height={200}
-        /> */}
-          </figure>
-        </div>
+        {data.img_url?.startsWith("http") || data.img_url?.startsWith("/") ? (
+          <div className="flex items-center justify-center">
+            <figure className="flex h-[350px] w-[350px] items-center justify-center rounded-3xl border-2 border-gray-400">
+              <Image
+                src={data.img_url}
+                alt="이미지를 불러오지 못했습니다."
+                width={300}
+                height={200}
+              />
+            </figure>
+          </div>
+        ) : null}
 
         <p className="min-h-20 w-full border-2 border-gray-400">
           내용 : {data.contents}
@@ -92,6 +94,9 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
 
         <figure className="flex h-40 overflow-hidden rounded-2xl">
           <MainMap />
+          {/* TEST: (고민 내용) 포함정보가 많아 무거운 MainMap보다 DetailMap을 쓰는 걸 추천받았지만
+          그렇게 되면 테이블과 게시글 정보 입력 함수도 고치게 되서 고민중이다. 아침에 회의 하기 */}
+          {/* <DetailMap lat={37.5503} lng={126.9971} name={"우리동네"} /> */}
         </figure>
       </article>
       <button className="flex h-[40px] w-[120px] items-center justify-center rounded-sm bg-gray-200 text-sm">

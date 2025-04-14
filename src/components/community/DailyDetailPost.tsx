@@ -50,17 +50,18 @@ const DailyDetailPost = ({ id }: { id: number }) => {
           <span className="text-[14px] text-gray-500">{timeCreated}</span>
         </header>
 
-        <div className="flex items-center justify-center">
-          <figure className="flex h-[350px] w-[350px] items-center justify-center rounded-3xl border-2 border-gray-400">
-            이미지
-            {/* <Image
-        src={data.img_url || ""}
-        alt="이미지가 없습니다."
-        width={300}
-        height={200}
-      /> */}
-          </figure>
-        </div>
+        {data.img_url?.startsWith("http") || data.img_url?.startsWith("/") ? (
+          <div className="flex items-center justify-center">
+            <figure className="flex h-[350px] w-[350px] items-center justify-center rounded-3xl border-2 border-gray-400">
+              <Image
+                src={data.img_url}
+                alt="이미지가 없습니다."
+                width={300}
+                height={200}
+              />
+            </figure>
+          </div>
+        ) : null}
 
         <p className="min-h-20 w-full border-2 border-gray-400">
           {data.contents}
