@@ -10,10 +10,12 @@ import { useRouter } from "next/navigation";
 import PATH from "@/constants/PATH";
 import { useEffect, useState } from "react";
 import CommentForm from "./form/CommentForm";
+import getUserData from "@/supabase/getUserData";
 
 const DailyDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useDailyPostDetailQuery(id);
   const [toggleConfirmModal, setToggleConfirmModal] = useState(false);
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -22,6 +24,18 @@ const DailyDetailPost = ({ id }: { id: number }) => {
       router.push(PATH.COMMUNITYDAILY);
     }
   }, [error, router]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userData = await getUserData();
+      console.log("userData", userData);
+      const userId = userData.user?.id;
+      if (userId) {
+        setCurrentUser(userId);
+      }
+    };
+    fetchUserData();
+  }, []);
 
   if (isLoading) {
     return <Loading />;
@@ -49,7 +63,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
           <span className="text-[14px] text-gray-500">{timeCreated}</span>
         </header>
 
-        <div className="flex items-center justify-center border-2 border-gray-200">
+        <div className="flex items-center justify-center">
           <figure className="flex h-[350px] w-[350px] items-center justify-center rounded-3xl border-2 border-gray-400">
             이미지
             {/* <Image
@@ -77,6 +91,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
         </button>
       </article>
 
+      {/* 모달창 */}
       {toggleConfirmModal && (
         <>
           <div
@@ -96,9 +111,15 @@ const DailyDetailPost = ({ id }: { id: number }) => {
               >
                 닫기
               </button>
-              <button className="h-[44px] w-[140px] rounded-lg border-1 border-gray-400">
-                신고하기
-              </button>
+              {currentUser === data.user ? (
+                <button className="h-[44px] w-[140px] rounded-lg border-1 border-gray-400">
+                  삭제하기
+                </button>
+              ) : (
+                <button className="h-[44px] w-[140px] rounded-lg border-1 border-gray-400">
+                  신고하기
+                </button>
+              )}
             </article>
           </article>
         </>
