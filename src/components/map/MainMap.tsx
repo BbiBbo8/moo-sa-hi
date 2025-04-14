@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
 import { useMapStore } from "@/store/useMapStore";
 import { useShelters } from "@/hooks/shelter/useShelters";
@@ -11,6 +11,7 @@ import { useMarkerStore } from "@/store/useMarkerStore";
 const MainMap = () => {
   const mapRef = useRef<kakao.maps.Map | null>(null); // 카카오 지도 객체를 저장
   const { data: shelters = [], isLoading, error } = useShelters(); // tanstackquery로 이용한 hook기능
+  const [selectMarker, setSelectMarker] = useState<string | null>(null);
 
   // 대피소 중 현재 지도에 보이는 것만 필터링해서 zustand useMarkerStore에 저장
   const setMarkedShelter = useMarkerStore(state => state.setMarkedShelter);
@@ -79,10 +80,11 @@ const MainMap = () => {
   };
 
   // 마커 클릭 로직
-  const handleMarkerClick = (lat: number, lng: number) => {
+  const handleMarkerClick = (lat: number, lng: number, name: string) => {
     const newCenter = new kakao.maps.LatLng(lat, lng);
     mapRef.current?.panTo(newCenter); // 지도 이동
     setCenter({ lat, lng }); // 상태 업데이트
+    setSelectMarker(name);
   };
 
   if (isLoading) return <Loading />;
@@ -107,8 +109,22 @@ const MainMap = () => {
           <MapMarker
             key={`${shelter.name}-${index}`}
             position={{ lat: shelter.lat, lng: shelter.lng }}
-            onClick={() => handleMarkerClick(shelter.lat, shelter.lng)}
-          />
+            onClick={() =>
+              handleMarkerClick(shelter.lat, shelter.lng, shelter.name)
+            }
+          >
+            {selectMarker === shelter.name && (
+              <div className="relative min-w-[150px] p-2 text-sm text-black">
+                <img
+                  alt="close"
+                  src="https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
+                  className="absolute top-1 right-1 h-[13px] w-[14px]"
+                  onClick={() => setSelectMarker(null)}
+                />
+                <div>{shelter.name}</div>
+              </div>
+            )}
+          </MapMarker>
         ))}
       </MarkerClusterer>
     </Map>
