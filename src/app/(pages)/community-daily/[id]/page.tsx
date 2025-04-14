@@ -1,3 +1,5 @@
+import CommentForm from "@/components/community/form/CommentForm";
+
 const DailyDeatailPage = ({
   params,
 }: {
@@ -8,6 +10,7 @@ const DailyDeatailPage = ({
   return (
     <>
       <div>아이디 값: {params.id}</div>
+      <CommentForm />
     </>
   );
 };
