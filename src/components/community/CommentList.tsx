@@ -21,6 +21,7 @@ const CommentList = () => {
     return <Error />;
   }
 
+  //   댓글 작성자 여부 확인
   const isOwned = () => {
     if (user?.id === comments.user_id) {
       return true;
@@ -31,6 +32,7 @@ const CommentList = () => {
 
   const supabase = createClient();
 
+  //   댓글을 삭제하는 함수
   const handleDeleteComments = async () => {
     const { error } = await supabase
       .from("comments")
