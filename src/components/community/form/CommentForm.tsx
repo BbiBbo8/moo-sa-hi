@@ -16,6 +16,7 @@ import createClient from "@/supabase/client";
 import { toast } from "sonner";
 import { usePathname } from "next/navigation";
 import PATH from "@/constants/PATH";
+import { useUserData } from "@/hooks/useUserData";
 
 const commentSchema = z.object({
   content: z
@@ -37,6 +38,9 @@ const CommentForm = ({ postId }: { postId: number }) => {
   const supabase = createClient();
   const pathname = usePathname();
 
+  const { data, error, isLoading } = useUserData();
+  const userId = data?.user?.id;
+
   // supabase에 작성된 댓글을 넣는 함수
   const handleInsertComments = async ({ content }: { content: string }) => {
     try {
@@ -46,8 +50,8 @@ const CommentForm = ({ postId }: { postId: number }) => {
           .from("comments")
           .insert([
             {
-              user_id: "11f37be0-4036-467b-b963-11b744903d1c" /* 확인용 임시 */,
-              shelter_post_id: postId /* 확인용 임시 */,
+              user_id: userId,
+              shelter_post_id: postId,
               daily_post_id: null,
               comments: content,
             },
@@ -59,9 +63,9 @@ const CommentForm = ({ postId }: { postId: number }) => {
         await supabase
           .from("comments")
           .insert({
-            user_id: "11f37be0-4036-467b-b963-11b744903d1c" /* 확인용 임시 */,
+            user_id: userId,
             shelter_post_id: null,
-            daily_post_id: postId /* 확인용 임시 */,
+            daily_post_id: postId,
             comments: content,
           })
           .select();
