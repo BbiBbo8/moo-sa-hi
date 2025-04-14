@@ -1,4 +1,4 @@
-import ShelterExtraFeature from "@/components/map/ShelterExtraFeature";
+import ShelterExtraFeature from "@/components/detail/ShelterExtraFeature";
 import Link from "next/link";
 import React from "react";
 import fetchSheltersApi from "@/app/api/fetchSheltersApi";
