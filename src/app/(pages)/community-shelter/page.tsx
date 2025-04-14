@@ -7,6 +7,7 @@ import { ShelterPost } from "@/components/community/ShelterPost";
 import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
 import PATH from "@/constants/PATH";
+import Loading from "../Loading";
 
 const CommunityShelterPage = () => {
   const pathname = usePathname();
@@ -21,7 +22,7 @@ const CommunityShelterPage = () => {
   });
 
   if (isLoading) {
-    return <p>로딩 중...</p>;
+    return <Loading />;
   }
   if (error) {
     return <p>에러 발생: {error.message}</p>;

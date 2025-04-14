@@ -1,6 +1,7 @@
+import ShelterPostDetail from "@/components/community/ShelterPostDetail";
 import CommentForm from "@/components/community/form/CommentForm";
 
-const ShelterDetailPage = async ({
+const shelterDetailPage = async ({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -9,9 +10,10 @@ const ShelterDetailPage = async ({
   const numericId = Number(id);
 
   return (
-    <div>
-      <div>아이디 값: {id}</div>
+    <main>
+      <ShelterPostDetail id={numericId} />
       <CommentForm />
-    </div>
+    </main>
   );
 };
+export default shelterDetailPage;

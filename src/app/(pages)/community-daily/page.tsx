@@ -6,6 +6,7 @@ import { DailyPost } from "@/components/community/DailyPost";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import PATH from "@/constants/PATH";
+import Loading from "../Loading";
 
 const CommunityDailyPage = () => {
   const {
@@ -17,7 +18,7 @@ const CommunityDailyPage = () => {
     queryFn: fetchDailyPosts,
   });
   if (isLoading) {
-    return <p>로딩 중...</p>;
+    return <Loading />;
   }
   if (error) {
     return <p>에러 발생: {error.message}</p>;
@@ -46,11 +47,11 @@ const CommunityDailyPage = () => {
         </div>
       </section>
 
-      <p className="absolute top-16 flex h-12 w-full items-center justify-center gap-2 bg-white">
+      <div className="absolute top-16 flex h-12 w-full items-center justify-center gap-2 bg-white">
         {/* 아이콘 대용 네모 */}
         <div className="h-5 w-5 bg-gray-200"></div>
         {instruction}
-      </p>
+      </div>
 
       <section className="absolute top-30 flex w-full flex-col items-center justify-center px-4">
         {dailyPosts?.map(post => {

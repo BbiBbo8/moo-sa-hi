@@ -2,7 +2,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Post } from "@/types/communityPost";
 import { format } from "date-fns";
+import PATH from "@/constants/PATH";
 
+// NOTE: 한 줄짜리 타입지정이라 interface가 아닌 type을 사용했습니다.
 type PostCardProps = {
   post: Post;
 };
@@ -12,10 +14,14 @@ export const ShelterPost = ({ post }: PostCardProps) => {
   const formatted = format(new Date(post.created_at), "yyyy.MM.dd");
 
   return (
-    <Link href={`/community-shelter/${post.id}`} className="h-full w-full">
+    <Link
+      href={`${PATH.COMMUNITYSHELTER}/${post.id}`}
+      className="h-full w-full"
+    >
       <Card key={post.id} className="relative h-44 gap-3 px-2">
         <CardContent className="h-full p-0">
           <section className="mt-2 mb-4 flex h-full flex-col items-center gap-2">
+            {/* NOTE: 현재 주석처리된 코드가 사용되어야 하지만 빈 값이라 더미 데이터 사용 */}
             {/* NOTE: 현재 주석처리된 코드가 사용되어야 하지만 빈 값이라 더미 데이터 사용 */}
             {/* <CardTitle>{post.people}</CardTitle> */}
             <CardTitle className="mb-3 rounded-lg border border-black p-3">

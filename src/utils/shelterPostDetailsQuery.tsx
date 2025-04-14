@@ -6,7 +6,7 @@ import createClient from "@/supabase/client";
 const fetchShelterPostDetail = async (id: number) => {
   const supabase = createClient();
   const { data, error } = await supabase
-    .from("daily_post")
+    .from("shelter_post")
     .select(
       `
       id,
@@ -14,6 +14,9 @@ const fetchShelterPostDetail = async (id: number) => {
       title,
       contents,
       img_url,
+      people,
+      supplies,
+      cleanliness,
       user:user_id (
         nickname,
         profile_image
