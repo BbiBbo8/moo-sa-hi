@@ -33,11 +33,8 @@ const CommentList = () => {
   const supabase = createClient();
   const commentId = 1; /* 임시작성 */
   //   댓글을 삭제하는 함수
-  const handleDeleteComments = async () => {
-    const { error } = await supabase
-      .from("comments")
-      .delete()
-      .eq("id", commentId);
+  const handleDeleteComments = async (id: number) => {
+    const { error } = await supabase.from("comments").delete().eq("id", id);
   };
 
   return (
@@ -47,7 +44,9 @@ const CommentList = () => {
           <CardContent>
             <CardDescription>{comment.comments}</CardDescription>
           </CardContent>
-          {isOwned() && <Button onClick={handleDeleteComments}>삭제</Button>}
+          {isOwned() && (
+            <Button onClick={id => handleDeleteComments(id)}>삭제</Button>
+          )}
         </Card>
       ))}
     </section>
