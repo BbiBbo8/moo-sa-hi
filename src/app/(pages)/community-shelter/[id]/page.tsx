@@ -12,7 +12,7 @@ const shelterDetailPage = async ({
   return (
     <main>
       <ShelterDetailPost id={numericId} />
-      <CommentForm />
+      <CommentForm postId={numericId} />
     </main>
   );
 };
