@@ -1,12 +1,12 @@
 import { create } from "zustand";
 
-type MapStore = {
+interface MapStore {
   center: { lat: number; lng: number };
   level: number;
   setCenter: (center: { lat: number; lng: number }) => void;
   setLevel: (level: number) => void;
   reset: () => void;
-};
+}
 
 const initialCenter = { lat: 37.5665, lng: 126.978 }; // 서울시청
 const initialLevel = 13;
