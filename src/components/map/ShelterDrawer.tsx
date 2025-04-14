@@ -11,7 +11,7 @@ import ShelterList from "./ShelterList";
 import { useMarkerStore } from "@/store/useMarkerStore";
 
 const ShelterDrawer = () => {
-  const checkShelters = useMarkerStore(state => state.checkShelters);
+  const markedShelter = useMarkerStore(state => state.markedShelter);
   return (
     <Drawer>
       {/* 드로어 열기 트리거 */}
@@ -25,7 +25,7 @@ const ShelterDrawer = () => {
           {/* 내용이 들어가지 않아도 title을 필수로 넣어야 한다 */}
           <DrawerTitle />
           <DrawerDescription>
-            주변 대피소 {checkShelters.length}
+            주변 대피소 {markedShelter.length}
           </DrawerDescription>
         </DrawerHeader>
         <ShelterList /> {/* 대피소 리스트트 */}

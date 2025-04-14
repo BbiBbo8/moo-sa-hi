@@ -13,7 +13,7 @@ const MainMap = () => {
   const { data: shelters = [], isLoading, error } = useShelters(); // tanstackquery로 이용한 hook기능
 
   // 대피소 중 현재 지도에 보이는 것만 필터링해서 zustand useMarkerStore에 저장
-  const setCheckShelters = useMarkerStore(state => state.setCheckShelters);
+  const setMarkedShelter = useMarkerStore(state => state.setMarkedShelter);
 
   // zustand의 지도 상태 값 가져오기
   const center = useMapStore(state => state.center);
@@ -35,7 +35,7 @@ const MainMap = () => {
     );
 
     // 필터링된 대피소 목록을 useMarkerStore 전역 상태로 저장장
-    setCheckShelters(check);
+    setMarkedShelter(check);
   }, [shelters, center, level]);
 
   // 지도 생성 시 실행되는 함수
