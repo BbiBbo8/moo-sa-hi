@@ -158,10 +158,8 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
       {/* TEST: 화면에 보이는 회색 줄 부분입니다. 임시로 div태그를 사용했지만 이후 바뀔 예정입니다. 무슨 태그가 좋을까요? */}
       <div className="h-4 min-w-screen bg-gray-200"></div>
 
-      <aside className="w-full pb-20">
-        <CommentForm />
-      </aside>
-    </section>
+      {/* NOTE: 댓글 section이 화면에 보이지 않아 임시로 스타일을 부여했습니다. */}
+    </main>
   );
 };
 
