@@ -3,6 +3,14 @@ export interface Shelter {
   address: string;
   lat: number;
   lng: number;
+  capacity: number;
+  scale: string;
+  manager: string;
+  phone: string;
+  locationType: string;
+  isOpen: string;
+  usageType: string;
+  id: string; // 대피소 고유 id
 }
 
 export interface ShelterApiResponse {
