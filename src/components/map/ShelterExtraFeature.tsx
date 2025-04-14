@@ -3,7 +3,12 @@
 import React from "react";
 import { Copy, Navigation, Share2 } from "lucide-react";
 
-const ShelterExtraFeature = () => {
+interface ShelterExtraFeatureProps {
+  address?: string;
+  addressRoad?: string;
+}
+
+const ShelterExtraFeature = ({ address, addressRoad }: ShelterExtraFeatureProps) => {
   // 복사 이벤트 발생 함수
   const handleCopyText = async (text: string) => {
     try {
