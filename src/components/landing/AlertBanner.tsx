@@ -49,7 +49,7 @@ const AlertBanner = () => {
   } = useQuery({
     queryKey: ["disaster-alerts"],
     queryFn: fetchDisasterAlert,
-    refetchInterval: 1000 * 60,
+    refetchInterval: 1000 * 60, // 1분마다 새로고침
   });
 
   const alert = alerts?.[0];
