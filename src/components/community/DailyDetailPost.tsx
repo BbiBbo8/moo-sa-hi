@@ -2,7 +2,6 @@
 
 import { useDailyPostDetailQuery } from "@/hooks/community/useDailyPostDetailQuery";
 import Image from "next/image";
-import { format } from "date-fns";
 import Loading from "@/app/(pages)/Loading";
 import Error from "@/app/(pages)/Error";
 import { toast } from "sonner";
@@ -10,6 +9,7 @@ import { useRouter } from "next/navigation";
 import PATH from "@/constants/PATH";
 import { useEffect, useState } from "react";
 import ConfirmModal from "./ConfirmModal";
+import { formatTime } from "@/utils/formatTime";
 
 const DailyDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useDailyPostDetailQuery(id);
@@ -36,7 +36,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
     return null;
   }
 
-  const timeCreated = format(new Date(data.created_at), "yyyy.MM.dd");
+  const timeCreated = formatTime({ time: data.created_at });
 
   const handleConfirmationModal = () => {
     return setToggleConfirmModal(toggleConfirmModal => !toggleConfirmModal);

@@ -2,7 +2,7 @@
 
 import useShelterPostDetailQuery from "@/utils/shelterPostDetailsQuery";
 import Image from "next/image";
-import { format } from "date-fns";
+import { formatTime } from "@/utils/formatTime";
 import Loading from "@/app/(pages)/Loading";
 import MainMap from "../map/MainMap";
 import { useMapStore } from "@/store/useMapStore";
@@ -54,7 +54,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
     return setToggleConfirmModal(toggleConfirmModal => !toggleConfirmModal);
   };
 
-  const timeCreated = format(new Date(data.created_at), "yyyy.MM.dd");
+  const timeCreated = formatTime({ time: data.created_at });
 
   return (
     <section className="m-4 flex flex-col items-center gap-5">
