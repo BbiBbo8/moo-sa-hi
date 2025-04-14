@@ -1,9 +1,45 @@
 "use client";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import fetchDisasterAlert from "@/app/api/fetchDisasterAlert";
+
+// 색상 테마 매핑 함수
+const getTheme = (type: string) => {
+  const severeTypes = ["지진", "태풍", "해일"];
+  const warningTypes = ["호우", "강풍", "폭염"];
+
+  if (severeTypes.includes(type)) {
+    return {
+      bg: "bg-red-50",
+      border: "border-red-500",
+      text: "text-red-800",
+      icon: "text-red-600",
+      sub: "text-red-500",
+      iconBg: "bg-red-100",
+    };
+  }
+
+  if (warningTypes.includes(type)) {
+    return {
+      bg: "bg-amber-50",
+      border: "border-amber-500",
+      text: "text-amber-800",
+      icon: "text-amber-600",
+      sub: "text-amber-500",
+      iconBg: "bg-amber-100",
+    };
+  }
+
+  return {
+    bg: "bg-gray-50",
+    border: "border-gray-300",
+    text: "text-gray-800",
+    icon: "text-gray-600",
+    sub: "text-gray-500",
+    iconBg: "bg-gray-100",
+  };
+};
 
 const AlertBanner = () => {
   const {
@@ -13,33 +49,29 @@ const AlertBanner = () => {
   } = useQuery({
     queryKey: ["disaster-alerts"],
     queryFn: fetchDisasterAlert,
-    refetchInterval: 1000 * 60, // 1분마다 새로고침
+    refetchInterval: 1000 * 60,
   });
 
   const alert = alerts?.[0];
   if (isLoading || error || !alert) return null;
 
-  return (
-    <div className="w-full px-5 sm:px-[20px]">
-      <Alert
-        variant="destructive"
-        className="flex w-full flex-row items-start gap-4 rounded-xl border border-red-500 bg-red-50 px-4 py-3 shadow-md"
-      >
-        {/* 아이콘 */}
-        <div className="flex-shrink-0 pt-1">
-          <AlertTriangle className="h-5 w-5 text-red-600" />
-        </div>
+  const theme = getTheme(alert.disasterType);
 
-        {/* 텍스트 */}
-        <div className="flex min-w-0 flex-1 flex-col break-words">
-          <AlertTitle className="line-clamp-none break-words whitespace-pre-wrap">
-            {alert.message}
-          </AlertTitle>
-          <AlertDescription className="mt-1 w-full text-sm break-words whitespace-pre-wrap text-red-500">
-            [{alert.region}] · {alert.createdAt}
-          </AlertDescription>
-        </div>
-      </Alert>
+  return (
+    <div
+      className={`mx-20px flex items-center gap-4 rounded-xl border ${theme.border} ${theme.bg} px-5 py-4 shadow-md transition-all duration-300`}
+    >
+      <div
+        className={`flex h-10 w-10 items-center justify-center rounded-full ${theme.iconBg} ${theme.icon}`}
+      >
+        <AlertTriangle className="h-5 w-5" />
+      </div>
+      <div className={`flex flex-col ${theme.text}`}>
+        <p className="text-base leading-snug font-semibold">{alert.message}</p>
+        <p className={`text-sm ${theme.sub} mt-1`}>
+          {alert.region} · {alert.createdAt}
+        </p>
+      </div>
     </div>
   );
 };
