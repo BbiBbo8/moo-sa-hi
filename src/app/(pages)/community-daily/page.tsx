@@ -2,10 +2,12 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchDailyPosts } from "@/supabase/getCommuniy";
-import { DailyPost } from "@/components/community/DailyPost";
+import DailyPost from "@/components/community/DailyPost";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import PATH from "@/constants/PATH";
+import Loading from "../Loading";
+import Error from "../Error";
 
 const CommunityDailyPage = () => {
   const {
@@ -17,15 +19,15 @@ const CommunityDailyPage = () => {
     queryFn: fetchDailyPosts,
   });
   if (isLoading) {
-    return <p>로딩 중...</p>;
+    return <Loading />;
   }
   if (error) {
-    return <p>에러 발생: {error.message}</p>;
+    return <Error />;
   }
 
   return (
     <main className="relative flex h-screen min-w-screen flex-col items-center justify-center p-4">
-      {/* 고민 사항 : 윗부분 (로고, 검색창, 안내문)은 화면에 fixed로 고정하는 게 좋을까요? 불필요한 스크롤를 줄일 수 있는 점이 UX 좋을 것 같긴 합니다 */}
+      {/* 검색창, 로고 ==> fixed로 하기 & 안내문은 할 필요 x */}
       <section className="absolute top-3 left-5 flex flex-row items-center gap-4">
         <Link href={PATH.COMMUNITYSHELTER}>대피소</Link>
         <Link href={PATH.COMMUNITYDAILY}>일상</Link>
@@ -33,7 +35,7 @@ const CommunityDailyPage = () => {
         {/* <div className="[&>*]:w-60">
           <InputSearch />
         </div> */}
-        <div className="relative h-10 w-60 rounded-md bg-gray-100">
+        <div className="relative h-10 w-64 rounded-md bg-gray-100">
           <Search className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500" />
           <span className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-500">
             키워드 검색
@@ -41,15 +43,14 @@ const CommunityDailyPage = () => {
         </div>
       </section>
 
-      <p className="absolute top-16 flex h-12 w-full items-center justify-center gap-2 bg-white">
+      <div className="absolute top-16 flex h-12 w-full items-center justify-center gap-2 bg-white">
         {/* 아이콘 대용 네모 */}
         <div className="h-5 w-5 bg-gray-200"></div>
         대피소 관련 경험과 정보를 솔직하게 공유해주세요.
-      </p>
+      </div>
 
       <section className="absolute top-30 flex w-full flex-col items-center justify-center px-4">
         {dailyPosts?.map(post => {
-          console.log(post);
           return <DailyPost key={post.id} post={post} />;
         })}
       </section>

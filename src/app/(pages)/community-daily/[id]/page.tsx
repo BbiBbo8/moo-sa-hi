@@ -1,18 +1,13 @@
-import CommentForm from "@/components/community/form/CommentForm";
+import DailyDetailPost from "@/components/community/DailyDetailPost";
 
-const DailyDeatailPage = ({
-  params,
-}: {
-  params: {
-    id: number; // number타입 지정은 임시로 한 겁니다! 수정 가능합니다~
-  };
-}) => {
+const DailyDetailPage = async ({ params }: { params: { id: string } }) => {
+  const id = Number(params.id);
+  console.log(id);
   return (
-    <>
-      <div>아이디 값: {params.id}</div>
-      <CommentForm />
-    </>
+    <main>
+      <DailyDetailPost id={2} />
+    </main>
   );
 };
 
-export default DailyDeatailPage;
+export default DailyDetailPage;
