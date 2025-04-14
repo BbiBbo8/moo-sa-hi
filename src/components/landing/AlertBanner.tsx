@@ -20,14 +20,27 @@ const AlertBanner = () => {
   if (isLoading || error || !alert) return null;
 
   return (
-    <Alert variant="destructive" className="mx-20px">
-      <AlertTriangle className="mr-2 h-4 w-4" />
-      <AlertTitle>{alert.message}</AlertTitle>
-      <AlertDescription>
-        [ {alert.region}]
-         {alert.createdAt}
-      </AlertDescription>
-    </Alert>
+    <div className="w-full px-5 sm:px-[20px]">
+      <Alert
+        variant="destructive"
+        className="flex w-full flex-row items-start gap-4 rounded-xl border border-red-500 bg-red-50 px-4 py-3 shadow-md"
+      >
+        {/* 아이콘 */}
+        <div className="flex-shrink-0 pt-1">
+          <AlertTriangle className="h-5 w-5 text-red-600" />
+        </div>
+
+        {/* 텍스트 */}
+        <div className="flex min-w-0 flex-1 flex-col break-words">
+          <AlertTitle className="line-clamp-none break-words whitespace-pre-wrap">
+            {alert.message}
+          </AlertTitle>
+          <AlertDescription className="mt-1 w-full text-sm break-words whitespace-pre-wrap text-red-500">
+            [{alert.region}] · {alert.createdAt}
+          </AlertDescription>
+        </div>
+      </Alert>
+    </div>
   );
 };
 
