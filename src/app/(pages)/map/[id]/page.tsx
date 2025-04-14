@@ -1,13 +1,19 @@
 import ShelterExtraFeature from "@/components/map/ShelterExtraFeature";
 import Link from "next/link";
 import React from "react";
+import fetchSheltersApi from "@/app/api/fetchSheltersApi";
 
-const ShelterDetailPage = () => {
+const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
+  // 모든 대피소 가져오기
+  const shelters = await fetchSheltersApi();
+  //전체 목록중 특정 대피소만 가져오기
+  const shelter = shelters.find(s => s.id === params.id);
+
   return (
     <section className="flex flex-col gap-3 p-2">
       <div className="bg-accent h-40 w-full text-center">지도</div>
       <div className="flex-col">
-        <h3 className="text-3xl font-semibold">대피소 명</h3>
+        <h3 className="text-3xl font-semibold">{shelter?.name}</h3>
         <h5 className="mt-3 text-right text-xs text-gray-400">
           행정 안전부 제공
         </h5>
