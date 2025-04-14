@@ -19,15 +19,6 @@ const CommentList = ({ postId }: { postId: number }) => {
     isLoading: isCommentLoading,
   } = useComments({ postId });
 
-  // 로딩 중일 때 로딩중 컴포넌트 표시
-  if (isLoading || isCommentLoading) {
-    return <Loading />;
-  }
-  // 불러오기 오류일 때 오류 컴포넌트 표시
-  if (error || commentError) {
-    return <Error />;
-  }
-
   //   댓글 작성자 여부 확인
   const isOwned = (commentUserId: string | null) => {
     if (user?.id === commentUserId) {
@@ -39,6 +30,14 @@ const CommentList = ({ postId }: { postId: number }) => {
 
   //   댓글 삭제 함수 호출
   const deleteCommentMutation = useDeleteComment();
+  // 로딩 중일 때 로딩중 컴포넌트 표시
+  if (isLoading || isCommentLoading) {
+    return <Loading />;
+  }
+  // 불러오기 오류일 때 오류 컴포넌트 표시
+  if (error || commentError) {
+    return <Error />;
+  }
 
   return (
     <section className="m-4 mb-12 flex flex-col">
