@@ -1,4 +1,4 @@
-import ShelterPostDetail from "@/components/community/ShelterPostDetail";
+import ShelterDetailPost from "@/components/community/ShelterDetailPost";
 import CommentForm from "@/components/community/form/CommentForm";
 
 const shelterDetailPage = async ({
@@ -11,7 +11,7 @@ const shelterDetailPage = async ({
 
   return (
     <main>
-      <ShelterPostDetail id={numericId} />
+      <ShelterDetailPost id={numericId} />
       <CommentForm />
     </main>
   );

@@ -4,17 +4,48 @@ import useShelterPostDetailQuery from "@/utils/ShelterPostDetailsQuery";
 import Image from "next/image";
 import { format } from "date-fns";
 import Loading from "@/app/(pages)/Loading";
+import MainMap from "../map/MainMap";
+import { useMapStore } from "@/store/useMapStore";
+import { useEffect } from "react";
+import { useShelters } from "@/hooks/shelter/useShelters";
+import { toast } from "sonner";
+import Error from "@/app/(pages)/Error";
 
 const ShelterDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useShelterPostDetailQuery(id);
+  const { setLevel, setCenter } = useMapStore(); // 변경될 좌표와 지도 레벨
+  const { data: shelters = [] } = useShelters(); // 대피소 목록 불러오기
+
+  // TODO : 해당 페이지에서 선택된 주소를 기반으로 대피소를 선택해 주소를 zustand에 저장
+  // const TEMP_SHELTER_NAME = "청구목욕탕"; // TEST : 임시값 테스트 코드
+
+  useEffect(() => {
+    if (shelters.length === 0) {
+      console.log("대피소 목록이 비어 있습니다.");
+      return;
+    }
+    const matchedShelter = shelters.find(
+      // shelter => shelter.name === TEMP_SHELTER_NAME, // TEST : 임시값 테스트 코드
+      shelter => shelter.name === data?.shelter_name,
+    );
+
+    if (matchedShelter) {
+      setCenter({ lat: matchedShelter.lat, lng: matchedShelter.lng });
+      setLevel(4);
+      console.log("matchedShelter123", matchedShelter);
+    } else {
+      console.log("matchedShelter", matchedShelter);
+
+      toast("해당 이름의 대피소를 찾을 수 없어요.");
+    }
+    // }, [shelters, setCenter, setLevel]); // TEST : 임시값 테스트 코드
+  }, [data?.shelter_name, shelters, setCenter, setLevel]); // 현재 값이 없어 전체 지도로만 나옴.
 
   if (isLoading) return <Loading />;
-  if (error) return <p>에러 발생: {error.message}</p>;
+  if (error) return <Error />;
   if (!data) return null;
 
   const timeCreated = format(new Date(data.created_at), "yyyy.MM.dd");
-
-  // const imageUrl = data.img_url || "/shorty.jpeg"; // 현재 이미지 관련에서 오류가 지속적으로 생겨서 잠시 주석 처리를 해놓은 상태입니다
 
   return (
     <main className="m-4 flex flex-col items-center gap-5">
@@ -47,11 +78,10 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
         <section className="flex flex-col gap-2">
           <span>혼잡도: {data.people}</span>
           <span>위생상태: {data.cleanliness}</span>
-          <span>구호품: {data.supplies}</span>
         </section>
 
-        <figure className="flex h-40 items-center justify-center rounded-2xl border-2 border-gray-400">
-          지도
+        <figure className="flex h-40 overflow-hidden rounded-2xl">
+          <MainMap />
         </figure>
       </section>
 
