@@ -11,6 +11,7 @@ const useDeleteComment = () => {
     if (error) throw error;
   };
 
+  // mutation으로 동기화
   return useMutation({
     mutationFn: handleDeleteComments,
     onSuccess: () => {
