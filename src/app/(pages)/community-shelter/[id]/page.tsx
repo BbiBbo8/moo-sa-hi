@@ -1,18 +1,17 @@
 import CommentForm from "@/components/community/form/CommentForm";
 
-const ShelterDetailPage = ({
+const ShelterDetailPage = async ({
   params,
 }: {
-  params: {
-    id: number; // number타입 지정은 임시로 한 겁니다! 수정 가능합니다~
-  };
+  params: Promise<{ id: string }>;
 }) => {
+  const { id } = await params; // NOTE : Promise로 받기 때문에 async/await 필요
+  const numericId = Number(id);
+
   return (
     <div>
-      <div>아이디 값: {params.id}</div>
+      <div>아이디 값: {id}</div>
       <CommentForm />
     </div>
   );
 };
-
-export default ShelterDetailPage;

@@ -27,6 +27,11 @@ const CommunityShelterPage = () => {
     return <p>에러 발생: {error.message}</p>;
   }
 
+  const dailyPageSwitch = "일상";
+  const shelterPageSwitch = "대피소";
+  const searchPlaceholder = "키워드 검색";
+  const instruction = "대피소 관련 경험과 정보를 솔직하게 공유해주세요.";
+
   return (
     <main className="flex h-screen min-w-screen flex-col items-center p-4">
       {/* 커뮤니티 이동 탭 */}
@@ -37,21 +42,21 @@ const CommunityShelterPage = () => {
         {/* <div className="[&>*]:w-60">
           <InputSearch />
         </div> */}
-        <div className="relative h-10 w-60 rounded-md bg-gray-100">
+        <div className="relative h-10 w-64 rounded-md bg-gray-100">
           <Search className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500" />
           <span className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-500">
-            키워드 검색
+            {searchPlaceholder}
           </span>
         </div>
       </section>
 
-      <section>
-        <span className="mb-20 flex h-20 w-80 items-center justify-center bg-gray-200">
-          배너 등이 들어갈 공간
-        </span>
-      </section>
+      <div className="absolute top-16 flex h-12 w-full items-center justify-center gap-2 bg-white">
+        {/* 아이콘 대용 네모 */}
+        <div className="h-5 w-5 bg-gray-200"></div>
+        {instruction}
+      </div>
 
-      <section className="grid w-full grid-cols-2 justify-center gap-3">
+      <section className="absolute top-30 grid w-full grid-cols-2 justify-center gap-3 p-4">
         {shelterPosts?.map(post => {
           return <ShelterPost key={post.id} post={post} />;
         })}
