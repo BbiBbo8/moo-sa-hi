@@ -22,6 +22,7 @@ export const ShelterPost = ({ post }: PostCardProps) => {
         <CardContent className="h-full p-0">
           <section className="mt-2 mb-4 flex h-full flex-col items-center gap-2">
             {/* NOTE: 현재 주석처리된 코드가 사용되어야 하지만 빈 값이라 더미 데이터 사용 */}
+            {/* NOTE: 현재 주석처리된 코드가 사용되어야 하지만 빈 값이라 더미 데이터 사용 */}
             {/* <CardTitle>{post.people}</CardTitle> */}
             <CardTitle className="mb-3 rounded-lg border border-black p-3">
               한산
