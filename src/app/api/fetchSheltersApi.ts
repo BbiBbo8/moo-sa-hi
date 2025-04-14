@@ -19,7 +19,9 @@ const fetchSheltersApi = async (): Promise<Shelter[]> => {
   const items = res.data.body;
   if (!Array.isArray(items)) throw new Error("데이터 형식 오류");
 
+
   return items.map(item => ({
+    id: `${item.SGG_CD}_${item.FCLT_CD}`, // 대피소 고유 id
     name: item.FCLT_NM, //시설명
     address: item.FCLT_ADDR_LOTNO, //시설주소지번
     addressRoad: item.FCLT_ADDR_RONA, //시설주소도로명

@@ -10,6 +10,7 @@ export interface Shelter {
   locationType: string;
   isOpen: string;
   usageType: string;
+  id: string; // 대피소 고유 id
 }
 
 export interface ShelterApiResponse {
