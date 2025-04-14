@@ -89,9 +89,6 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
       <div className="h-4 min-w-screen bg-gray-200"></div>
 
       {/* NOTE: 댓글 section이 화면에 보이지 않아 임시로 스타일을 부여했습니다. */}
-      <section className="flex w-full items-center justify-center border-2 border-gray-400 py-20">
-        댓글이 들어갈 공간
-      </section>
     </main>
   );
 };
