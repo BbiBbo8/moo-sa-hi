@@ -28,7 +28,7 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
     <section className="flex flex-col gap-3 p-2">
       <div className="bg-accent h-40 w-full text-center">지도</div>
       <div className="flex-col">
-        <h3 className="text-3xl font-semibold">{shelter?.name}</h3>
+        <h3 className="text-3xl font-semibold">{shelter?.name ?? "정보없음"}</h3>
         <h5 className="mt-3 text-right text-xs text-gray-400">
           행정 안전부 제공
         </h5>
@@ -45,11 +45,11 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
             "정보 없음"
           )}
         </p>
-        <p className="text-lg">수용인원: {shelter?.capacity}명</p>
-        <p className="text-lg">시설 규모: {shelter?.scale}</p>
-        <p className="text-lg">대피 장소: {FloorType(shelter?.locationType)}</p>
-        <p className="text-lg">개방 여부: {OpenStatus(shelter?.isOpen)}</p>
-        <p className="text-lg">평상시 활용유형: {shelter?.usageType}</p>
+        <p className="text-lg">수용인원: {shelter?.capacity ?? "정보없음"}명</p>
+        <p className="text-lg">시설 규모: {shelter?.scale ?? "정보없음"}</p>
+        <p className="text-lg">대피 장소: {FloorType(shelter?.locationType ?? "정보없음")}</p>
+        <p className="text-lg">개방 여부: {OpenStatus(shelter?.isOpen ?? "정보없음")}</p>
+        <p className="text-lg">평상시 활용유형: {shelter?.usageType ?? "정보없음"}</p>
       </div>
       <article className="relative p-2">
         <p>대피소 정보 오류는 행정안전부 콜센터로 제보 바랍니다.</p>
