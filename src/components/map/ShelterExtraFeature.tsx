@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Copy, Navigation, Share2 } from "lucide-react";
+import { toast } from "sonner";
 
 interface ShelterExtraFeatureProps {
   address?: string;
@@ -14,9 +15,9 @@ const ShelterExtraFeature = ({
   const handleCopyText = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      alert("복사 완료!");
+      toast.success("복사 완료!");
     } catch (e) {
-      alert("복사 실패!");
+      toast.error("복사 실패!");
     }
   };
   return (
