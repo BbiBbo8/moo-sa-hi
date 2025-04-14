@@ -86,7 +86,7 @@ const CommentForm = ({ postId }: { postId: number }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mb-12">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="m-4">
         <FormField
           control={form.control}
           name="content"
