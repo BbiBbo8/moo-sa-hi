@@ -1,4 +1,5 @@
 import ShelterPostDetail from "@/components/community/ShelterPostDetail";
+import CommentForm from "@/components/community/form/CommentForm";
 
 const shelterDetailPage = async ({
   params,
@@ -11,6 +12,7 @@ const shelterDetailPage = async ({
   return (
     <main>
       <ShelterPostDetail id={numericId} />
+      <CommentForm />
     </main>
   );
 };
