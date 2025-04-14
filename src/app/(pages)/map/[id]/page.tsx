@@ -9,6 +9,21 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
   //전체 목록중 특정 대피소만 가져오기
   const shelter = shelters.find(s => s.id === params.id);
 
+  // 지상/지하 매핑
+  const FloorType = (code?: string) => {
+    if (!code) return "알 수 없음";
+    if (code === "1" || code.includes("지하")) return "지하";
+    if (code === "2" || code.includes("지상")) return "지상";
+    return code;
+  };
+  
+  // 개방 여부 매핑
+  const OpenStatus = (value?: string) => {
+    if (value === "Y") return "개방중";
+    if (value === "N") return "폐쇄됨";
+    return "알 수 없음";
+  };
+
   return (
     <section className="flex flex-col gap-3 p-2">
       <div className="bg-accent h-40 w-full text-center">지도</div>
@@ -32,8 +47,8 @@ const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
         </p>
         <p className="text-lg">수용인원: {shelter?.capacity}명</p>
         <p className="text-lg">시설 규모: {shelter?.scale}</p>
-        <p className="text-lg">대피 장소: {shelter?.locationType}</p>
-        <p className="text-lg">개방 여부: {shelter?.isOpen}</p>
+        <p className="text-lg">대피 장소: {FloorType(shelter?.locationType)}</p>
+        <p className="text-lg">개방 여부: {OpenStatus(shelter?.isOpen)}</p>
         <p className="text-lg">평상시 활용유형: {shelter?.usageType}</p>
       </div>
       <article className="relative p-2">
