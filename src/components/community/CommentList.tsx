@@ -6,8 +6,8 @@ import { Button } from "../ui/button";
 import { useUserData } from "@/hooks/useUserData";
 import Loading from "@/app/(pages)/Loading";
 import Error from "@/app/(pages)/Error";
-import createClient from "@/supabase/client";
 import { useComments } from "@/hooks/useComments";
+import useDeleteComment from "@/hooks/useDeleteComment";
 
 const CommentList = ({ postId }: { postId: number }) => {
   const { data, error, isLoading } = useUserData();
@@ -37,22 +37,18 @@ const CommentList = ({ postId }: { postId: number }) => {
     }
   };
 
-  const supabase = createClient();
-  const commentId = 1; /* 임시작성 */
-  //   댓글을 삭제하는 함수
-  const handleDeleteComments = async (id: number) => {
-    const { error } = await supabase.from("comments").delete().eq("id", id);
-  };
+  //   댓글 삭제 함수 호출
+  const deleteCommentMutation = useDeleteComment();
 
   return (
-    <section className="flex flex-col">
+    <section className="m-4 mb-12 flex flex-col">
       {comments?.map(comment => (
         <Card key={comment.id}>
           <CardContent>
             <CardDescription>{comment.comments}</CardDescription>
           </CardContent>
           {isOwned(comment.user_id) && (
-            <Button onClick={() => handleDeleteComments(comment.id)}>
+            <Button onClick={() => deleteCommentMutation.mutate(comment.id)}>
               삭제
             </Button>
           )}
