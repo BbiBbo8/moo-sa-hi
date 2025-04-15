@@ -39,7 +39,7 @@ function PostCreateEdit() {
   const [category, setCategory] = useState<"shelter" | "daily">("shelter");
   const [imgUrl, setImgUrl] = useState<string | null>(null);
 
-  // 대피소 이름 저장하기 위한 상태 추가
+  // 대피소 이름도 저장하기 위한 상태 추가
   const [selectedShelter, setSelectedShelter] = useState<{
     id: string;
     name: string;
@@ -70,6 +70,7 @@ function PostCreateEdit() {
 
   const handlePostInsert = async (values: FormData) => {
     const payload = {
+      user_id: user.id, // 사용자 ID 저장
       title: values.title,
       contents: values.contents,
       img_url: imgUrl ?? "",
