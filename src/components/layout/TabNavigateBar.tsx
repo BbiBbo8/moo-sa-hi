@@ -24,7 +24,7 @@ const TabNavigateBar = () => {
             alt="홈"
             width={28}
             height={28}
-            className="h-7 w-full text-center"
+            className="text-center"
           />
           <h5 className="text-xs">홈</h5>
         </Link>
@@ -35,7 +35,7 @@ const TabNavigateBar = () => {
             alt="지도"
             width={28}
             height={28}
-            className="h-7 w-full text-center"
+            className="text-center"
           />
           <h5 className="text-xs">대피소</h5>
         </Link>
@@ -46,7 +46,7 @@ const TabNavigateBar = () => {
             alt="커뮤니티"
             width={28}
             height={28}
-            className="h-7 w-full text-center"
+            className="text-center"
           />
           <h5 className="text-xs">커뮤니티</h5>
         </Link>
@@ -57,7 +57,7 @@ const TabNavigateBar = () => {
             alt="마이"
             width={28}
             height={28}
-            className="h-7 w-full text-center"
+            className="text-center"
           />
           <h5 className="text-xs">마이</h5>
         </Link>
