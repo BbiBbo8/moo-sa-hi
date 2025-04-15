@@ -2,19 +2,15 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchShelterPosts } from "@/supabase/getCommuniy";
-import Link from "next/link";
 import ShelterPost from "@/components/community/ShelterPost";
-import { usePathname } from "next/navigation";
-import { Search } from "lucide-react";
-import PATH from "@/constants/PATH";
 import Loading from "../Loading";
 import Error from "../Error";
 import PostCreateFloatingBtn from "@/components/community/PostCreateFloatingBtn";
-import { Input } from "@/components/ui/input";
-import SearchBarToggle from "@/components/community/SearchBarToggle";
+import { useState, useMemo } from "react";
+import CommunityHeader from "@/components/community/CommunityHeader";
 
 const CommunityShelterPage = () => {
-  const pathname = usePathname();
+  const [searchTerm, setSearchTerm] = useState("");
 
   const {
     data: shelterPosts,
@@ -25,47 +21,48 @@ const CommunityShelterPage = () => {
     queryFn: fetchShelterPosts,
   });
 
+  // 검색어로 게시글 필터링
+  const filteredPosts = useMemo(() => {
+    if (!shelterPosts) return [];
+
+    return searchTerm
+      ? shelterPosts.filter(
+          post =>
+            post.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            false,
+        )
+      : shelterPosts;
+  }, [shelterPosts, searchTerm]);
+
   if (isLoading) {
     return <Loading />;
   }
+
   if (error) {
     return <Error />;
   }
 
-  const dailyPageSwitch = "일상";
-  const shelterPageSwitch = "대피소";
-  const searchPlaceholder = "키워드 검색";
-  const instruction = "대피소 관련 경험과 정보를 솔직하게 공유해주세요.";
-
   return (
     <main className="relative flex h-screen min-w-screen flex-col items-center justify-center p-5">
-      {/* 커뮤니티 이동 탭 */}
-      <section className="absolute top-3 flex w-full flex-row items-center justify-between px-5 text-[18px]">
-        <div className="flex gap-4">
-          <Link href={PATH.COMMUNITYSHELTER}>대피소</Link>
-          <Link href={PATH.COMMUNITYDAILY}>일상</Link>
-        </div>
-        <div className="flex">
-          <SearchBarToggle />
-        </div>
-        {/* <div className="relative h-10 w-64 rounded-md bg-gray-100">
-          <Search className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500" />
-          <span className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-500">
-            {searchPlaceholder}
-          </span>
-        </div> */}
-      </section>
+      <CommunityHeader setSearchTerm={setSearchTerm} />
 
       <div className="absolute top-16 flex h-12 w-full items-center justify-center gap-2 bg-white">
         {/* 아이콘 대용 네모 */}
         <div className="h-5 w-5 bg-gray-200"></div>
-        {instruction}
+        대피소 관련 경험과 정보를 솔직하게 공유해주세요.
       </div>
 
+      {/* 필터링된 게시글 반환 */}
       <section className="absolute top-30 grid w-full grid-cols-2 justify-center gap-3 p-4">
-        {shelterPosts?.map(post => {
-          return <ShelterPost key={post.id} post={post} />;
-        })}
+        {filteredPosts?.length > 0 ? (
+          filteredPosts.map(post => {
+            return <ShelterPost key={post.id} post={post} />;
+          })
+        ) : (
+          <div className="col-span-2 flex h-40 items-center justify-center text-gray-500">
+            검색 결과가 없습니다.
+          </div>
+        )}
       </section>
 
       <div className="fixed right-4 bottom-[100px]">
