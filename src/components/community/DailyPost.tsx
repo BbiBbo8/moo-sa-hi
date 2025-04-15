@@ -4,7 +4,7 @@ import { ThumbsUp } from "lucide-react";
 import Link from "next/link";
 import { Post } from "@/types/communityPost";
 import { getImageSrc } from "@/utils/getImageSrc";
-import { format } from "date-fns";
+import { formatTime } from "@/utils/formatTime";
 import PATH from "@/constants/PATH";
 
 type PostCardProps = {
@@ -15,7 +15,7 @@ const DailyPost = ({ post }: PostCardProps) => {
   const imgSrc = getImageSrc(post.img_url || undefined);
 
   // NOTE: 날짜 작성 형태(년도.월.일)를 형식에 맞춰 반환
-  const formatted = format(new Date(post.created_at), "yyyy.MM.dd");
+  const timeCreated = formatTime({ time: post.created_at });
 
   return (
     <Link href={`${PATH.COMMUNITYDAILY}/${post.id}`} className="h-full w-full">
@@ -30,7 +30,7 @@ const DailyPost = ({ post }: PostCardProps) => {
 
             <CardTitle className="mb-2 text-lg">{post.title}</CardTitle>
             <p className="text-[12px] text-gray-500">
-              {formatted} · 조회수 12 · 댓글 8개
+              {timeCreated} · 조회수 12 · 댓글 8개
             </p>
           </div>
 

@@ -1,5 +1,5 @@
 import CommentList from "@/components/community/CommentList";
-import DailyDetailPost from "@/components/community/DailyDetailPost";
+import DailyDetailPost from "@/components/community/detail/DailyDetailPost";
 import CommentForm from "@/components/community/form/CommentForm";
 
 const DailyDetailPage = async ({
