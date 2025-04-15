@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const HomePage = () => {
   return (
-    <main className="space-y-[20px] py-6 pb-[60px]">
+    <main className="space-y-[20px] pb-[60px]">
       <section className="relative h-[500px] w-full">
         {/* 배경 이미지 */}
         <Image
@@ -22,7 +22,6 @@ const HomePage = () => {
           <AlertBanner />
         </div>
       </section>
-      <SectionDivider />
       <MapPreview />
       <SectionDivider />
       <NewsCard />
