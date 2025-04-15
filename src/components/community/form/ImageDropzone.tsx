@@ -3,8 +3,8 @@
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import createClient from "@/supabase/client";
-import { useToast } from "@/components/ui/use-toast";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "sonner";
 
 interface Props {
   value: string[];
@@ -12,19 +12,14 @@ interface Props {
   maxFiles?: number;
 }
 
-export default function ImageDropzone({
-  value,
-  onChange,
-  maxFiles = 5,
-}: Props) {
+function ImageDropzone({ value, onChange, maxFiles = 5 }: Props) {
   const supabase = createClient();
-  const { toast } = useToast();
 
   const handleDrop = useCallback(
     async (acceptedFiles: File[]) => {
-      const newFiles = acceptedFiles.slice(0, maxFiles - value.length); // 최대 개수 제한
+      const newFiles = acceptedFiles.slice(0, maxFiles - value.length);
       if (value.length + newFiles.length > maxFiles) {
-        toast({ title: `이미지는 최대 ${maxFiles}장까지 업로드 가능합니다.` });
+        toast.warning(`이미지는 최대 ${maxFiles}장까지 업로드 가능합니다.`);
         return;
       }
 
@@ -36,14 +31,14 @@ export default function ImageDropzone({
         const filePath = `posts/${fileName}`;
 
         const { data, error } = await supabase.storage
-          .from("shelter-image") // daily-image로도 변경 가능
+          .from("shelter-image") // 필요 시 daily-image로도 변경
           .upload(filePath, file, {
             cacheControl: "3600",
             upsert: false,
           });
 
         if (error) {
-          toast({ title: "이미지 업로드 실패", description: error.message });
+          toast.error(`이미지 업로드 실패: ${error.message}`);
         } else {
           const {
             data: { publicUrl },
@@ -54,7 +49,7 @@ export default function ImageDropzone({
 
       onChange([...value, ...uploadedUrls]);
     },
-    [value, onChange, maxFiles, supabase, toast],
+    [value, onChange, maxFiles, supabase],
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -74,3 +69,5 @@ export default function ImageDropzone({
     </div>
   );
 }
+
+export default ImageDropzone;
