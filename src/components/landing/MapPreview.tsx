@@ -29,9 +29,9 @@ const LandingMapPreview = () => {
   };
 
   return (
-    <section className="mx-[20px] py-8">
+    <section className="mx-[20px]">
       {/* 텍스트 헤더 */}
-      <div className="mb-4 space-y-1">
+      <div className="mb-4">
         <h2 className="text-[20px] leading-[27px] font-semibold text-[#1A1A1A]">
           주변 대피소 확인
         </h2>
