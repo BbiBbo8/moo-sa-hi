@@ -16,6 +16,11 @@ const MainMap = () => {
   // 대피소 중 현재 지도에 보이는 것만 필터링해서 zustand useMarkerStore에 저장
   const setMarkedShelter = useMarkerStore(state => state.setMarkedShelter);
 
+  // 마커에 선택된 대피소 이름을 전역 상태에 저장하는 Store
+  const setSelectedShelterName = useMarkerStore(
+    state => state.setSelectedShelterName,
+  );
+
   // zustand의 지도 상태 값 가져오기
   const center = useMapStore(state => state.center);
   const level = useMapStore(state => state.level);
@@ -85,6 +90,7 @@ const MainMap = () => {
     mapRef.current?.panTo(newCenter); // 지도 이동
     setCenter({ lat, lng }); // 상태 업데이트
     setSelectMarker(name);
+    setSelectedShelterName(name); // 마커가 클릭 됬을때 전역 상태에 저장
   };
 
   if (isLoading) return <Loading />;
