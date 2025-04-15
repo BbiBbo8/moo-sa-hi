@@ -13,15 +13,14 @@ import ShelterForm from "@/components/community/form/ShelterForm";
 
 const supabase = createClient();
 
-// enum 정의
 export const CONGESTION_LEVELS = ["여유", "보통", "혼잡"] as const;
 export const HYGIENE_LEVELS = ["청결", "보통", "불량"] as const;
 
 const EditSchema = z.object({
   title: z.string().min(1, "제목을 입력해주세요"),
   contents: z.string().min(1, "내용을 입력해주세요"),
-  congestion: z.enum(["여유", "보통", "혼잡"]),
-  hygiene: z.enum(["청결", "보통", "불량"]),
+  congestion: z.enum(CONGESTION_LEVELS),
+  hygiene: z.enum(HYGIENE_LEVELS),
   shelter_id: z.string().min(1, "대피소를 선택해주세요"),
 });
 
@@ -48,7 +47,6 @@ function PostCreateEdit() {
     },
   });
 
-  // 현재 위치 가져오기
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(pos => {
@@ -58,7 +56,6 @@ function PostCreateEdit() {
     }
   }, []);
 
-  // 거리 계산 함수
   const getDistanceFromLatLonInKm = (
     lat1: number,
     lon1: number,
@@ -95,7 +92,7 @@ function PostCreateEdit() {
       return toast({ title: "글 저장 중 오류가 발생했습니다." });
     }
 
-    if (postData) {
+    if (postData && uploadedImages.length) {
       await Promise.all(
         uploadedImages.map(url =>
           supabase.from("images").insert({
@@ -104,6 +101,11 @@ function PostCreateEdit() {
           }),
         ),
       );
+    } else if (!uploadedImages.length) {
+      toast({
+        title: "이미지 없음",
+        description: "최소 1장의 이미지를 업로드해주세요.",
+      });
     }
 
     toast({ title: "글이 등록되었습니다!" });
@@ -119,6 +121,7 @@ function PostCreateEdit() {
           value={uploadedImages}
           onChange={setUploadedImages}
           maxFiles={5}
+          category="shelter"
         />
 
         <Button type="submit" className="mt-6 w-full">
