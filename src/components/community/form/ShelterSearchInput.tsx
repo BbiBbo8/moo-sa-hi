@@ -6,12 +6,9 @@ import { Card } from "@/components/ui/card";
 import { useShelters } from "@/hooks/shelter/useShelters";
 import { Shelter } from "@/types/shelter";
 
-// 부모 컴포넌트로 선택된 대피소를 전달할 콜백 props
-interface Props {
-  onSelect: (shelter: Shelter) => void;
-}
 
-export default function ShelterSearchInput({ onSelect }: Props) {
+
+export default function ShelterSearchInput() {
   const { data: shelters } = useShelters(); // 대피소 데이터 가져오기
 
   // 입력 상태
