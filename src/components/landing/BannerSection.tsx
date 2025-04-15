@@ -28,36 +28,34 @@ const bannerItems = [
 
 const BannerSection = () => {
   return (
-    <section className="pb-6">
-      {/* 제목/설명 */}
-      <div className="px-[20px] mb-4">
-        <h2 className="text-[18px] font-semibold text-[#1A1A1A] leading-[26px]">
-          재난을 무사히 준비하세요
-        </h2>
-        <p className="text-sm text-[#666666] mt-1">대피소 · 정보 · 퀴즈까지</p>
-      </div>
+    <section className="pb-8 mx-[20px]">
+  <div className="mb-4">
+    <h2 className="text-[20px] font-semibold text-[#1A1A1A] leading-[26px]">
+      재난을 무사히 준비하세요
+    </h2>
+    <p className="text-[16px] text-[#666666] mt-1">대피소 · 정보 · 퀴즈까지</p>
+  </div>
 
-      {/* 배너 슬라이더 */}
-      <div className="flex gap-4 overflow-x-auto px-[20px] w-max">
-        {bannerItems.map((item, index) => (
-          <Link
-            key={index}
-            href={item.href || "#"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="min-w-[280px] sm:min-w-[320px] max-w-[320px] h-[140px] rounded-xl overflow-hidden shadow-md flex-shrink-0"
-          >
-            <Image
-              src={item.src}
-              alt={item.alt}
-              width={320}
-              height={140}
-              className="object-cover w-full h-full"
-            />
-          </Link>
-        ))}
-      </div>
-    </section>
+  <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory">
+    {bannerItems.map((item, index) => (
+      <Link
+        key={index}
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="min-w-[280px] sm:min-w-[320px] max-w-[320px] snap-start flex-shrink-0 rounded-xl overflow-hidden shadow-md"
+      >
+        <Image
+          src={item.src}
+          alt={item.alt}
+          width={320}
+          height={140}
+          className="object-cover w-full h-full"
+        />
+      </Link>
+    ))}
+  </div>
+</section>
   );
 };
 
