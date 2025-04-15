@@ -39,6 +39,8 @@ const CommunityShelterPage = () => {
   }
 
   if (error) {
+    console.log("commuity-shelter 에러", error);
+
     return <Error />;
   }
 

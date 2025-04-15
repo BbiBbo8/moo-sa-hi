@@ -46,6 +46,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
     return <Loading />;
   }
   if (error) {
+    console.log("shelterDetailPost 로딩 에러", error);
     return <Error />;
   }
   if (!data) {

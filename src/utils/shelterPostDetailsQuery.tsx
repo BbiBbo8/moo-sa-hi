@@ -18,8 +18,7 @@ const fetchShelterPostDetail = async (id: number) => {
       people,
       cleanliness,
       user:user_id (
-        nickname,
-        profile_image
+        nickname
       ),
       helpfuls (
         id,
