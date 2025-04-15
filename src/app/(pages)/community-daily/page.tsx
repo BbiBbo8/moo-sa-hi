@@ -8,6 +8,7 @@ import { Search } from "lucide-react";
 import PATH from "@/constants/PATH";
 import Loading from "../Loading";
 import Error from "../Error";
+import PostCreateFloatingBtn from "@/components/community/PostCreateFloatingBtn";
 
 const CommunityDailyPage = () => {
   const {
@@ -54,6 +55,10 @@ const CommunityDailyPage = () => {
           return <DailyPost key={post.id} post={post} />;
         })}
       </section>
+
+      <div className="fixed right-4 bottom-[100px]">
+        <PostCreateFloatingBtn />
+      </div>
     </main>
   );
 };

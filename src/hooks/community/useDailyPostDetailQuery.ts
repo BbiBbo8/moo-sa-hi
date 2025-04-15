@@ -5,7 +5,8 @@ import createClient from "@/supabase/client";
 
 const fetchDailyPostDetail = async (id: number) => {
   const supabase = createClient();
-  const { data, error } = await supabase
+
+  const { data: postData, error: postError } = await supabase
     .from("daily_post")
     .select(
       `
@@ -17,19 +18,25 @@ const fetchDailyPostDetail = async (id: number) => {
       user:user_id (
         nickname,
         profile_image
-      ),
-      helpfuls (
-        id,
-        daily_post_id,
-        shelter_post_id
       )
     `,
     )
     .eq("id", id)
-    .single(); // 단일 게시글이라면 .single() 추천
+    .single();
 
-  if (error) throw new Error(error.message);
-  return data;
+  if (postError) throw new Error(postError.message);
+
+  const { count, error: countError } = await supabase
+    .from("helpfuls")
+    .select("*", { count: "exact", head: true })
+    .eq("daily_post_id", id);
+
+  if (countError) throw new Error(countError.message);
+
+  return {
+    ...postData,
+    helpfulCount: count ?? 0,
+  };
 };
 
 export const useDailyPostDetailQuery = (id: number) => {
