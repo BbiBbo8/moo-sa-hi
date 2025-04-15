@@ -7,13 +7,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { UseFormReturn } from "react-hook-form";
-import { FormData } from "../PostCreateEdit";
+import { useFormContext } from "react-hook-form";
 
-function DailyForm({ form }: { form: UseFormReturn<FormData> }) {
+function DailyForm() {
+  const form = useFormContext();
+
   return (
     <>
-      {/* 제목 필드 */}
       <FormField
         control={form.control}
         name="title"
@@ -21,26 +21,25 @@ function DailyForm({ form }: { form: UseFormReturn<FormData> }) {
           <FormItem>
             <FormLabel>제목</FormLabel>
             <FormControl>
-              <Input placeholder="제목을 입력해주세요" {...field} />
+              <Input {...field} maxLength={15} />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
 
-      {/* 내용 필드 */}
       <FormField
         control={form.control}
         name="contents"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>내용</FormLabel>
+            <FormLabel>본문</FormLabel>
             <FormControl>
-              <Textarea
-                placeholder="안전과 가까워진 오늘을 작성해보아요!!"
-                {...field}
-              />
+              <Textarea {...field} maxLength={500} />
             </FormControl>
+            <p className="text-muted-foreground text-right text-sm">
+              {field.value.length} / 500자
+            </p>
             <FormMessage />
           </FormItem>
         )}

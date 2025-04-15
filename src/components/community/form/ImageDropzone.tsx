@@ -1,93 +1,102 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { PostUploadImg } from "@/supabase/imgBucket";
+import createClient from "@/supabase/client";
+import { v4 as uuidv4 } from "uuid";
+import { toast } from "sonner";
 import Image from "next/image";
-import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface Props {
-  userId: string;
-  category: "shelter" | "daily";
-  onUploadComplete: (url: string | null) => void;
+  value: string[];
+  onChange: (urls: string[]) => void;
+  maxFiles?: number;
 }
 
-const ImageDropzone = ({ userId, category, onUploadComplete }: Props) => {
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null); // 미리보기 이미지 URL
-  const [isUploading, setIsUploading] = useState(false); // 업로드 중 여부
+function ImageDropzone({ value, onChange, maxFiles = 1 }: Props) {
+  const supabase = createClient();
 
-  const onDrop = async (acceptedFiles: File[]) => {
-    const file = acceptedFiles[0];
-    if (!file) return;
+  const handleDrop = useCallback(
+    async (acceptedFiles: File[]) => {
+      if (value.length >= maxFiles) {
+        toast.warning(`이미지는 최대 ${maxFiles}장까지 업로드 가능합니다.`);
+        return;
+      }
 
-    // 제한 조건: 최대 10MB, 이미지 타입만
-    if (!file.type.startsWith("image/")) {
-      alert("이미지 파일만 업로드할 수 있습니다.");
-      return;
-    }
-    if (file.size > 10 * 1024 * 1024) {
-      alert("최대 10MB 이하의 이미지만 업로드할 수 있습니다.");
-      return;
-    }
+      const file = acceptedFiles[0]; // 단일 파일만 허용
+      if (!file) return;
 
-    const preview = URL.createObjectURL(file); // 미리보기 URL 생성
-    setPreviewUrl(preview);
+      const ext = file.name.split(".").pop();
+      const fileName = `${uuidv4()}.${ext}`;
+      const filePath = `posts/${fileName}`;
 
-    try {
-      setIsUploading(true); // 업로드 시작
-      const uploadedUrl = await PostUploadImg(file, category, userId); // DB업로드
-      onUploadComplete(uploadedUrl); // 부모 컴포넌트로 업로드 결과 전달
-    } catch (err) {
-      console.error("이미지 업로드 실패", err);
-    } finally {
-      setIsUploading(false); // 업로드 종료
-    }
+      const { error } = await supabase.storage
+        .from("shelter-image")
+        .upload(filePath, file, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+
+      if (error) {
+        toast.error(`이미지 업로드 실패: ${error.message}`);
+        return;
+      }
+
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("shelter-image").getPublicUrl(filePath);
+
+      onChange([publicUrl]); // 새 이미지 하나만
+    },
+    [value, onChange, maxFiles, supabase],
+  );
+
+  const handleRemove = () => {
+    onChange([]); // 이미지 삭제
   };
 
-  const handleDeleteImage = () => {
-    setPreviewUrl(null);
-    onUploadComplete(null); // 이미지 제거 시 부모 컴포넌트에도 null 전달
-  };
-
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: { "image/*": [] },
-    maxFiles: 1,
+    multiple: false,
+    onDrop: handleDrop,
   });
 
   return (
     <div
       {...getRootProps()}
-      className="relative cursor-pointer rounded-md border-2 border-dashed p-4 text-center"
+      className="relative flex h-32 w-full cursor-pointer items-center justify-center rounded-md border-2 border-dashed p-2 text-gray-500"
     >
       <input {...getInputProps()} />
 
-      {isUploading ? (
-        <p className="text-sm text-gray-500">업로드 중...</p>
-      ) : previewUrl ? (
-        <div className="relative inline-block">
+      {/* 이미지 있을 때 미리보기 */}
+      {value.length > 0 ? (
+        <div className="relative h-full w-full">
           <Image
-            src={previewUrl}
-            alt="업로드된 이미지"
-            width={300}
-            height={200}
+            src={value[0]}
+            alt="미리보기"
+            fill
             className="rounded-md object-cover"
           />
-          <button
+          <Button
             type="button"
-            onClick={handleDeleteImage}
-            className="bg-opacity-50 absolute top-2 right-2 rounded-full bg-black p-1 text-white"
+            variant="destructive"
+            size="sm"
+            className="absolute top-2 right-2 z-10"
+            onClick={handleRemove}
           >
-            <X size={16} />
-          </button>
+            ✕
+          </Button>
         </div>
       ) : (
-        <p className="text-sm text-gray-500">
-          이미지를 업로드하려면 클릭하거나 드래그하세요
-        </p>
+        <span>
+          {isDragActive
+            ? "여기에 이미지를 드랍하세요..."
+            : "이미지를 드래그하거나 클릭해서 업로드"}
+        </span>
       )}
     </div>
   );
-};
+}
 
 export default ImageDropzone;
