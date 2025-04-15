@@ -2,7 +2,6 @@
 
 import PATH from "@/constants/PATH";
 import useGetPosts from "@/hooks/useGetPosts";
-import { useUserData } from "@/hooks/useUserData";
 import Link from "next/link";
 
 const WrittenPost = () => {
@@ -34,7 +33,7 @@ const WrittenPost = () => {
               </div>
             </Link>
           ))}
-      </section>{" "}
+      </section>
       {(!shelterPost || !dailyPost) && (
         <div>
           <p>지금 바로 게시글을 작성해보세요!</p>
