@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { useShelters } from "@/hooks/shelter/useShelters";
 import { toast } from "sonner";
 import Error from "@/app/(pages)/Error";
-import CommentForm from "@/components/community/form/CommentForm";
 import getUserData from "@/supabase/getUserData";
 
 const ShelterDetailPost = ({ id }: { id: number }) => {
