@@ -29,13 +29,13 @@ const LandingMapPreview = () => {
   };
 
   return (
-    <section className="mx-[20px]">
+    <section className="mt-[38px] mx-[20px]">
       {/* 텍스트 헤더 */}
       <div className="mb-4">
         <h2 className="text-[20px] leading-[27px] font-semibold text-[#1A1A1A]">
           주변 대피소 확인
         </h2>
-        <p className="text-[16px] leading-[24px] text-[#1A1A1A]">
+        <p className="text-[16px] text-[#666666] mt-1">
           재난 시 피신할 대피소를 미리 확인!
         </p>
       </div>

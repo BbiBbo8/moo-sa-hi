@@ -1,31 +1,62 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import Link from "next/link";
 
-const LandingBanner = () => {
+const bannerItems = [
+  {
+    src: "/landing/banner1.svg",
+    alt: "배너 1",
+    href: "https://simte.xyz/childsafe4",
+  },
+  {
+    src: "/landing/banner2.svg",
+    alt: "배너 2",
+    href: "https://simte.xyz/childsafe3",
+  },
+  {
+    src: "/landing/banner3.svg",
+    alt: "배너 3",
+    href: "https://www.mois.go.kr/frt/a01/frtMain.do",
+  },
+  {
+    src: "/landing/banner4.svg",
+    alt: "배너 4",
+    href: "https://kasem.safekorea.go.kr/ptlCont.do?url=sftCnterRgnMng#none",
+  },
+];
+
+const BannerSection = () => {
   return (
-    <section className="relative h-[220px] bg-gradient-to-r from-blue-500 to-sky-400 flex flex-col justify-center items-center text-center px-4 mx-[20px] rounded-2xl shadow-lg overflow-hidden">
-      <h1 className="text-4xl font-extrabold text-white drop-shadow-md tracking-wide mb-2">
-        빠르고 안전한 대피소 찾기
-      </h1>
-      <p className="text-white/90 text-sm sm:text-base mb-4 drop-shadow-sm">
-        근처의 재난 대피소 정보를 한눈에 확인하세요
-      </p>
+    <section className="pb-8 mx-[20px]">
+  <div className="mb-4">
+    <h2 className="text-[20px] font-semibold text-[#1A1A1A] leading-[26px]">
+      재난을 무사히 준비하세요
+    </h2>
+    <p className="text-[16px] text-[#666666] mt-1">대피소 · 정보 · 퀴즈까지</p>
+  </div>
 
-      <Button
-        asChild
-        className="bg-white/10 backdrop-blur-md border border-white/30 text-white hover:bg-white/20 transition-colors px-6 py-2 rounded-full font-semibold"
+  <div className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory">
+    {bannerItems.map((item, index) => (
+      <Link
+        key={index}
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="min-w-[280px] sm:min-w-[320px] max-w-[320px] snap-start flex-shrink-0 rounded-xl overflow-hidden shadow-md"
       >
-        <a
-          href="https://www.safekorea.go.kr"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          재난안전포털 바로가기
-        </a>
-      </Button>
-    </section>
+        <Image
+          src={item.src}
+          alt={item.alt}
+          width={320}
+          height={140}
+          className="object-cover w-full h-full"
+        />
+      </Link>
+    ))}
+  </div>
+</section>
   );
 };
 
-export default LandingBanner;
+export default BannerSection;
