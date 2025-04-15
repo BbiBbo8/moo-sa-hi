@@ -8,15 +8,16 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "../../ui/form";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
-import { usePathname } from "next/navigation";
 import createClient from "@/supabase/client";
-import PATH from "@/constants/PATH";
 import { toast } from "sonner";
+import { usePathname } from "next/navigation";
+import PATH from "@/constants/PATH";
+import { useUserData } from "@/hooks/useUserData";
+import { useInsertComment } from "@/hooks/useInsertComment";
 
 const commentSchema = z.object({
   content: z
@@ -27,7 +28,7 @@ const commentSchema = z.object({
 
 type CommentFormData = z.infer<typeof commentSchema>;
 
-const CommentForm = () => {
+const CommentForm = ({ postId }: { postId: number }) => {
   const {
     formState: { errors },
     reset,
@@ -35,47 +36,27 @@ const CommentForm = () => {
     resolver: zodResolver(commentSchema),
   });
 
-  const pathname = usePathname();
   const supabase = createClient();
+  const pathname = usePathname();
 
-  // supabase에 작성된 댓글을 넣는 함수
-  const handleInsertComments = async ({ content }: { content: string }) => {
-    try {
-      // 현재 pathname을 참조하여 대피소 커뮤니티일 때 대피소 댓글 insert
-      if (pathname.includes(PATH.COMMUNITYSHELTER) === true) {
-        await supabase
-          .from("comments")
-          .insert([
-            {
-              user_id: "11f37be0-4036-467b-b963-11b744903d1c" /* 확인용 임시 */,
-              shelter_post_id: 4 /* 확인용 임시 */,
-              daily_post_id: null,
-              comments: content,
-            },
-          ])
-          .select();
-        toast.info("댓글 작성 완료!");
-      } else {
-        // 이외일 때 일상 댓글 insert
-        await supabase
-          .from("comments")
-          .insert({
-            user_id: "11f37be0-4036-467b-b963-11b744903d1c" /* 확인용 임시 */,
-            shelter_post_id: null,
-            daily_post_id: 1 /* 확인용 임시 */,
-            comments: content,
-          })
-          .select();
-        toast.info("댓글 작성 완료!");
-      }
-    } catch (error) {
-      toast.error("댓글 작성 오류 발생");
+  const { data, error, isLoading } = useUserData();
+  const userId = data?.user?.id;
+
+  // supabase에 작성된 댓글을 넣는 함수 호출
+  const insertCommentMutation = useInsertComment();
+
+  const onSubmit = (formData: CommentFormData) => {
+    if (!userId) {
+      return;
     }
-  };
 
-  const onSubmit = (content: CommentFormData) => {
-    handleInsertComments(content);
-    reset();
+    insertCommentMutation.mutate({
+      content: formData.content,
+      userId,
+      postId,
+    });
+    // 댓글 입력 후 리셋
+    form.reset();
   };
 
   const form = useForm<z.infer<typeof commentSchema>>({
@@ -87,13 +68,12 @@ const CommentForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="m-4">
         <FormField
           control={form.control}
           name="content"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>댓글</FormLabel>
               <FormControl>
                 <Input placeholder="댓글을 입력해주세요." {...field} />
               </FormControl>
