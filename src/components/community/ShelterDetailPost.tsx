@@ -55,6 +55,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
   }, []);
 
   if (isLoading) {
+    console.log("shelterDetailPost 로딩 에러");
     return <Loading />;
   }
   if (error) {
