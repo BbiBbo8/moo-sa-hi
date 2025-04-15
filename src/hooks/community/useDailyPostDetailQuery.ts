@@ -16,8 +16,7 @@ const fetchDailyPostDetail = async (id: number) => {
       contents,
       img_url,
       user:user_id (
-        nickname,
-        profile_image
+        nickname
       )
     `,
     )

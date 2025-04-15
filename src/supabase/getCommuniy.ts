@@ -13,8 +13,7 @@ export const fetchDailyPosts = async () => {
       contents,
       img_url,
       user:user_id (
-        nickname,
-        profile_image
+        nickname
       ),
       helpfuls (
         id,
@@ -43,8 +42,7 @@ export const fetchShelterPosts = async () => {
       img_url,
       people,
       user:user_id (
-        nickname,
-        profile_image
+        nickname
       ),
       helpfuls (
         id,

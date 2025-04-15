@@ -38,6 +38,8 @@ const CommunityDailyPage = () => {
     return <Loading />;
   }
   if (error) {
+    console.log("commuity-daily  에러");
+
     return <Error />;
   }
 

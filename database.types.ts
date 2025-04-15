@@ -241,19 +241,16 @@ export type Database = {
           created_at: string | null
           id: string
           nickname: string
-          profile_image: string | null
         }
         Insert: {
           created_at?: string | null
           id?: string
           nickname: string
-          profile_image?: string | null
         }
         Update: {
           created_at?: string | null
           id?: string
           nickname?: string
-          profile_image?: string | null
         }
         Relationships: []
       }
