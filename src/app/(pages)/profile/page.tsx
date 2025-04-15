@@ -7,8 +7,6 @@ const ProfilePage = () => {
     <main className="m-auto my-2 p-2 text-center">
       {/* 프로필 내용이 들어갈 위치 */}
       <ProfileCard />
-      {/* 탭이 들어갈 위치 */}
-      <ProfileTabs />
     </main>
   );
 };
