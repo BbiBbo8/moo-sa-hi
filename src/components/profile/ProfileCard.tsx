@@ -4,7 +4,7 @@ import ProfileEditPop from "./ProfileEditPop";
 import Loading from "@/app/(pages)/Loading";
 import { useUserData } from "@/hooks/useUserData";
 import Error from "@/app/(pages)/Error";
-import { LogoutButton } from "../auth/LogoutButton";
+import LogoutButton from "../auth/LogoutButton";
 
 const ProfileCard = () => {
   // react-query로 유저 정보 불러오기
