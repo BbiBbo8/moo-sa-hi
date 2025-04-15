@@ -47,7 +47,7 @@ const LandingMapPreview = () => {
         {/* GPS 버튼 */}
         <button
           onClick={handleGetLocation}
-          className="absolute bottom-[88px] left-4 z-50 flex h-10 w-10 items-center justify-center rounded-[8px] bg-white/90 p-2 shadow-md backdrop-blur-sm"
+          className="absolute bottom-[80px] left-4 z-50 flex h-10 w-10 items-center justify-center rounded-[8px] bg-white/90 p-2 shadow-md backdrop-blur-sm"
           aria-label="내 위치로 이동"
         >
           <img src="/icons/gps.svg" alt="내 위치 아이콘" className="h-5 w-5" />
