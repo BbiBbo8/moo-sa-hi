@@ -9,9 +9,7 @@ interface ShelterSearchInputProps {
   onSelect?: (shelter: Shelter) => void;
 }
 
-export default function ShelterSearchInput({
-  onSelect,
-}: ShelterSearchInputProps) {
+function ShelterSearchInput({ onSelect }: ShelterSearchInputProps) {
   const { data: shelters } = useShelters(); // 대피소 목록 가져오기
   const [query, setQuery] = useState(""); // 입력 상태
   const [showList, setShowList] = useState(false); // 리스트 표시 여부
@@ -53,3 +51,5 @@ export default function ShelterSearchInput({
     </div>
   );
 }
+
+export default ShelterSearchInput;
