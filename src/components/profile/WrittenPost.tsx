@@ -53,7 +53,7 @@ const WrittenPost = () => {
           ))}
       </section>
       {/* 작성 게시글이 없으면 보이기 */}
-      {(!shelterPost || !dailyPost) && (
+      {(shelterPost?.length === 0 || dailyPost?.length === 0) && (
         <div>
           <p>지금 바로 게시글을 작성해보세요!</p>
         </div>
