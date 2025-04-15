@@ -15,7 +15,7 @@ import { Input } from "../../ui/input";
 import createClient from "@/supabase/client";
 import { toast } from "sonner";
 import { usePathname } from "next/navigation";
-import PATH from "@/constants/PATH";
+import PATh from "@/constants/PATH";
 import { useUserData } from "@/hooks/useUserData";
 import { useInsertComment } from "@/hooks/useInsertComment";
 
