@@ -34,7 +34,7 @@ const AlertBanner = () => {
               isOpen ? "whitespace-pre-wrap" : "max-w-[250px] truncate"
             }`}
           >
-            {alert.message}
+            [ {alert.region}] &nbsp;{alert.message}
           </p>
         </div>
 
