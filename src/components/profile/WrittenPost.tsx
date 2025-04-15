@@ -28,8 +28,10 @@ const WrittenPost = () => {
               className="bg-accent h-30 w-30 overflow-hidden bg-center"
             >
               <Link href={PATH.COMMUNITYSHELTER + `/${post.id}`}>
-                <p>{post.title}</p>
-                <p>대피소</p>
+                <div className="h-full w-full">
+                  <p>{post.title}</p>
+                  <p>대피소</p>
+                </div>
               </Link>
             </div>
           ))}
@@ -41,8 +43,10 @@ const WrittenPost = () => {
               className="bg-accent h-30 w-30 overflow-hidden bg-center"
             >
               <Link href={PATH.COMMUNITYDAILY + `/${post.id}`}>
-                <p>{post.title}</p>
-                <p>일상</p>
+                <div className="h-full w-full">
+                  <p>{post.title}</p>
+                  <p>일상</p>
+                </div>
               </Link>
             </div>
           ))}
