@@ -2,7 +2,6 @@
 
 import PATH from "@/constants/PATH";
 import useGetPosts from "@/hooks/useGetPosts";
-import Image from "next/image";
 import Link from "next/link";
 
 const WrittenPost = () => {
@@ -29,22 +28,8 @@ const WrittenPost = () => {
               className="bg-accent h-30 w-30 overflow-hidden bg-center"
             >
               <Link href={PATH.COMMUNITYSHELTER + `/${post.id}`}>
-                {/* 이미지가 있으면 bg를 이미지로 변경 */}
-                {isImage(post.img_url) ? (
-                  <Image
-                    src={post.img_url}
-                    width={30}
-                    height={30}
-                    alt={post.title}
-                    className="h-30 w-30 object-cover"
-                  />
-                ) : null}
-                {!isImage(post.img_url) && (
-                  <>
-                    <p>{post.title}</p>
-                    <p>대피소</p>
-                  </>
-                )}
+                <p>{post.title}</p>
+                <p>대피소</p>
               </Link>
             </div>
           ))}
@@ -56,22 +41,8 @@ const WrittenPost = () => {
               className="bg-accent h-30 w-30 overflow-hidden bg-center"
             >
               <Link href={PATH.COMMUNITYDAILY + `/${post.id}`}>
-                {/* 이미지가 있으면 bg를 이미지로 변경 */}
-                {isImage(post.img_url) ? (
-                  <Image
-                    src={post.img_url}
-                    width={30}
-                    height={30}
-                    alt={post.title}
-                    className="h-30 w-30 object-cover"
-                  />
-                ) : null}
-                {!isImage(post.img_url) && (
-                  <>
-                    <p>{post.title}</p>
-                    <p>일상</p>
-                  </>
-                )}
+                <p>{post.title}</p>
+                <p>일상</p>
               </Link>
             </div>
           ))}
