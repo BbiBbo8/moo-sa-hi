@@ -1,4 +1,3 @@
-import React from "react";
 import ProfileCard from "@/components/profile/ProfileCard";
 
 const ProfilePage = () => {
