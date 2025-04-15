@@ -1,3 +1,5 @@
+"use client";
+
 import {
   FormField,
   FormItem,
@@ -7,13 +9,89 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { UseFormReturn } from "react-hook-form";
-import { FormData } from "../PostCreateEdit";
+import { Button } from "@/components/ui/button";
+import { useFormContext } from "react-hook-form";
+import { CONGESTION_LEVELS, HYGIENE_LEVELS } from "../PostCreateEdit";
+import ShelterSearchInput from "./ShelterSearchInput";
+import type { Shelter } from "@/types/shelter";
 
-function ShelterForm({ form }: { form: UseFormReturn<FormData> }) {
+// ✅ Props 타입 정의
+interface ShelterFormProps {
+  onShelterSelect: (shelter: Shelter) => void;
+}
+
+function ShelterForm({ onShelterSelect }: ShelterFormProps) {
+  const form = useFormContext();
+
   return (
     <>
-      {/* 제목 필드 */}
+      {/* 대피소 검색 */}
+      <FormField
+        control={form.control}
+        name="shelter_id"
+        render={() => (
+          <FormItem>
+            <FormLabel>대피소 위치 검색</FormLabel>
+            <ShelterSearchInput
+              onSelect={shelter => {
+                form.setValue("shelter_id", shelter.id);
+                onShelterSelect(shelter); // ✅ 상위 컴포넌트로 전달
+              }}
+            />
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      {/* 혼잡도 버튼 선택 */}
+      <FormField
+        control={form.control}
+        name="congestion"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>혼잡도</FormLabel>
+            <div className="flex gap-2">
+              {CONGESTION_LEVELS.map(level => (
+                <Button
+                  key={level}
+                  type="button"
+                  variant={field.value === level ? "default" : "outline"}
+                  onClick={() => field.onChange(level)}
+                >
+                  {level}
+                </Button>
+              ))}
+            </div>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      {/* 청결도 버튼 선택 */}
+      <FormField
+        control={form.control}
+        name="hygiene"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>위생상태</FormLabel>
+            <div className="flex gap-2">
+              {HYGIENE_LEVELS.map(level => (
+                <Button
+                  key={level}
+                  type="button"
+                  variant={field.value === level ? "default" : "outline"}
+                  onClick={() => field.onChange(level)}
+                >
+                  {level}
+                </Button>
+              ))}
+            </div>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      {/* 제목 */}
       <FormField
         control={form.control}
         name="title"
@@ -21,26 +99,34 @@ function ShelterForm({ form }: { form: UseFormReturn<FormData> }) {
           <FormItem>
             <FormLabel>제목</FormLabel>
             <FormControl>
-              <Input placeholder="제목를 입력해주세요" {...field} />
+              <Input
+                {...field}
+                maxLength={15}
+                placeholder="제목을 입력해주세요"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
 
-      {/* 내용 필드 */}
+      {/* 본문 */}
       <FormField
         control={form.control}
         name="contents"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>상세 내용</FormLabel>
+            <FormLabel>본문</FormLabel>
             <FormControl>
               <Textarea
-                placeholder="방문하신 대피소 상황을 입력해주세요"
                 {...field}
+                maxLength={500}
+                placeholder="내용을 입력해주세요"
               />
             </FormControl>
+            <p className="text-muted-foreground text-right text-sm">
+              {field.value.length} / 500자
+            </p>
             <FormMessage />
           </FormItem>
         )}
