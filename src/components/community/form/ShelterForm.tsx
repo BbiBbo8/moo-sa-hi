@@ -13,8 +13,14 @@ import { Button } from "@/components/ui/button";
 import { useFormContext } from "react-hook-form";
 import { CONGESTION_LEVELS, HYGIENE_LEVELS } from "../PostCreateEdit";
 import ShelterSearchInput from "./ShelterSearchInput";
+import type { Shelter } from "@/types/shelter";
 
-function ShelterForm() {
+// ✅ Props 타입 정의
+interface ShelterFormProps {
+  onShelterSelect: (shelter: Shelter) => void;
+}
+
+function ShelterForm({ onShelterSelect }: ShelterFormProps) {
   const form = useFormContext();
 
   return (
@@ -29,6 +35,7 @@ function ShelterForm() {
             <ShelterSearchInput
               onSelect={shelter => {
                 form.setValue("shelter_id", shelter.id);
+                onShelterSelect(shelter); // ✅ 상위 컴포넌트로 전달
               }}
             />
             <FormMessage />

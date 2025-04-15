@@ -1,55 +1,49 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { useForm, useFormContext } from "react-hook-form";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
-import { useDropzone } from "react-dropzone";
-import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import createClient from "@/supabase/client";
 import { toast } from "sonner";
 import PATH from "@/constants/PATH";
 
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ShelterSearchInput from "./form/ShelterSearchInput";
 import ShelterForm from "./form/ShelterForm";
 import DailyForm from "./form/DailyForm";
 import ImageDropzone from "./form/ImageDropzone";
+import { Constants } from "database.types";
 
 const supabase = createClient();
 
-export const CONGESTION_LEVELS = ["여유", "보통", "혼잡"] as const;
-export const HYGIENE_LEVELS = ["청결", "보통", "불량"] as const;
+export const CONGESTION_LEVELS = Constants.public.Enums.people_tags;
+export const HYGIENE_LEVELS = Constants.public.Enums.cleanliness_tags;
 
 const EditSchema = z.object({
   title: z.string().min(1, "제목을 입력해주세요"),
   contents: z.string().min(1, "내용을 입력해주세요"),
-  congestion: z.enum(CONGESTION_LEVELS).optional(),
-  hygiene: z.enum(HYGIENE_LEVELS).optional(),
+  congestion: z.enum(Constants.public.Enums.people_tags),
+  hygiene: z.enum(Constants.public.Enums.cleanliness_tags),
   shelter_id: z.string().optional(),
   imgUrl: z.string().optional(),
 });
 
 export type FormData = z.infer<typeof EditSchema>;
 
-export default function PostCreateEdit() {
+function PostCreateEdit() {
   const router = useRouter();
   const [category, setCategory] = useState<"shelter" | "daily">("shelter");
   const [imgUrl, setImgUrl] = useState<string | null>(null);
+
+  // 대피소 이름 저장하기 위한 상태 추가
+  const [selectedShelter, setSelectedShelter] = useState<{
+    id: string;
+    name: string;
+  } | null>(null);
 
   const {
     data: user,
@@ -79,6 +73,9 @@ export default function PostCreateEdit() {
       title: values.title,
       contents: values.contents,
       img_url: imgUrl ?? "",
+      people: values.congestion, // 혼잡도
+      cleanliness: values.hygiene, // 위생 상태
+      shelter_name: selectedShelter?.name ?? "", // 대피소 이름
     };
     return category === "shelter"
       ? await supabase.from("shelter_post").insert(payload)
@@ -105,10 +102,6 @@ export default function PostCreateEdit() {
     }
   };
 
-  const handleRemoveImage = () => {
-    setImgUrl(null);
-  };
-
   if (isPending) return <div>로딩 중...</div>;
   if (isError || !user) {
     toast.error("로그인 정보를 불러올 수 없습니다.");
@@ -133,36 +126,29 @@ export default function PostCreateEdit() {
           <Button type="submit">등록</Button>
         </div>
 
+        {/* 폼 본문 */}
+        {category === "shelter" ? (
+          <ShelterForm
+            // 대피소 선택 시 이름까지 저장되도록 props 연결
+            onShelterSelect={shelter => {
+              form.setValue("shelter_id", shelter.id);
+              setSelectedShelter({ id: shelter.id, name: shelter.name });
+            }}
+          />
+        ) : (
+          <DailyForm />
+        )}
+
+        {/* 이미지 업로드 */}
         <div className="space-y-4">
           <ImageDropzone
             value={imgUrl ? [imgUrl] : []}
             onChange={urls => setImgUrl(urls[0])}
           />
-
-          {imgUrl && (
-            <div className="relative h-auto w-64">
-              <Image
-                src={imgUrl}
-                alt="미리보기"
-                width={256}
-                height={192}
-                className="rounded-md border border-gray-200 object-cover"
-              />
-              <Button
-                type="button"
-                variant="destructive"
-                size="sm"
-                className="mt-2"
-                onClick={handleRemoveImage}
-              >
-                이미지 삭제
-              </Button>
-            </div>
-          )}
         </div>
-
-        {category === "shelter" ? <ShelterForm /> : <DailyForm />}
       </form>
     </Form>
   );
 }
+
+export default PostCreateEdit;
