@@ -1,5 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import WrittenPost from "./WrittenPost";
+import CommentPost from "./CommentPost";
 
 const ProfileTabs = () => {
   return (
@@ -15,7 +16,7 @@ const ProfileTabs = () => {
         <WrittenPost />
       </TabsContent>
       <TabsContent value="comment">
-        여기에 댓글을 단 게시글이 표시됩니다.
+        <CommentPost />
       </TabsContent>
       <TabsContent value="useful">
         여기에 유익해요한 게시글이 표시됩니다.
