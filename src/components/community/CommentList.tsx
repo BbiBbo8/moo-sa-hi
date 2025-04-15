@@ -6,8 +6,8 @@ import { Button } from "../ui/button";
 import { useUserData } from "@/hooks/useUserData";
 import Loading from "@/app/(pages)/Loading";
 import Error from "@/app/(pages)/Error";
-import { useComments } from "@/hooks/useComments";
-import useDeleteComment from "@/hooks/useDeleteComment";
+import { useComments } from "@/hooks/comment/useComments";
+import useDeleteComment from "@/hooks/comment/useDeleteComment";
 
 const CommentList = ({ postId }: { postId: number }) => {
   const { data, error, isLoading } = useUserData();
