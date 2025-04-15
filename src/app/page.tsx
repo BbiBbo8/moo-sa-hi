@@ -18,7 +18,7 @@ const HomePage = () => {
         />
 
         {/* AlertBanner 오버레이 */}
-        <div className="absolute top-0 left-0 z-10 w-full px-[20px] pt-6">
+        <div className="absolute top-0 left-0 z-10 w-full pt-6">
           <AlertBanner />
         </div>
       </section>
