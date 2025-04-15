@@ -7,7 +7,6 @@ import Link from "next/link";
 
 const WrittenPost = () => {
   const { data: posts } = useGetPosts();
-  console.log(posts);
   const shelterPost = posts?.shelter_post;
   const dailyPost = posts?.daily_post;
 
