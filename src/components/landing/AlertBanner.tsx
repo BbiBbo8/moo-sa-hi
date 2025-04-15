@@ -7,7 +7,7 @@ import fetchDisasterAlert from "@/app/api/fetchDisasterAlert";
 // 색상 테마 매핑 함수
 const getTheme = (type: string) => {
   const severeTypes = ["지진", "태풍", "해일"];
-  const warningTypes = ["호우", "강풍", "폭염"];
+  const warningTypes = ["호우", "강풍", "폭염", "산불",];
 
   if (severeTypes.includes(type)) {
     return {
@@ -59,7 +59,7 @@ const AlertBanner = () => {
 
   return (
     <div
-      className={`mx-20px flex items-center gap-4 rounded-xl border ${theme.border} ${theme.bg} px-5 py-4 shadow-md transition-all duration-300`}
+      className={`mx-[20px] flex items-center gap-4 rounded-xl border ${theme.border} ${theme.bg} px-5 py-4 shadow-md transition-all duration-300`}
     >
       <div
         className={`flex h-10 w-10 items-center justify-center rounded-full ${theme.iconBg} ${theme.icon}`}
