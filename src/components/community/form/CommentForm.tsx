@@ -13,11 +13,9 @@ import {
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import createClient from "@/supabase/client";
-import { toast } from "sonner";
 import { usePathname } from "next/navigation";
-import PATh from "@/constants/PATH";
 import { useUserData } from "@/hooks/useUserData";
-import { useInsertComment } from "@/hooks/useInsertComment";
+import { useInsertComment } from "@/hooks/comment/useCommentMutation";
 
 const commentSchema = z.object({
   content: z
@@ -31,13 +29,9 @@ type CommentFormData = z.infer<typeof commentSchema>;
 const CommentForm = ({ postId }: { postId: number }) => {
   const {
     formState: { errors },
-    reset,
   } = useForm<CommentFormData>({
     resolver: zodResolver(commentSchema),
   });
-
-  const supabase = createClient();
-  const pathname = usePathname();
 
   const { data, error, isLoading } = useUserData();
   const userId = data?.user?.id;

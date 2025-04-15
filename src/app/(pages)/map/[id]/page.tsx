@@ -9,11 +9,16 @@ import DetailMap from "@/components/detail/DetailMap";
 // http://localhost:3000/map/3910000_S202400002
 // 위 주소로 접속하시면 됩니다.
 
-const ShelterDetailPage = async ({ params }: { params: { id: string } }) => {
+const ShelterDetailPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const { id } = await params;
   // 모든 대피소 가져오기
   const shelters = await fetchSheltersApi();
   //전체 목록중 특정 대피소만 가져오기
-  const shelter = shelters.find(s => s.id === params.id);
+  const shelter = shelters.find(s => s.id === id);
 
   // 지상/지하 매핑
   const FloorType = (code?: string) => {

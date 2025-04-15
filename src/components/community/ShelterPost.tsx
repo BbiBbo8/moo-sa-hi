@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Post } from "@/types/communityPost";
-import { format } from "date-fns";
+import { formatTime } from "@/utils/formatTime";
 import PATH from "@/constants/PATH";
 
 // NOTE: 한 줄짜리 타입지정이라 interface가 아닌 type을 사용했습니다.
@@ -11,7 +11,7 @@ type PostCardProps = {
 
 const ShelterPost = ({ post }: PostCardProps) => {
   // NOTE: 날짜 작성 형태(년도.월.일)를 형식에 맞춰 반환
-  const formatted = format(new Date(post.created_at), "yyyy.MM.dd");
+  const timeCreated = formatTime({ time: post.created_at });
 
   return (
     <Link
@@ -30,7 +30,7 @@ const ShelterPost = ({ post }: PostCardProps) => {
             <h2 className="text-lg">{post.title}</h2>
             <section className="absolute right-0 bottom-4 left-0 flex justify-between px-4 text-[12px] text-gray-500">
               <p>2km</p>
-              <p>{formatted}</p>
+              <p>{timeCreated}</p>
             </section>
           </section>
         </CardContent>
