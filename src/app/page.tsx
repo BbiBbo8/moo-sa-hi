@@ -5,7 +5,7 @@ import NewsCard from "@/components/landing/NewsCard";
 
 const HomePage = () => {
   return (
-    <main className="px-4 py-6 space-y-8">
+    <main className="px-4 py-6 space-y-8 pb-[60px]">
       <AlertBanner />
       <MapPreview />
       <NewsCard />
