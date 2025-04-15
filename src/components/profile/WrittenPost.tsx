@@ -42,7 +42,7 @@ const WrittenPost = () => {
                 {!isImage(post.img_url) && (
                   <>
                     <p>{post.title}</p>
-                    <p></p>
+                    <p>대피소</p>
                   </>
                 )}
               </div>
