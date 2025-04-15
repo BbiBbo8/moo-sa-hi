@@ -1,5 +1,4 @@
 import { create } from "zustand";
-
 import { Shelter } from "@/types/shelter";
 import fetchSheltersApi from "@/app/api/fetchSheltersApi";
 

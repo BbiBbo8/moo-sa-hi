@@ -53,3 +53,24 @@ export const useInsertComment = () => {
     },
   });
 };
+
+export const useDeleteComment = () => {
+  const supabase = createClient();
+  const queryClient = useQueryClient();
+  //   댓글을 삭제하는 함수
+  const handleDeleteComments = async (id: number) => {
+    const { error } = await supabase.from("comments").delete().eq("id", id);
+    if (error) throw error;
+  };
+
+  // mutation으로 동기화
+  return useMutation({
+    mutationFn: handleDeleteComments,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["comments"] });
+    },
+    onError: error => {
+      toast.error("댓글 삭제 오류!");
+    },
+  });
+};

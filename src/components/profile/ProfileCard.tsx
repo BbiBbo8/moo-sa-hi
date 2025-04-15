@@ -4,7 +4,9 @@ import ProfileEditPop from "./ProfileEditPop";
 import Loading from "@/app/(pages)/Loading";
 import { useUserData } from "@/hooks/useUserData";
 import Error from "@/app/(pages)/Error";
-import { LogoutButton } from "../auth/LogoutButton";
+import LogoutButton from "../auth/LogoutButton";
+import SigninDrawer from "../auth/SigninDrawer";
+import ProfileTabs from "./ProfileTabs";
 
 const ProfileCard = () => {
   // react-query로 유저 정보 불러오기
@@ -23,20 +25,33 @@ const ProfileCard = () => {
   }
 
   return (
-    <div className="bg-accent flex flex-col gap-3 rounded-xl border py-4 shadow-sm">
-      <div className="flex-row">
-        <div className="gap-2">
-          <h3 className="text-lg font-bold">{user.nickname}</h3>
-          <h3 className="text-md">{userAuth.email}</h3>
-          {/* 이외 추가 설명이 있다면 들어갈 곳 */}
-          <span className="text-xs font-light">추가 설명</span>
+    <>
+      <div className="bg-accent flex flex-col gap-3 rounded-xl border py-4 shadow-sm">
+        <div className="flex-row">
+          <div className="gap-4">
+            {/* 유저가 존재하면 정보 띄우기 */}
+            {user && (
+              <>
+                <h3 className="m-1 text-lg font-bold">{user.nickname}</h3>
+                <h3 className="text-md m-1">{userAuth.email}</h3>
+              </>
+            )}
+            {/* 유저가 존재하지 않으면 닉네임 없애기 */}
+            {!user && <h3 className="text-lg font-bold">로그인하세요!</h3>}
+          </div>
+          {/* 유저가 존재하면 로그아웃과 프로필 수정 띄우기 */}
+          {user && (
+            <>
+              <ProfileEditPop userId={userAuth.id} nickname={user.nickname} />
+              <LogoutButton />
+            </>
+          )}
+          {/* 유저가 존재하지 않으면 로그인 띄우기 */}
+          {!user && <SigninDrawer />}
         </div>
-        {/* TEST: 임시 로그아웃 버튼 추가 */}
-        <LogoutButton />
-        <ProfileEditPop userId={userAuth.id} nickname={user.nickname} />
       </div>
-      {/* 아래의 게시글 수 도전 기능은 일단 구현하지 않음 */}
-    </div>
+      {user && <ProfileTabs />}
+    </>
   );
 };
 
