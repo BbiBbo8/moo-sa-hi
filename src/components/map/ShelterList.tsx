@@ -14,10 +14,9 @@ const ShelterList = () => {
           className="mb-2 flex items-center justify-between p-3"
         >
           {/* 대피소 이름 및 주소 정보 */}
-          {/* encodeURIComponent는 URL에 사용할 수 없는 특수 문자나 공백을 안전한 형태로 변환해주는 함수입니다. */}
           <Link
             className="flex flex-col gap-1"
-            href={`${PATH.MAP}/${encodeURIComponent(shelter.name)}`}
+            href={`${PATH.MAP}/${shelter.id}`}
           >
             <h5 className="text-md font-semibold">{shelter.name}</h5>
             <span className="text-xs text-gray-500">{shelter.address}</span>
