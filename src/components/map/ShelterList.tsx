@@ -1,3 +1,4 @@
+import PATH from "@/constants/PATH";
 import { useMarkerStore } from "@/store/useMarkerStore";
 import Link from "next/link";
 
@@ -16,7 +17,7 @@ const ShelterList = () => {
           {/* encodeURIComponent는 URL에 사용할 수 없는 특수 문자나 공백을 안전한 형태로 변환해주는 함수입니다. */}
           <Link
             className="flex flex-col gap-1"
-            href={`/map/${encodeURIComponent(shelter.name)}`}
+            href={`${PATH.MAP}/${encodeURIComponent(shelter.name)}`}
           >
             <h5 className="text-md font-semibold">{shelter.name}</h5>
             <span className="text-xs text-gray-500">{shelter.address}</span>
