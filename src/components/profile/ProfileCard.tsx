@@ -4,7 +4,6 @@ import ProfileEditPop from "./ProfileEditPop";
 import Loading from "@/app/(pages)/Loading";
 import { useUserData } from "@/hooks/useUserData";
 import Error from "@/app/(pages)/Error";
-import LogoutButton from "../auth/LogoutButton";
 import SigninDrawer from "../auth/SigninDrawer";
 import ProfileTabs from "./ProfileTabs";
 
@@ -26,8 +25,8 @@ const ProfileCard = () => {
 
   return (
     <>
-      <div className="bg-accent flex flex-col gap-3 rounded-xl border py-4 shadow-sm">
-        <div className="flex-row">
+      <section className="flex w-full flex-col gap-3">
+        <div className="flex">
           <div className="gap-4">
             {/* 유저가 존재하면 정보 띄우기 */}
             {user && (
@@ -37,19 +36,22 @@ const ProfileCard = () => {
               </>
             )}
             {/* 유저가 존재하지 않으면 닉네임 없애기 */}
-            {!user && <h3 className="text-lg font-bold">로그인하세요!</h3>}
+            {!user && (
+              <h3 className="mb-4 text-lg font-bold">
+                로그인이 필요한 서비스입니다.
+              </h3>
+            )}
           </div>
           {/* 유저가 존재하면 로그아웃과 프로필 수정 띄우기 */}
           {user && (
-            <>
+            <div className="m-4">
               <ProfileEditPop userId={userAuth.id} nickname={user.nickname} />
-              <LogoutButton />
-            </>
+            </div>
           )}
           {/* 유저가 존재하지 않으면 로그인 띄우기 */}
           {!user && <SigninDrawer />}
         </div>
-      </div>
+      </section>
       {user && <ProfileTabs />}
     </>
   );

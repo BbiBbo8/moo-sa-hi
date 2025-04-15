@@ -5,7 +5,7 @@ import UsefulPost from "./UsefulPost";
 
 const ProfileTabs = () => {
   return (
-    <Tabs defaultValue="post" className="mt-4 w-full">
+    <Tabs defaultValue="post" className="mt-4">
       <TabsList>
         {/* 탭 메뉴 */}
         <TabsTrigger value="post">작성 게시글</TabsTrigger>
