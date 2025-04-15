@@ -24,11 +24,11 @@ const WrittenPost = () => {
         {/* 대피소 먼저 렌더링 */}
         {shelterPost &&
           shelterPost?.map(post => (
-            <Link href={PATH.COMMUNITYSHELTER + `/${post.id}`}>
-              <div
-                key={post.id}
-                className="bg-accent h-30 w-30 overflow-hidden bg-center"
-              >
+            <div
+              key={post.id}
+              className="bg-accent h-30 w-30 overflow-hidden bg-center"
+            >
+              <Link href={PATH.COMMUNITYSHELTER + `/${post.id}`}>
                 {/* 이미지가 있으면 bg를 이미지로 변경 */}
                 {isImage(post.img_url) ? (
                   <Image
@@ -45,17 +45,17 @@ const WrittenPost = () => {
                     <p>대피소</p>
                   </>
                 )}
-              </div>
-            </Link>
+              </Link>
+            </div>
           ))}
         {/* 일상 렌더링 */}
         {dailyPost &&
           dailyPost?.map(post => (
-            <Link href={PATH.COMMUNITYDAILY + `/${post.id}`}>
-              <div
-                key={post.id}
-                className="bg-accent h-30 w-30 overflow-hidden bg-center"
-              >
+            <div
+              key={post.id}
+              className="bg-accent h-30 w-30 overflow-hidden bg-center"
+            >
+              <Link href={PATH.COMMUNITYDAILY + `/${post.id}`}>
                 {/* 이미지가 있으면 bg를 이미지로 변경 */}
                 {isImage(post.img_url) ? (
                   <Image
@@ -72,8 +72,8 @@ const WrittenPost = () => {
                     <p>일상</p>
                   </>
                 )}
-              </div>
-            </Link>
+              </Link>
+            </div>
           ))}
       </section>
       {/* 작성 게시글이 없으면 보이기 */}
