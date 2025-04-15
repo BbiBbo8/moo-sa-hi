@@ -29,13 +29,9 @@ type CommentFormData = z.infer<typeof commentSchema>;
 const CommentForm = ({ postId }: { postId: number }) => {
   const {
     formState: { errors },
-    reset,
   } = useForm<CommentFormData>({
     resolver: zodResolver(commentSchema),
   });
-
-  const supabase = createClient();
-  const pathname = usePathname();
 
   const { data, error, isLoading } = useUserData();
   const userId = data?.user?.id;
