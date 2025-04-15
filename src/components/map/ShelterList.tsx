@@ -1,9 +1,29 @@
+"use client";
 import PATH from "@/constants/PATH";
 import { useMarkerStore } from "@/store/useMarkerStore";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
-const ShelterList = () => {
+const ShelterList = ({ isDrawerOpen }: { isDrawerOpen: boolean }) => {
   const markedShelter = useMarkerStore(state => state.markedShelter); // MarkerStore의 저장된 데이터 불러오기
+  const selectedShelterName = useMarkerStore(
+    state => state.selectedShelterName,
+  );
+
+  const refs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+
+  useEffect(() => {
+    if (
+      isDrawerOpen &&
+      selectedShelterName &&
+      refs.current[selectedShelterName]
+    ) {
+      refs.current[selectedShelterName]?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [isDrawerOpen, selectedShelterName]);
 
   return (
     <div className="z-50 p-4">
@@ -11,7 +31,12 @@ const ShelterList = () => {
       {markedShelter.map(shelter => (
         <div
           key={shelter.name + shelter.address}
-          className="mb-2 flex items-center justify-between p-3"
+          ref={(el: HTMLDivElement | null) => {
+            refs.current[shelter.name] = el;
+          }}
+          className={`mb-2 flex items-center justify-between rounded-lg p-3 ${
+            selectedShelterName === shelter.name ? "bg-yellow-100" : ""
+          }`}
         >
           {/* 대피소 이름 및 주소 정보 */}
           <Link
