@@ -15,7 +15,7 @@ const TabNavigateBar = () => {
   }
 
   return (
-    <section className="flex w-full justify-center px-5">
+    <section className="inline-flex w-full justify-center px-5">
       <div className="fixed bottom-0 z-50 mb-4 inline-flex h-fit min-w-80 justify-evenly rounded-full border border-transparent bg-[#262626] text-center text-white">
         <Link href={PATH.HOME} className="w-fit py-0.5">
           {/* 랜딩 페이지(홈)으로 이동 */}
