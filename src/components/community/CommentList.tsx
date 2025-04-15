@@ -7,7 +7,7 @@ import { useUserData } from "@/hooks/useUserData";
 import Loading from "@/app/(pages)/Loading";
 import Error from "@/app/(pages)/Error";
 import { useComments } from "@/hooks/comment/useComments";
-import useDeleteComment from "@/hooks/comment/useDeleteComment";
+import { useDeleteComment } from "@/hooks/comment/useCommentMutation";
 
 const CommentList = ({ postId }: { postId: number }) => {
   const { data, error, isLoading } = useUserData();

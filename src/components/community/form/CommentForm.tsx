@@ -15,7 +15,7 @@ import { Input } from "../../ui/input";
 import createClient from "@/supabase/client";
 import { usePathname } from "next/navigation";
 import { useUserData } from "@/hooks/useUserData";
-import { useInsertComment } from "@/hooks/comment/useInsertComment";
+import { useInsertComment } from "@/hooks/comment/useCommentMutation";
 
 const commentSchema = z.object({
   content: z
