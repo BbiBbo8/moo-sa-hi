@@ -2,7 +2,7 @@ import ProfileCard from "@/components/profile/ProfileCard";
 
 const ProfilePage = () => {
   return (
-    <main className="p-5">
+    <main>
       {/* 프로필 내용이 들어갈 위치 */}
       <ProfileCard />
     </main>

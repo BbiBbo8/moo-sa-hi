@@ -37,7 +37,7 @@ const ProfileCard = () => {
             )}
             {/* 유저가 존재하지 않으면 닉네임 없애기 */}
             {!user && (
-              <h3 className="mb-4 text-lg font-bold">
+              <h3 className="mb-4 p-5 text-lg font-bold">
                 로그인이 필요한 서비스입니다.
               </h3>
             )}
@@ -49,7 +49,11 @@ const ProfileCard = () => {
             </div>
           )}
           {/* 유저가 존재하지 않으면 로그인 띄우기 */}
-          {!user && <SigninDrawer />}
+          {!user && (
+            <div className="pt-5">
+              <SigninDrawer />
+            </div>
+          )}
         </div>
       </section>
       {user && <ProfileTabs />}
