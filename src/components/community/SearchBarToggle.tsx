@@ -4,6 +4,7 @@ import { ChangeEvent, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
+import Image from "next/image";
 
 interface SearchBarToggleProps {
   onSearch: (searchTerm: string) => void;
@@ -46,36 +47,27 @@ const SearchBarToggle: React.FC<SearchBarToggleProps> = ({ onSearch }) => {
 
       {/* 검색창 영역 */}
       {isSearchOpen && (
-        <div className="fixed top-28 right-0 left-0 z-50 bg-white p-2">
-          <div className="flex items-center space-x-2 px-2">
-            <div className="relative flex-1">
+        <div className="fixed top-28 right-0 left-0 z-50 h-[60px] bg-white px-5">
+          <div className="flex items-center gap-3">
+            <div className="relative">
               <Input
                 autoFocus
                 placeholder="검색어를 입력하세요"
                 value={searchValue}
                 onChange={handleSearchChange}
-                className="pr-8 pl-4"
+                className="h-10 w-[312px] border-1 border-gray-400"
               />
               {searchValue && (
                 <button
                   className="absolute top-1/2 right-3 -translate-y-1/2"
                   onClick={handleClear}
                 >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M18 6L6 18M6 6L18 18"
-                      stroke="#9CA3AF"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <Image
+                    src={"/icons/Property 1=disabled.svg"}
+                    alt={"icon"}
+                    width={24}
+                    height={24}
+                  />
                 </button>
               )}
             </div>
@@ -85,7 +77,7 @@ const SearchBarToggle: React.FC<SearchBarToggleProps> = ({ onSearch }) => {
                 setIsSearchOpen(false);
                 handleClear();
               }}
-              className="text-sm font-medium whitespace-nowrap"
+              className="p-0 text-sm whitespace-nowrap"
             >
               취소
             </Button>
