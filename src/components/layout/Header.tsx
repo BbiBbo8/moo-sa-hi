@@ -11,7 +11,7 @@ const Header = () => {
   // 현재 랜딩 페이지인지 확인하기
   const isLandingPage = pathname === PATH.HOME;
   // 헤더 숨길 페이지 목록
-  const hiddenRoutes:string[] = [PATH.CREATE];
+  const hiddenRoutes:string[] = [PATH.CREATE,PATH.COMMUNITYSHELTER,PATH.COMMUNITYDAILY];
 
   // 특정 페이지에서 헤더 안 보이게
   if (hiddenRoutes.includes(pathname)) {
