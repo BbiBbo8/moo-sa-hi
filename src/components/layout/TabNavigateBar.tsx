@@ -16,7 +16,7 @@ const TabNavigateBar = () => {
 
   return (
     <section className="flex w-full justify-center">
-      <div className="fixed bottom-0 z-50 mb-4 inline-flex h-fit w-11/12 justify-evenly rounded-full border border-transparent bg-[#262626] px-5 text-center text-white">
+      <div className="fixed bottom-0 z-50 mb-4 inline-flex h-fit w-11/12 justify-evenly rounded-full border border-transparent bg-[#262626] px-5 text-center text-sm font-medium text-white">
         <Link href={PATH.HOME} className="w-fit py-0.5">
           {/* 랜딩 페이지(홈)으로 이동 */}
           <Image
@@ -26,7 +26,7 @@ const TabNavigateBar = () => {
             height={28}
             className="text-center"
           />
-          <h5 className="text-xs">홈</h5>
+          <h5>홈</h5>
         </Link>
         <Link href={PATH.MAP} className="h-fit w-fit py-0.5">
           {/* 지도 페이지로 이동 */}
@@ -37,7 +37,7 @@ const TabNavigateBar = () => {
             height={28}
             className="ml-0.5 text-center"
           />
-          <h5 className="text-xs">대피소</h5>
+          <h5>대피소</h5>
         </Link>
         <Link href={PATH.COMMUNITYSHELTER} className="w-fit py-0.5">
           {/* 커뮤니티 (기본은 대피소 커뮤니티)로 이동 */}
@@ -48,7 +48,7 @@ const TabNavigateBar = () => {
             height={28}
             className="ml-2 text-center"
           />
-          <h5 className="text-xs">커뮤니티</h5>
+          <h5>커뮤니티</h5>
         </Link>
         <Link href={PATH.PROFILE} className="w-fit py-0.5">
           {/* 마이페이지로 이동 */}
@@ -59,7 +59,7 @@ const TabNavigateBar = () => {
             height={28}
             className="text-center"
           />
-          <h5 className="text-xs">마이</h5>
+          <h5>마이</h5>
         </Link>
       </div>
     </section>
