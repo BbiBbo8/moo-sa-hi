@@ -40,7 +40,7 @@ const ProfileEditPop = ({ userId }: ProfileEditPopProps) => {
     },
     onSuccess: () => {
       toast.success("업데이트 완료!");
-      queryClient.invalidateQueries({ queryKey: ["userData"] });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: (err: unknown) => {
       if (err instanceof z.ZodError) {
@@ -78,7 +78,7 @@ const ProfileEditPop = ({ userId }: ProfileEditPopProps) => {
                   value={editNickname}
                   onChange={e => setEditNickname(e.target.value)}
                   placeholder="닉네임 입력"
-                  className="col-span-2 h-8 w-full bg-[#F7F7F7] text-sm [active]:border-none"
+                  className="col-span-2 h-fit w-full bg-[#F7F7F7] px-4 py-3 text-sm [active]:border-none"
                 />
               </div>
 
