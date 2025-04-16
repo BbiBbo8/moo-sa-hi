@@ -74,7 +74,7 @@ const ShelterPostButtons = ({
         .from("helpfuls")
         .delete()
         .eq("user_id", user.id)
-        .eq("shelter_post_id", shelterPostId);
+        .eq("shelter_post_id", shelterPostId!);
 
       if (deleteError) {
         console.error("유용해요 삭제 오류:", deleteError);

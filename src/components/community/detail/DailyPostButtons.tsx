@@ -71,7 +71,7 @@ const DailyPostButtons = ({ dailyPostId = null, onClickReport }: params) => {
         .from("helpfuls")
         .delete()
         .eq("user_id", user.id)
-        .eq("daily_post_id", dailyPostId);
+        .eq("daily_post_id", dailyPostId!);
 
       if (deleteError) {
         console.error("유용해요 삭제 오류:", deleteError);
