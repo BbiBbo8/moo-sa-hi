@@ -12,7 +12,7 @@ import LogoutButton from "../auth/LogoutButton";
 import Image from "next/image";
 
 interface ProfileEditPopProps {
-  userId: string;
+  userId: string | undefined;
   nickname: string;
 }
 
@@ -35,7 +35,7 @@ const ProfileEditPop = ({ userId }: ProfileEditPopProps) => {
       const { error } = await supabase
         .from("users")
         .update({ nickname: newNickname })
-        .eq("id", userId);
+        .eq("id", userId!);
 
       if (error) throw new Error("업데이트 실패");
     },

@@ -11,6 +11,7 @@ export interface Shelter {
   isOpen: string;
   usageType: string;
   id: string; // 대피소 고유 id
+  distance?: number; // 거리
 }
 
 export interface ShelterApiResponse {
