@@ -1,3 +1,5 @@
+"use client";
+
 import {
   FormField,
   FormItem,
@@ -13,29 +15,41 @@ function DailyForm() {
   const form = useFormContext();
 
   return (
-    <>
+    <div className="space-y-[20px] px-[20px]">
+      {/* 제목 입력 */}
       <FormField
         control={form.control}
         name="title"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>제목</FormLabel>
+            <FormLabel className="text-[16px]">제목</FormLabel>
             <FormControl>
-              <Input {...field} maxLength={15} />
+              <Input
+                {...field}
+                maxLength={15}
+                placeholder="제목을 입력해주세요"
+                className="text-[16px]"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
 
+      {/* 본문 입력 */}
       <FormField
         control={form.control}
         name="contents"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>본문</FormLabel>
+            <FormLabel className="text-[16px]">본문</FormLabel>
             <FormControl>
-              <Textarea {...field} maxLength={500} />
+              <Textarea
+                {...field}
+                placeholder="오늘의 안전을 작성해주세요!!"
+                maxLength={500}
+                className="min-h-[140px] text-[16px]"
+              />
             </FormControl>
             <p className="text-muted-foreground text-right text-sm">
               {field.value.length} / 500자
@@ -44,7 +58,7 @@ function DailyForm() {
           </FormItem>
         )}
       />
-    </>
+    </div>
   );
 }
 
