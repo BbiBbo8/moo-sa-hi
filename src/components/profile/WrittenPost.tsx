@@ -10,13 +10,13 @@ const WrittenPost = () => {
   const dailyPost = posts?.daily_post;
 
   // FIXME: 이미지 여부 판단. 지금은 사용하지 않는 함수
-  const isImage = (postUrl: string | null) => {
-    if (postUrl === null) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  // const isImage = (postUrl: string | null) => {
+  //   if (postUrl === null) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
 
   return (
     <>
