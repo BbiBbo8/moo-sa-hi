@@ -16,7 +16,7 @@ const NewsCard = () => {
   return (
       <div className="mx-[20px]">
         <h2 className="text-[20px] leading-[27px] font-semibold text-[#1A1A1A]">무사히 재난 뉴스</h2>
-        <p className="py-[2px] text-[16px] leading-[24px] text-[#1A1A1A]">전국 각지에서 일어난 재난 정보</p>
+        <p className="text-[16px] text-[#666666] mt-1">전국 각지에서 일어난 재난 정보</p>
       <section className="overflow-x-auto">
       <div className="flex w-max gap-4 py-[12px]">
         {/* 카드 1 */}
