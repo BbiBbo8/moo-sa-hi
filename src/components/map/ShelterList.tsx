@@ -57,7 +57,7 @@ const ShelterList = ({ isDrawerOpen, shelters }: ShelterListProps) => {
                 <span className="text-xs text-gray-500">{shelter.address}</span>
               </div>
               {shelter.distance !== undefined && (
-                <span className="text-sm font-bold whitespace-nowrap text-black">
+                <span className="text-xs whitespace-nowrap text-gray-500">
                   {(shelter.distance / 1000).toFixed(1)} km
                 </span>
               )}

@@ -103,7 +103,7 @@ const ShelterDrawer = () => {
                     <div className="flex items-center justify-between">
                       <h5 className="text-sm font-semibold">{shelter.name}</h5>
                       {typeof shelter.distance === "number" && (
-                        <span className="text-sm font-bold text-black">
+                        <span className="text-xs whitespace-nowrap text-gray-500">
                           {(shelter.distance / 1000).toFixed(1)} km
                         </span>
                       )}
