@@ -41,7 +41,7 @@ const ProfileCard = () => {
           {/* 유저가 존재하면 로그아웃과 프로필 수정 띄우기 */}
           {user && (
             <div className="mt-3">
-              <ProfileEditPop userId={userAuth.id} nickname={user.nickname} />
+              <ProfileEditPop userId={userAuth?.id} nickname={user.nickname} />
             </div>
           )}
         </div>
