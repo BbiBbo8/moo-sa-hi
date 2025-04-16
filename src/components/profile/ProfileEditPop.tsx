@@ -11,7 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import LogoutButton from "../auth/LogoutButton";
 
 interface ProfileEditPopProps {
-  userId: string;
+  userId: string | undefined;
   nickname: string;
 }
 
