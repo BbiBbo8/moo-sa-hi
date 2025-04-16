@@ -5,7 +5,7 @@ import UsefulPost from "./UsefulPost";
 
 const ProfileTabs = () => {
   return (
-    <div className="text-center">
+    <div className="mt-18 text-center">
       <Tabs defaultValue="post" className="mt-4">
         <TabsList>
           {/* 탭 메뉴 */}

@@ -38,20 +38,20 @@ const ConfirmModal = ({ id, onOpen, onClose }: params) => {
             className="fixed top-1/2 left-1/2 z-20 flex h-[128px] w-[312px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center gap-6 rounded-xl border-2 bg-white text-gray-500"
           >
             게시글을 신고하시겠습니까?
-            <article className="flex flex-row gap-2 font-semibold text-black [&>*]:active:border-[#58999E] [&>*]:active:text-[#58999E]">
+            <article className="flex flex-row gap-2 font-semibold text-black [&>*]:transition-colors [&>*]:duration-200 [&>*]:ease-in-out">
               <button
                 type="button"
                 onClick={onClose}
-                className="h-[44px] w-[140px] rounded-lg border-1 border-gray-400"
+                className="h-[44px] w-[140px] rounded-lg border-1 border-gray-400 text-gray-600 active:border-gray-800 active:text-gray-800"
               >
                 닫기
               </button>
               {currentUser === data?.user ? (
-                <button className="h-[44px] w-[140px] rounded-lg border-1 border-gray-400">
+                <button className="h-[44px] w-[140px] rounded-lg border-1 bg-[#58999E] text-white active:bg-[#376D72] active:text-white">
                   삭제하기
                 </button>
               ) : (
-                <button className="h-[44px] w-[140px] rounded-lg border-1 border-gray-400">
+                <button className="h-[44px] w-[140px] rounded-lg border-1 bg-[#58999E] text-white active:bg-[#376D72] active:text-white">
                   신고하기
                 </button>
               )}

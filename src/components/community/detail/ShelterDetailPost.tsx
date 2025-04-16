@@ -11,7 +11,9 @@ import { useShelters } from "@/hooks/shelter/useShelters";
 import { toast } from "sonner";
 import Error from "@/app/(pages)/Error";
 import ConfirmModal from "./ConfirmModal";
-import PostButtons from "./PostButtons";
+import ShelterPostButtons from "./ShelterPostButton";
+import { ShieldCheck } from "lucide-react";
+import { UsersRound } from "lucide-react";
 
 const ShelterDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useShelterPostDetailQuery(id);
@@ -29,9 +31,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
     if (matchedShelter) {
       setCenter({ lat: matchedShelter.lat, lng: matchedShelter.lng });
       setLevel(4);
-      console.log("matchedShelter123", matchedShelter);
     } else {
-      console.log("matchedShelter", matchedShelter);
       toast("해당 이름의 대피소를 찾을 수 없어요.");
     }
   }, [data?.shelter_name, shelters, setCenter, setLevel]); // 리팩토링 진행할 때 MainMap 대신 DetailMap 사용 필요할 듯
@@ -54,21 +54,34 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
   const timeCreated = formatTime({ time: data.created_at });
 
   return (
-    <section className="m-4 flex flex-col items-center gap-5">
-      <article className="mb-5 w-full flex-col gap-5 not-visited:flex">
-        <header className="flex flex-col">
+    <section className="mx-5 mt-20 flex flex-col items-center gap-5">
+      <article className="mb-5 w-full flex-col">
+        <header className="mb-4 flex flex-col">
+          <h1 className="text-[18px] leading-[27px] font-medium text-[#1A1A1A]">
+            {data.title}
+          </h1>
           <div className="flex w-full flex-row items-baseline justify-between">
-            <h1 className="text-[20px]">{data.title}</h1>
-            <span className="text-[14px] text-gray-500">{timeCreated}</span>
+            <span className="text-[14px] text-[#808080]">
+              {data.user?.nickname}
+            </span>
+            <span className="text-[14px] text-[#B3B3B3]">{timeCreated}</span>
           </div>
-          <span className="text-[14px] text-gray-500">
-            혼잡도: {data.people} 아직 빈칸
-          </span>
         </header>
 
+        <section className="mb-7 flex flex-col gap-2 text-[#666666]">
+          <span className="flex flex-row gap-1">
+            <UsersRound />
+            혼잡도: {data.people}
+          </span>
+          <span className="flex flex-row gap-1">
+            <ShieldCheck />
+            위생상태: {data.cleanliness}
+          </span>
+        </section>
+
         {data.img_url?.startsWith("http") || data.img_url?.startsWith("/") ? (
-          <div className="flex items-center justify-center">
-            <figure className="relative flex h-[350px] w-[350px] items-center justify-center overflow-hidden rounded-3xl border-2 border-gray-400">
+          <div className="mb-5 flex items-center justify-center">
+            <figure className="relative flex h-[350px] w-[350px] items-center justify-center overflow-hidden rounded-3xl border-1 border-gray-400">
               <Image
                 src={data.img_url}
                 alt="이미지를 불러오지 못했습니다."
@@ -81,11 +94,6 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
 
         <p className="mb-10 min-h-10 w-full text-[16px]">{data.contents}</p>
 
-        <section className="flex flex-col gap-2">
-          <span>혼잡도: {data.people}</span>
-          <span>위생상태: {data.cleanliness}</span>
-        </section>
-
         <figure className="flex h-40 overflow-hidden rounded-2xl">
           <MainMap />
           {/* TEST: (고민 내용) 포함정보가 많아 무거운 MainMap보다 DetailMap을 쓰는 걸 추천받았지만
@@ -94,8 +102,8 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
         </figure>
       </article>
 
-      <PostButtons
-        numOfHelpfuls={data.helpfuls?.length}
+      <ShelterPostButtons
+        shelterPostId={data.id}
         onClickReport={handleConfirmationModal}
       />
 
@@ -107,7 +115,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
       />
 
       {/* NOTE: 화면에 보이는 회색 줄 */}
-      <div className="h-4 min-w-screen bg-gray-200"></div>
+      <div className="mb-11 h-2 min-w-screen bg-[#F7F7F7]"></div>
     </section>
   );
 };
