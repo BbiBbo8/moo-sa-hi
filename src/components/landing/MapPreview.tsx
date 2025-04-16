@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import MapGeolocationComponent from "@/components/map/UserGeolocationMap";
 import { Button } from "@/components/ui/button";
 import PATH from "@/constants/PATH";
+import Image from "next/image";
 
 const DEFAULT_CENTER = {
   lat: 37.5665,
@@ -50,7 +51,7 @@ const LandingMapPreview = () => {
           className="absolute bottom-[80px] left-4 z-50 flex h-10 w-10 items-center justify-center rounded-[8px] bg-white/90 p-2 shadow-md backdrop-blur-sm"
           aria-label="내 위치로 이동"
         >
-          <img src="/icons/gps.svg" alt="내 위치 아이콘" className="h-5 w-5" />
+          <Image src="/icons/gps.svg" alt="내 위치 아이콘" width={20} height={20} />
         </button>
 
         {/* 지역 검색하기 버튼 */}
