@@ -34,7 +34,9 @@ const ProfileCard = () => {
                 <h3 className="m-1 text-lg font-medium text-[#1A1A1A]">
                   {user.nickname}
                 </h3>
-                <h3 className="m-1 text-sm text-[#666666]">{userAuth.email}</h3>
+                <h3 className="m-1 text-sm text-[#666666]">
+                  {userAuth?.email}
+                </h3>
               </>
             )}
           </div>
