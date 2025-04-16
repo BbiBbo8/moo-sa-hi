@@ -1,8 +1,8 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
 import PATH from "@/constants/PATH";
+import Image from "next/image";
 
 const Header = () => {
   const router = useRouter();
@@ -22,6 +22,10 @@ const Header = () => {
     router.back();
   };
 
+  const handleHome = () => {
+    router.push(PATH.HOME);
+  }
+
   return (
     <header className="flex w-full items-center justify-between border-b px-4 py-4">
       {/* 뒤로가기 버튼 (랜딩 페이지에서는 숨김) */}
@@ -29,12 +33,17 @@ const Header = () => {
         <div className="h-5 w-5" /> // 공간만 유지
       ) : (
         <button onClick={handleBack}>
-          <ArrowLeft className="h-5 w-5" />
+          <Image
+            src="/icons/chevron-left-solid 1.svg"
+            alt="뒤로가기 아이콘"
+            width={24}
+            height={24} />
         </button>
       )}
 
       {/* 중앙 로고 자리 */}
-      <h1 className="absolute left-1/2 -translate-x-1/2">로고자리</h1>
+      <button onClick={handleHome}><Image src="/typos/logo.svg" alt="중앙로고" height={24} width={65}></Image></button>
+      
 
       {/* 오른쪽 여백 (뒤로가기와 균형 맞추기용) */}
       <div className="h-5 w-5" />
