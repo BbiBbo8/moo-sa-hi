@@ -13,8 +13,8 @@ const MainMap = () => {
   const { data: shelters = [], isLoading, error } = useShelters(); // tanstackquery로 이용한 hook기능
   const [selectMarker, setSelectMarker] = useState<string | null>(null);
 
-  // 대피소 중 현재 지도에 보이는 것만 필터링해서 zustand useMarkerStore에 저장
-  const setMarkedShelter = useMarkerStore(state => state.setMarkedShelter);
+  const setAllShelters = useMapStore(state => state.setAllShelters);
+  const setVisibleShelters = useMapStore(state => state.setVisibleShelters);
 
   // 마커에 선택된 대피소 이름을 전역 상태에 저장하는 Store
   const setSelectedShelterName = useMarkerStore(
@@ -27,6 +27,13 @@ const MainMap = () => {
   const setLevel = useMapStore(state => state.setLevel);
   const setCenter = useMapStore(state => state.setCenter);
   const reset = useMapStore(state => state.reset);
+
+  // 대피소 데이터 받아오면 상태 저장
+  useEffect(() => {
+    if (shelters.length > 0) {
+      setAllShelters(shelters);
+    }
+  }, [shelters]);
 
   useEffect(() => {
     // shelters 데이터가 없으면 아무것도 않함함
@@ -41,7 +48,7 @@ const MainMap = () => {
     );
 
     // 필터링된 대피소 목록을 useMarkerStore 전역 상태로 저장장
-    setMarkedShelter(check);
+    setVisibleShelters(check);
   }, [shelters, center, level]);
 
   // 지도 생성 시 실행되는 함수

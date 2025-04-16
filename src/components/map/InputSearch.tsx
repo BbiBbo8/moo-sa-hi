@@ -39,13 +39,13 @@ const InputSearch = () => {
   };
 
   return (
-    <div className="absolute top-5 z-50 mx-auto w-[343px] space-y-4 rounded-md border border-black bg-white">
+    <div className="absolute top-5 z-50 mx-auto w-[343px] space-y-4 rounded-md border bg-white">
       <div className="relative">
         <Search className="text-muted-foreground absolute top-2.5 right-2.5 h-4 w-4 bg-white" />
         <Input
           type="search"
-          placeholder="도시 이름을 입력하세요..."
-          className="pl-3"
+          placeholder="대피소,장소,지역,주소 검색"
+          className="border-0 pl-3 shadow-md focus-visible:ring-0 focus-visible:ring-offset-0"
           value={searchQuery}
           onChange={e => handleSearch(e.target.value)} // 입력시 검색 처리
           onFocus={() => setIsFocused(true)} // 포커스 상태 true
@@ -55,33 +55,31 @@ const InputSearch = () => {
 
       {/* 포커스 상태이며 입력 값이 있을 때만 검색 결과 표시 */}
       {isFocused && searchQuery.length > 0 && (
-        <div className="rounded-md border">
-          <Command>
-            <CommandList>
-              {/* 결과가 없을 경우 */}
-              <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
-              {results.length > 0 && (
-                <CommandGroup heading="검색 결과">
-                  {/* 결과가 있으면 리스트로 출력 */}
-                  {results.map(item => (
-                    <CommandItem
-                      key={item.name}
-                      className="flex items-center justify-between"
-                      onSelect={() => {
-                        handleSelectShelter(item);
-                        setSearchQuery("");
-                        setResults([]);
-                        setIsFocused(true);
-                      }}
-                    >
-                      <span>{item.name}</span>
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              )}
-            </CommandList>
-          </Command>
-        </div>
+        <Command className="rounded-none border-0">
+          <CommandList className="mt-0 pt-0">
+            {/* 결과가 없을 경우 */}
+            <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
+            {results.length > 0 && (
+              <CommandGroup>
+                {/* 결과가 있으면 리스트로 출력 */}
+                {results.map(item => (
+                  <CommandItem
+                    key={item.name}
+                    className="flex items-center justify-between"
+                    onSelect={() => {
+                      handleSelectShelter(item);
+                      setSearchQuery("");
+                      setResults([]);
+                      setIsFocused(true);
+                    }}
+                  >
+                    <span>{item.name}</span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
+          </CommandList>
+        </Command>
       )}
     </div>
   );

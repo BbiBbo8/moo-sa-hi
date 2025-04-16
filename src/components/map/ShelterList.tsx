@@ -5,12 +5,17 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 interface ShelterListProps {
-  isDrawerOpen: boolean; // 드로어가 열려있는지 여부를 확인 (외부 상태에서 전달받음)
+  isDrawerOpen: boolean;
+  shelters: {
+    name: string;
+    address: string;
+    lat: number;
+    lng: number;
+    id: string;
+  }[]; // shelters prop 추가
 }
 
-const ShelterList = ({ isDrawerOpen }: ShelterListProps) => {
-  const markedShelter = useMarkerStore(state => state.markedShelter); // MarkerStore의 저장된 데이터 불러오기
-
+const ShelterList = ({ isDrawerOpen, shelters }: ShelterListProps) => {
   // 현재 선택된 대피소 이름(마커 클릭)
   const selectedShelterName = useMarkerStore(
     state => state.selectedShelterName,
@@ -38,9 +43,9 @@ const ShelterList = ({ isDrawerOpen }: ShelterListProps) => {
   };
 
   return (
-    <div className="z-50 p-4">
+    <div className="z-50 p-4 pb-0">
       {/* 대피소 목록 렌더링 */}
-      {markedShelter.map(shelter => (
+      {shelters.map(shelter => (
         <div
           key={shelter.name + shelter.address}
           ref={setShelterRef(shelter.name)}
