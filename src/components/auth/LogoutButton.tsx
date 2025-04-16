@@ -23,7 +23,7 @@ const LogoutButton = () => {
   return (
     <Button
       onClick={handleLogout}
-      className="h-fit bg-white px-3 text-[#999999]"
+      className="shadow-muted h-fit bg-white px-3 text-[#999999]"
     >
       로그아웃
     </Button>
