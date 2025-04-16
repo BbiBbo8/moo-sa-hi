@@ -4,11 +4,6 @@ import React from "react";
 import fetchSheltersApi from "@/app/api/fetchSheltersApi";
 import DetailMap from "@/components/detail/DetailMap";
 
-// Test ID: 3910000_S202400002
-// 대피소 디테일 테스트 해보실 분들은
-// http://localhost:3000/map/3910000_S202400002
-// 위 주소로 접속하시면 됩니다.
-
 const ShelterDetailPage = async ({
   params,
 }: {
