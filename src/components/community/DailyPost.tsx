@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ThumbsUp } from "lucide-react";
 import Link from "next/link";
 import { DailyPostType } from "@/types/communityPost";
 import { getImageSrc } from "@/utils/getImageSrc";
