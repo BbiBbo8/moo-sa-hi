@@ -70,7 +70,7 @@ function PostCreateEdit() {
 
   const handlePostInsert = async (values: FormData) => {
     const payload = {
-      user_id: user.id, // 사용자 ID 저장
+      user_id: user!.id, // 사용자 ID 저장
       title: values.title,
       contents: values.contents,
       img_url: imgUrl ?? "",
