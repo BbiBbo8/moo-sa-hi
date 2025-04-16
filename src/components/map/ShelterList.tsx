@@ -1,18 +1,13 @@
 "use client";
 import PATH from "@/constants/PATH";
 import { useMarkerStore } from "@/store/useMarkerStore";
+import { Shelter } from "@/types/shelter";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 interface ShelterListProps {
   isDrawerOpen: boolean;
-  shelters: {
-    name: string;
-    address: string;
-    lat: number;
-    lng: number;
-    id: string;
-  }[]; // shelters prop 추가
+  shelters: Shelter[];
 }
 
 const ShelterList = ({ isDrawerOpen, shelters }: ShelterListProps) => {
@@ -45,24 +40,30 @@ const ShelterList = ({ isDrawerOpen, shelters }: ShelterListProps) => {
   return (
     <div className="z-50 p-4 pb-0">
       {/* 대피소 목록 렌더링 */}
-      {shelters.map(shelter => (
-        <div
-          key={shelter.name + shelter.address}
-          ref={setShelterRef(shelter.name)}
-          className={`mb-2 flex items-center justify-between rounded-lg p-3 ${
-            selectedShelterName === shelter.name ? "bg-yellow-100" : ""
-          }`}
-        >
-          {/* 대피소 이름 및 주소 정보 */}
-          <Link
-            className="flex flex-col gap-1"
-            href={`${PATH.MAP}/${shelter.id}`}
+      {shelters.length > 0 ? (
+        shelters.map(shelter => (
+          <div
+            key={shelter.name + shelter.address}
+            ref={setShelterRef(shelter.name)}
+            className={`mb-2 flex items-center justify-between rounded-lg p-3 ${
+              selectedShelterName === shelter.name ? "bg-yellow-100" : ""
+            }`}
           >
-            <h5 className="text-md font-semibold">{shelter.name}</h5>
-            <span className="text-xs text-gray-500">{shelter.address}</span>
-          </Link>
+            {/* 대피소 이름 및 주소 정보 */}
+            <Link
+              className="flex flex-col gap-1"
+              href={`${PATH.MAP}/${shelter.id}`}
+            >
+              <h5 className="text-md font-semibold">{shelter.name}</h5>
+              <span className="text-xs text-gray-500">{shelter.address}</span>
+            </Link>
+          </div>
+        ))
+      ) : (
+        <div className="py-11 text-center text-sm text-gray-500">
+          주위에 대피소가 없습니다.
         </div>
-      ))}
+      )}
     </div>
   );
 };

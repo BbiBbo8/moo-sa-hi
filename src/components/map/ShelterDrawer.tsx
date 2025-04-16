@@ -42,25 +42,31 @@ const ShelterDrawer = () => {
           </div>
 
           {/* 미리보기에서 최대 2개의 대피소만 표시 */}
-          <div className="space-y-2 px-4 pb-4">
-            {visibleShelters.slice(0, 2).map(shelter => (
-              <div
-                key={shelter.name + shelter.address}
-                className={`flex items-center justify-between rounded-lg p-2 ${
-                  selectedShelterName === shelter.name ? "bg-yellow-100" : ""
-                }`}
-              >
-                <Link
-                  className="flex flex-col gap-1"
-                  href={`${PATH.MAP}/${shelter.id}`}
+          <div className="flex min-h-[140px] flex-col justify-center space-y-2 px-4 pb-4">
+            {visibleShelters.length > 0 ? (
+              visibleShelters.slice(0, 2).map(shelter => (
+                <div
+                  key={shelter.name + shelter.address}
+                  className={`flex items-center justify-between rounded-lg p-2 ${
+                    selectedShelterName === shelter.name ? "bg-yellow-100" : ""
+                  }`}
                 >
-                  <h5 className="text-sm font-semibold">{shelter.name}</h5>
-                  <span className="text-xs text-gray-500">
-                    {shelter.address}
-                  </span>
-                </Link>
+                  <Link
+                    className="flex flex-col gap-1"
+                    href={`${PATH.MAP}/${shelter.id}`}
+                  >
+                    <h5 className="text-sm font-semibold">{shelter.name}</h5>
+                    <span className="text-xs text-gray-500">
+                      {shelter.address}
+                    </span>
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <div className="text-center text-sm text-gray-500">
+                주위에 대피소가 없습니다.
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>
