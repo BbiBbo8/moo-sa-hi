@@ -47,7 +47,7 @@ const SearchBarToggle: React.FC<SearchBarToggleProps> = ({ onSearch }) => {
 
       {/* 검색창 영역 */}
       {isSearchOpen && (
-        <div className="fixed top-28 right-0 left-0 z-50 h-[60px] bg-white px-5">
+        <div className="fixed top-16 right-0 left-0 z-50 h-[60px] bg-white px-5">
           <div className="flex items-center gap-3">
             <div className="relative">
               <Input
