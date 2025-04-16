@@ -1,14 +1,13 @@
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ThumbsUp } from "lucide-react";
 import Link from "next/link";
-import { Post } from "@/types/communityPost";
+import { DailyPostType } from "@/types/communityPost";
 import { getImageSrc } from "@/utils/getImageSrc";
 import { formatTime } from "@/utils/formatTime";
 import PATH from "@/constants/PATH";
 
 type PostCardProps = {
-  post: Post;
+  post: DailyPostType;
 };
 
 const DailyPost = ({ post }: PostCardProps) => {
@@ -30,7 +29,7 @@ const DailyPost = ({ post }: PostCardProps) => {
 
             <CardTitle className="mb-2 text-lg">{post.title}</CardTitle>
             <p className="text-[12px] text-gray-500">
-              {timeCreated} · 조회수 12 · 댓글 8개
+              {timeCreated} · 댓글 {post.comments?.length || 0}
             </p>
           </div>
 
