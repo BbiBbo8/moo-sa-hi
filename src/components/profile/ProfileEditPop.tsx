@@ -45,11 +45,13 @@ const ProfileEditPop = ({ userId, nickname }: ProfileEditPopProps) => {
       toast.success("업데이트 완료!");
       queryClient.invalidateQueries({ queryKey: ["userData"] });
     },
-    onError: (err: any) => {
+    onError: (err: unknown) => {
       if (err instanceof z.ZodError) {
         toast.error(err.errors[0].message);
-      } else {
+      } else if (err instanceof Error) {
         toast.error(err.message || "업데이트 중 오류 발생");
+      } else {
+        toast.error("알 수 없는 오류가 발생했어요");
       }
     },
   });
