@@ -13,7 +13,7 @@ const getUserData = () => {
       const { data: userMetaData} = await supabase
         .from("users")
         .select("*")
-        .eq("id", userId) /* 가져온 유저를 참조해 users table 정보를 가져오기 */
+        .eq("id", userId!) /* 가져온 유저를 참조해 users table 정보를 가져오기 */
         .single();
       return { user, userMetaData };
     } catch (error) {
