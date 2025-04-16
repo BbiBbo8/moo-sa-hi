@@ -30,7 +30,7 @@ const useGetPosts = () => {
   };
   return useQuery({
     queryKey: ["posts"],
-    queryFn: userId => getPosts(userId),
+    queryFn: getPosts,
   });
 };
 
