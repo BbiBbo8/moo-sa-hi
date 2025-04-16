@@ -25,7 +25,7 @@ const ProfileCard = () => {
 
   return (
     <>
-      <section className="flex w-full flex-col gap-3 px-5 pt-[50px]">
+      <section className="flex w-full flex-col gap-3 px-5 pt-[82px]">
         <div className="flex justify-between">
           <div className="gap-4">
             {/* 유저가 존재하면 정보 띄우기 */}
