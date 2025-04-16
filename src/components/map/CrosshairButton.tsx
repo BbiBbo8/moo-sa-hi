@@ -21,14 +21,13 @@ const CrosshairButton = () => {
     <button
       onClick={handleGetLocation}
       disabled={isPending}
-      className="absolute bottom-[300px] left-2 z-40"
+      className="absolute bottom-[328px] left-2 z-40 flex h-10 w-10 items-center justify-center rounded-sm bg-white p-1 shadow-md"
     >
       <Image
         src="/icons/crosshairs-solid.png"
         alt="내 위치"
-        width={28}
-        height={28}
-        className="rounded-sm bg-white p-1 shadow-md"
+        width={24}
+        height={24}
       />
     </button>
   );
