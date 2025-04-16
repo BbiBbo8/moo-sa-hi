@@ -29,7 +29,7 @@ const TabNavigateBar = () => {
             <h5>홈</h5>
           </div>
         </Link>
-        <Link href={PATH.MAP} className="h-fit w-fit py-0.5">
+        <Link href={PATH.MAP} className="h-fit w-fit py-1">
           <div className="flex flex-col items-center">
             {/* 지도 페이지로 이동 */}
             <Image
