@@ -31,3 +31,13 @@ export const regular = IBM_Plex_Sans_KR({
   style: "normal",
   fallback: ["system-ui"],
 });
+
+// font size
+// 32: text-[32px]
+// 28: text-[28px]
+// 20: text-xl
+// 18: text-lg
+// 16: text-base
+// 14: text-sm
+// 12: text-xs
+// 11: text-[11px]
