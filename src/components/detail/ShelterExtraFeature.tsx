@@ -13,8 +13,9 @@ const ShelterExtraFeature = ({ address }: ShelterExtraFeatureProps) => {
     try {
       await navigator.clipboard.writeText(text);
       toast.success("복사 완료!");
-    } catch (e) {
+    } catch (error) {
       toast.error("복사 실패!");
+      console.error("복사 실패:", error);
     }
   };
 

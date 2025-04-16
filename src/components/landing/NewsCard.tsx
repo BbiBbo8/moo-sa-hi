@@ -28,7 +28,7 @@ const NewsCard = () => {
           >
             <CardHeader>
               <CardTitle>
-                "산청·하동 대형산불 피해 대책·체계적 대응책 마련 필요"
+                산청·하동 대형산불 피해 대책·체계적 대응책 마련 필요
               </CardTitle>
               <Image
                 src="https://img0.yna.co.kr/etc/inner/KR/2025/04/15/AKR20250415137200052_01_i_P4.jpg"
@@ -39,8 +39,8 @@ const NewsCard = () => {
                 unoptimized
               />
               <CardDescription>
-                경남도의회 긴급현안 질문…박완수 지사 "진화장비·초동 대응체계
-                강화 추진"
+                경남도의회 긴급현안 질문…박완수 지사 진화장비·초동 대응체계
+                강화 추진
               </CardDescription>
             </CardHeader>
             <CardContent />
@@ -57,7 +57,7 @@ const NewsCard = () => {
           >
             <CardHeader>
               <CardTitle>
-                "산불 꺼주셔서 감사해요" 고사리손 감사 편지에 진화대원 미소
+                산불 꺼주셔서 감사해요 고사리손 감사 편지에 진화대원 미소
               </CardTitle>
               <Image
                 src="https://img9.yna.co.kr/etc/inner/KR/2025/04/15/AKR20250415135700063_01_i_P4.jpg"
