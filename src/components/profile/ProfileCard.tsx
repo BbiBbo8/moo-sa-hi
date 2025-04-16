@@ -26,13 +26,15 @@ const ProfileCard = () => {
   return (
     <>
       <section className="flex w-full flex-col gap-3 p-5">
-        <div className="flex">
+        <div className="flex justify-between">
           <div className="gap-4">
             {/* 유저가 존재하면 정보 띄우기 */}
             {user && (
               <>
-                <h3 className="m-1 text-lg font-medium">{user.nickname}</h3>
-                <h3 className="m-1 text-sm">{userAuth.email}</h3>
+                <h3 className="m-1 text-lg font-medium text-[#1A1A1A]">
+                  {user.nickname}
+                </h3>
+                <h3 className="m-1 text-sm text-[#666666]">{userAuth.email}</h3>
               </>
             )}
             {/* 유저가 존재하지 않으면 닉네임 없애기 */}
@@ -44,7 +46,7 @@ const ProfileCard = () => {
           </div>
           {/* 유저가 존재하면 로그아웃과 프로필 수정 띄우기 */}
           {user && (
-            <div className="m-4">
+            <div className="mt-3">
               <ProfileEditPop userId={userAuth.id} nickname={user.nickname} />
             </div>
           )}
