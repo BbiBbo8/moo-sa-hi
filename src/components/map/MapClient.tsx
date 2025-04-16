@@ -3,6 +3,8 @@
 import MainMap from "@/components/map/MainMap";
 import ShelterDrawer from "@/components/map/ShelterDrawer";
 import InputSearch from "@/components/map/InputSearch";
+import ZoomControl from "./ZoomControl";
+import CrosshairButton from "./CrosshairButton";
 
 const MapClient = () => {
   return (
@@ -13,7 +15,9 @@ const MapClient = () => {
         </div>
       </div>
       <MainMap />
-      <div className="flex justify-center">
+      <CrosshairButton />
+      <ZoomControl />
+      <div className="flex w-full justify-center">
         <ShelterDrawer />
       </div>
     </div>

@@ -10,12 +10,13 @@ import {
 import ShelterList from "./ShelterList";
 import { useMarkerStore } from "@/store/useMarkerStore";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import PATH from "@/constants/PATH";
+import { useMapStore } from "@/store/useMapStore";
 
 const ShelterDrawer = () => {
-  const markedShelter = useMarkerStore(state => state.markedShelter);
-  const selectedShelterName = useMarkerStore(
-    state => state.selectedShelterName,
-  ); // 마커가 클릭되고 전역 상태에 데이터가 들어오는것을 전송함
+  const { visibleShelters } = useMapStore();
+  const { selectedShelterName } = useMarkerStore();
 
   // Drawer 트리거 상태 관리 state
   const [isOpen, setIsOpen] = useState(false);
@@ -27,25 +28,60 @@ const ShelterDrawer = () => {
     }
   }, [selectedShelterName]);
   return (
-    <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerTrigger className="rounded-t-lg" asChild>
-        {/* asChild 자식요소의 button을 사용 */}
-        <button>
+    <>
+      {/* 항상 보이는 미리보기 부분 - 실제 드로어와 별개 */}
+      <div
+        className="fixed right-0 bottom-0 left-0 z-30 rounded-t-lg border-t border-gray-200 bg-white shadow-lg"
+        style={{ display: isOpen ? "none" : "block" }}
+        onClick={() => setIsOpen(true)}
+      >
+        <div className="w-full">
           <div className="bg-muted mx-auto my-4 h-2 w-[100px] shrink-0 rounded-full" />
-        </button>
-      </DrawerTrigger>
-      {/* 드로어 내용 */}
-      <DrawerContent className="overflow-auto">
-        <DrawerHeader>
-          <DrawerTitle />
-          <DrawerDescription>
-            주변 대피소 {markedShelter.length}
-          </DrawerDescription>
-        </DrawerHeader>
-        <ShelterList isDrawerOpen={isOpen} />{" "}
-        {/* shelter의 열림상태 전달 내부에서 해당 대피소로 스크롤 포커스를 맞춤 */}
-      </DrawerContent>
-    </Drawer>
+          <div className="px-4 pb-2 text-sm font-medium">
+            내 주변 대피소: {visibleShelters.length}
+          </div>
+
+          {/* 미리보기에서 최대 2개의 대피소만 표시 */}
+          <div className="space-y-2 px-4 pb-4">
+            {visibleShelters.slice(0, 2).map(shelter => (
+              <div
+                key={shelter.name + shelter.address}
+                className={`flex items-center justify-between rounded-lg p-2 ${
+                  selectedShelterName === shelter.name ? "bg-yellow-100" : ""
+                }`}
+              >
+                <Link
+                  className="flex flex-col gap-1"
+                  href={`${PATH.MAP}/${shelter.id}`}
+                >
+                  <h5 className="text-sm font-semibold">{shelter.name}</h5>
+                  <span className="text-xs text-gray-500">
+                    {shelter.address}
+                  </span>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 실제 드로어 */}
+      <Drawer open={isOpen} onOpenChange={setIsOpen}>
+        <DrawerTrigger className="hidden rounded-t-lg">
+          {/* 트리거는 숨겨두고 프로그래밍 방식으로 열기 */}
+          <div className="bg-muted mx-auto my-4 h-2 w-[100px] shrink-0 rounded-full" />
+        </DrawerTrigger>
+        <DrawerContent className="overflow-auto pb-0">
+          <DrawerHeader className="pb-2">
+            <DrawerTitle />
+            <DrawerDescription>
+              주변 대피소 {visibleShelters.length}
+            </DrawerDescription>
+          </DrawerHeader>
+          <ShelterList shelters={visibleShelters} isDrawerOpen={isOpen} />
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 };
 

@@ -4,7 +4,6 @@ import ProfileEditPop from "./ProfileEditPop";
 import Loading from "@/app/(pages)/Loading";
 import { useUserData } from "@/hooks/useUserData";
 import Error from "@/app/(pages)/Error";
-import LogoutButton from "../auth/LogoutButton";
 import SigninDrawer from "../auth/SigninDrawer";
 import ProfileTabs from "./ProfileTabs";
 
@@ -26,30 +25,41 @@ const ProfileCard = () => {
 
   return (
     <>
-      <div className="bg-accent flex flex-col gap-3 rounded-xl border py-4 shadow-sm">
-        <div className="flex-row">
+      <section className="flex w-full flex-col gap-3 px-5 pt-[50px]">
+        <div className="flex justify-between">
           <div className="gap-4">
             {/* 유저가 존재하면 정보 띄우기 */}
             {user && (
               <>
-                <h3 className="m-1 text-lg font-bold">{user.nickname}</h3>
-                <h3 className="text-md m-1">{userAuth.email}</h3>
+                <h3 className="m-1 text-lg font-medium text-[#1A1A1A]">
+                  {user.nickname}
+                </h3>
+                <h3 className="m-1 text-sm text-[#666666]">
+                  {userAuth?.email}
+                </h3>
               </>
             )}
             {/* 유저가 존재하지 않으면 닉네임 없애기 */}
-            {!user && <h3 className="text-lg font-bold">로그인하세요!</h3>}
+            {!user && (
+              <h3 className="mb-4 p-5 text-lg font-medium">
+                로그인이 필요한 서비스입니다.
+              </h3>
+            )}
           </div>
           {/* 유저가 존재하면 로그아웃과 프로필 수정 띄우기 */}
           {user && (
-            <>
-              <ProfileEditPop userId={userAuth.id} nickname={user.nickname} />
-              <LogoutButton />
-            </>
+            <div className="mt-3">
+              <ProfileEditPop userId={userAuth?.id} nickname={user.nickname} />
+            </div>
           )}
           {/* 유저가 존재하지 않으면 로그인 띄우기 */}
-          {!user && <SigninDrawer />}
+          {!user && (
+            <div className="pt-5">
+              <SigninDrawer />
+            </div>
+          )}
         </div>
-      </div>
+      </section>
       {user && <ProfileTabs />}
     </>
   );

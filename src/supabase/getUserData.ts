@@ -9,16 +9,15 @@ const getUserData = () => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      const { data: userMetaData, error } = await supabase
+      const userId = user?.id;
+      const { data: userMetaData} = await supabase
         .from("users")
         .select("*")
-        .eq(
-          "id",
-          user?.id,
-        ) /* 가져온 유저를 참조해 users table 정보를 가져오기 */
+        .eq("id", userId!) /* 가져온 유저를 참조해 users table 정보를 가져오기 */
         .single();
       return { user, userMetaData };
     } catch (error) {
+      console.error(error);
       throw new Error("유저 불러오기 실패");
     }
   };
