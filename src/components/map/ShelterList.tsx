@@ -39,7 +39,6 @@ const ShelterList = ({ isDrawerOpen, shelters }: ShelterListProps) => {
 
   return (
     <div className="z-50 p-4 pb-0">
-      {/* 대피소 목록 렌더링 */}
       {shelters.length > 0 ? (
         shelters.map(shelter => (
           <div
@@ -49,13 +48,19 @@ const ShelterList = ({ isDrawerOpen, shelters }: ShelterListProps) => {
               selectedShelterName === shelter.name ? "bg-yellow-100" : ""
             }`}
           >
-            {/* 대피소 이름 및 주소 정보 */}
             <Link
-              className="flex flex-col gap-1"
+              className="flex w-full items-center justify-between gap-4"
               href={`${PATH.MAP}/${shelter.id}`}
             >
-              <h5 className="text-md font-semibold">{shelter.name}</h5>
-              <span className="text-xs text-gray-500">{shelter.address}</span>
+              <div className="flex flex-col gap-1">
+                <h5 className="text-md font-semibold">{shelter.name}</h5>
+                <span className="text-xs text-gray-500">{shelter.address}</span>
+              </div>
+              {shelter.distance !== undefined && (
+                <span className="text-sm font-bold whitespace-nowrap text-black">
+                  {(shelter.distance / 1000).toFixed(1)} km
+                </span>
+              )}
             </Link>
           </div>
         ))
