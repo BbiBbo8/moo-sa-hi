@@ -19,6 +19,7 @@ const getUserData = () => {
         .single();
       return { user, userMetaData };
     } catch (error) {
+      console.error(error);
       throw new Error("유저 불러오기 실패");
     }
   };

@@ -24,6 +24,7 @@ const useGetPosts = () => {
       }
       return { shelter_post, daily_post };
     } catch (error) {
+      console.error(error);
       throw new Error("게시글 불러오기 실패");
     }
   };
