@@ -9,7 +9,7 @@ const PostButtons = ({ numOfHelpfuls, onClickReport }: params) => {
   return (
     <section className="relative flex w-full flex-row items-center justify-center">
       {/* 유용해요 버튼 - 가운데 정렬 */}
-      <button className="flex h-10 w-30 items-center gap-0.5 rounded-md bg-gray-50 px-4 text-sm text-gray-500">
+      <button className="flex h-10 w-30 items-center gap-0.5 rounded-md bg-[#F2F2F2] px-4 text-sm text-gray-500">
         <Image
           src={"/icons/thumbs-up-solid.svg"}
           alt=""
