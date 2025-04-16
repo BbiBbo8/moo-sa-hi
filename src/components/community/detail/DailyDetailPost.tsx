@@ -45,32 +45,39 @@ const DailyDetailPost = ({ id }: { id: number }) => {
   };
 
   return (
-    <section className="m-4 flex flex-col items-center gap-5">
-      <article className="mb-5 w-full flex-col items-center gap-5 not-visited:flex">
-        <header className="flex w-full flex-row items-baseline justify-between">
-          <h1 className="text-[20px]">{data.title}</h1>
-          <span className="text-[14px] text-gray-500">{timeCreated}</span>
+    <section className="mx-5 mt-5 flex flex-col items-center gap-5">
+      <article className="w-full flex-col items-center">
+        <header className="mb-7 flex w-full flex-col items-baseline justify-between">
+          <h1 className="text-[18px] leading-[27px] font-medium">
+            {data.title}
+          </h1>
+          <div className="flex w-full flex-row justify-between">
+            <span className="text-sm text-gray-500">{data.user?.nickname}</span>
+            <span className="text-sm text-gray-300">{timeCreated}</span>
+          </div>
         </header>
 
         {data.img_url?.startsWith("http") || data.img_url?.startsWith("/") ? (
-          <div className="flex items-center justify-center">
-            <figure className="flex h-[350px] w-[350px] items-center justify-center rounded-3xl border-2 border-gray-400">
+          <div className="mb-5 flex items-center justify-center">
+            <figure className="relative flex h-[353px] w-[353px] items-center justify-center overflow-hidden rounded-3xl border-2 border-gray-400">
               <Image
                 src={data.img_url}
                 alt="이미지가 없습니다."
-                width={300}
-                height={200}
+                fill
+                className="object-cover"
               />
             </figure>
           </div>
         ) : null}
 
-        <p className="min-h-20 w-full border-2 border-gray-400">
-          {data.contents}
-        </p>
+        <p className="mb-10 min-h-10 w-full text-[16px]">{data.contents}</p>
 
-        <PostButtons onClickReport={handleConfirmationModal} />
+        <PostButtons
+          numOfHelpfuls={data.helpfulCount}
+          onClickReport={handleConfirmationModal}
+        />
       </article>
+
       {/* 모달창 */}
       <ConfirmModal
         id={id}
@@ -79,7 +86,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
       />
 
       {/* NOTE: 화면에 보이는 회색 줄 */}
-      <div className="h-4 min-w-screen bg-gray-200"></div>
+      <div className="mb-11 h-2 min-w-screen bg-[#F7F7F7]"></div>
     </section>
   );
 };

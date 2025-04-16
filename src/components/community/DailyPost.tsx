@@ -35,13 +35,15 @@ const DailyPost = ({ post }: PostCardProps) => {
 
           {/* NOTE: 이미지 썸네일 */}
           <div className="flex h-[80px] w-[80px] items-center overflow-hidden rounded-md">
-            <Image
-              src={imgSrc}
-              alt="sampleImage"
-              width={330}
-              height={350}
-              className="h-[100px] w-[100px] object-cover"
-            />
+            {imgSrc && (
+              <Image
+                src={imgSrc}
+                alt="게시글 이미지"
+                width={330}
+                height={350}
+                className="h-[100px] w-[100px] object-cover"
+              />
+            )}
           </div>
         </CardContent>
       </Card>

@@ -11,7 +11,6 @@ import { useShelters } from "@/hooks/shelter/useShelters";
 import { toast } from "sonner";
 import Error from "@/app/(pages)/Error";
 import ConfirmModal from "./ConfirmModal";
-import DetailMap from "../../detail/DetailMap"; // NOTE: DetailMap을 쓸지 말지 아직 확실히 결론짓지 않아서 임시로 나둠
 import PostButtons from "./PostButtons";
 
 const ShelterDetailPost = ({ id }: { id: number }) => {
@@ -21,16 +20,12 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
   const [toggleConfirmModal, setToggleConfirmModal] = useState(false);
 
   // TODO : 해당 페이지에서 선택된 주소를 기반으로 대피소를 선택해 주소를 zustand에 저장
-  // const TEMP_SHELTER_NAME = "청구목욕탕"; // TEST : 임시값 테스트 코드
   useEffect(() => {
     if (shelters.length === 0) {
       console.log("대피소 목록이 비어 있습니다.");
       return;
     }
-    const matchedShelter = shelters.find(
-      // shelter => shelter.name === TEMP_SHELTER_NAME, // TEST : 임시값 테스트 코드
-      shelter => shelter.name === data?.shelter_name,
-    );
+    const matchedShelter = shelters.find(e => e.name === data?.shelter_name);
     if (matchedShelter) {
       setCenter({ lat: matchedShelter.lat, lng: matchedShelter.lng });
       setLevel(4);
@@ -39,8 +34,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
       console.log("matchedShelter", matchedShelter);
       toast("해당 이름의 대피소를 찾을 수 없어요.");
     }
-    // }, [shelters, setCenter, setLevel]); // TEST : 임시값 테스트 코드
-  }, [data?.shelter_name, shelters, setCenter, setLevel]); // 현재 값이 없어 전체 지도로만 나옴.
+  }, [data?.shelter_name, shelters, setCenter, setLevel]); // 리팩토링 진행할 때 MainMap 대신 DetailMap 사용 필요할 듯
 
   if (isLoading) {
     return <Loading />;
@@ -74,20 +68,18 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
 
         {data.img_url?.startsWith("http") || data.img_url?.startsWith("/") ? (
           <div className="flex items-center justify-center">
-            <figure className="flex h-[350px] w-[350px] items-center justify-center rounded-3xl border-2 border-gray-400">
+            <figure className="relative flex h-[350px] w-[350px] items-center justify-center overflow-hidden rounded-3xl border-2 border-gray-400">
               <Image
                 src={data.img_url}
                 alt="이미지를 불러오지 못했습니다."
-                width={300}
-                height={200}
+                fill
+                className="object-cover"
               />
             </figure>
           </div>
         ) : null}
 
-        <p className="min-h-20 w-full border-2 border-gray-400">
-          내용 : {data.contents}
-        </p>
+        <p className="mb-10 min-h-10 w-full text-[16px]">{data.contents}</p>
 
         <section className="flex flex-col gap-2">
           <span>혼잡도: {data.people}</span>
@@ -101,7 +93,11 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
           {/* <DetailMap lat={37.5503} lng={126.9971} name={"우리동네"} /> */}
         </figure>
       </article>
-      <PostButtons onClickReport={handleConfirmationModal} />
+
+      <PostButtons
+        numOfHelpfuls={data.helpfuls?.length}
+        onClickReport={handleConfirmationModal}
+      />
 
       {/* 모달창 */}
       <ConfirmModal

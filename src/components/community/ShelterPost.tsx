@@ -58,9 +58,7 @@ const ShelterPost = ({ post }: PostCardProps) => {
                   width={20}
                   height={20}
                 />
-                <span className="text-sm">
-                  {String(post.helpfuls?.length ?? 0).padStart(2, "0")}
-                </span>
+                <span className="text-sm">{post.helpfuls?.length ?? 0}</span>
               </div>
             </section>
           </section>
