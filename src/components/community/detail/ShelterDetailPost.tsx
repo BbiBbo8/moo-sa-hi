@@ -54,10 +54,12 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
   const timeCreated = formatTime({ time: data.created_at });
 
   return (
-    <section className="m-4 flex flex-col items-center gap-5">
+    <section className="mx-5 mt-20 flex flex-col items-center gap-5">
       <article className="mb-5 w-full flex-col">
         <header className="mb-4 flex flex-col">
-          <h1 className="text-[20px]">{data.title}</h1>
+          <h1 className="text-[18px] leading-[27px] font-medium text-[#1A1A1A]">
+            {data.title}
+          </h1>
           <div className="flex w-full flex-row items-baseline justify-between">
             <span className="text-[14px] text-[#808080]">
               {data.user?.nickname}
@@ -79,7 +81,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
 
         {data.img_url?.startsWith("http") || data.img_url?.startsWith("/") ? (
           <div className="mb-5 flex items-center justify-center">
-            <figure className="relative flex h-[350px] w-[350px] items-center justify-center overflow-hidden rounded-3xl">
+            <figure className="relative flex h-[350px] w-[350px] items-center justify-center overflow-hidden rounded-3xl border-1 border-gray-400">
               <Image
                 src={data.img_url}
                 alt="이미지를 불러오지 못했습니다."

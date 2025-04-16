@@ -44,10 +44,10 @@ const CommunityShelterPage = () => {
   }
 
   return (
-    <main className="relative flex h-screen min-w-screen flex-col items-center justify-center p-5">
+    <main className="flex min-h-screen min-w-screen flex-col items-center justify-center px-5 pt-16">
       <CommunityHeader setSearchTerm={setSearchTerm} />
 
-      <div className="absolute top-16 left-5 flex h-12 w-full items-center gap-2 bg-white text-sm text-gray-600">
+      <div className="top-16 left-5 flex h-12 w-full items-center gap-2 bg-white text-sm text-gray-600">
         <Image
           src={"/icons/bullhorn-solid 1.svg"}
           alt={"icon"}
@@ -58,7 +58,7 @@ const CommunityShelterPage = () => {
       </div>
 
       {/* 필터링된 게시글 반환 */}
-      <section className="absolute top-30 flex max-w-screen flex-col gap-4 overflow-auto p-5">
+      <section className="top-30 flex max-w-screen flex-col gap-4 overflow-auto p-5">
         {filteredPosts?.length > 0 ? (
           filteredPosts.map(post => {
             return <ShelterPost key={post.id} post={post} />;
@@ -70,7 +70,7 @@ const CommunityShelterPage = () => {
         )}
       </section>
 
-      <div className="fixed right-10 bottom-[100px]">
+      <div className="fixed right-5 bottom-[100px]">
         <PostCreateFloatingBtn />
       </div>
     </main>

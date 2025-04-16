@@ -45,10 +45,10 @@ const DailyDetailPost = ({ id }: { id: number }) => {
   };
 
   return (
-    <section className="mx-5 mt-5 flex flex-col items-center gap-5">
+    <section className="mx-5 mt-20 flex flex-col items-center gap-5">
       <article className="w-full flex-col items-center">
         <header className="mb-7 flex w-full flex-col items-baseline justify-between">
-          <h1 className="text-[18px] leading-[27px] font-medium">
+          <h1 className="text-[18px] leading-[27px] font-medium text-[#1A1A1A]">
             {data.title}
           </h1>
           <div className="flex w-full flex-row justify-between">
@@ -59,7 +59,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
 
         {data.img_url?.startsWith("http") || data.img_url?.startsWith("/") ? (
           <div className="mb-5 flex items-center justify-center">
-            <figure className="relative flex h-[353px] w-[353px] items-center justify-center overflow-hidden rounded-3xl border-2 border-gray-400">
+            <figure className="relative flex h-[353px] w-[353px] items-center justify-center overflow-hidden rounded-3xl border-1 border-gray-400">
               <Image
                 src={data.img_url}
                 alt="이미지가 없습니다."
