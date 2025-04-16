@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/PopOver";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
@@ -67,7 +67,7 @@ const ProfileEditPop = ({ userId }: ProfileEditPopProps) => {
       <div className="text-center">
         <PopoverContent className="flex w-fit flex-col rounded-lg p-4">
           <div className="grid gap-4">
-            <div className="flex h-7 w-full justify-end">
+            <button className="flex h-7 w-full justify-end">
               <Image
                 src="/icons/xmark-solid.svg"
                 alt="닫기"
@@ -75,20 +75,20 @@ const ProfileEditPop = ({ userId }: ProfileEditPopProps) => {
                 height={28}
                 objectFit="center"
               />
-            </div>
+            </button>
             <div className="space-y-1">
               <h4 className="text-base font-semibold">닉네임 변경</h4>
             </div>
 
             <div className="grid gap-3">
               {/* 닉네임 입력 */}
-              <div className="grid-row-3 grid items-center gap-4">
+              <div className="grid-row-3 grid items-center gap-2">
                 <Input
                   id="nickname"
                   value={editNickname}
                   onChange={e => setEditNickname(e.target.value)}
                   placeholder="닉네임 입력"
-                  className="h-fit w-[280px] bg-[#F7F7F7] px-4 py-3 text-sm [active]:border-none"
+                  className="h-fit w-[280px] border-transparent bg-[#F7F7F7] px-4 py-3 text-sm [active]:border-none [active]:ring-offset-0"
                 />
                 {/* 저장 버튼 */}
                 <div className="mt-2 flex flex-col focus:outline-none">
@@ -104,7 +104,9 @@ const ProfileEditPop = ({ userId }: ProfileEditPopProps) => {
                   >
                     확인
                   </Button>
-                  <LogoutButton />
+                  <div className="w-full text-center">
+                    <LogoutButton />
+                  </div>
                 </div>
               </div>
             </div>
