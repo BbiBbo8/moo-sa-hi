@@ -19,11 +19,11 @@ interface ProfileEditPopProps {
   nickname: string;
 }
 
-const ProfileEditPop = ({ userId, nickname }: ProfileEditPopProps) => {
+const ProfileEditPop = ({ userId }: ProfileEditPopProps) => {
   const supabase = createClient();
   const queryClient = useQueryClient();
 
-  const [editNickname, setEditNickname] = useState(nickname);
+  const [editNickname, setEditNickname] = useState("");
 
   // 닉네임 유효성 검사 스키마 정의
   const nicknameSchema = z
@@ -85,14 +85,14 @@ const ProfileEditPop = ({ userId, nickname }: ProfileEditPopProps) => {
               </div>
 
               {/* 저장 버튼 */}
-              <div className="mt-2 flex flex-col">
+              <div className="mt-2 flex flex-col focus:outline-none">
                 <Button
                   size="sm"
                   onClick={() => mutate(editNickname)}
                   disabled={isPending}
-                  className="w-full"
+                  className="w-full border border-[#CCCCCC] bg-transparent py-2 text-[#CCCCCC]"
                 >
-                  저장
+                  확인
                 </Button>
                 <LogoutButton />
               </div>
