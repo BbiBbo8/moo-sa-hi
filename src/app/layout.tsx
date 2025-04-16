@@ -5,6 +5,7 @@ import TabNavigateBar from "@/components/layout/TabNavigateBar";
 import Header from "@/components/layout/Header";
 import QueryProviders from "../providers/providers";
 import { Toaster } from "sonner";
+import { defaultFonts } from "@/fonts/defaultFonts";
 
 export const metadata: Metadata = {
   title: "무사히",
@@ -20,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body>
+      <body className={defaultFonts.className}>
         <Header />
         <QueryProviders>
           {children}
