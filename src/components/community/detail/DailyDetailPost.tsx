@@ -10,7 +10,7 @@ import PATH from "@/constants/PATH";
 import { useEffect, useState } from "react";
 import ConfirmModal from "./ConfirmModal";
 import { formatTime } from "@/utils/formatTime";
-import PostButtons from "./PostButtons";
+import DailyPostButtons from "./DailyPostButtons";
 
 const DailyDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useDailyPostDetailQuery(id);
@@ -53,7 +53,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
           </h1>
           <div className="flex w-full flex-row justify-between">
             <span className="text-sm text-gray-500">{data.user?.nickname}</span>
-            <span className="text-sm text-gray-300">{timeCreated}</span>
+            <span className="text-sm text-[#B3B3B3]">{timeCreated}</span>
           </div>
         </header>
 
@@ -70,10 +70,17 @@ const DailyDetailPost = ({ id }: { id: number }) => {
           </div>
         ) : null}
 
-        <p className="mb-10 min-h-10 w-full text-[16px]">{data.contents}</p>
+        <p className="mb-10 min-h-10 w-full text-[16px] text-[#333333]">
+          {data.contents}
+        </p>
 
-        <PostButtons
+        {/* <PostButtons
           numOfHelpfuls={data.helpfulCount}
+          onClickReport={handleConfirmationModal}
+        /> */}
+
+        <DailyPostButtons
+          dailyPostId={data.id}
           onClickReport={handleConfirmationModal}
         />
       </article>
