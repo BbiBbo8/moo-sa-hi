@@ -19,6 +19,11 @@ export const fetchDailyPosts = async () => {
         id,
         daily_post_id,
         shelter_post_id
+      ),
+      comments (
+        id,
+        daily_post_id,
+        shelter_post_id
       )
     `,
     )
@@ -41,6 +46,7 @@ export const fetchShelterPosts = async () => {
       contents,
       img_url,
       people,
+      shelter_name,
       user:user_id (
         nickname
       ),

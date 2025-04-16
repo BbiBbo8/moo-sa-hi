@@ -8,6 +8,7 @@ import Error from "../Error";
 import PostCreateFloatingBtn from "@/components/community/PostCreateFloatingBtn";
 import CommunityHeader from "@/components/community/CommunityHeader";
 import { useMemo, useState } from "react";
+import Image from "next/image";
 
 const CommunityDailyPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -47,14 +48,18 @@ const CommunityDailyPage = () => {
     <main className="relative flex h-screen min-w-screen flex-col items-center justify-center p-4">
       <CommunityHeader setSearchTerm={setSearchTerm} />
 
-      <div className="absolute top-16 flex h-12 w-full items-center justify-center gap-2 bg-white">
-        {/* 아이콘 대용 네모 */}
-        <div className="h-5 w-5 bg-gray-200"></div>
+      <div className="absolute top-16 left-5 flex h-12 w-full items-center gap-2 bg-white text-sm text-gray-600">
+        <Image
+          src={"/icons/bullhorn-solid 1.svg"}
+          alt={"icon"}
+          width={24}
+          height={24}
+        />
         대피소 관련 경험과 정보를 솔직하게 공유해주세요.
       </div>
 
       {/* 필터링된 게시글 반환 */}
-      <section className="absolute top-30 flex w-full flex-col items-center justify-center px-4">
+      <section className="absolute top-30 flex w-full flex-col items-center justify-center px-5">
         {filteredPosts?.length > 0 ? (
           filteredPosts.map(post => {
             return <DailyPost key={post.id} post={post} />;
@@ -66,7 +71,7 @@ const CommunityDailyPage = () => {
         )}
       </section>
 
-      <div className="fixed right-4 bottom-[100px]">
+      <div className="fixed right-10 bottom-[100px]">
         <PostCreateFloatingBtn />
       </div>
     </main>
