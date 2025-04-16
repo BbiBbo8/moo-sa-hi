@@ -26,12 +26,11 @@ const WrittenPost = () => {
           shelterPost?.map(post => (
             <div
               key={post.id}
-              className="bg-accent grid min-h-32 min-w-32 overflow-hidden bg-center"
+              className="bg-accent grid min-h-32 min-w-32 truncate overflow-hidden bg-center"
             >
               <Link href={PATH.COMMUNITYSHELTER + `/${post.id}`}>
-                <div className="h-full w-full">
+                <div className="mt-12 h-full w-full">
                   <p>{post.title}</p>
-                  <p>대피소</p>
                 </div>
               </Link>
             </div>
@@ -41,12 +40,11 @@ const WrittenPost = () => {
           dailyPost?.map(post => (
             <div
               key={post.id}
-              className="bg-accent grid min-h-32 min-w-32 overflow-hidden bg-center"
+              className="bg-accent grid min-h-32 min-w-32 truncate overflow-hidden bg-center"
             >
               <Link href={PATH.COMMUNITYDAILY + `/${post.id}`}>
-                <div className="h-full w-full">
+                <div className="mt-12 h-full w-full">
                   <p>{post.title}</p>
-                  <p>일상</p>
                 </div>
               </Link>
             </div>
