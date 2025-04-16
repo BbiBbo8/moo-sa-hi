@@ -10,7 +10,7 @@ import PATH from "@/constants/PATH";
 import { useEffect, useState } from "react";
 import ConfirmModal from "./ConfirmModal";
 import { formatTime } from "@/utils/formatTime";
-import PostButtons from "./PostButtons";
+import DailyPostButtons from "./DailyPostButtons";
 
 const DailyDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useDailyPostDetailQuery(id);
@@ -74,8 +74,13 @@ const DailyDetailPost = ({ id }: { id: number }) => {
           {data.contents}
         </p>
 
-        <PostButtons
+        {/* <PostButtons
           numOfHelpfuls={data.helpfulCount}
+          onClickReport={handleConfirmationModal}
+        /> */}
+
+        <DailyPostButtons
+          dailyPostId={data.id}
           onClickReport={handleConfirmationModal}
         />
       </article>
