@@ -1,7 +1,11 @@
 import MapClient from "@/components/map/MapClient";
 
 const MapPage = () => {
-  return <MapClient />;
+  return (
+    <div className="pt-[50px]">
+      <MapClient />
+    </div>
+  );
 };
 
 export default MapPage;
