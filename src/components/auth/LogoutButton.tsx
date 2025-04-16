@@ -18,10 +18,13 @@ const LogoutButton = () => {
     }
     toast.success("로그아웃 성공");
     router.push(PATH.HOME); // 로그아웃 후에 랜딩페이지로 이동
-    location.reload(); // 페이지 새로고침    
+    location.reload(); // 페이지 새로고침
   };
   return (
-    <Button onClick={handleLogout} className="bg-white text-gray-500">
+    <Button
+      onClick={handleLogout}
+      className="h-fit bg-white px-3 text-[#999999]"
+    >
       로그아웃
     </Button>
   );
