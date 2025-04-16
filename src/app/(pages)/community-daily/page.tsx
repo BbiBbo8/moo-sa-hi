@@ -45,7 +45,7 @@ const CommunityDailyPage = () => {
   }
 
   return (
-    <main className="relative flex h-screen min-w-screen flex-col items-center justify-center p-4">
+    <main className="relative flex max-h-full min-w-screen flex-col items-center justify-center p-4">
       <CommunityHeader setSearchTerm={setSearchTerm} />
 
       <div className="absolute top-16 left-5 flex h-12 w-full items-center gap-2 bg-white text-sm text-gray-600">
@@ -65,7 +65,7 @@ const CommunityDailyPage = () => {
             return <DailyPost key={post.id} post={post} />;
           })
         ) : (
-          <div className="col-span-2 flex h-40 items-center justify-center text-gray-500">
+          <div className="col-span-2 box-border flex h-40 w-full items-center justify-center text-gray-500">
             검색 결과가 없습니다.
           </div>
         )}

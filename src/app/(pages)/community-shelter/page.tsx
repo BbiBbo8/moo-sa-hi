@@ -58,7 +58,7 @@ const CommunityShelterPage = () => {
       </div>
 
       {/* 필터링된 게시글 반환 */}
-      <section className="absolute top-30 flex w-full flex-col gap-4 p-5">
+      <section className="absolute top-30 flex max-w-screen flex-col gap-4 overflow-auto p-5">
         {filteredPosts?.length > 0 ? (
           filteredPosts.map(post => {
             return <ShelterPost key={post.id} post={post} />;

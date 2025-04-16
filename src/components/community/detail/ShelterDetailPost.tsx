@@ -74,20 +74,18 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
 
         {data.img_url?.startsWith("http") || data.img_url?.startsWith("/") ? (
           <div className="flex items-center justify-center">
-            <figure className="flex h-[350px] w-[350px] items-center justify-center rounded-3xl border-2 border-gray-400">
+            <figure className="relative flex h-[350px] w-[350px] items-center justify-center overflow-hidden rounded-3xl border-2 border-gray-400">
               <Image
                 src={data.img_url}
                 alt="이미지를 불러오지 못했습니다."
-                width={300}
-                height={200}
+                fill
+                className="object-cover"
               />
             </figure>
           </div>
         ) : null}
 
-        <p className="min-h-20 w-full border-2 border-gray-400">
-          내용 : {data.contents}
-        </p>
+        <p className="mb-10 min-h-10 w-full text-[16px]">{data.contents}</p>
 
         <section className="flex flex-col gap-2">
           <span>혼잡도: {data.people}</span>
@@ -101,7 +99,11 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
           {/* <DetailMap lat={37.5503} lng={126.9971} name={"우리동네"} /> */}
         </figure>
       </article>
-      <PostButtons onClickReport={handleConfirmationModal} />
+
+      <PostButtons
+        numOfHelpfuls={data.helpfuls?.length}
+        onClickReport={handleConfirmationModal}
+      />
 
       {/* 모달창 */}
       <ConfirmModal
