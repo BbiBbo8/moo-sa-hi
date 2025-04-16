@@ -15,7 +15,7 @@ const ZoomControl = () => {
   };
 
   return (
-    <div className="absolute right-2 bottom-[320px] z-40 flex flex-col gap-1">
+    <div className="absolute right-2 bottom-[300px] z-40 flex flex-col gap-1">
       <button onClick={handleZoomIn}>
         <Image
           src="/icons/plus-solid.png"
