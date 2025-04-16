@@ -10,7 +10,7 @@ const getUserData = () => {
         data: { user },
       } = await supabase.auth.getUser();
       const userId = user?.id;
-      const { data: userMetaData, error } = await supabase
+      const { data: userMetaData} = await supabase
         .from("users")
         .select("*")
         .eq("id", userId) /* 가져온 유저를 참조해 users table 정보를 가져오기 */
