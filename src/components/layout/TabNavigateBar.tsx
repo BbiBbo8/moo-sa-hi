@@ -17,49 +17,53 @@ const TabNavigateBar = () => {
   return (
     <section className="flex w-full justify-center">
       <div className="fixed bottom-0 z-50 mb-4 inline-flex h-fit w-11/12 justify-evenly rounded-full border border-transparent bg-[#262626] px-5 text-center text-sm font-medium text-white">
-        <Link href={PATH.HOME} className="w-fit py-0.5">
-          {/* 랜딩 페이지(홈)으로 이동 */}
-          <Image
-            src="icons/tabnavbar/house-solid.svg"
-            alt="홈"
-            width={28}
-            height={28}
-            className="text-center"
-          />
-          <h5>홈</h5>
+        <Link href={PATH.HOME} className="h-fit w-fit py-0.5">
+          <div className="fflex flex-col items-center">
+            {/* 랜딩 페이지(홈)으로 이동 */}
+            <Image
+              src="icons/tabnavbar/house-solid.svg"
+              alt="홈"
+              width={28}
+              height={28}
+            />
+            <h5>홈</h5>
+          </div>
         </Link>
         <Link href={PATH.MAP} className="h-fit w-fit py-0.5">
-          {/* 지도 페이지로 이동 */}
-          <Image
-            src="icons/tabnavbar/map-location-dot-solid.svg"
-            alt="지도"
-            width={28}
-            height={28}
-            className="ml-0.5 text-center"
-          />
-          <h5>대피소</h5>
+          <div className="flex flex-col items-center">
+            {/* 지도 페이지로 이동 */}
+            <Image
+              src="icons/tabnavbar/map-location-dot-solid.svg"
+              alt="지도"
+              width={28}
+              height={28}
+            />
+            <h5>대피소</h5>
+          </div>
         </Link>
         <Link href={PATH.COMMUNITYSHELTER} className="w-fit py-0.5">
-          {/* 커뮤니티 (기본은 대피소 커뮤니티)로 이동 */}
-          <Image
-            src="icons/tabnavbar/comments-solid-1.svg"
-            alt="커뮤니티"
-            width={28}
-            height={28}
-            className="ml-2 text-center"
-          />
+          <div className="flex flex-col items-center">
+            {/* 커뮤니티 (기본은 대피소 커뮤니티)로 이동 */}
+            <Image
+              src="icons/tabnavbar/comments-solid-1.svg"
+              alt="커뮤니티"
+              width={28}
+              height={28}
+            />
+          </div>
           <h5>커뮤니티</h5>
         </Link>
         <Link href={PATH.PROFILE} className="w-fit py-0.5">
-          {/* 마이페이지로 이동 */}
-          <Image
-            src="icons/tabnavbar/user-solid.svg"
-            alt="마이"
-            width={28}
-            height={28}
-            className="text-center"
-          />
-          <h5>마이</h5>
+          <div className="flex flex-col items-center">
+            {/* 마이페이지로 이동 */}
+            <Image
+              src="icons/tabnavbar/user-solid.svg"
+              alt="마이"
+              width={28}
+              height={28}
+            />
+            <h5>마이</h5>
+          </div>
         </Link>
       </div>
     </section>
