@@ -70,6 +70,7 @@ export const useDeleteComment = () => {
       queryClient.invalidateQueries({ queryKey: ["comments"] });
     },
     onError: error => {
+      console.error(error);
       toast.error("댓글 삭제 오류!");
     },
   });
