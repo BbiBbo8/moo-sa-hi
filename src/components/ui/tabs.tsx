@@ -15,7 +15,7 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      "text-muted-foreground inline-flex h-9 items-center justify-center p-1",
+      "inline-flex h-fit w-full items-center justify-evenly p-1 text-[#999999]",
       className,
     )}
     {...props}
@@ -32,7 +32,7 @@ const TabsTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       /* 가시성 확보를 위해 임시로 색과 bold 효과 표시 */
-      "ring-offset-background focus-visible:ring-ring data-[state=active]:bg-background inline-flex items-center justify-center px-3 py-1 text-sm font-medium whitespace-nowrap transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=active]:font-extrabold data-[state=active]:text-indigo-500",
+      "ring-offset-background focus-visible:ring-ring data-[state=active]:bg-background font-base inline-flex w-full items-center justify-center px-3 py-1 text-sm font-medium whitespace-nowrap transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=active]:font-extrabold data-[state=active]:text-[#1A1A1A]",
       className,
     )}
     {...props}
