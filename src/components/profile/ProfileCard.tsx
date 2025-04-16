@@ -25,7 +25,7 @@ const ProfileCard = () => {
 
   return (
     <>
-      <section className="flex w-full flex-col gap-3 px-5 pt-[50px]">
+      <section className="flex w-full flex-col gap-3 px-5 pt-[82px]">
         <div className="flex justify-between">
           <div className="gap-4">
             {/* 유저가 존재하면 정보 띄우기 */}
@@ -39,12 +39,6 @@ const ProfileCard = () => {
                 </h3>
               </>
             )}
-            {/* 유저가 존재하지 않으면 닉네임 없애기 */}
-            {!user && (
-              <h3 className="mb-4 p-5 text-lg font-medium">
-                로그인이 필요한 서비스입니다.
-              </h3>
-            )}
           </div>
           {/* 유저가 존재하면 로그아웃과 프로필 수정 띄우기 */}
           {user && (
@@ -52,13 +46,18 @@ const ProfileCard = () => {
               <ProfileEditPop userId={userAuth?.id} nickname={user.nickname} />
             </div>
           )}
-          {/* 유저가 존재하지 않으면 로그인 띄우기 */}
-          {!user && (
-            <div className="pt-5">
+        </div>
+        {/* 유저가 존재하지 않으면 닉네임 없애고 로그인 버튼 생기기 */}
+        {!user && (
+          <>
+            <h3 className="mb-4 p-5 text-lg font-medium">
+              로그인이 필요한 서비스입니다.
+            </h3>
+            <div className="pt-5 text-center">
               <SigninDrawer />
             </div>
-          )}
-        </div>
+          </>
+        )}
       </section>
       {user && <ProfileTabs />}
     </>

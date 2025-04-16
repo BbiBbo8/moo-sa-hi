@@ -13,11 +13,11 @@ import SocialLoginButtons from "./SocialLoginButtons";
 
 const SigninDrawer = () => {
   const router = useRouter();
-  
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline">로그인 테스트 버튼</Button>
+        <Button variant="outline">로그인</Button>
       </DrawerTrigger>
       <DrawerContent className="rounded-t-2xl p-6">
         {/* 드래그 바 */}
