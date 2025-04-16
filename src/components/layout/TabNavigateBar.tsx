@@ -8,8 +8,8 @@ import Image from "next/image";
 
 const TabNavigateBar = () => {
   const pathname = usePathname();
-  // 지도 페이지에서 숨기기
-  const hiddenRoutes = [PATH.MAP];
+  // 지도 페이지, 작성 페이지에서 숨기기
+  const hiddenRoutes: string[] = [PATH.MAP, PATH.CREATE];
   if (hiddenRoutes.includes(pathname)) {
     return null;
   }
