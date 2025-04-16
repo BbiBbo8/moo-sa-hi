@@ -1,36 +1,67 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import { Post } from "@/types/communityPost";
+import { ShelterPostType } from "@/types/communityPost";
 import { formatTime } from "@/utils/formatTime";
 import PATH from "@/constants/PATH";
+import Image from "next/image";
 
 // NOTE: 한 줄짜리 타입지정이라 interface가 아닌 type을 사용했습니다.
 type PostCardProps = {
-  post: Post;
+  post: ShelterPostType;
 };
 
 const ShelterPost = ({ post }: PostCardProps) => {
   // NOTE: 날짜 작성 형태(년도.월.일)를 형식에 맞춰 반환
   const timeCreated = formatTime({ time: post.created_at });
 
+  // NOTE: 정해진 사람 수가 없을 경우에는 "보통"을 반환
+  const populationDensity = post.people || "보통"; // 이 post.people에서 값은 제대로 반환이 되는데 타입오류가 뜨네요....튜터님꼐 여쭤보겠습니다!
+
+  const colorForPopulation =
+    populationDensity === "한산"
+      ? "bg-[#58999E]"
+      : populationDensity === "보통"
+        ? "bg-[#0671FD]"
+        : populationDensity === "만원"
+          ? "bg-[#EF282A]"
+          : "";
+
   return (
     <Link
       href={`${PATH.COMMUNITYSHELTER}/${post.id}`}
       className="h-full w-full"
     >
-      <Card key={post.id} className="relative h-44 gap-3 px-2">
+      <Card
+        key={post.id}
+        className="h-[142px] w-full gap-3 border-none bg-[#F7F7F7] p-5 shadow-none"
+      >
         <CardContent className="h-full p-0">
-          <section className="mt-2 mb-4 flex h-full flex-col items-center gap-2">
-            {/* NOTE: 현재 주석처리된 코드가 사용되어야 하지만 빈 값이라 더미 데이터 사용 */}
-            {/* NOTE: 현재 주석처리된 코드가 사용되어야 하지만 빈 값이라 더미 데이터 사용 */}
-            {/* <CardTitle>{post.people}</CardTitle> */}
-            <CardTitle className="mb-3 rounded-lg border border-black p-3">
-              한산
+          <section className="flex h-full w-full flex-col items-start justify-center gap-2">
+            <CardTitle
+              className={`flex h-7 w-10 items-center justify-center rounded-lg text-sm text-[16px] text-[#1A1A1A] text-white ${colorForPopulation}`}
+            >
+              {populationDensity}
             </CardTitle>
-            <h2 className="text-lg">{post.title}</h2>
-            <section className="absolute right-0 bottom-4 left-0 flex justify-between px-4 text-[12px] text-gray-500">
-              <p>2km</p>
+            <article className="flex w-[321px] flex-col gap-0">
+              <h2 className="truncate text-[16px] font-semibold">
+                {post.title}
+              </h2>
+              <span className="truncate text-sm">{post.shelter_name}</span>
+            </article>
+
+            <section className="flex w-full flex-row justify-between text-sm text-[#B3B3B3]">
               <p>{timeCreated}</p>
+              <div className="flex items-center gap-1">
+                <Image
+                  src={"/icons/thumbs-up-solid.svg"}
+                  alt={"icon"}
+                  width={20}
+                  height={20}
+                />
+                <span className="text-sm">
+                  {String(post.helpfuls?.length ?? 0).padStart(2, "0")}
+                </span>
+              </div>
             </section>
           </section>
         </CardContent>
