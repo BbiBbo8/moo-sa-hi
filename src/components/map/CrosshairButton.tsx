@@ -21,7 +21,7 @@ const CrosshairButton = () => {
     <button
       onClick={handleGetLocation}
       disabled={isPending}
-      className="absolute bottom-[270px] left-2 z-40"
+      className="absolute bottom-[320px] left-2 z-40"
     >
       <Image
         src="/icons/crosshairs-solid.png"
