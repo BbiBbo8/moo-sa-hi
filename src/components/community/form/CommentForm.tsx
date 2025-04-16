@@ -12,10 +12,10 @@ import {
 } from "../../ui/form";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
-import createClient from "@/supabase/client";
-import { usePathname } from "next/navigation";
 import { useUserData } from "@/hooks/useUserData";
 import { useInsertComment } from "@/hooks/comment/useCommentMutation";
+import Error from "@/app/(pages)/Error";
+import Loading from "@/app/(pages)/Loading";
 
 const commentSchema = z.object({
   content: z
@@ -35,6 +35,13 @@ const CommentForm = ({ postId }: { postId: number }) => {
 
   const { data, error, isLoading } = useUserData();
   const userId = data?.user?.id;
+
+  if (isLoading) {
+    <Loading />;
+  }
+  if (error) {
+    <Error />;
+  }
 
   // supabase에 작성된 댓글을 넣는 함수 호출
   const insertCommentMutation = useInsertComment();

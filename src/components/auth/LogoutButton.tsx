@@ -20,7 +20,11 @@ const LogoutButton = () => {
     router.push(PATH.HOME); // 로그아웃 후에 랜딩페이지로 이동
     location.reload(); // 페이지 새로고침    
   };
-  return <Button onClick={handleLogout}>로그아웃</Button>;
+  return (
+    <Button onClick={handleLogout} className="bg-white text-gray-500">
+      로그아웃
+    </Button>
+  );
 };
 
 export default LogoutButton;

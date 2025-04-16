@@ -10,6 +10,7 @@ const getComments = async (postId: string) => {
       .or(`shelter_post_id.eq.${postId}, daily_post_id.eq.${postId}`);
     return comments;
   } catch (error) {
+    console.error(error);
     throw new Error("댓글 불러오기 실패");
   }
 };
