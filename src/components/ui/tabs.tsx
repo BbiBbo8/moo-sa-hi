@@ -32,7 +32,7 @@ const TabsTrigger = React.forwardRef<
     ref={ref}
     className={cn(
       /* 가시성 확보를 위해 임시로 색과 bold 효과 표시 */
-      "ring-offset-background focus-visible:ring-ring data-[state=active]:bg-background font-base inline-flex w-full items-center justify-center px-3 py-1 text-sm font-medium whitespace-nowrap transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=active]:font-extrabold data-[state=active]:text-[#1A1A1A]",
+      "focus-visible:ring-ring data-[state=active]:bg-background font-base inline-flex w-fit items-center justify-center px-3 py-1 text-sm font-medium whitespace-nowrap ring-offset-[#1A1A1A] transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 data-[state=active]:border-b-2 data-[state=active]:border-[#1A1A1A] data-[state=active]:font-extrabold data-[state=active]:text-[#1A1A1A]",
       className,
     )}
     {...props}
