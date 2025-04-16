@@ -74,7 +74,7 @@ const ShelterPostButtons = ({
         .from("helpfuls")
         .delete()
         .eq("user_id", user.id)
-        .eq("shelter_post_id", shelterPostId);
+        .eq("shelter_post_id", shelterPostId!);
 
       if (deleteError) {
         console.error("유용해요 삭제 오류:", deleteError);
@@ -111,7 +111,7 @@ const ShelterPostButtons = ({
       <button
         onClick={handleHelpfulClick}
         className={`flex h-10 w-30 items-center gap-0.5 rounded-md px-4 text-sm text-gray-500 ${
-          isHelpful ? "bg-[#58999E] text-white" : "bg-[#F2F2F2] text-[#808080]"
+          isHelpful ? "bg-blue-500 text-white" : "bg-[#F2F2F2]"
         }`}
       >
         <Image
@@ -122,11 +122,7 @@ const ShelterPostButtons = ({
           className={isHelpful ? "invert" : ""}
         />
         유용해요
-        <span
-          className={`ml-0.5 text-sm ${isHelpful ? "text-white" : "text-[#808080]"}`}
-        >
-          {helpfulCount}
-        </span>
+        <span className="text-sm text-gray-600">{helpfulCount}</span>
       </button>
 
       {/* 신고하기 버튼 */}
