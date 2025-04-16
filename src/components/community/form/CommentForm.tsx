@@ -27,11 +27,6 @@ const commentSchema = z.object({
 type CommentFormData = z.infer<typeof commentSchema>;
 
 const CommentForm = ({ postId }: { postId: number }) => {
-  const {
-    formState: { errors },
-  } = useForm<CommentFormData>({
-    resolver: zodResolver(commentSchema),
-  });
 
   const { data, error, isLoading } = useUserData();
   const userId = data?.user?.id;
