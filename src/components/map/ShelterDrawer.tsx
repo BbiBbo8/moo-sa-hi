@@ -9,12 +9,12 @@ import {
 } from "@/components/ui/drawer";
 import ShelterList from "./ShelterList";
 import { useMarkerStore } from "@/store/useMarkerStore";
-import { useEffect, useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { useMapStore } from "@/store/useMapStore";
 import { useGeolocationMutation } from "@/hooks/useMapGeolocation";
 import { useDistance } from "@/hooks/useDistance";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
-import { useMapStore } from "@/store/useMapStore";
+import { ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const ShelterDrawer = () => {
   const { visibleShelters } = useMapStore();
@@ -23,39 +23,36 @@ const ShelterDrawer = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [sortOption, setSortOption] = useState<"relevance" | "distance">(
-    "relevance",
-  );
-
-  useOnClickOutside(dropdownRef, () => setIsDropdownOpen(false));
+  const [sortOption, setSortOption] = useState<"relevance" | "distance">("relevance");
 
   const { mutate, data: userLocation } = useGeolocationMutation();
-
   useEffect(() => {
     mutate();
   }, []);
 
+  // 마커 클릭 시 Drawer 열기
   useEffect(() => {
     if (selectedShelterName) {
       setIsOpen(true);
     }
   }, [selectedShelterName]);
 
-  // 제스처로 Drawer 열기
+  // 화면 하단에서 터치 시작 시 Drawer 열기
   useEffect(() => {
     const handleTouchStart = (e: TouchEvent) => {
       if (e.touches[0].clientY > window.innerHeight - 50) {
         setIsOpen(true);
       }
     };
-
     window.addEventListener("touchstart", handleTouchStart);
     return () => window.removeEventListener("touchstart", handleTouchStart);
   }, []);
 
+  useOnClickOutside(dropdownRef, () => setIsDropdownOpen(false));
+
   const sheltersWithDistance = useDistance(
     userLocation ?? { lat: 0, lng: 0 },
-    visibleShelters,
+    visibleShelters
   );
 
   const sortedShelters = [...sheltersWithDistance].sort((a, b) => {
@@ -68,7 +65,7 @@ const ShelterDrawer = () => {
   const SortDropdown = () => (
     <div className="relative" ref={dropdownRef}>
       <button
-        className="white flex items-center gap-1 py-1 text-sm text-[#999999]"
+        className="flex items-center gap-1 py-1 text-sm text-[#999999]"
         onClick={e => {
           e.stopPropagation();
           setIsDropdownOpen(!isDropdownOpen);
@@ -85,9 +82,7 @@ const ShelterDrawer = () => {
           </div>
           <button
             className={`block w-full px-4 py-2 text-left text-sm ${
-              sortOption === "distance"
-                ? "font-medium text-black"
-                : "text-gray-700"
+              sortOption === "distance" ? "font-medium text-black" : "text-gray-700"
             }`}
             onClick={e => {
               e.stopPropagation();
@@ -99,9 +94,7 @@ const ShelterDrawer = () => {
           </button>
           <button
             className={`block w-full px-4 py-2 text-left text-sm ${
-              sortOption === "relevance"
-                ? "font-medium text-black"
-                : "text-gray-700"
+              sortOption === "relevance" ? "font-medium text-black" : "text-gray-700"
             }`}
             onClick={e => {
               e.stopPropagation();
@@ -118,14 +111,20 @@ const ShelterDrawer = () => {
 
   return (
     <>
+      {/* 목록 버튼 (중앙 하단) */}
       <button
-      onClick={() => setIsOpen(true)}
-      className="fixed bottom-6 left-1/2 z-30 w-[104px] h-[40px] -translate-x-1/2 transform"
-      aria-label="대피소 목록 열기"
-    >
-      <img src="/icons/map/List Open.svg" alt="목록 버튼" className="h-full w-full object-contain" />
-    </button>
+        onClick={() => setIsOpen(true)}
+        className="fixed bottom-6 left-1/2 z-30 w-[104px] h-[40px] -translate-x-1/2"
+        aria-label="대피소 목록 열기"
+      >
+        <img
+          src="/icons/map/List Open.svg"
+          alt="목록 버튼"
+          className="h-full w-full object-contain"
+        />
+      </button>
 
+      {/* Drawer */}
       <Drawer open={isOpen} onOpenChange={setIsOpen}>
         <DrawerContent className="overflow-auto pb-0">
           <DrawerHeader className="pb-2">
