@@ -33,8 +33,7 @@
 
 <br/> 
 
-> - **작업 기간** : 
-> - **배포 주소** :
+ ### [지금 바로 확인하세요!](https://moo-sa-hi.vercel.app/)
 
 <br />
 
@@ -85,7 +84,7 @@
       </td>
       <td align="center">
         <a href="https://github.com/dlfhrrl12">
-        <img src=여기에 프로필 width="80" alt="유정민"/>
+        <img src="https://ca.slack-edge.com/T06B9PCLY1E-U07RB1S8VQQ-274dad93bea9-512" width="80" alt="유정민"/>
         <br />
         <sub><b>designer</b></sub>
         </a>
