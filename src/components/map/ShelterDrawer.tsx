@@ -136,7 +136,7 @@ const ShelterDrawer = () => {
       <Drawer open={isOpen} onOpenChange={setIsOpen}>
         <DrawerContent className="overflow-auto pb-0">
           <DrawerHeader className="pb-2">
-            <DrawerTitle />
+            <DrawerTitle className="sr-only">주변 대피소 목록</DrawerTitle>
             <div className="flex items-center justify-between">
               <DrawerDescription>
                 주변 대피소 {visibleShelters.length}
@@ -144,8 +144,14 @@ const ShelterDrawer = () => {
               {visibleShelters.length > 0 && <SortDropdown />}
             </div>
           </DrawerHeader>
+
+          {/* 리스트 렌더링 먼저 거리 정렬은 후에 */}
           <ShelterList
-            shelters={sortedShelters}
+            shelters={
+              sortOption === "distance" && userLocation
+                ? sortedShelters
+                : visibleShelters
+            }
             isDrawerOpen={isOpen}
             sortBy={sortOption}
           />
