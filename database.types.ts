@@ -103,21 +103,21 @@ export type Database = {
       helpfuls: {
         Row: {
           created_at: string;
-          daily_post_id: number;
+          daily_post_id: number | null;
           id: number;
           shelter_post_id: number | null;
           user_id: string | null;
         };
         Insert: {
           created_at?: string;
-          daily_post_id: number;
+          daily_post_id?: number | null;
           id?: number;
           shelter_post_id?: number | null;
           user_id?: string | null;
         };
         Update: {
           created_at?: string;
-          daily_post_id?: number;
+          daily_post_id?: number | null;
           id?: number;
           shelter_post_id?: number | null;
           user_id?: string | null;
@@ -394,7 +394,7 @@ export const Constants = {
   public: {
     Enums: {
       cleanliness_tags: ["깨끗함", "보통", "더러움"],
-      people_tags: ["한산", "보통", "만원"],
+      people_tags: ["한산", "보통", "붐빔", "만원"],
     },
   },
 } as const;
