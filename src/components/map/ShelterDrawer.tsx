@@ -15,6 +15,7 @@ import { useDistance } from "@/hooks/useDistance";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 import { ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 const ShelterDrawer = () => {
   const { visibleShelters } = useMapStore();
@@ -23,7 +24,9 @@ const ShelterDrawer = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [sortOption, setSortOption] = useState<"relevance" | "distance">("relevance");
+  const [sortOption, setSortOption] = useState<"relevance" | "distance">(
+    "relevance",
+  );
 
   const { mutate, data: userLocation } = useGeolocationMutation();
   useEffect(() => {
@@ -52,7 +55,7 @@ const ShelterDrawer = () => {
 
   const sheltersWithDistance = useDistance(
     userLocation ?? { lat: 0, lng: 0 },
-    visibleShelters
+    visibleShelters,
   );
 
   const sortedShelters = [...sheltersWithDistance].sort((a, b) => {
@@ -82,7 +85,9 @@ const ShelterDrawer = () => {
           </div>
           <button
             className={`block w-full px-4 py-2 text-left text-sm ${
-              sortOption === "distance" ? "font-medium text-black" : "text-gray-700"
+              sortOption === "distance"
+                ? "font-medium text-black"
+                : "text-gray-700"
             }`}
             onClick={e => {
               e.stopPropagation();
@@ -94,7 +99,9 @@ const ShelterDrawer = () => {
           </button>
           <button
             className={`block w-full px-4 py-2 text-left text-sm ${
-              sortOption === "relevance" ? "font-medium text-black" : "text-gray-700"
+              sortOption === "relevance"
+                ? "font-medium text-black"
+                : "text-gray-700"
             }`}
             onClick={e => {
               e.stopPropagation();
@@ -114,13 +121,14 @@ const ShelterDrawer = () => {
       {/* 목록 버튼 (중앙 하단) */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 left-1/2 z-30 w-[104px] h-[40px] -translate-x-1/2"
+        className="fixed bottom-6 left-1/2 z-30 -translate-x-1/2"
         aria-label="대피소 목록 열기"
       >
-        <img
-          src="/icons/map/List Open.svg"
-          alt="목록 버튼"
-          className="h-full w-full object-contain"
+        <Image
+          src="/icons/map/List Open.svg" // ← 이 부분은 실제 아이콘 경로에 맞게 수정
+          alt="아이콘"
+          width={104}
+          height={40}
         />
       </button>
 
