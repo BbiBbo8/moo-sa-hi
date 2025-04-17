@@ -101,12 +101,6 @@ const MainMap = () => {
     setSelectedShelterName(name); // 마커가 클릭 됬을때 전역 상태에 저장
   };
 
-  // 스크롤 방지
-  useEffect(() => {
-    document.body.classList.add("no-scroll");
-    return () => document.body.classList.remove("no-scroll");
-  }, []);
-
   if (isLoading) return <Loading />;
   if (error) return <Error />;
 
