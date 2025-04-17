@@ -83,7 +83,7 @@
         <br />
       </td>
       <td align="center">
-        <a href="https://github.com/dlfhrrl12">
+        <a href="mailto:jeongminyu70@gmail.com">
         <img src="https://ca.slack-edge.com/T06B9PCLY1E-U07RB1S8VQQ-274dad93bea9-512" width="80" alt="유정민"/>
         <br />
         <sub><b>designer</b></sub>
