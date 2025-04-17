@@ -10,10 +10,11 @@ const TabNavigateBar = () => {
   const pathname = usePathname();
   // 지도, 글 작성, 게시글 상세 페이지에서 숨기기
   const shouldHide =
-    pathname.startsWith(PATH.COMMUNITYSHELTER + "/") ||
-    pathname.startsWith(PATH.COMMUNITYDAILY + "/") ||
-    pathname === PATH.MAP ||
-    pathname === PATH.CREATE;
+  pathname.startsWith(PATH.COMMUNITYSHELTER + "/") ||
+  pathname.startsWith(PATH.COMMUNITYDAILY + "/") ||
+  pathname === PATH.MAP ||
+  pathname.startsWith(PATH.MAP + "/") ||
+  pathname === PATH.CREATE;
 
   if (shouldHide) return null;
 
