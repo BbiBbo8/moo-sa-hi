@@ -66,7 +66,7 @@ const ShelterDrawer = () => {
   const SortDropdown = () => (
     <div className="relative" ref={dropdownRef}>
       <button
-        className="flex items-center gap-1 rounded border border-gray-300 bg-white px-3 py-1 text-xs"
+        className="white flex items-center gap-1 py-1 text-sm text-[#999999]"
         onClick={e => {
           e.stopPropagation(); // Link의 기본 동작을 막기 위해
           setIsDropdownOpen(!isDropdownOpen);
@@ -118,7 +118,7 @@ const ShelterDrawer = () => {
     <>
       {/* 항상 보이는 미리보기 부분 - 실제 드로어와 별개 */}
       <div
-        className="fixed right-0 bottom-0 left-0 z-30 rounded-t-lg border-t border-gray-200 bg-white shadow-lg"
+        className="fixed right-0 bottom-0 left-0 z-30 rounded-t-lg border-t border-gray-200 bg-white px-5 pb-8 shadow-lg"
         style={{ display: isOpen ? "none" : "block" }}
         onClick={e => {
           // 드롭다운 클릭 시 드로어가 열리지 않도록 함
@@ -128,61 +128,71 @@ const ShelterDrawer = () => {
         }}
       >
         <div className="w-full">
-          <div className="bg-muted mx-auto my-4 h-2 w-[100px] shrink-0 rounded-full" />
-
-          <div className="flex items-center justify-between px-4 pb-2">
-            <div className="text-sm font-medium">
-              내 주변 대피소: {visibleShelters.length}
+          <aside className="flex w-full justify-center pt-4 pb-2">
+            <div className="h-1 w-[40px] shrink-0 rounded-full bg-[#cccccc]" />
+          </aside>
+          <section className="flex flex-col gap-5">
+            <div className="flex h-10 items-center justify-between">
+              <div className="flex flex-row gap-2 text-sm font-medium">
+                <span className="text-[20px]">내 주변 대피소</span>{" "}
+                <span className="text-[20px] text-[#58999E]">
+                  {visibleShelters.length}
+                </span>
+              </div>
+              <SortDropdown />
             </div>
-            {visibleShelters.length > 0 && <SortDropdown />}
-          </div>
 
-          {/* 미리보기에서 최대 2개의 대피소만 표시 */}
-          <div className="flex min-h-[140px] flex-col justify-center space-y-2 px-4 pb-4">
-            {visibleShelters.length > 0 ? (
-              sortedShelters.slice(0, 2).map(shelter => (
-                <div
-                  key={shelter.name + shelter.address}
-                  className={`flex flex-col rounded-lg p-2 ${
-                    selectedShelterName === shelter.name ? "bg-yellow-100" : ""
-                  }`}
-                >
-                  <Link
-                    className="flex flex-col gap-1"
-                    href={`${PATH.MAP}/${shelter.id}`}
-                    onClick={e => e.stopPropagation()} // 클릭 이벤트가 상위로 전파되지 않도록 막음
+            {/* 미리보기에서 최대 2개의 대피소만 표시 */}
+            <div className="flex min-h-[140px] flex-col justify-center gap-y-5">
+              {visibleShelters.length > 0 ? (
+                sortedShelters.slice(0, 2).map(shelter => (
+                  <div
+                    key={shelter.name + shelter.address}
+                    className={`flex h-[74px] flex-col items-center justify-center py-4 ${
+                      selectedShelterName === shelter.name
+                        ? "bg-yellow-100"
+                        : ""
+                    }`}
                   >
-                    {/* 시설 이름과 거리 (양 옆 배치) */}
-                    <div className="flex items-center justify-between">
-                      <h5 className="text-sm font-semibold">{shelter.name}</h5>
+                    <Link
+                      className="flex w-[353px] flex-row items-center justify-center gap-5"
+                      href={`${PATH.MAP}/${shelter.id}`}
+                      onClick={e => e.stopPropagation()} // 클릭 이벤트가 상위로 전파되지 않도록 막음
+                    >
+                      {/* 시설 이름과 거리 (양 옆 배치) */}
+                      <div className="w-[280px] flex-col items-center gap-1 truncate">
+                        <h5 className="truncate text-[16px] font-semibold text-[#333333]">
+                          {shelter.name}
+                        </h5>
+                        {/* 주소 (아래쪽) */}
+                        <span className="truncate text-[14px] font-thin text-[#808080]">
+                          {shelter.address}
+                        </span>
+                      </div>
+
                       {typeof shelter.distance === "number" && (
-                        <span className="text-sm font-bold text-black">
+                        <span className="flex w-10 flex-1 items-center justify-center text-sm text-[#666666]">
                           {(shelter.distance / 1000).toFixed(1)} km
                         </span>
                       )}
-                    </div>
-
-                    {/* 주소 (아래쪽) */}
-                    <span className="text-xs text-gray-500">
-                      {shelter.address}
-                    </span>
-                  </Link>
+                    </Link>
+                  </div>
+                ))
+              ) : (
+                <div className="text-center text-sm text-gray-500">
+                  주위에 대피소가 없습니다.
                 </div>
-              ))
-            ) : (
-              <div className="text-center text-sm text-gray-500">
-                주위에 대피소가 없습니다.
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          </section>
         </div>
       </div>
 
       {/* 실제 드로어 */}
       <Drawer open={isOpen} onOpenChange={setIsOpen}>
-        <DrawerTrigger className="hidden rounded-t-lg">
+        <DrawerTrigger className="hidden w-full items-center justify-center rounded-t-lg">
           {/* 트리거는 숨겨두고 프로그래밍 방식으로 열기 */}
-          <div className="bg-muted mx-auto my-4 h-2 w-[100px] shrink-0 rounded-full" />
+          <div className="bg-muted mx-auto my-4 h-1 w-[40px] shrink-0 rounded-full" />
         </DrawerTrigger>
         <DrawerContent className="overflow-auto pb-0">
           <DrawerHeader className="pb-2">
