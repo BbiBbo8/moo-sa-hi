@@ -20,7 +20,7 @@ const DetailMap = ({ lat, lng, name }: DetailMapProps) => {
   }, [lat, lng, setCenter, setLevel]);
 
   return (
-    <Map center={{ lat, lng }} level={3} className="w-full h-40 rounded-md">
+    <Map center={{ lat, lng }} level={3} className="h-full w-full">
       <MapMarker position={{ lat, lng }}>
         <div className="text-xs">{name}</div>
       </MapMarker>
