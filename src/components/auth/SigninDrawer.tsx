@@ -16,14 +16,12 @@ interface signInDropProps {
   isOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
   children?: React.ReactNode;
-  hideButton?: boolean; // 버튼을 명시적으로 숨길지 여부
 }
 
 const SigninDrawer = ({
   isOpen = false,
   onOpenChange,
   children,
-  hideButton = false,
 }: signInDropProps) => {
   const router = useRouter();
 

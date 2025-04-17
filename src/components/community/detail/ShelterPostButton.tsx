@@ -2,7 +2,6 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import createClient from "@/supabase/client";
 import getUserData from "@/supabase/getUserData";
-import { toast } from "sonner";
 import SigninDrawer from "@/components/auth/SigninDrawer";
 
 interface params {

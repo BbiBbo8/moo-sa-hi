@@ -19,7 +19,6 @@ import Loading from "@/app/(pages)/Loading";
 import getUserData from "@/supabase/getUserData";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "sonner";
 import PATH from "@/constants/PATH";
 import SigninDrawer from "@/components/auth/SigninDrawer";
 

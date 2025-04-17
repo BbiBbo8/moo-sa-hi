@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import createClient from "@/supabase/client";
 import getUserData from "@/supabase/getUserData";
 import SigninDrawer from "@/components/auth/SigninDrawer";
-import { toast } from "sonner";
 
 interface params {
   dailyPostId?: number | null;
