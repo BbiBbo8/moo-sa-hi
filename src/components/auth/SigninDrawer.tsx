@@ -10,15 +10,53 @@ import {
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import SocialLoginButtons from "./SocialLoginButtons";
+import { useState } from "react";
 
-const SigninDrawer = () => {
+interface signInDropProps {
+  isOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  children?: React.ReactNode;
+  hideButton?: boolean; // 버튼을 명시적으로 숨길지 여부
+}
+
+const SigninDrawer = ({
+  isOpen = false,
+  onOpenChange,
+  children,
+  hideButton = false,
+}: signInDropProps) => {
   const router = useRouter();
 
+  // 내부 상태 관리 (isOpen이 제공되지 않았을 때 사용)
+  const [internalOpen, setInternalOpen] = useState(false);
+
+  // 외부에서 제어되는지 여부
+  const isControlled = isOpen !== undefined && onOpenChange !== undefined;
+
+  // 현재 열린 상태 (외부 제어 또는 내부 상태)
+  const isCurrentlyOpen = isControlled ? isOpen : internalOpen;
+
+  // 상태 변경 핸들러
+  const handleOpenChange = (open: boolean) => {
+    // 내부 상태 업데이트 (비제어 모드에서만)
+    if (!isControlled) {
+      setInternalOpen(open);
+    }
+
+    // 외부 핸들러가 있으면 호출
+    if (onOpenChange) {
+      onOpenChange(open);
+    }
+  };
+
   return (
-    <Drawer>
-      <DrawerTrigger asChild>
-        <Button variant="outline">로그인</Button>
-      </DrawerTrigger>
+    <Drawer open={isCurrentlyOpen} onOpenChange={handleOpenChange}>
+      {/* 제어 모드가 아닐 때만 트리거 표시 */}
+      {!isControlled && (
+        <DrawerTrigger asChild>
+          {children || <Button variant="outline">로그인</Button>}
+        </DrawerTrigger>
+      )}
       <DrawerContent className="rounded-t-2xl p-6">
         {/* 드래그 바 */}
         <DrawerTitle className="my-4 text-center text-lg font-semibold">
@@ -34,7 +72,10 @@ const SigninDrawer = () => {
         <DrawerFooter className="mt-6 border-t pt-4">
           <button
             className="w-full text-center text-sm text-gray-500"
-            onClick={() => router.back()}
+            onClick={() => {
+              handleOpenChange(false);
+              router.back();
+            }}
           >
             다음에 할래요
           </button>
