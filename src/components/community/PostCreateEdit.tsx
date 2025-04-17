@@ -6,17 +6,20 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import createClient from "@/supabase/client";
+
 import { toast } from "sonner";
 import PATH from "@/constants/PATH";
 
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ShelterForm from "./form/ShelterForm";
 import DailyForm from "./form/DailyForm";
 import ImageDropzone from "./form/ImageDropzone";
 import { Constants } from "database.types";
+
+import BackButton from "@/components/ui/BackButton";
+import PostTypeDropdown from "@/components/ui/PostTypeDropdown";
+import createClient from "@/supabase/client";
 
 const supabase = createClient();
 
@@ -39,7 +42,6 @@ function PostCreateEdit() {
   const [category, setCategory] = useState<"shelter" | "daily">("shelter");
   const [imgUrl, setImgUrl] = useState<string | null>(null);
 
-  // 대피소 이름도 저장하기 위한 상태 추가
   const [selectedShelter, setSelectedShelter] = useState<{
     id: string;
     name: string;
@@ -70,13 +72,13 @@ function PostCreateEdit() {
 
   const handlePostInsert = async (values: FormData) => {
     const payload = {
-      user_id: user!.id, // 사용자 ID 저장
+      user_id: user!.id,
       title: values.title,
       contents: values.contents,
       img_url: imgUrl ?? "",
-      people: values.congestion, // 혼잡도
-      cleanliness: values.hygiene, // 위생 상태
-      shelter_name: selectedShelter?.name ?? "", // 대피소 이름
+      people: values.congestion,
+      cleanliness: values.hygiene,
+      shelter_name: selectedShelter?.name ?? "",
     };
     return category === "shelter"
       ? await supabase.from("shelter_post").insert(payload)
@@ -111,26 +113,32 @@ function PostCreateEdit() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-[20px] px-[16px] pb-[32px] font-['IBM_Plex_Sans_KR']"
+      >
+        {/* 상단 바: 뒤로가기 + 드롭다운 + 등록 */}
         <div className="flex items-center justify-between">
-          <Tabs
-            value={category}
-            onValueChange={(value: string) =>
-              setCategory(value as "shelter" | "daily")
-            }
+          <BackButton />
+          <div className="flex-1 text-center font-['IBM_Plex_Sans_KR'] text-[18px]">
+            <PostTypeDropdown
+              current={category === "shelter" ? "대피소 글쓰기" : "일상 글쓰기"}
+              onChange={value =>
+                setCategory(value === "대피소 글쓰기" ? "shelter" : "daily")
+              }
+            />
+          </div>
+          <Button
+            type="submit"
+            className="rounded-full bg-[#3A7E8D] px-4 py-1 text-sm text-white hover:bg-[#60A1B0] active:bg-[#2B5D6C]"
           >
-            <TabsList>
-              <TabsTrigger value="shelter">대피소</TabsTrigger>
-              <TabsTrigger value="daily">일상</TabsTrigger>
-            </TabsList>
-          </Tabs>
-          <Button type="submit">등록</Button>
+            등록
+          </Button>
         </div>
 
-        {/* 폼 본문 */}
+        {/* 조건부 렌더링: ShelterForm / DailyForm */}
         {category === "shelter" ? (
           <ShelterForm
-            // 대피소 선택 시 이름까지 저장되도록 props 연결
             onShelterSelect={shelter => {
               form.setValue("shelter_id", shelter.id);
               setSelectedShelter({ id: shelter.id, name: shelter.name });
@@ -140,13 +148,12 @@ function PostCreateEdit() {
           <DailyForm />
         )}
 
-        {/* 이미지 업로드 */}
-        <div className="space-y-4">
-          <ImageDropzone
-            value={imgUrl ? [imgUrl] : []}
-            onChange={urls => setImgUrl(urls[0])}
-          />
-        </div>
+        {/* 이미지 업로드 드롭존 */}
+        <ImageDropzone
+          value={imgUrl ? [imgUrl] : []}
+          onChange={urls => setImgUrl(urls[0])}
+          maxFiles={5}
+        />
       </form>
     </Form>
   );

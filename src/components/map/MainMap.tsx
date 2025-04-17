@@ -7,6 +7,7 @@ import { useShelters } from "@/hooks/shelter/useShelters";
 import Loading from "@/app/(pages)/Loading";
 import Error from "@/app/(pages)/Error";
 import { useMarkerStore } from "@/store/useMarkerStore";
+import Image from "next/image";
 
 const MainMap = () => {
   const mapRef = useRef<kakao.maps.Map | null>(null); // 카카오 지도 객체를 저장
@@ -100,6 +101,12 @@ const MainMap = () => {
     setSelectedShelterName(name); // 마커가 클릭 됬을때 전역 상태에 저장
   };
 
+  // 스크롤 방지
+  useEffect(() => {
+    document.body.classList.add("no-scroll");
+    return () => document.body.classList.remove("no-scroll");
+  }, []);
+
   if (isLoading) return <Loading />;
   if (error) return <Error />;
 
@@ -128,10 +135,12 @@ const MainMap = () => {
           >
             {selectMarker === shelter.name && (
               <div className="relative min-w-[150px] p-2 text-sm whitespace-nowrap text-black">
-                <img
+                <Image
                   alt="close"
+                  width={14} // px 단위로 지정
+                  height={13}
                   src="https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
-                  className="absolute top-1 right-1 h-[13px] w-[14px]"
+                  className="absolute top-1 right-1"
                   onClick={() => setSelectMarker(null)}
                 />
                 <div className="flex flex-col gap-0.5 pr-6 whitespace-nowrap">

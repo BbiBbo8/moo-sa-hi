@@ -15,23 +15,27 @@ const ZoomControl = () => {
   };
 
   return (
-    <div className="absolute right-2 bottom-[300px] z-40 flex flex-col gap-1">
-      <button onClick={handleZoomIn}>
+    <div className="absolute right-2 bottom-[358px] z-40 flex flex-col gap-2">
+      <button
+        onClick={handleZoomIn}
+        className="flex h-10 w-10 items-center justify-center rounded-sm bg-white p-1 shadow-md"
+      >
         <Image
           src="/icons/plus-solid.png"
           alt="Zoom In"
-          width={28}
-          height={28}
-          className="rounded-sm bg-white p-1 shadow-md"
+          width={24}
+          height={24}
         />
       </button>
-      <button onClick={handleZoomOut}>
+      <button
+        onClick={handleZoomOut}
+        className="flex h-10 w-10 items-center justify-center rounded-sm bg-white p-1 shadow-md"
+      >
         <Image
           src="/icons/minus-solid.png"
           alt="Zoom Out"
-          width={28}
-          height={28}
-          className="rounded-sm bg-white p-1 shadow-md"
+          width={24}
+          height={24}
         />
       </button>
     </div>
