@@ -1,16 +1,14 @@
-// components/ui/PostTypeDropdown.tsx
 "use client";
 
 import Image from "next/image";
 import { useState } from "react";
 
-export default function PostTypeDropdown({
-  current,
-  onChange,
-}: {
+interface PostTypeDropdownProps {
   current: string;
   onChange: (value: string) => void;
-}) {
+}
+
+function PostTypeDropdown({ current, onChange }: PostTypeDropdownProps) {
   const [open, setOpen] = useState(false);
   const options = ["대피소 글쓰기", "일상 글쓰기"];
 
@@ -30,6 +28,7 @@ export default function PostTypeDropdown({
           />
         </span>
       </button>
+
       {open && (
         <ul className="absolute top-full z-10 mt-2 w-40 rounded-lg bg-white text-center shadow-lg">
           {options.map(option => (
@@ -49,3 +48,5 @@ export default function PostTypeDropdown({
     </div>
   );
 }
+
+export default PostTypeDropdown;

@@ -39,7 +39,7 @@ const InputSearch = () => {
   };
 
   return (
-    <div className="absolute top-5 z-50 mx-auto w-[343px] space-y-4 rounded-md border bg-white">
+    <div className="absolute top-12 z-50 mx-auto w-[343px] space-y-4 rounded-md border bg-white">
       <div className="relative">
         <Search className="text-muted-foreground absolute top-2.5 right-2.5 h-4 w-4 bg-white" />
         <Input
