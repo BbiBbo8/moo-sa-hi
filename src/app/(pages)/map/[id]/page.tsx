@@ -32,7 +32,7 @@ const ShelterDetailPage = async ({
   };
 
   return (
-    <section className="flex flex-col pt-[58px] pb-32">
+    <section className="flex flex-col pt-[58px] pb-16">
       {/* 지도 */}
       <div className="bg-accent h-[393px] w-full text-center [&>*]:object-cover">
         {shelter?.lat && shelter?.lng && (
