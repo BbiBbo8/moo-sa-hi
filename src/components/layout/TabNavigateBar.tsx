@@ -25,7 +25,7 @@ const TabNavigateBar = () => {
           <div className="flex flex-col items-center">
             {/* 랜딩 페이지(홈)으로 이동 */}
             <Image
-              src="icons/house-solid.svg"
+              src="/icons/house-solid.svg"
               alt="홈"
               width={28}
               height={28}
@@ -37,7 +37,7 @@ const TabNavigateBar = () => {
           <div className="flex flex-col items-center">
             {/* 지도 페이지로 이동 */}
             <Image
-              src="icons/map-location-dot-solid.svg"
+              src="/icons/map-location-dot-solid.svg"
               alt="지도"
               width={28}
               height={28}
@@ -49,7 +49,7 @@ const TabNavigateBar = () => {
           <div className="flex flex-col items-center">
             {/* 커뮤니티 (기본은 대피소 커뮤니티)로 이동 */}
             <Image
-              src="icons/comments-solid-1.svg"
+              src="/icons/comments-solid-1.svg"
               alt="커뮤니티"
               width={28}
               height={28}
@@ -61,7 +61,7 @@ const TabNavigateBar = () => {
           <div className="flex flex-col items-center">
             {/* 마이페이지로 이동 */}
             <Image
-              src="icons/user-solid.svg"
+              src="/icons/user-solid.svg"
               alt="마이"
               width={28}
               height={28}
