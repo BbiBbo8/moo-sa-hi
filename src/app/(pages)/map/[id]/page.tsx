@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import fetchSheltersApi from "@/app/api/fetchSheltersApi";
 import DetailMap from "@/components/detail/DetailMap";
+import Image from "next/image";
 
 const ShelterDetailPage = async ({
   params,
@@ -31,56 +32,112 @@ const ShelterDetailPage = async ({
   };
 
   return (
-    <section className="flex flex-col gap-3 p-2 pt-[58px]">
+    <section className="flex flex-col pt-[58px] pb-16">
       {/* 지도 */}
-      <div className="bg-accent h-40 w-full text-center">
+      <div className="bg-accent h-[393px] w-full text-center [&>*]:object-cover">
         {shelter?.lat && shelter?.lng && (
           <DetailMap lat={shelter.lat} lng={shelter.lng} name={shelter.name} />
         )}
       </div>
+      <div className="mb-[27px] px-5 pt-5">
+        {/* 제목 + 출처 */}
+        <header className="mb-4 flex-col">
+          <p className="text-left text-xs text-gray-400">행정 안전부 제공</p>
+          <h1 className="text-[20px] font-semibold">
+            {shelter?.name ?? "정보없음"}
+          </h1>
+        </header>
 
-      {/* 제목 + 출처 */}
-      <header className="flex-col">
-        <h1 className="text-3xl font-semibold">
-          {shelter?.name ?? "정보없음"}
-        </h1>
-        <p className="mt-3 text-right text-xs text-gray-400">
-          행정 안전부 제공
-        </p>
-      </header>
+        {/* 복사/공유 등 부가 기능 */}
+        <aside className="mb-4">
+          <ShelterExtraFeature address={shelter?.address} />
+        </aside>
 
-      {/* 복사/공유 등 부가 기능 */}
-      <aside>
-        <ShelterExtraFeature address={shelter?.address} />
-      </aside>
+        {/* 상세 정보 */}
+        <section className="flex w-full flex-col gap-2 text-sm text-[#666666]">
+          <p className="flex flex-row items-center gap-1">
+            <Image
+              src={"/icons/shelter-detail/phone-solid.svg"}
+              alt=""
+              width={24}
+              height={24}
+            />
+            담당 전화:{" "}
+            {shelter?.phone ? (
+              <Link href={`tel:${shelter.phone}`} className="text-indigo-500">
+                {shelter.phone}
+              </Link>
+            ) : (
+              "정보 없음"
+            )}
+          </p>
+          <p className="flex flex-row items-center gap-1">
+            <Image
+              src={"/icons/shelter-detail/user-group-solid.svg"}
+              alt=""
+              width={24}
+              height={24}
+            />
+            수용인원:{" "}
+            <span className="text-[#1A1A1A]">
+              {shelter?.capacity ?? "정보없음"}명
+            </span>
+          </p>
+          <p className="flex flex-row items-center gap-1">
+            <Image
+              src={"/icons/shelter-detail/flag-solid.svg"}
+              alt=""
+              width={24}
+              height={24}
+            />
+            시설 규모:{" "}
+            <span className="text-[#1A1A1A]">
+              {shelter?.scale ?? "정보없음"}
+            </span>
+          </p>
+          <p className="flex flex-row items-center gap-1">
+            <Image
+              src={"/icons/shelter-detail/location-dot-solid.svg"}
+              alt=""
+              width={24}
+              height={24}
+            />
+            대피 장소:{" "}
+            <span className="text-[#1A1A1A]">
+              {FloorType(shelter?.locationType ?? "정보없음")}
+            </span>
+          </p>
+          <p className="flex flex-row items-center gap-1">
+            <Image
+              src={"/icons/shelter-detail/clock-solid.svg"}
+              alt=""
+              width={24}
+              height={24}
+            />
+            개방 여부:{" "}
+            <span className="text-[#1A1A1A]">
+              {OpenStatus(shelter?.isOpen ?? "정보없음")}
+            </span>
+          </p>
+          <p className="flex flex-row items-center gap-1">
+            <Image
+              src={"/icons/shelter-detail/circle-info-solid.svg"}
+              alt=""
+              width={24}
+              height={24}
+            />
+            평상시 활용유형:{" "}
+            <span className="text-[#1A1A1A]">
+              {shelter?.usageType ?? "정보없음"}
+            </span>
+          </p>
+        </section>
+      </div>
 
-      {/* 상세 정보 */}
-      <section className="bg-accent flex w-full flex-col gap-1 rounded-lg border px-4 py-3 text-sm">
-        <p className="text-lg">
-          담당 전화:{" "}
-          {shelter?.phone ? (
-            <Link href={`tel:${shelter.phone}`} className="text-indigo-500">
-              {shelter.phone}
-            </Link>
-          ) : (
-            "정보 없음"
-          )}
-        </p>
-        <p className="text-lg">수용인원: {shelter?.capacity ?? "정보없음"}명</p>
-        <p className="text-lg">시설 규모: {shelter?.scale ?? "정보없음"}</p>
-        <p className="text-lg">
-          대피 장소: {FloorType(shelter?.locationType ?? "정보없음")}
-        </p>
-        <p className="text-lg">
-          개방 여부: {OpenStatus(shelter?.isOpen ?? "정보없음")}
-        </p>
-        <p className="text-lg">
-          평상시 활용유형: {shelter?.usageType ?? "정보없음"}
-        </p>
-      </section>
+      <div className="mx-5 h-[1px] bg-[#f2f2f2]"></div>
 
       {/* 신고 안내 */}
-      <footer className="relative p-2">
+      <footer className="flex flex-col gap-2 px-5 pt-2 text-sm text-[#666666]">
         <p>대피소 정보 오류는 행정안전부 콜센터로 제보 바랍니다.</p>
         <p className="text-md">
           행정안전부 콜센터:{" "}
