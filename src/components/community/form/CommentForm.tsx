@@ -16,6 +16,12 @@ import { useUserData } from "@/hooks/useUserData";
 import { useInsertComment } from "@/hooks/comment/useCommentMutation";
 import Error from "@/app/(pages)/Error";
 import Loading from "@/app/(pages)/Loading";
+import getUserData from "@/supabase/getUserData";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+import PATH from "@/constants/PATH";
+import SigninDrawer from "@/components/auth/SigninDrawer";
 
 const commentSchema = z.object({
   content: z
@@ -27,9 +33,11 @@ const commentSchema = z.object({
 type CommentFormData = z.infer<typeof commentSchema>;
 
 const CommentForm = ({ postId }: { postId: number }) => {
-
+  const router = useRouter();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { data, error, isLoading } = useUserData();
   const userId = data?.user?.id;
+  const userData = getUserData();
 
   if (isLoading) {
     <Loading />;
@@ -37,6 +45,15 @@ const CommentForm = ({ postId }: { postId: number }) => {
   if (error) {
     <Error />;
   }
+
+  const handleCommentInputClick = async () => {
+    const { user } = await userData;
+    if (!user) {
+      setIsDrawerOpen(true);
+    } else {
+      router.push(PATH.CREATE);
+    }
+  };
 
   // supabase에 작성된 댓글을 넣는 함수 호출
   const insertCommentMutation = useInsertComment();
@@ -63,23 +80,32 @@ const CommentForm = ({ postId }: { postId: number }) => {
   });
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="m-4">
-        <FormField
-          control={form.control}
-          name="content"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input placeholder="댓글을 입력해주세요." {...field} />
-              </FormControl>
-              <FormMessage />
-              <Button type="submit">등록</Button>
-            </FormItem>
-          )}
-        />
-      </form>
-    </Form>
+    <>
+      <Form {...form}>
+        <form
+          onClick={handleCommentInputClick}
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="m-4"
+        >
+          <FormField
+            control={form.control}
+            name="content"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder="댓글을 입력해주세요." {...field} />
+                </FormControl>
+                <FormMessage />
+                <Button type="submit">등록</Button>
+              </FormItem>
+            )}
+          />
+        </form>
+      </Form>
+
+      {/* 로그인 드로어 */}
+      <SigninDrawer isOpen={isDrawerOpen} onOpenChange={setIsDrawerOpen} />
+    </>
   );
 };
 

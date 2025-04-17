@@ -2,6 +2,8 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import createClient from "@/supabase/client";
 import getUserData from "@/supabase/getUserData";
+import { toast } from "sonner";
+import SigninDrawer from "@/components/auth/SigninDrawer";
 
 interface params {
   shelterPostId?: number | null;
@@ -15,6 +17,7 @@ const ShelterPostButtons = ({
 }: params) => {
   const [isHelpful, setIsHelpful] = useState(false);
   const [helpfulCount, setHelpfulCount] = useState(0);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const supabase = createClient();
   const userData = getUserData();
 
@@ -54,8 +57,7 @@ const ShelterPostButtons = ({
           setHelpfulCount(count);
         }
       } else {
-        // shelterPostId가 아직 로딩되지 않았을 경우 또는 undefined인 경우
-        setHelpfulCount(0); // 초기 helpfulCount를 0으로 설정하거나 유지
+        setHelpfulCount(0);
       }
     };
 
@@ -65,7 +67,7 @@ const ShelterPostButtons = ({
   const handleHelpfulClick = async () => {
     const { user } = await userData;
     if (!user) {
-      alert("로그인이 필요합니다.");
+      setIsDrawerOpen(true);
       return;
     }
 
@@ -106,34 +108,39 @@ const ShelterPostButtons = ({
   };
 
   return (
-    <section className="relative flex w-full flex-row items-center justify-center">
-      {/* 유용해요 버튼 */}
-      <button
-        onClick={handleHelpfulClick}
-        className={`flex h-10 w-30 items-center gap-0.5 rounded-md px-4 text-sm text-gray-500 ${
-          isHelpful ? "bg-blue-500 text-white" : "bg-[#F2F2F2]"
-        }`}
-      >
-        <Image
-          src={"/icons/thumbs-up-solid.svg"}
-          alt=""
-          width={24}
-          height={24}
-          className={isHelpful ? "invert" : ""}
-        />
-        유용해요
-        <span className="text-sm text-gray-600">{helpfulCount}</span>
-      </button>
+    <>
+      <section className="relative flex w-full flex-row items-center justify-center">
+        {/* 유용해요 버튼 */}
+        <button
+          onClick={handleHelpfulClick}
+          className={`flex h-10 w-30 items-center gap-0.5 rounded-md px-4 text-sm text-gray-500 ${
+            isHelpful ? "bg-blue-500 text-white" : "bg-[#F2F2F2]"
+          }`}
+        >
+          <Image
+            src={"/icons/thumbs-up-solid.svg"}
+            alt=""
+            width={24}
+            height={24}
+            className={isHelpful ? "invert" : ""}
+          />
+          유용해요
+          <span className="text-sm text-gray-600">{helpfulCount}</span>
+        </button>
 
-      {/* 신고하기 버튼 */}
-      <button
-        type="button"
-        onClick={onClickReport}
-        className="absolute right-0 px-1 py-0.5 text-sm text-gray-500"
-      >
-        신고하기
-      </button>
-    </section>
+        {/* 신고하기 버튼 */}
+        <button
+          type="button"
+          onClick={onClickReport}
+          className="absolute right-0 px-1 py-0.5 text-sm text-gray-500"
+        >
+          신고하기
+        </button>
+      </section>
+
+      {/* 로그인 드로어 */}
+      <SigninDrawer isOpen={isDrawerOpen} onOpenChange={setIsDrawerOpen} />
+    </>
   );
 };
 
