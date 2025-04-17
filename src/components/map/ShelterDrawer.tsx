@@ -14,7 +14,7 @@ import { useGeolocationMutation } from "@/hooks/useMapGeolocation";
 import { useDistance } from "@/hooks/useDistance";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 import { ChevronDown } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 
 const ShelterDrawer = () => {
@@ -58,12 +58,15 @@ const ShelterDrawer = () => {
     visibleShelters,
   );
 
-  const sortedShelters = [...sheltersWithDistance].sort((a, b) => {
+  // 정렬된 대피소 목록 (불필요한 정렬 방지)
+  const sortedShelters = useMemo(() => {
     if (sortOption === "distance") {
-      return (a.distance || 0) - (b.distance || 0);
+      return [...sheltersWithDistance].sort(
+        (a, b) => (a.distance || 0) - (b.distance || 0),
+      );
     }
-    return 0;
-  });
+    return visibleShelters;
+  }, [sortOption, sheltersWithDistance, visibleShelters]);
 
   const SortDropdown = () => (
     <div className="relative" ref={dropdownRef}>
@@ -125,7 +128,7 @@ const ShelterDrawer = () => {
         aria-label="대피소 목록 열기"
       >
         <Image
-          src="/icons/map/List Open.svg" // ← 이 부분은 실제 아이콘 경로에 맞게 수정
+          src="/icons/map/List Open.svg"
           alt="아이콘"
           width={104}
           height={40}
