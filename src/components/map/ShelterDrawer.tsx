@@ -23,7 +23,9 @@ const ShelterDrawer = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [sortOption, setSortOption] = useState<"relevance" | "distance">("relevance");
+  const [sortOption, setSortOption] = useState<"relevance" | "distance">(
+    "relevance",
+  );
 
   useOnClickOutside(dropdownRef, () => setIsDropdownOpen(false));
 
@@ -32,6 +34,12 @@ const ShelterDrawer = () => {
   useEffect(() => {
     mutate();
   }, []);
+
+  useEffect(() => {
+    if (selectedShelterName) {
+      setIsOpen(true);
+    }
+  }, [selectedShelterName]);
 
   // 제스처로 Drawer 열기
   useEffect(() => {
@@ -77,7 +85,9 @@ const ShelterDrawer = () => {
           </div>
           <button
             className={`block w-full px-4 py-2 text-left text-sm ${
-              sortOption === "distance" ? "font-medium text-black" : "text-gray-700"
+              sortOption === "distance"
+                ? "font-medium text-black"
+                : "text-gray-700"
             }`}
             onClick={e => {
               e.stopPropagation();
@@ -89,7 +99,9 @@ const ShelterDrawer = () => {
           </button>
           <button
             className={`block w-full px-4 py-2 text-left text-sm ${
-              sortOption === "relevance" ? "font-medium text-black" : "text-gray-700"
+              sortOption === "relevance"
+                ? "font-medium text-black"
+                : "text-gray-700"
             }`}
             onClick={e => {
               e.stopPropagation();
@@ -105,24 +117,34 @@ const ShelterDrawer = () => {
   );
 
   return (
-    <Drawer open={isOpen} onOpenChange={setIsOpen}>
-      <DrawerContent className="overflow-auto pb-0">
-        <DrawerHeader className="pb-2">
-          <DrawerTitle />
-          <div className="flex items-center justify-between">
-            <DrawerDescription>
-              주변 대피소 {visibleShelters.length}
-            </DrawerDescription>
-            {visibleShelters.length > 0 && <SortDropdown />}
-          </div>
-        </DrawerHeader>
-        <ShelterList
-          shelters={sortedShelters}
-          isDrawerOpen={isOpen}
-          sortBy={sortOption}
-        />
-      </DrawerContent>
-    </Drawer>
+    <>
+      <button
+      onClick={() => setIsOpen(true)}
+      className="fixed bottom-6 left-1/2 z-30 w-[104px] h-[40px] -translate-x-1/2 transform"
+      aria-label="대피소 목록 열기"
+    >
+      <img src="/icons/map/List Open.svg" alt="목록 버튼" className="h-full w-full object-contain" />
+    </button>
+
+      <Drawer open={isOpen} onOpenChange={setIsOpen}>
+        <DrawerContent className="overflow-auto pb-0">
+          <DrawerHeader className="pb-2">
+            <DrawerTitle />
+            <div className="flex items-center justify-between">
+              <DrawerDescription>
+                주변 대피소 {visibleShelters.length}
+              </DrawerDescription>
+              {visibleShelters.length > 0 && <SortDropdown />}
+            </div>
+          </DrawerHeader>
+          <ShelterList
+            shelters={sortedShelters}
+            isDrawerOpen={isOpen}
+            sortBy={sortOption}
+          />
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 };
 
