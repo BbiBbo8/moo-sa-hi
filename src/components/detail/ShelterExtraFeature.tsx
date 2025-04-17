@@ -21,11 +21,11 @@ const ShelterExtraFeature = ({ address }: ShelterExtraFeatureProps) => {
   };
 
   return (
-    <aside className="flex flex-col gap-2">
+    <aside className="flex flex-col gap-2 text-[16px] text-[#666666] [&>*]:h-12">
       {/* 주소 복사 영역 */}
-      <div className="text-md flex w-full justify-evenly rounded-lg border px-4 py-3 text-center">
+      <div className="text-md flex w-full items-center justify-evenly gap-1 rounded-lg border-1 border-[#999999] px-5 py-2">
         <button onClick={() => handleCopyText(address ?? "주소 정보 없음")}>
-          <Copy />
+          <Copy className="w-6" />
         </button>
         <h5 className="truncate">{address ?? "정보 없음"}</h5>
       </div>
@@ -48,7 +48,7 @@ const ShelterExtraFeature = ({ address }: ShelterExtraFeatureProps) => {
               toast.error("이 브라우저는 공유를 지원하지 않아요");
             }
           }}
-          className="text-md flex w-1/2 items-center justify-center gap-2 rounded-lg border px-4 py-3"
+          className="text-md flex w-1/2 items-center justify-center gap-2 rounded-lg border-1 border-[#999999] px-4 py-3"
         >
           <Share2 className="w-6" />
           <p>장소 공유</p>
@@ -59,7 +59,7 @@ const ShelterExtraFeature = ({ address }: ShelterExtraFeatureProps) => {
           href={`https://map.kakao.com/?q=${encodeURIComponent(address ?? "")}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-md flex w-1/2 items-center justify-center gap-2 rounded-lg border px-4 py-3"
+          className="text-md flex w-1/2 items-center justify-center gap-2 rounded-lg border-1 border-[#999999] px-4 py-3"
         >
           <Navigation className="w-6" />
           <p>길 안내</p>

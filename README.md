@@ -8,13 +8,13 @@
 
 ## 💬 프로젝트 소개
 ### 무사히
-> 무사히 당신이 돌아갈 곳으로, 돌아갈 수 있도록. 무사히 잘 돌아와.
+> 무사히 당신이 있을 곳으로, 돌아갈 수 있도록. 무사히 잘 돌아와.
 
 <br>
 
-프로젝트 **무사히** 는 어떠한 재난 상황에서도 당신의 안전을 최우선으로 생각합니다.
+🦺 프로젝트 **무사히** 는 어떠한 재난 상황에서도 **당신의 안전**을 최우선으로 생각합니다.
 
-#### 무사히의 핵심 기능
+#### ⛑️ 무사히의 핵심 기능
 
 - **대피소 정보 제공**: 사용자는 재난 발생 시 인근 대피소의 위치와 정보를 실시간으로 확인할 수 있습니다.
 
@@ -23,7 +23,7 @@
 - **위치 기반 서비스**: 사용자의 현재 위치를 기반으로 가장 가까운 대피소를 안내합니다.
 
 
-#### 무사히의 장점
+#### ⛑️ 무사히의 장점
 
 - **누구나** 로그인하지 않아도 **모든 정보**를 확인할 수 있습니다.
   
@@ -32,6 +32,8 @@
 - 재난 상황이 아니어도 **안전 관련 정보**를 확인할 수 있습니다.
 
 <br/> 
+
+<img src="https://i.imgur.com/IDXE06M.jpeg" width="300"/>
 
  ### [지금 바로 확인하세요!](https://moo-sa-hi.vercel.app/)
 
@@ -83,7 +85,7 @@
         <br />
       </td>
       <td align="center">
-        <a href="https://github.com/dlfhrrl12">
+        <a href="mailto:jeongminyu70@gmail.com">
         <img src="https://ca.slack-edge.com/T06B9PCLY1E-U07RB1S8VQQ-274dad93bea9-512" width="80" alt="유정민"/>
         <br />
         <sub><b>designer</b></sub>
@@ -101,15 +103,15 @@
         <br>게시글 작성 관리
       </td>
        <td width="300px" align="center">
-        프로젝트 총괄
+        프로젝트 개발 팀원
         <br>사용자 프로필 관리
       </td>
        <td width="300px" align="center">
-        프로젝트 총괄
+        프로젝트 개발 팀원
         <br>랜딩 페이지 관리
       </td>
        <td width="300px" align="center">
-        프로젝트 총괄
+        프로젝트 개발 팀원
         <br>지도 페이지 관리
       </td>
        <td width="300px" align="center">
@@ -133,27 +135,134 @@
 
 <br />
 
-## 💡 구현한 주요 기능
-#### 1. 글 작성 페이지 전체 개발
-- 대피소 글쓰기 / 일상 글쓰기 탭 전환 UI
-- react-hook-form + zod 기반 유효성 검사
-- 제목, 본문에 글자 수 제한 및 실시간 카운팅
-- 혼잡도 / 청결도 버튼형 선택 UI (선택 강조 처리)
-#### 2. 대피소 자동완성 검색 기능
-- Supabase에서 대피소 리스트 불러와서 필터링
-- 검색어 입력 시 자동완성 드롭다운 표시
-- 리스트 클릭 시 선택된 대피소 자동입력 (form.setValue)
-- 너무 긴 리스트는 max-height 제한
-#### 3. 이미지 드래그 앤 드랍 업로드
-- react-dropzone으로 드래그 & 클릭 업로드 모두 지원
-- 업로드한 이미지 현재 1장 + 미리보기 제공  차후 5장 제한 처리
-- Storage에 업로드 → public URL 반환 → 미리보기 및 DB 저장
-- 이미지 URL을 images 테이블에 저장하며 글과 연동 예정
-#### 4. 위치 기반 기능 (초기 구현)
-- 브라우저 geolocation API를 통해 현재 위치 받아오기
-- 대피소와 거리 계산을 위한 Haversine 공식 함수 작성 예정
-- 이후 거리순 정렬 / 가까운 대피소 추천에 활용 예정
+### 📌 주요 기능 구현
 
+**💬 커뮤니티 페이지 디자인 & 로직 (by 수민)**
+
+- 일반/대피소 커뮤니티 UI 디자인
+
+- 게시글 상세 페이지 디자인
+
+- Supabase 데이터 fetch 및 연동
+
+- 대피소 상세 페이지 디자인 (디자인 시안 반영)
+
+- "유용해요" 버튼 로직 및 컴포넌트화
+
+- 탭 네비게이션 (특정 페이지 진입 시 숨김)
+
+- 커뮤니티 페이지 내 검색 기능 (제목 기준 필터링)
+
+**📝 글 작성 페이지 (by 경민)**
+
+- 탭 전환 UI: "대피소 글쓰기" / "일상 글쓰기" 탭 구현
+
+- 폼 유효성 검사: react-hook-form + zod 기반, 제목/본문 글자 수 제한 및 실시간 글자 수 카운팅
+
+- 혼잡도 / 청결도 선택 UI: 버튼형 UI, 선택 시 강조 처리
+
+- 대피소 자동완성 검색
+
+  -  Supabase에서 대피소 리스트 불러와 필터링
+
+  -  검색어 입력 시 자동완성 드롭다운 노출
+
+  -  항목 클릭 시 form에 자동 입력 (form.setValue)
+
+  너무 긴 리스트는 max-height 제한
+
+- 이미지 업로드 (Drag & Drop)
+
+  -   react-dropzone으로 드래그 & 클릭 업로드 지원
+
+  -   미리보기 제공, 현재 1장 → 최대 5장 업로드로 확장 예정
+
+  -   Storage 업로드 → public URL 반환 → DB 저장 및 이미지 미리보기 처리
+
+  -   Supabase images 테이블과 연동
+
+- 위치 기반 기능 (초기 구현)
+
+    브라우저 geolocation API로 현재 위치 수신
+
+    Haversine 공식을 활용한 대피소와 거리 계산 로직 설계 중
+  
+    추후 거리순 정렬 및 가까운 대피소 추천에 활용 예정
+
+
+**👤 마이페이지 & 커뮤니티 활동 (by 나현)**
+
+- 유저 정보 조회: 로그인한 사용자의 정보 표시
+
+- 커뮤니티 활동 조회: 내가 쓴 글 / 댓글 조회 가능
+
+- 탭 네비게이션
+
+  - 페이지 간 이동 가능
+
+  - 특정 페이지 진입 시 탭 숨김 처리
+
+- 댓글 기능
+
+  - 각 게시글에 댓글 작성
+
+  - 내가 작성한 댓글만 삭제 가능
+
+
+**🧩 공통 기능 & API 관리 (by 현빈)**
+
+- 공공 API 데이터 가공 및 통합 관리
+
+- 소셜 로그인 (OAuth) 구현
+
+- 랜딩페이지 전체 구성 및 디자인
+
+- 공통 Header 컴포넌트 구현
+
+- 대피소 상세 페이지 구현 및 외부 지도 연결
+
+- 닉네임 수정 폼
+
+- 글 공유 기능 (페이지 외부 공유 기능 구현)
+
+
+**🗺️ 지도 페이지 (by 록기)**
+
+- 민방위 대피소 마커 표시
+
+  - 공공 API를 통해 대피소 데이터 수신
+
+  - Kakao Map에 마커 렌더링
+
+- 현재 위치 기반 기능
+
+  - 사용자 현재 위치 탐지 및 지도 중심 설정
+
+  - 대피소와 거리(km) 계산 후 표시
+
+- Shelter 리스트 연동 (Drawer)
+
+  - 하단 Drawer 형태의 리스트 구현
+
+  - 마커 클릭 시 리스트에서 자동 스크롤 및 강조
+
+  - 리스트 항목 클릭 시 지도 중심 이동
+
+  - 거리순 / 이름순 정렬 가능
+
+  - Zustand 상태 업데이트를 통한 리스트 재정렬
+
+  - 리스트 강조 및 scrollIntoView 적용
+
+- 검색 기능 (InputSearch)
+
+  - 대피소 이름/주소 기반 실시간 필터링
+
+  - 검색 결과 클릭 시 해당 위치로 이동
+
+- 지도 UI 커스터마이징
+
+  - Kakao Map 기본 컨트롤 위치 스타일 수정
 
 <br>
 
@@ -161,12 +270,13 @@
 - ### 페이지 단위 작업 관리
   - [깃헙 프로젝트](https://github.com/orgs/BbiBbo8/projects/1/views/1) 생성
   - 페이지별 feature 브랜치 운영 (`feat/#이슈번호-이슈명`, `style/#이슈번호-이슈명`)
-- ### [Pull Request 템플릿을 활용한 코드 리뷰](여기에 pull request 주소 입력하기)
+- ### [Pull Request 템플릿을 활용한 코드 리뷰](https://github.com/BbiBbo8/moo-sa-hi/pull/130)
 
 <br><br>
 
 ## 🚀 트러블 슈팅
-- #### [Read me 에 보여질 제목을 여기에 입력](트러블 슈팅 작성한 주소 여기에 입력)
+- #### [Supabase OAuth 인증 트러블슈팅](https://velog.io/@33hyun/Supabase-OAuth-%EC%9D%B8%EC%A6%9D-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85)
+- #### [버튼 클릭에 따른 데이터 추가와 삭제?](https://velog.io/@suminlee0409/%EB%B2%84%ED%8A%BC-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B6%94%EA%B0%80%EC%99%80-%EC%B7%A8%EC%86%8C-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%82%AD%EC%A0%9C-%EC%89%BD%EC%A7%80-%EB%9D%BC%EA%B3%A0-%EB%A7%90%ED%95%98%EB%8A%94-%EA%B3%BC%EA%B1%B0%EC%9D%98-%EB%82%98)
 
 
 
@@ -235,5 +345,6 @@ moo-sa-hi/
 <img src="https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white"/>
 <img src="https://img.shields.io/badge/zod-%233068b7.svg?style=for-the-badge&logo=zod&logoColor=white"/>
 <img src="https://img.shields.io/badge/shadcn%2Fui-000?logo=shadcnui&logoColor=fff&style=for-the-badge"/>
+<img src="https://img.shields.io/badge/axios.js-854195?style=for-the-badge&logo=axios&logoColor=5A29E4"/>
 
 </div>
