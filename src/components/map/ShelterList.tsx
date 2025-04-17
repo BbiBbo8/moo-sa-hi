@@ -56,25 +56,27 @@ const ShelterList = ({ isDrawerOpen, shelters, sortBy }: ShelterListProps) => {
             <div
               key={shelter.name + shelter.address}
               ref={setShelterRef(shelter.name)}
-              className={`mb-2 flex items-center justify-between rounded-lg p-3 ${
+              className={`mb-5 flex h-[74px] flex-col items-center justify-center ${
                 selectedShelterName === shelter.name ? "bg-yellow-100" : ""
               }`}
             >
               <Link
-                className="flex w-full items-center justify-between gap-4"
+                className="flex w-[353px] flex-row items-center justify-center gap-5"
                 href={`${PATH.MAP}/${shelter.id}`}
                 onClick={e => e.stopPropagation()} // 드롭다운 클릭을 방지하기 위해 이벤트 전파를 막음
               >
-                <div className="flex flex-col gap-1">
-                  <h5 className="text-md font-semibold">{shelter.name}</h5>
-                  <span className="text-xs text-gray-500">
+                <div className="flex w-64 flex-col items-start gap-1 truncate">
+                  <h5 className="text-[16px] font-semibold text-[#333333]">
+                    {shelter.name}
+                  </h5>
+                  <span className="text-[14px] font-thin text-[#808080]">
                     {shelter.address}
                   </span>
                 </div>
 
                 {/* "distance" 기준일 때만 km 표시, distance 값이 없을 경우도 처리 */}
                 {typeof shelter.distance === "number" && (
-                  <span className="text-xs">
+                  <span className="flex w-10 flex-1 items-center justify-center text-sm text-[#666666]">
                     {(shelter.distance / 1000).toFixed(1)} km
                   </span>
                 )}
