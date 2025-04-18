@@ -19,6 +19,7 @@ import Loading from "@/app/(pages)/Loading";
 import getUserData from "@/supabase/getUserData";
 import { useState } from "react";
 import SigninDrawer from "@/components/auth/SigninDrawer";
+import Image from "next/image";
 
 const commentSchema = z.object({
   content: z
@@ -90,7 +91,21 @@ const CommentForm = ({ postId }: { postId: number }) => {
                   <Input placeholder="댓글을 입력해주세요." {...field} />
                 </FormControl>
                 <FormMessage />
-                <Button type="submit">등록</Button>
+                <Button
+                  type="submit"
+                  className="border-block w-fit bg-transparent shadow-none"
+                >
+                  <Image
+                    src={
+                      field === null
+                        ? "icons/Property-Activate.svg"
+                        : "/icons/Property-1-Disabled.svg"
+                    }
+                    alt="등록"
+                    width={24}
+                    height={24}
+                  />
+                </Button>
               </FormItem>
             )}
           />
