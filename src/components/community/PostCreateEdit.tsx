@@ -26,11 +26,12 @@ const supabase = createClient();
 export const CONGESTION_LEVELS = Constants.public.Enums.people_tags;
 export const HYGIENE_LEVELS = Constants.public.Enums.cleanliness_tags;
 
+// daily는 congestion, hygiene 입력 안해서 옵션 넣었음
 const EditSchema = z.object({
   title: z.string().min(1, "제목을 입력해주세요"),
   contents: z.string().min(1, "내용을 입력해주세요"),
-  congestion: z.enum(Constants.public.Enums.people_tags),
-  hygiene: z.enum(Constants.public.Enums.cleanliness_tags),
+  congestion: z.enum(Constants.public.Enums.people_tags).optional(),
+  hygiene: z.enum(Constants.public.Enums.cleanliness_tags).optional(),
   shelter_id: z.string().optional(),
   imgUrl: z.string().optional(),
 });
@@ -70,19 +71,25 @@ function PostCreateEdit() {
     },
   });
 
+  // shelter/daily에 따라 payload를 분기 처리
   const handlePostInsert = async (values: FormData) => {
-    const payload = {
+    const basePayload = {
       user_id: user!.id,
       title: values.title,
       contents: values.contents,
       img_url: imgUrl ?? "",
+    };
+
+    const shelterPayload = {
+      ...basePayload,
       people: values.congestion,
       cleanliness: values.hygiene,
       shelter_name: selectedShelter?.name ?? "",
     };
+
     return category === "shelter"
-      ? await supabase.from("shelter_post").insert(payload)
-      : await supabase.from("daily_post").insert(payload);
+      ? await supabase.from("shelter_post").insert(shelterPayload)
+      : await supabase.from("daily_post").insert(basePayload);
   };
 
   const onSubmit = async (values: FormData) => {
@@ -94,6 +101,7 @@ function PostCreateEdit() {
     const insertResult = await handlePostInsert(values);
 
     if (insertResult.error) {
+      console.error("INSERT 실패:", insertResult.error); // 로그 출력
       toast.error(
         insertResult.error.message ?? "알 수 없는 오류가 발생했습니다.",
       );

@@ -30,13 +30,32 @@ function ShelterForm({ onShelterSelect }: ShelterFormProps) {
         name="shelter_id"
         render={() => (
           <FormItem className="w-full">
-            <FormLabel className="text-[16px]">대피소 위치 검색</FormLabel>
+            <FormLabel className="text-[16px]"></FormLabel>
             <ShelterSearchInput
               onSelect={shelter => {
                 form.setValue("shelter_id", shelter.id);
                 onShelterSelect(shelter);
               }}
             />
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      {/* 제목 입력 */}
+      <FormField
+        control={form.control}
+        name="title"
+        render={({ field }) => (
+          <FormItem className="w-full">
+            <FormLabel className="text-[16px]"></FormLabel>
+            <FormControl>
+              <Input
+                {...field}
+                maxLength={15}
+                placeholder="제목"
+                className="text-[16px]"
+              />
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
@@ -56,7 +75,7 @@ function ShelterForm({ onShelterSelect }: ShelterFormProps) {
                   type="button"
                   variant={field.value === level ? "default" : "outline"}
                   onClick={() => field.onChange(level)}
-                  className={`h-[40px] flex-1 rounded-[8px] px-[12px] text-[14px] ${
+                  className={`h-[40px] flex-1 rounded-[10px] px-[12px] text-[14px] ${
                     field.value === level
                       ? "bg-[#3A7E8D] text-white hover:bg-[#60A1B0] active:bg-[#2B5D6C]"
                       : "border border-gray-300 text-black hover:border-[#60A1B0] active:border-[#2B5D6C]"
@@ -95,26 +114,6 @@ function ShelterForm({ onShelterSelect }: ShelterFormProps) {
                 </Button>
               ))}
             </div>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      {/* 제목 입력 */}
-      <FormField
-        control={form.control}
-        name="title"
-        render={({ field }) => (
-          <FormItem className="w-full">
-            <FormLabel className="text-[16px]">제목</FormLabel>
-            <FormControl>
-              <Input
-                {...field}
-                maxLength={15}
-                placeholder="제목을 입력해주세요"
-                className="text-[16px]"
-              />
-            </FormControl>
             <FormMessage />
           </FormItem>
         )}
