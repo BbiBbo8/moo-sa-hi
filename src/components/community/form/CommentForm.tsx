@@ -88,26 +88,28 @@ const CommentForm = ({ postId }: { postId: number }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input
-                    placeholder="댓글을 입력해주세요."
-                    {...field}
-                    className="focus:ring-muted rounded-[8px] border-transparent bg-[#FAFAFA] text-base font-normal text-[#1A1A1A] shadow-none placeholder:text-base placeholder:text-[#999999] focus:outline-none active:outline-none"
-                  />
-                  <Button
-                    type="submit"
-                    className="box-border:none w-fit border-none bg-transparent shadow-none"
-                  >
-                    <Image
-                      src={
-                        field === null
-                          ? "icons/Property-Activate.svg"
-                          : "/icons/Property-1-Disabled.svg"
-                      }
-                      alt="등록"
-                      width={24}
-                      height={24}
+                  <div className="flex rounded-[8px] bg-[#FAFAFA] focus-within:border focus-within:border-[#999999] focus-within:outline-none active:outline-none">
+                    <Input
+                      placeholder="댓글을 입력해주세요."
+                      {...field}
+                      className="focus:ring-muted rounded-[8px] border-transparent bg-[#FAFAFA] text-base font-normal text-[#1A1A1A] shadow-none placeholder:text-base placeholder:text-[#999999]"
                     />
-                  </Button>
+                    <Button
+                      type="submit"
+                      className="box-border:none w-fit border-none bg-transparent shadow-none"
+                    >
+                      <Image
+                        src={
+                          field === null
+                            ? "icons/Property-Activate.svg"
+                            : "/icons/Property-1-Disabled.svg"
+                        }
+                        alt="등록"
+                        width={24}
+                        height={24}
+                      />
+                    </Button>
+                  </div>
                 </FormControl>
                 <FormMessage className="text-[#1A1A1A]" />
               </FormItem>
