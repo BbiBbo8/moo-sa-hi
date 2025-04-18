@@ -36,11 +36,20 @@ const CommentForm = ({ postId }: { postId: number }) => {
   const userId = data?.user?.id;
   const userData = getUserData();
 
+  const insertCommentMutation = useInsertComment();
+
+  const form = useForm<z.infer<typeof commentSchema>>({
+    resolver: zodResolver(commentSchema),
+    defaultValues: {
+      content: "",
+    },
+  });
+
   if (isLoading) {
-    <Loading />;
+    return <Loading />;
   }
   if (error) {
-    <Error />;
+    return <Error />;
   }
 
   const handleCommentInputClick = async () => {
@@ -49,9 +58,6 @@ const CommentForm = ({ postId }: { postId: number }) => {
       setIsDrawerOpen(true);
     }
   };
-
-  // supabase에 작성된 댓글을 넣는 함수 호출
-  const insertCommentMutation = useInsertComment();
 
   const onSubmit = (formData: CommentFormData) => {
     if (!userId) {
@@ -63,16 +69,17 @@ const CommentForm = ({ postId }: { postId: number }) => {
       userId,
       postId,
     });
-    // 댓글 입력 후 리셋
     form.reset();
   };
 
-  const form = useForm<z.infer<typeof commentSchema>>({
-    resolver: zodResolver(commentSchema),
-    defaultValues: {
-      content: "",
-    },
-  });
+  const { watch } = form;
+  const commentContent = watch("content");
+
+  // 값이 있을 때 아이콘 변경
+  const currentIconSrc =
+    commentContent && commentContent.length > 0
+      ? "/icons/Property-1-Activate.svg"
+      : "/icons/Property-1-Disabled.svg";
 
   return (
     <>
@@ -97,13 +104,14 @@ const CommentForm = ({ postId }: { postId: number }) => {
                     <Button
                       type="submit"
                       className="box-border:none w-fit border-none bg-transparent shadow-none"
+                      disabled={
+                        !commentContent ||
+                        commentContent.length < 5 ||
+                        commentContent.length > 30
+                      }
                     >
                       <Image
-                        src={
-                          field === null
-                            ? "icons/Property-Activate.svg"
-                            : "/icons/Property-1-Disabled.svg"
-                        }
+                        src={currentIconSrc}
                         alt="등록"
                         width={24}
                         height={24}
