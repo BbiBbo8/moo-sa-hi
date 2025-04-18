@@ -49,8 +49,6 @@ const CommentForm = ({ postId }: { postId: number }) => {
     const { user } = await userData;
     if (!user) {
       setIsDrawerOpen(true);
-    } else {
-      router.push(PATH.CREATE);
     }
   };
 
