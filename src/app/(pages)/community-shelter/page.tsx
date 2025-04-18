@@ -25,14 +25,14 @@ const CommunityShelterPage = () => {
   // 검색어로 게시글 필터링
   const filteredPosts = useMemo(() => {
     if (!shelterPosts) return [];
-
-    return searchTerm
-      ? shelterPosts.filter(
-          post =>
-            post.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            false,
-        )
-      : shelterPosts;
+  
+    const lowerSearch = searchTerm.toLowerCase();
+  
+    return shelterPosts.filter(post => {
+      const title = post.title?.toLowerCase() ?? "";
+      const shelterName = post.shelter_name?.toLowerCase() ?? "";
+      return title.includes(lowerSearch) || shelterName.includes(lowerSearch);
+    });
   }, [shelterPosts, searchTerm]);
 
   if (isLoading) {
