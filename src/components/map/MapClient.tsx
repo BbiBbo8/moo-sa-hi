@@ -5,7 +5,6 @@ import ShelterDrawer from "@/components/map/ShelterDrawer";
 import InputSearch from "@/components/map/InputSearch";
 import ZoomControl from "./ZoomControl";
 import CrosshairButton from "./CrosshairButton";
-import ScrollLocker from "../common/ScrollLocker";
 
 const MapClient = () => {
   return (
@@ -16,7 +15,6 @@ const MapClient = () => {
         </div>
       </div>
       <MainMap />
-      <ScrollLocker />
       <CrosshairButton />
       <ZoomControl />
       <div className="flex w-full justify-center">
