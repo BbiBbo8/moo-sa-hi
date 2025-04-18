@@ -42,12 +42,17 @@ const CommentList = ({ postId }: { postId: number }) => {
   return (
     <section className="m-4 mb-12 flex flex-col gap-4">
       {comments?.map(comment => (
-        <Card key={comment.id}>
+        <Card key={comment.id} className="border-block shadow-none">
           <CardContent>
-            <CardDescription>{comment.comments}</CardDescription>
+            <CardDescription className="text-[#1A1A1A]">
+              {comment.comments}
+            </CardDescription>
           </CardContent>
           {isOwned(comment.user_id) && (
-            <Button onClick={() => deleteCommentMutation.mutate(comment.id)}>
+            <Button
+              onClick={() => deleteCommentMutation.mutate(comment.id)}
+              className="border-block w-fit bg-transparent font-normal text-[#B3B3B3]"
+            >
               삭제
             </Button>
           )}
