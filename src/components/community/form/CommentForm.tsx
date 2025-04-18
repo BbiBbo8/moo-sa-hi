@@ -17,9 +17,7 @@ import { useInsertComment } from "@/hooks/comment/useCommentMutation";
 import Error from "@/app/(pages)/Error";
 import Loading from "@/app/(pages)/Loading";
 import getUserData from "@/supabase/getUserData";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import PATH from "@/constants/PATH";
 import SigninDrawer from "@/components/auth/SigninDrawer";
 
 const commentSchema = z.object({
@@ -32,7 +30,6 @@ const commentSchema = z.object({
 type CommentFormData = z.infer<typeof commentSchema>;
 
 const CommentForm = ({ postId }: { postId: number }) => {
-  const router = useRouter();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { data, error, isLoading } = useUserData();
   const userId = data?.user?.id;
