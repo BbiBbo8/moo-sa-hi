@@ -23,9 +23,7 @@ import createClient from "@/supabase/client";
 
 const supabase = createClient();
 
-export const CONGESTION_LEVELS = Constants.public.Enums.people_tags.filter(
-  level => level !== "붐빔",
-);
+export const CONGESTION_LEVELS = Constants.public.Enums.people_tags;
 export const HYGIENE_LEVELS = Constants.public.Enums.cleanliness_tags;
 
 // daily는 congestion, hygiene 입력 안해서 옵션 넣었음
