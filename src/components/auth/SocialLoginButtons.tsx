@@ -2,7 +2,7 @@
 
 import createClient from "@/supabase/client";
 import { FcGoogle } from "react-icons/fc";
-import { RiKakaoTalkLine } from "react-icons/ri";
+import { RiKakaoTalkFill } from "react-icons/ri";
 
 const SocialLoginButtons = () => {
   const supabase = createClient();
@@ -11,30 +11,33 @@ const SocialLoginButtons = () => {
     await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${origin}/auth/callback`,
+        redirectTo: `${location.origin}/auth/callback`,
       },
     });
   };
 
   return (
-    <div className="flex justify-center gap-6">
-      {/* Google 로그인 */}
-      <button
-        onClick={() => handleLogin("google")}
-        className="flex h-14 w-14 items-center justify-center rounded-full border bg-white shadow"
-        aria-label="구글 로그인"
-      >
-        <FcGoogle size={24} />
-      </button>
+    <div className="w-full">
 
-      {/* Kakao 로그인 */}
-      <button
-        onClick={() => handleLogin("kakao")}
-        className="flex h-14 w-14 items-center justify-center rounded-full bg-[#FEE500] shadow"
-        aria-label="카카오 로그인"
-      >
-        <RiKakaoTalkLine size={24} />
-      </button>
+      <div className="flex flex-col gap-3">
+        {/* 카카오 로그인 */}
+        <button
+          onClick={() => handleLogin("kakao")}
+          className="flex items-center justify-center gap-2 rounded-md bg-[#FEE500] py-3 text-sm font-bold text-[#3C1E1E] shadow"
+        >
+          <RiKakaoTalkFill size={20} />
+          카카오로 로그인하기
+        </button>
+
+        {/* 구글 로그인 */}
+        <button
+          onClick={() => handleLogin("google")}
+          className="flex items-center justify-center gap-2 rounded-md bg-white py-3 text-sm font-medium text-[#555] shadow border"
+        >
+          <FcGoogle size={20} />
+          구글로 로그인하기
+        </button>
+      </div>
     </div>
   );
 };
