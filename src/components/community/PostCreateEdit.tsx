@@ -40,7 +40,6 @@ function PostCreateEdit() {
   const router = useRouter();
   const [category, setCategory] = useState<"shelter" | "daily">("shelter");
   const [imgUrls, setImgUrls] = useState<string[]>([]);
-
   const [selectedShelter, setSelectedShelter] = useState<{
     id: string;
     name: string;
@@ -106,25 +105,24 @@ function PostCreateEdit() {
         throw new Error(postInsertResult.error?.message || "게시글 저장 실패");
       }
 
-      const postId = postInsertResult.data.id;
-
-      const imageInsertPayload = imgUrls.map(url => ({
-        img_url: url,
-        daily_post_id: category === "daily" ? postId : null,
-        shelter_post_id: category === "shelter" ? postId : null,
-      }));
-
-      const imageInsertResult = await supabase
-        .from("images")
-        .insert(imageInsertPayload);
+      // unused 변수 제거: postId 선언 없이 바로 사용
+      const imageInsertResult = await supabase.from("images").insert(
+        imgUrls.map(url => ({
+          img_url: url,
+          daily_post_id: category === "daily" ? postInsertResult.data.id : null,
+          shelter_post_id:
+            category === "shelter" ? postInsertResult.data.id : null,
+        })),
+      );
 
       if (imageInsertResult.error) {
         throw new Error("이미지 저장 실패: " + imageInsertResult.error.message);
       }
 
-      return postId;
+      // postId를 바로 리턴해서 ESLint no-unused-vars 에러 방지
+      return postInsertResult.data.id;
     },
-    onSuccess: postId => {
+    onSuccess: () => {
       toast.success("게시글이 성공적으로 저장되었습니다.");
       const redirectPath =
         category === "shelter" ? PATH.COMMUNITYSHELTER : PATH.COMMUNITYDAILY;
@@ -141,7 +139,6 @@ function PostCreateEdit() {
       toast.error("로그인 상태를 확인해주세요.");
       return;
     }
-
     mutation.mutate(values);
   };
 
@@ -157,7 +154,7 @@ function PostCreateEdit() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-[20px] px-[16px] pb-[32px] font-['IBM_Plex_Sans_KR']"
       >
-        {/* 상단바: 뒤로가기/탭/등록 정렬 */}
+        {/* 상단바: 반응형 정렬 구조 유지 */}
         <div className="flex w-full items-center justify-between px-[16px]">
           <BackButton />
           <div className="flex-1 text-center font-['IBM_Plex_Sans_KR'] text-[18px]">
@@ -188,7 +185,7 @@ function PostCreateEdit() {
           <DailyForm />
         )}
 
-        {/* 이미지 드롭존도 너비 맞추기 */}
+        {/* 이미지 드롭존 */}
         <div className="px-[16px]">
           <ImageDropzone value={imgUrls} onChange={setImgUrls} maxFiles={5} />
         </div>
