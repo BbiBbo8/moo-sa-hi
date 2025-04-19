@@ -24,7 +24,7 @@ function ImageDropzone({ value, onChange, maxFiles = 1 }: Props) {
         return;
       }
 
-      const file = acceptedFiles[0]; // 단일 파일만 허용
+      const file = acceptedFiles[0];
       if (!file) return;
 
       const ext = file.name.split(".").pop();
@@ -47,13 +47,15 @@ function ImageDropzone({ value, onChange, maxFiles = 1 }: Props) {
         data: { publicUrl },
       } = supabase.storage.from("shelter-image").getPublicUrl(filePath);
 
-      onChange([publicUrl]); // 새 이미지 하나만
+      onChange([...value, publicUrl]);
     },
     [value, onChange, maxFiles, supabase],
   );
 
-  const handleRemove = () => {
-    onChange([]); // 이미지 삭제
+  const handleRemove = (index: number) => {
+    const updated = [...value];
+    updated.splice(index, 1);
+    onChange(updated);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -69,24 +71,27 @@ function ImageDropzone({ value, onChange, maxFiles = 1 }: Props) {
     >
       <input {...getInputProps()} />
 
-      {/* 이미지 있을 때 미리보기 */}
       {value.length > 0 ? (
-        <div className="relative h-full w-full">
-          <Image
-            src={value[0]}
-            alt="미리보기"
-            fill
-            className="rounded-md object-cover"
-          />
-          <Button
-            type="button"
-            variant="destructive"
-            size="sm"
-            className="absolute top-2 right-2 z-10"
-            onClick={handleRemove}
-          >
-            ✕
-          </Button>
+        <div className="relative flex h-full w-full gap-2 overflow-x-auto">
+          {value.map((url, index) => (
+            <div key={index} className="relative aspect-video h-full">
+              <Image
+                src={url}
+                alt="미리보기"
+                fill
+                className="max-h-[200px] rounded-md object-contain sm:max-h-[250px]"
+              />
+              <Button
+                type="button"
+                variant="destructive"
+                size="sm"
+                className="absolute top-2 right-2 z-10"
+                onClick={() => handleRemove(index)}
+              >
+                ✕
+              </Button>
+            </div>
+          ))}
         </div>
       ) : (
         <span>

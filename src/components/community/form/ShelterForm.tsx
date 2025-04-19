@@ -125,7 +125,7 @@ function ShelterForm({ onShelterSelect }: ShelterFormProps) {
         name="contents"
         render={({ field }) => (
           <FormItem className="w-full">
-            <FormLabel className="text-[16px]">본문</FormLabel>
+            <FormLabel className="text-[16px]"></FormLabel>
             <FormControl>
               <Textarea
                 {...field}
