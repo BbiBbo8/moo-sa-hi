@@ -21,6 +21,7 @@ const ProfileEditPop = ({ userId }: ProfileEditPopProps) => {
   const queryClient = useQueryClient();
 
   const [editNickname, setEditNickname] = useState("");
+  const [open, setOpen] = useState(false);
 
   // 닉네임 유효성 검사 스키마 정의
   const nicknameSchema = z
@@ -55,7 +56,7 @@ const ProfileEditPop = ({ userId }: ProfileEditPopProps) => {
   });
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           size="sm"
@@ -67,7 +68,7 @@ const ProfileEditPop = ({ userId }: ProfileEditPopProps) => {
       <div className="text-center">
         <PopoverContent className="flex w-fit flex-col rounded-lg p-4">
           <div className="grid gap-4">
-            <button className="flex h-7 w-full justify-end">
+            <button onClick={() => setOpen(false)} className="flex h-7 w-full justify-end">
               <Image
                 src="/icons/xmark-solid.svg"
                 alt="닫기"

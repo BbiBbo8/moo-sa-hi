@@ -45,7 +45,7 @@ const CommunityDailyPage = () => {
   }
 
   return (
-    <main className="flex min-h-screen min-w-screen flex-col items-center px-5 pt-16">
+    <main className="flex min-h-screen min-w-screen flex-col items-center px-5 pt-16 pb-16">
       <CommunityHeader setSearchTerm={setSearchTerm} />
 
       <div className="flex h-12 w-full items-center gap-2 bg-white text-sm text-gray-600">
