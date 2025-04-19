@@ -85,9 +85,6 @@ const ShelterPostButtons = ({
         console.log("유용해요 삭제!");
       }
     } else {
-      console.log("데이터 추가 시 shelterPostId:", shelterPostId);
-      console.log("데이터 추가 시 userId:", user.id);
-
       const { error: insertError } = await supabase.from("helpfuls").insert([
         {
           user_id: user.id,

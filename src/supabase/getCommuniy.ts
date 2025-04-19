@@ -33,6 +33,8 @@ export const fetchDailyPosts = async () => {
   return data;
 };
 
+import createClient from "./client";
+
 export const fetchShelterPosts = async () => {
   const supabase = createClient();
 
@@ -57,8 +59,16 @@ export const fetchShelterPosts = async () => {
       )
     `,
     )
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .options({
+      headers: {
+        Accept: "application/json", // 또는 'application/vnd.pgrst.object+json'
+      },
+    });
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    console.error("Supabase Error fetching shelter posts:", error);
+    throw new Error(error.message);
+  }
   return data;
 };
