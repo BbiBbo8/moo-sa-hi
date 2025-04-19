@@ -129,8 +129,8 @@
     @apply bg-background text-foreground;
   }
 
-  .no-scroll {
+  /* .no-scroll {
     overflow: hidden;
     height: 100vh;
-  }
+  } */
 }

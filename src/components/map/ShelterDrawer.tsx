@@ -51,6 +51,11 @@ const ShelterDrawer = () => {
     return () => window.removeEventListener("touchstart", handleTouchStart);
   }, []);
 
+  useEffect(() => {
+    // body 태그에서 "no-scroll" 클래스 제거
+    document.body.classList.remove("no-scroll");
+  }, []);
+
   useOnClickOutside(dropdownRef, () => setIsDropdownOpen(false));
 
   const sheltersWithDistance = useDistance(
@@ -128,7 +133,7 @@ const ShelterDrawer = () => {
         aria-label="대피소 목록 열기"
       >
         <Image
-          src="/icons/map/List Open.svg"
+          src="/icons/map/List-Open.svg"
           alt="아이콘"
           width={104}
           height={40}
@@ -137,14 +142,19 @@ const ShelterDrawer = () => {
 
       {/* Drawer */}
       <Drawer open={isOpen} onOpenChange={setIsOpen}>
-        <DrawerContent className="overflow-auto pb-0">
-          <DrawerHeader className="pb-2">
+        <DrawerContent className="max-h-[80vh] overflow-auto px-5 pb-0">
+          <DrawerHeader className="p-0">
             <DrawerTitle className="sr-only">주변 대피소 목록</DrawerTitle>
             <div className="flex items-center justify-between">
-              <DrawerDescription>
-                주변 대피소 {visibleShelters.length}
+              <DrawerDescription className="flex items-center gap-2 py-4">
+                <span className="text-[20px] font-semibold text-[#1A1A1A]">
+                  주변 대피소
+                </span>{" "}
+                <span className="text-[20px] font-semibold text-[#58999E]">
+                  {visibleShelters.length}
+                </span>
               </DrawerDescription>
-              {visibleShelters.length > 0 && <SortDropdown />}
+              <SortDropdown />
             </div>
           </DrawerHeader>
 
