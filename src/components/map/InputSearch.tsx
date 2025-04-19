@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Search } from "lucide-react";
+import { CircleX, Search } from "lucide-react";
 
 import {
   Command,
@@ -39,48 +39,61 @@ const InputSearch = () => {
   };
 
   return (
-    <div className="absolute top-6 z-50 mx-auto w-[343px] space-y-4 rounded-md border bg-white">
-      <div className="relative">
-        <Search className="text-muted-foreground absolute top-2.5 right-2.5 h-4 w-4 bg-white" />
-        <Input
-          type="search"
-          placeholder="대피소,장소,지역,주소 검색"
-          className="border-0 pl-3 shadow-md focus-visible:ring-0 focus-visible:ring-offset-0"
-          value={searchQuery}
-          onChange={e => handleSearch(e.target.value)} // 입력시 검색 처리
-          onFocus={() => setIsFocused(true)} // 포커스 상태 true
-          onBlur={() => setTimeout(() => setIsFocused(false), 200)} // blur 직후 잠깐 기다렸다가 false(클릭 방지)
-        />
-      </div>
+    <div className="absolute top-6 z-50 mx-auto w-[333px]">
+      {/* wrapper: input + 결과 리스트 포함, 포커스 시 테두리 강조 */}
+      <div
+        className={`rounded-md bg-white shadow-md transition-all focus-within:ring-1 focus-within:ring-[#58999E]`}
+      >
+        <div className="relative">
+          <Search className="absolute top-2 right-4 h-5 w-5 bg-white text-gray-400" />
 
-      {/* 포커스 상태이며 입력 값이 있을 때만 검색 결과 표시 */}
-      {isFocused && searchQuery.length > 0 && (
-        <Command className="rounded-none border-0">
-          <CommandList className="mt-0 pt-0">
-            {/* 결과가 없을 경우 */}
-            <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
-            {results.length > 0 && (
-              <CommandGroup>
-                {/* 결과가 있으면 리스트로 출력 */}
-                {results.map(item => (
-                  <CommandItem
-                    key={item.name}
-                    className="flex items-center justify-between"
-                    onSelect={() => {
-                      handleSelectShelter(item);
-                      setSearchQuery("");
-                      setResults([]);
-                      setIsFocused(true);
-                    }}
-                  >
-                    <span>{item.name}</span>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            )}
-          </CommandList>
-        </Command>
-      )}
+          <Input
+            type="search"
+            placeholder="대피소,장소,지역,주소 검색"
+            className="border-0 px-5 py-3 text-base font-normal text-[1A1A1A] placeholder:text-base placeholder:font-normal placeholder:text-gray-400 focus:outline-none focus-visible:ring-0"
+            value={searchQuery}
+            onChange={e => handleSearch(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setTimeout(() => setIsFocused(false), 200)}
+          />
+
+          {isFocused && searchQuery.length > 0 && (
+            <CircleX
+              className="absolute top-2.5 right-4 h-5 w-5 cursor-pointer bg-white text-gray-400 hover:text-gray-600"
+              onClick={() => {
+                setSearchQuery("");
+                setResults([]);
+              }}
+            />
+          )}
+        </div>
+
+        {isFocused && searchQuery.length > 0 && (
+          <Command className="rounded-md border-0">
+            <CommandList className="pt-0">
+              <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
+              {results.length > 0 && (
+                <CommandGroup>
+                  {results.map(item => (
+                    <CommandItem
+                      key={item.name}
+                      className="flex items-center justify-between px-5 py-2"
+                      onSelect={() => {
+                        handleSelectShelter(item);
+                        setSearchQuery("");
+                        setResults([]);
+                        setIsFocused(true);
+                      }}
+                    >
+                      <span>{item.name}</span>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              )}
+            </CommandList>
+          </Command>
+        )}
+      </div>
     </div>
   );
 };
