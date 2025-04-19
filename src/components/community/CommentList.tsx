@@ -8,6 +8,7 @@ import Loading from "@/app/(pages)/Loading";
 import Error from "@/app/(pages)/Error";
 import { useComments } from "@/hooks/comment/useComments";
 import { useDeleteComment } from "@/hooks/comment/useCommentMutation";
+import { elapsedTime } from "@/utils/formatTime";
 
 const CommentList = ({ postId }: { postId: number }) => {
   const { data, error, isLoading } = useUserData();
@@ -42,15 +43,25 @@ const CommentList = ({ postId }: { postId: number }) => {
   return (
     <section className="m-4 mb-12 flex flex-col gap-4">
       {comments?.map(comment => (
-        <Card key={comment.id}>
+        <Card key={comment.id} className="border-block shadow-none">
           <CardContent>
-            <CardDescription>{comment.comments}</CardDescription>
+            <CardDescription className="text-[#1A1A1A]">
+              {comment.comments}
+            </CardDescription>
+            <div className="mt-3 flex flex-row">
+              <CardDescription className="py-2 text-[#B3B3B3]">
+                {elapsedTime(comment.created_at)}
+              </CardDescription>
+              {isOwned(comment.user_id) && (
+                <Button
+                  onClick={() => deleteCommentMutation.mutate(comment.id)}
+                  className="border-block h-fit w-fit bg-transparent font-normal text-[#B3B3B3]"
+                >
+                  댓글 삭제
+                </Button>
+              )}
+            </div>
           </CardContent>
-          {isOwned(comment.user_id) && (
-            <Button onClick={() => deleteCommentMutation.mutate(comment.id)}>
-              삭제
-            </Button>
-          )}
         </Card>
       ))}
     </section>
