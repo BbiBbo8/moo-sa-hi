@@ -54,6 +54,7 @@ const WrittenPost = () => {
       {shelterPost?.length === 0 && dailyPost?.length === 0 && (
         <div>
           <p>지금 바로 게시글을 작성해보세요!</p>
+          <Link href={PATH.CREATE}>게시글 작성 바로가기</Link>
         </div>
       )}
     </>
