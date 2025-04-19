@@ -51,11 +51,6 @@ const ShelterDrawer = () => {
     return () => window.removeEventListener("touchstart", handleTouchStart);
   }, []);
 
-  useEffect(() => {
-    // body 태그에서 "no-scroll" 클래스 제거
-    document.body.classList.remove("no-scroll");
-  }, []);
-
   useOnClickOutside(dropdownRef, () => setIsDropdownOpen(false));
 
   const sheltersWithDistance = useDistance(
