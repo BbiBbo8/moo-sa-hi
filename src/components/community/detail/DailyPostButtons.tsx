@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import createClient from "@/supabase/client";
 import getUserData from "@/supabase/getUserData";
 import SigninDrawer from "@/components/auth/SigninDrawer";
+import ReportButton from "@/components/report/ReportButton";
 
 interface params {
   dailyPostId?: number | null;
@@ -126,13 +127,7 @@ const DailyPostButtons = ({ dailyPostId = null, onClickReport }: params) => {
         </button>
 
         {/* 신고하기 버튼 */}
-        <button
-          type="button"
-          onClick={onClickReport}
-          className="absolute right-0 px-1 py-0.5 text-sm text-gray-500"
-        >
-          신고하기
-        </button>
+        <ReportButton postId={123} postType="daily" />
       </section>
 
       {/* 로그인 드로어 */}
