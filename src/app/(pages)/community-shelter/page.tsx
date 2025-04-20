@@ -25,14 +25,14 @@ const CommunityShelterPage = () => {
   // 검색어로 게시글 필터링
   const filteredPosts = useMemo(() => {
     if (!shelterPosts) return [];
-
-    return searchTerm
-      ? shelterPosts.filter(
-          post =>
-            post.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            false,
-        )
-      : shelterPosts;
+  
+    const lowerSearch = searchTerm.toLowerCase();
+  
+    return shelterPosts.filter(post => {
+      const title = post.title?.toLowerCase() ?? "";
+      const shelterName = post.shelter_name?.toLowerCase() ?? "";
+      return title.includes(lowerSearch) || shelterName.includes(lowerSearch);
+    });
   }, [shelterPosts, searchTerm]);
 
   if (isLoading) {
@@ -44,7 +44,7 @@ const CommunityShelterPage = () => {
   }
 
   return (
-    <main className="flex min-h-screen min-w-screen flex-col items-center px-5 pt-16">
+    <main className="flex min-h-screen min-w-screen flex-col items-center px-5 pt-16 pb-16">
       <CommunityHeader setSearchTerm={setSearchTerm} />
 
       <div className="top-16 left-5 flex h-12 w-full items-center gap-2 bg-white text-sm text-gray-600">

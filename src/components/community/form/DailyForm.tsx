@@ -22,12 +22,12 @@ function DailyForm() {
         name="title"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="text-[16px]">제목</FormLabel>
+            <FormLabel className="text-[16px]"></FormLabel>
             <FormControl>
               <Input
                 {...field}
                 maxLength={15}
-                placeholder="제목을 입력해주세요"
+                placeholder="제목"
                 className="text-[16px]"
               />
             </FormControl>
@@ -42,7 +42,7 @@ function DailyForm() {
         name="contents"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="text-[16px]">본문</FormLabel>
+            <FormLabel className="text-[16px]"></FormLabel>
             <FormControl>
               <Textarea
                 {...field}

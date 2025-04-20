@@ -17,10 +17,9 @@ import { useInsertComment } from "@/hooks/comment/useCommentMutation";
 import Error from "@/app/(pages)/Error";
 import Loading from "@/app/(pages)/Loading";
 import getUserData from "@/supabase/getUserData";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import PATH from "@/constants/PATH";
 import SigninDrawer from "@/components/auth/SigninDrawer";
+import Image from "next/image";
 
 const commentSchema = z.object({
   content: z
@@ -32,17 +31,25 @@ const commentSchema = z.object({
 type CommentFormData = z.infer<typeof commentSchema>;
 
 const CommentForm = ({ postId }: { postId: number }) => {
-  const router = useRouter();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { data, error, isLoading } = useUserData();
   const userId = data?.user?.id;
   const userData = getUserData();
 
+  const insertCommentMutation = useInsertComment();
+
+  const form = useForm<z.infer<typeof commentSchema>>({
+    resolver: zodResolver(commentSchema),
+    defaultValues: {
+      content: "",
+    },
+  });
+
   if (isLoading) {
-    <Loading />;
+    return <Loading />;
   }
   if (error) {
-    <Error />;
+    return <Error />;
   }
 
   const handleCommentInputClick = async () => {
@@ -51,9 +58,6 @@ const CommentForm = ({ postId }: { postId: number }) => {
       setIsDrawerOpen(true);
     }
   };
-
-  // supabase에 작성된 댓글을 넣는 함수 호출
-  const insertCommentMutation = useInsertComment();
 
   const onSubmit = (formData: CommentFormData) => {
     if (!userId) {
@@ -65,16 +69,17 @@ const CommentForm = ({ postId }: { postId: number }) => {
       userId,
       postId,
     });
-    // 댓글 입력 후 리셋
     form.reset();
   };
 
-  const form = useForm<z.infer<typeof commentSchema>>({
-    resolver: zodResolver(commentSchema),
-    defaultValues: {
-      content: "",
-    },
-  });
+  const { watch } = form;
+  const commentContent = watch("content");
+
+  // 값이 있을 때 아이콘 변경
+  const currentIconSrc =
+    commentContent && commentContent.length > 0
+      ? "/icons/Property-1-Activate.svg"
+      : "/icons/Property-1-Disabled.svg";
 
   return (
     <>
@@ -90,10 +95,31 @@ const CommentForm = ({ postId }: { postId: number }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="댓글을 입력해주세요." {...field} />
+                  <div className="flex rounded-[8px] bg-[#FAFAFA] focus-within:border focus-within:border-[#999999] focus-within:outline-none active:outline-none">
+                    <Input
+                      placeholder="댓글을 입력해주세요."
+                      {...field}
+                      className="focus:ring-muted rounded-[8px] border-transparent bg-[#FAFAFA] text-base font-normal text-[#1A1A1A] shadow-none placeholder:text-base placeholder:text-[#999999]"
+                    />
+                    <Button
+                      type="submit"
+                      className="box-border:none w-fit border-none bg-transparent shadow-none"
+                      disabled={
+                        !commentContent ||
+                        commentContent.length < 5 ||
+                        commentContent.length > 30
+                      }
+                    >
+                      <Image
+                        src={currentIconSrc}
+                        alt="등록"
+                        width={24}
+                        height={24}
+                      />
+                    </Button>
+                  </div>
                 </FormControl>
-                <FormMessage />
-                <Button type="submit">등록</Button>
+                <FormMessage className="text-[#1A1A1A]" />
               </FormItem>
             )}
           />
