@@ -1,6 +1,6 @@
 "use client";
 
-import useShelterPostDetailQuery from "@/utils/shelterPostDetailsQuery";
+import { useShelterPostDetailQuery } from "@/hooks/community/shelterPostDetailsQuery";
 import Image from "next/image";
 import { formatTime } from "@/utils/formatTime";
 import Loading from "@/app/(pages)/Loading";
@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useShelters } from "@/hooks/shelter/useShelters";
 import { toast } from "sonner";
 import Error from "@/app/(pages)/Error";
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "./ShelterConfirmModal";
 import ShelterPostButtons from "./ShelterPostButton";
 import { ShieldCheck } from "lucide-react";
 import { UsersRound } from "lucide-react";

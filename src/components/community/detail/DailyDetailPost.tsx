@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import PATH from "@/constants/PATH";
 import { useEffect, useState } from "react";
-import ConfirmModal from "./ConfirmModal";
+import DailyConfirmModal from "./DailyConfirmModal";
 import { formatTime } from "@/utils/formatTime";
 import DailyPostButtons from "./DailyPostButtons";
 
@@ -86,7 +86,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
       </article>
 
       {/* 모달창 */}
-      <ConfirmModal
+      <DailyConfirmModal
         id={id}
         onOpen={toggleConfirmModal}
         onClose={handleConfirmationModal}
