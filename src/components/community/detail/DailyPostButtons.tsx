@@ -107,8 +107,10 @@ const DailyPostButtons = ({ dailyPostId = null, onClickReport }: params) => {
         {/* 유용해요 버튼 */}
         <button
           onClick={handleHelpfulClick}
-          className={`flex h-10 w-30 items-center gap-0.5 rounded-md px-4 text-sm text-gray-500 ${
-            isHelpful ? "bg-blue-500 text-white" : "bg-[#F2F2F2]"
+          className={`flex h-10 w-fit items-center gap-0.5 rounded-md px-4 text-sm text-gray-500 ${
+            isHelpful
+              ? "bg-blue-500 text-white"
+              : "border-1 border-[#CCCCCC] bg-white"
           }`}
         >
           <Image

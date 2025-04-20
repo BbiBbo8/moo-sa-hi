@@ -109,19 +109,29 @@ const ShelterPostButtons = ({
         {/* 유용해요 버튼 */}
         <button
           onClick={handleHelpfulClick}
-          className={`flex h-10 w-30 items-center gap-0.5 rounded-md px-4 text-sm text-gray-500 ${
-            isHelpful ? "bg-blue-500 text-white" : "bg-[#F2F2F2]"
+          className={`flex h-10 w-fit items-center gap-0.5 rounded-md px-4 text-sm text-gray-500 ${
+            isHelpful
+              ? "border-1 border-[#2889E4] text-[#2889E4]"
+              : "border-1 border-[#CCCCCC] bg-white"
           }`}
         >
           <Image
-            src={"/icons/thumbs-up-solid.svg"}
+            src={
+              isHelpful
+                ? "/icons/community/thumbs-up-blue.svg"
+                : "/icons/community/thumbs-up-blue.svg"
+            }
             alt=""
-            width={24}
-            height={24}
+            width={20}
+            height={20}
             className={isHelpful ? "invert" : ""}
           />
           유용해요
-          <span className="text-sm text-gray-600">{helpfulCount}</span>
+          <span
+            className={`${isHelpful ? "text-[#2889E4]" : "text-[#B3B3B3]"}`}
+          >
+            {helpfulCount}
+          </span>
         </button>
 
         {/* 신고하기 버튼 */}
