@@ -54,7 +54,7 @@ const ShelterDetailPage = async ({
         </aside>
 
         {/* 상세 정보 */}
-        <section className="flex w-full flex-col gap-2 text-sm text-[#666666]">
+        <section className="flex w-full flex-col gap-2 text-[14px] text-[#666666]">
           <p className="flex flex-row items-center gap-1">
             <Image
               src={"/icons/shelter-detail/phone-solid.svg"}
