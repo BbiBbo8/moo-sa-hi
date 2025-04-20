@@ -7,11 +7,10 @@ import ReportButton from "@/components/report/ReportButton";
 
 interface params {
   dailyPostId?: number | null;
-  onClickReport: () => void;
 }
 
 // NOTE: 이후 tanStackQuery로 리팩토링 필요
-const DailyPostButtons = ({ dailyPostId = null, onClickReport }: params) => {
+const DailyPostButtons = ({ dailyPostId = null }: params) => {
   const [isHelpful, setIsHelpful] = useState(false);
   const [helpfulCount, setHelpfulCount] = useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
