@@ -50,7 +50,7 @@ const CommunityDailyPage = () => {
 
       <div className="flex h-12 w-full items-center gap-2 bg-white text-sm text-gray-600">
         <Image
-          src={"/icons/bullhorn-solid 1.svg"}
+          src={"/icons/community/bullhorn-solid 1.svg"}
           alt={"icon"}
           width={24}
           height={24}

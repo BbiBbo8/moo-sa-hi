@@ -25,9 +25,9 @@ const CommunityShelterPage = () => {
   // 검색어로 게시글 필터링
   const filteredPosts = useMemo(() => {
     if (!shelterPosts) return [];
-  
+
     const lowerSearch = searchTerm.toLowerCase();
-  
+
     return shelterPosts.filter(post => {
       const title = post.title?.toLowerCase() ?? "";
       const shelterName = post.shelter_name?.toLowerCase() ?? "";
@@ -47,9 +47,9 @@ const CommunityShelterPage = () => {
     <main className="flex min-h-screen min-w-screen flex-col items-center px-5 pt-16 pb-16">
       <CommunityHeader setSearchTerm={setSearchTerm} />
 
-      <div className="top-16 left-5 flex h-12 w-full items-center gap-2 bg-white text-sm text-gray-600">
+      <div className="bg-primary top-16 left-5 flex h-12 w-full items-center gap-2 bg-white text-sm text-gray-600">
         <Image
-          src={"/icons/bullhorn-solid 1.svg"}
+          src={"/icons/community/bullhorn-solid 1.svg"}
           alt={"icon"}
           width={24}
           height={24}
