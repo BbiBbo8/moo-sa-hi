@@ -29,16 +29,16 @@ const ShelterPost = ({ post }: PostCardProps) => {
   return (
     <Link
       href={`${PATH.COMMUNITYSHELTER}/${post.id}`}
-      className="h-full w-full"
+      className="h-full w-screen"
     >
       <Card
         key={post.id}
-        className="h-[142px] w-full gap-3 border-none bg-[#F7F7F7] p-5 shadow-none"
+        className="h-[142px] w-full gap-3 rounded-none border-b-1 border-[#F2F2F2] px-5 shadow-none"
       >
         <CardContent className="h-full p-0">
           <section className="flex h-full w-full flex-col items-start justify-center gap-2">
             <CardTitle
-              className={`flex h-7 w-10 items-center justify-center rounded-lg text-sm text-[16px] text-[#1A1A1A] text-white ${colorForPopulation}`}
+              className={`flex items-center justify-center rounded-[8px] px-2 py-1 text-sm text-[14px] font-medium text-[#1A1A1A] text-white ${colorForPopulation}`}
             >
               {populationDensity}
             </CardTitle>
@@ -49,7 +49,7 @@ const ShelterPost = ({ post }: PostCardProps) => {
               <span className="truncate text-sm">{post.shelter_name}</span>
             </article>
 
-            <section className="flex w-full flex-row justify-between text-sm text-[#B3B3B3]">
+            <section className="flex w-full flex-row justify-between text-sm/[135%] text-[#B3B3B3]">
               <p>{timeCreated}</p>
               <div className="flex items-center gap-1">
                 <Image

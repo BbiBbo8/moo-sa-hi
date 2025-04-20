@@ -12,7 +12,7 @@ const CommunityHeader: React.FC<CommunityHeaderProps> = ({ setSearchTerm }) => {
   const pathname = usePathname();
 
   return (
-    <section className="absolute top-0 flex h-14 w-full flex-row items-center justify-between px-5 text-[18px]">
+    <section className="absolute top-0 flex h-16 w-full flex-row items-center justify-between bg-white px-5 text-[18px]">
       {/* 커뮤니티 이동 탭 */}
       <div className="flex gap-4 text-lg">
         <Link
