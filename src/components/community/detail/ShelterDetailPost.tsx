@@ -18,12 +18,12 @@ import { UsersRound } from "lucide-react";
 const ShelterDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useShelterPostDetailQuery(id);
   const { setLevel, setCenter } = useMapStore(); // 변경될 좌표와 지도 레벨
-  const { data: shelters = [] } = useShelters(); // 대피소 목록 불러오기
+  const { data: shelters = [], isLoading: isShelterLoading } = useShelters(); // 대피소 목록 불러오기
   const [toggleConfirmModal, setToggleConfirmModal] = useState(false);
 
   // TODO : 해당 페이지에서 선택된 주소를 기반으로 대피소를 선택해 주소를 zustand에 저장
   useEffect(() => {
-    if (shelters.length === 0) {
+    if (!isShelterLoading && shelters.length === 0) {
       console.log("대피소 목록이 비어 있습니다.");
       return;
     }
