@@ -4,10 +4,80 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --size-icon-sm: var(--icon-sm);
+  --size-icon-md: var(--icon-md);
+  --size-icon-lg: var(--icon-lg);
+
+  --border-gray-btn-default: var(--gray-btn-default);
+  --border-gray-focused: var(--gray-focused);
+  --border-gray-community-btn: var(--gray-community-btn);
+  --border-gray-modal-btn: var(--gray-modal-btn);
+  --border-primary-default: var(--primary-default);
+  --border-primary-focused: var(--primary-focused);
+  --border-red-btn: var(--red-btn);
+
+  --border-width: var(--border-width);
+  --opacity: var(--semitransparent);
+  --default-transition-timing-function: var(--transition-timing-function);
+  --default-transition-duration: var(--transition-duration);
+
+  /* Shadow (완료)*/
+  --drop-shadow: var(--drop-shadow);
+  --shadow-drawer: var(--shadow-drawer);
+  --shadow-community-search: var(--shadow-community-search);
+
+  /* Border-Radius (완료)*/
+  --radius-sm: calc(var(--radius) - 12px);
+  --radius-md: calc(var(--radius) - 8px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 9979px);
+
+  /* Colors Types (완료) */
+  --color-primary: var(--primary);
+  --color-white: var(--white);
+  --color-black: var(--black);
+  --color-error: var(--error);
+  --color-success: var(--success);
+  --color-gray-10: var(--gray-10);
+  --color-gray-20: var(--gray-20);
+  --color-gray-50: var(--gray-50);
+  --color-gray-80: var(--gray-80);
+  --color-gray-100: var(--gray-100);
+  --color-gray-150: var(--gray-150);
+  --color-gray-200: var(--gray-200);
+  --color-gray-300: var(--gray-300);
+  --color-gray-400: var(--gray-400);
+  --color-gray-500: var(--gray-500);
+  --color-gray-600: var(--gray-600);
+  --color-gray-700: var(--gray-700);
+  --color-gray-750: var(--gray-750);
+  --color-gray-800: var(--gray-800);
+  --color-gray-850: var(--gray-850);
+  --color-gray-900: var(--gray-900);
+
+  /* Font Types (이건 폰트 바꿔야할듯 아니근데 바꿔도 되나? 아니면 새거 만들어? 새거 만들면 적용이 된긴하나...? 흠....오므라이스 먹고싶다*/
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Text Types (완료) */
+  --text-numEng: var(--numEng);
+  --text-headlineL: var(--headlineL);
+  --text-headlineM: var(--headlineM);
+  --text-titleL: var(--titleL);
+  --text-titleM: var(--titleM);
+  --text-titleS: var(--titleS);
+  --text-bodyXL: var(--bodyXL);
+  --text-bodyL: var(--bodyL);
+  --text-bodyM: var(--bodyM);
+  --text-bodyS: var(--bodyS);
+  --text-labelL: var(--labelL);
+  --text-labelM: var(--labelM);
+  --text-labelS: var(--labelS);
+  --text-labelXS: var(--labelXS);
+
+  /* Original Types (not customed) */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -29,27 +99,89 @@
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
   --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
 }
 
+/* -----------------------------root 시작---------------------------------- */
+
 :root {
-  --radius: 0.625rem;
+  /* Icon Size (완료) */
+  --icon-sm: 20px;
+  --icon-md: 24px;
+  --icon-lg: 32px;
+
+  /* border color (완료) */
+  --gray-btn-default: #b3b3b3;
+  --gray-focused: #1a1a1a;
+  --gray-community-btn: #999999;
+  --gray-modal-btn: #cccccc;
+  --primary-default: #f2f2f2;
+  --primary-focused: #2889e4;
+  --red-btn: #ea3436;
+
+  --border-width: 1px;
+  --semitransparent: 0.4;
+  --transition-timing-function: move-in: ease-in;
+  --transition-duration: 300ms;
+
+  /* Shadow Types (완료) */
+  --drop-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+  --shadow-drawer: 0px -4px 16px 0px rgba(0, 0, 0, 0.05);
+  --shadow-community-search: 0px 4px 12px 0px rgba(0, 0, 0, 0.05);
+
+  /* border radius (완료) */
+  --radius: 20px;
+
+  /* Text Types (완료) */
+  --numEng: 14px;
+  --headlineL: 32px;
+  --headlineM: 24px;
+  --titleL: 20px;
+  --titleM: 16px;
+  --titleS: 14px;
+  --bodyXL: 18px;
+  --bodyL: 16px;
+  --bodyM: 14px;
+  --bodyS: 12px;
+  --labelL: 16px;
+  --labelM: 14px;
+  --labelS: 12px;
+  ---labelXS: 11px;
+
+  /* Colors Types (완료) */
+  --primary: #2889e4;
+  --white: #ffffff;
+  --black: #000000;
+  --error: #ea3436;
+  --success: #0671fd;
+  --gray-10: #fafafa;
+  --gray-20: #f7f7f7;
+  --gray-50: #f2f2f2;
+  --gray-80: #ededed;
+  --gray-100: #e6e6e6;
+  --gray-150: #d9d9d9;
+  --gray-200: #cccccc;
+  --gray-300: #b3b3b3;
+  --gray-400: #999999;
+  --gray-500: #808080;
+  --gray-600: #666666;
+  --gray-700: #4d4d4d;
+  --gray-750: #404040;
+  --gray-800: #333333;
+  --gray-850: #262626;
+  --gray-900: #1a1a1a;
+
+  /* Original Types (not customed) */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -112,6 +244,7 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* utilities는 "하나의 목적을 가진 단일 클래스 스타일"을 정의할 때 사용 */
 @layer utilities {
   .scrollbar-hide {
     &::-webkit-scrollbar {
@@ -119,8 +252,107 @@
     }
     scrollbar-width: none;
   }
+
+  .text-numEng {
+    font-size: var(--text-bodyM);
+    font-weight: 400;
+    line-height: "150%";
+    letter-spacing: "-0.04em";
+  }
+
+  .text-headlineL {
+    font-size: var(--text-titleL);
+    font-weight: 600;
+    line-height: "135%";
+    letter-spacing: "-0.02em";
+  }
+
+  .text-headlineM {
+    font-size: var(--text-titleL);
+    font-weight: 600;
+    line-height: "135%";
+    letter-spacing: "-0.02em";
+  }
+
+  .text-titleL {
+    font-size: var(--text-titleL);
+    font-weight: 600;
+    line-height: "135%";
+    letter-spacing: "-0.02em";
+  }
+
+  .text-titleM {
+    font-size: var(--text-titleL);
+    font-weight: 600;
+    line-height: "135%";
+    letter-spacing: "-0.02em";
+  }
+
+  .text-titleS {
+    font-size: var(--text-titleL);
+    font-weight: 600;
+    line-height: "135%";
+    letter-spacing: "-0.02em";
+  }
+
+  .text-bodyXL {
+    font-size: var(--text-titleL);
+    font-weight: 500;
+    line-height: "150%";
+    letter-spacing: "-0.02em";
+  }
+
+  .text-bodyL {
+    font-size: var(--text-titleL);
+    font-weight: 400;
+    line-height: "150%";
+    letter-spacing: "-0.02em";
+  }
+
+  .text-bodyM {
+    font-size: var(--text-titleL);
+    font-weight: 400;
+    line-height: "150%";
+    letter-spacing: "-0.02em";
+  }
+
+  .text-bodyS {
+    font-size: var(--text-titleL);
+    font-weight: 400;
+    line-height: "150%";
+    letter-spacing: "-0.02em";
+  }
+
+  .text-labelL {
+    font-size: var(--text-titleL);
+    font-weight: 500;
+    line-height: "135%";
+    letter-spacing: "0em";
+  }
+
+  .text-labelM {
+    font-size: var(--text-titleL);
+    font-weight: 500;
+    line-height: "135%";
+    letter-spacing: "0em";
+  }
+
+  .text-labelS {
+    font-size: var(--text-titleL);
+    font-weight: 500;
+    line-height: "135%";
+    letter-spacing: "0em";
+  }
+
+  .text-labelXS {
+    font-size: var(--text-titleL);
+    font-weight: 500;
+    line-height: "135%";
+    letter-spacing: "0em";
+  }
 }
 
+/* based는 "브라우저 기본 스타일 reset, 전역적인 태그 스타일 정의"할 때 사용 */
 @layer base {
   * {
     @apply border-border outline-ring/50;
