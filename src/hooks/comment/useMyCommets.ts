@@ -25,6 +25,7 @@ export const useMyComments = () => {
 
   const getMyComments = async () => {
     try {
+      // user id 값 참고해 댓글 단 게시글 id(postId) 불러오기
       const { data: comments } = await supabase
         .from("comments")
         .select("shelter_post_id, daily_post_id")
@@ -42,6 +43,7 @@ export const useMyComments = () => {
         console.error("불러오기 오류 발생", shelterError, dailyError);
       }
 
+      // 불러온 postId로 불러온 게시글 필터링
       const MatchMyPosts = (
         comments: Comment[],
         shelterPosts: shelterPost[],
