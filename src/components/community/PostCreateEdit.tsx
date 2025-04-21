@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,6 +20,7 @@ import { Constants } from "database.types";
 import BackButton from "@/components/ui/BackButton";
 import PostTypeDropdown from "@/components/ui/PostTypeDropdown";
 import createClient from "@/supabase/client";
+import { useUserData } from "@/hooks/useUserData";
 
 const supabase = createClient();
 
@@ -45,11 +46,16 @@ function PostCreateEdit() {
     name: string;
   } | null>(null);
 
-  const {
-    data: user,
-    isPending,
-    isError,
-  } = useQuery({
+  const { data: clientUser, isLoading: isUserLoading } = useUserData();
+
+  useEffect(() => {
+    if (!isUserLoading && !clientUser?.user) {
+      toast.error("로그인이 필요한 페이지입니다.");
+      router.replace("/login");
+    }
+  }, [isUserLoading, clientUser, router]);
+
+  const { isPending, isError } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
       const { data, error } = await supabase.auth.getUser();
@@ -67,10 +73,22 @@ function PostCreateEdit() {
     },
   });
 
+  // ✅ 등록 버튼 활성화 조건 설정 (입력값 충족 시 활성화되도록)
+  const isFormValid =
+    category === "shelter"
+      ? !!selectedShelter?.id &&
+        form.watch("title")?.trim() &&
+        form.watch("contents")?.trim() &&
+        form.watch("congestion") &&
+        form.watch("hygiene")
+      : form.watch("title")?.trim() && form.watch("contents")?.trim();
+
   const mutation = useMutation({
     mutationFn: async (values: FormData) => {
+      const userId = clientUser!.user!.id;
+
       const basePayload = {
-        user_id: user!.id,
+        user_id: userId,
         title: values.title,
         contents: values.contents,
       };
@@ -105,7 +123,6 @@ function PostCreateEdit() {
         throw new Error(postInsertResult.error?.message || "게시글 저장 실패");
       }
 
-      // unused 변수 제거: postId 선언 없이 바로 사용
       const imageInsertResult = await supabase.from("images").insert(
         imgUrls.map(url => ({
           img_url: url,
@@ -119,15 +136,16 @@ function PostCreateEdit() {
         throw new Error("이미지 저장 실패: " + imageInsertResult.error.message);
       }
 
-      // postId를 바로 리턴해서 ESLint no-unused-vars 에러 방지
       return postInsertResult.data.id;
     },
+
     onSuccess: () => {
       toast.success("게시글이 성공적으로 저장되었습니다.");
       const redirectPath =
         category === "shelter" ? PATH.COMMUNITYSHELTER : PATH.COMMUNITYDAILY;
-      router.push(redirectPath);
+      window.location.href = redirectPath;
     },
+
     onError: error => {
       console.error("에러:", error);
       toast.error("게시글 저장에 실패했습니다.");
@@ -135,15 +153,16 @@ function PostCreateEdit() {
   });
 
   const onSubmit = async (values: FormData) => {
-    if (!user?.id) {
+    if (!clientUser?.user?.id) {
       toast.error("로그인 상태를 확인해주세요.");
       return;
     }
+
     mutation.mutate(values);
   };
 
   if (isPending) return <div>로딩 중...</div>;
-  if (isError || !user) {
+  if (isError || !clientUser?.user) {
     toast.error("로그인 정보를 불러올 수 없습니다.");
     return null;
   }
@@ -154,7 +173,7 @@ function PostCreateEdit() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-[20px] px-[16px] pb-[32px] font-['IBM_Plex_Sans_KR']"
       >
-        {/* 상단바: 반응형 정렬 구조 유지 */}
+        {/* 상단 헤더: 뒤로가기 + 드롭다운 + 등록 버튼 */}
         <div className="flex w-full items-center justify-between px-[16px]">
           <BackButton />
           <div className="flex-1 text-center font-['IBM_Plex_Sans_KR'] text-[18px]">
@@ -165,15 +184,22 @@ function PostCreateEdit() {
               }
             />
           </div>
+
+          {/* ✅ 등록 버튼: 입력 조건 충족 시 색상 변경 */}
           <Button
             type="submit"
-            className="rounded-full bg-[#3A7E8D] px-4 py-1 text-sm text-white hover:bg-[#60A1B0] active:bg-[#2B5D6C]"
+            disabled={!isFormValid}
+            className={`rounded-full px-4 py-1 text-sm ${
+              isFormValid
+                ? "bg-[#3A7E8D] text-white hover:bg-[#60A1B0] active:bg-[#2B5D6C]"
+                : "cursor-not-allowed border border-[#60A1B0] bg-white text-[#3A7E8D]"
+            }`}
           >
             등록
           </Button>
         </div>
 
-        {/* 글쓰기 폼 */}
+        {/* 글쓰기 Form 입력 영역 */}
         {category === "shelter" ? (
           <ShelterForm
             onShelterSelect={shelter => {
@@ -185,7 +211,7 @@ function PostCreateEdit() {
           <DailyForm />
         )}
 
-        {/* 이미지 드롭존 */}
+        {/* 이미지 업로드 */}
         <div className="px-[16px]">
           <ImageDropzone value={imgUrls} onChange={setImgUrls} maxFiles={5} />
         </div>
