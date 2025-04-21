@@ -8,7 +8,7 @@ function BackButton() {
     <button
       type="button"
       onClick={() => router.back()}
-      className="absolute top-4 left-4"
+      className="mr-2" // 왼쪽 공간 확보용
     >
       <Image
         src="./icons/postcreate/chevron-left-solid1.svg"
