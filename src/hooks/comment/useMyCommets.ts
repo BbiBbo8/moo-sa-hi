@@ -7,7 +7,13 @@ interface Comment {
   daily_post_id: number | null;
 }
 
-interface Post {
+interface shelterPost {
+  title: string | null;
+  id: number;
+  shelter_name: string | null;
+}
+
+interface dailyPost {
   title: string | null;
   id: number;
 }
@@ -26,7 +32,7 @@ export const useMyComments = () => {
 
       const { data: shelterPosts, error: shelterError } = await supabase
         .from("shelter_post")
-        .select("title, id");
+        .select("title, id, shelter_name");
 
       const { data: dailyPosts, error: dailyError } = await supabase
         .from("daily_post")
@@ -38,29 +44,30 @@ export const useMyComments = () => {
 
       const MatchMyPosts = (
         comments: Comment[],
-        shelterPosts: Post[],
-        dailyPosts: Post[],
-      ): Post[] => {
-        const matchedPosts: Post[] = [];
+        shelterPosts: shelterPost[],
+        dailyPosts: dailyPost[],
+      ) => {
+        const matchedShelterPost: shelterPost[] = [];
+        const matchedDailtyPost: dailyPost[] = [];
         for (const comment of comments) {
           if (comment.shelter_post_id !== null) {
-            const matchedShelterPost = shelterPosts.find(
+            const matchedPost = shelterPosts.find(
               post => post.id === comment.shelter_post_id,
             );
-            if (matchedShelterPost) {
-              matchedPosts.push(matchedShelterPost);
+            if (matchedPost) {
+              matchedShelterPost.push(matchedPost);
             }
           }
           if (comment.daily_post_id !== null) {
-            const matchedDailyPost = dailyPosts.find(
+            const matchedPost = dailyPosts.find(
               post => post.id === comment.daily_post_id,
             );
-            if (matchedDailyPost) {
-              matchedPosts.push(matchedDailyPost);
+            if (matchedPost) {
+              matchedDailtyPost.push(matchedPost);
             }
           }
         }
-        return matchedPosts;
+        return { matchedShelterPost, matchedDailtyPost };
       };
 
       const posts = MatchMyPosts(comments!, shelterPosts!, dailyPosts!);
