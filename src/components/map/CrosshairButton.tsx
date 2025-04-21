@@ -1,6 +1,5 @@
 import { useGeolocationMutation } from "@/hooks/useMapGeolocation";
 import { useMapStore } from "@/store/useMapStore";
-import Image from "next/image";
 
 const CrosshairButton = () => {
   // geolocation 훅 가져오기
