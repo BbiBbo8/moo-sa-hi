@@ -30,7 +30,7 @@ const ShelterDrawer = () => {
   const { mutate, data: userLocation } = useGeolocationMutation();
   useEffect(() => {
     mutate();
-  }, []);
+  }, [mutate]);
 
   // 마커 클릭 시 Drawer 열기
   useEffect(() => {
