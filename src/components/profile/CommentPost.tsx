@@ -14,10 +14,6 @@ const CommentPost = () => {
   const shelter = posts?.matchedShelterPost;
   const daily = posts?.matchedDailtyPost;
 
-  // const isShelter = () => {
-  //   if (posts.)
-  // }
-
   return (
     <>
       <section className="grid grid-cols-3 gap-0.5 text-center">
