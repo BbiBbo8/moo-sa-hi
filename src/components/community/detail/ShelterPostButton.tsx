@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import createClient from "@/supabase/client";
 import getUserData from "@/supabase/getUserData";
 import SigninDrawer from "@/components/auth/SigninDrawer";
+import ReportButton from "@/components/report/ReportButton";
 
 interface params {
   shelterPostId?: number | null;
@@ -128,13 +129,9 @@ const ShelterPostButtons = ({
         </button>
 
         {/* 신고하기 버튼 */}
-        <button
-          type="button"
-          onClick={onClickReport}
-          className="absolute right-0 px-1 py-0.5 text-sm text-gray-500"
-        >
-          신고하기
-        </button>
+        <div className="mr-5 flex justify-end">
+          <ReportButton postId={shelterPostId} key={shelterPostId} postType="shelter" />
+        </div>
       </section>
 
       {/* 로그인 드로어 */}

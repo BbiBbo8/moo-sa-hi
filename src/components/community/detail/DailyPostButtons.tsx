@@ -126,7 +126,9 @@ const DailyPostButtons = ({ dailyPostId = null }: params) => {
         </button>
 
         {/* 신고하기 버튼 */}
-        <ReportButton postId={dailyPostId} postType="daily" />
+        <div className="mr-5 flex justify-end">
+          <ReportButton postId={dailyPostId} key={dailyPostId} postType="daily" />
+        </div>
       </section>
 
       {/* 로그인 드로어 */}

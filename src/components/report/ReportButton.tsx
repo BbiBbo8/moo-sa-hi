@@ -1,76 +1,94 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import createClient from "@/supabase/client";
 import getUserData from "@/supabase/getUserData";
 import SigninDrawer from "@/components/auth/SigninDrawer";
 import ReportModal from "@/components/report/ReportModal";
 import { PostType } from "@/types/reports";
 import { toast } from "sonner";
+import { SupabaseClient } from "@supabase/supabase-js"; // SupabaseClient 타입 import
 
 interface ReportButtonProps {
-  postId: number | null; 
-  postType: PostType;    // 게시글 타입 ('daily' 또는 'shelter')
+  postId: number | null;
+  postType: PostType;
 }
 
 const ReportButton = ({ postId, postType }: ReportButtonProps) => {
-  const [isReported, setIsReported] = useState(false);        // 이미 신고했는지 여부
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);    
-  const [isReportModalOpen, setIsReportModalOpen] = useState(false); 
-  const supabase = createClient();                            
-  const userData = getUserData();                            
+  const [isReported, setIsReported] = useState(false); // 이미 신고했는지 여부
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false); // 로그인 드로어 표시 여부
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false); // 신고 모달 표시 여부
+  const supabase = createClient();
+  const userData = getUserData();
 
-  useEffect(() => {
-    const checkIfReported = async () => {
-      if (!postId) return; 
+  // 신고 여부 확인 함수 (메모이제이션)
+  const checkIfReported = useCallback(
+    async (
+      client: SupabaseClient,
+      userId: string | undefined,
+      pId: number | null,
+      pType: PostType
+    ) => {
+      if (!pId || !userId) return false; // 게시글 ID나 사용자 ID 없으면 false 반환
 
-      const { user } = await userData; 
-      if (!user) return; 
+      let query = client.from("reports").select("id").eq("user_id", userId); // 기본 쿼리
 
-      // 게시글 타입에 따라 필터 조건 설정
-      const reportFilter =
-        postType === "daily"
-          ? { user_id: user.id, daily_post_id: postId }
-          : { user_id: user.id, shelter_post_id: postId };
+      if (pType === "daily") {
+        query = query.eq("daily_post_id", pId); // daily 포스트 필터
+      } else {
+        query = query.eq("shelter_post_id", pId); // shelter 포스트 필터
+      }
 
-      // 신고 기록 조회
-      const { data, error } = await supabase
-        .from("reports")
-        .select("id")
-        .eq(Object.keys(reportFilter)[0], Object.values(reportFilter)[0]) // 동적 필드 이름 사용
-        .eq("user_id", user.id)
-        .maybeSingle();
+      const { data, error } = await query.maybeSingle(); // 단일 결과 조회
 
       if (error) {
         console.error("신고 상태 확인 오류:", error);
-        return;
+        return false;
       }
 
-      setIsReported(!!data); // 결과가 있으면 true, 없으면 false
+      return !!data; // 결과 존재 여부 반환
+    },
+    [] // 의존성 배열 비어있음 (한 번만 생성)
+  );
+
+  useEffect(() => {
+    let isMounted = true; // 컴포넌트 마운트 여부 추적
+
+    const checkReportStatus = async () => {
+      const { user } = await userData; // 사용자 정보 가져오기
+      if (!user || !postId || !isMounted) return; // 필수 정보 없거나 언마운트 시 중단
+
+      const reported = await checkIfReported(supabase, user.id, postId, postType); // 신고 여부 확인
+      if (isMounted) setIsReported(reported); // 마운트 시에만 상태 업데이트
     };
 
-    checkIfReported(); // 컴포넌트 마운트 시 및 의존성 배열 변경 시 실행
-  }, [postId, postType, userData, supabase]); // 의존성 배열
+    checkReportStatus();
 
-  const handleReportClick = async () => {
-    const { user } = await userData; 
+    return () => {
+      isMounted = false; // 언마운트 시 플래그 설정
+    };
+  }, [postId, postType, userData, supabase, checkIfReported]); // 의존성 배열
+
+  // 신고 버튼 클릭 핸들러 (메모이제이션)
+  const handleReportClick = useCallback(async () => {
+    const { user } = await userData; // 사용자 정보 가져오기
     if (!user) {
-      setIsDrawerOpen(true); 
+      setIsDrawerOpen(true); // 로그인 필요
       return;
     }
-    if (!postId) return; 
+    if (!postId) return; // 게시글 ID 없으면 중단
     if (isReported) {
-      toast.error("이미 신고한 게시물입니다.");
+      toast.error("이미 신고한 게시물입니다."); // 중복 신고 방지
       return;
     }
-    setIsReportModalOpen(true); 
+    setIsReportModalOpen(true); // 신고 모달 열기
+  }, [userData, postId, isReported]); // 의존성 배열
+
+  const handleReportModalClose = () => { // 모달 닫기 핸들러
+    setIsReportModalOpen(false);
   };
 
-  const handleReportModalClose = () => {
-    setIsReportModalOpen(false); 
-  };
-
-  const handleReportSuccess = () => {
-    setIsReported(true);           // 신고 상태 업데이트
-    setIsReportModalOpen(false);   // 신고 모달 숨김
+  const handleReportSuccess = () => { // 신고 성공 시 처리
+    setIsReported(true); // 신고 상태 업데이트
+    setIsReportModalOpen(false); // 모달 닫기
   };
 
   return (
@@ -79,7 +97,7 @@ const ReportButton = ({ postId, postType }: ReportButtonProps) => {
         type="button"
         onClick={handleReportClick}
         className={`px-1 py-0.5 text-sm ${
-          isReported ? "text-red-500" : "text-gray-500" 
+          isReported ? "text-red-500" : "text-gray-500" // 신고 여부에 따른 텍스트 색상
         }`}
         disabled={isReported} // 이미 신고했으면 비활성화
       >
