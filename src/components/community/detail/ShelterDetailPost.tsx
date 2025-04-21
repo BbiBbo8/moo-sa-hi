@@ -104,7 +104,6 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
 
       <ShelterPostButtons
         shelterPostId={data.id}
-        onClickReport={handleConfirmationModal}
       />
 
       {/* 모달창 */}
