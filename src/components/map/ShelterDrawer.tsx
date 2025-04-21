@@ -9,12 +9,21 @@ import {
 } from "@/components/ui/drawer";
 import ShelterList from "./ShelterList";
 import { useMarkerStore } from "@/store/useMarkerStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ShelterDrawer = () => {
   const markedShelter = useMarkerStore(state => state.markedShelter);
+  const selectedShelterName = useMarkerStore(
+    state => state.selectedShelterName,
+  );
+
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    if (selectedShelterName) {
+      setIsOpen(true);
+    }
+  }, [selectedShelterName]);
   return (
     <>
       {/* 목록 버튼 (중앙 하단) */}
@@ -61,7 +70,7 @@ const ShelterDrawer = () => {
 
           {/* 리스트 렌더링 먼저 거리 정렬은 후에 */}
 
-          <ShelterList />
+          <ShelterList isDrawerOpen={isOpen} />
         </DrawerContent>
       </Drawer>
     </>
