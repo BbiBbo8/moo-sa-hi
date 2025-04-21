@@ -109,28 +109,34 @@ const ShelterPostButtons = ({
 
   return (
     <>
-      <section className="relative flex w-full flex-row items-center justify-center">
+      <section className="relative flex w-full flex-row items-center mb-12">
         {/* 유용해요 버튼 */}
-        <button
-          onClick={handleHelpfulClick}
-          className={`flex h-10 w-30 items-center gap-0.5 rounded-md px-4 text-sm text-gray-500 ${
-            isHelpful ? "bg-blue-500 text-white" : "bg-[#F2F2F2]"
-          }`}
-        >
-          <Image
-            src={"/icons/thumbs-up-solid.svg"}
-            alt=""
-            width={24}
-            height={24}
-            className={isHelpful ? "invert" : ""}
-          />
-          유용해요
-          <span className="text-sm text-gray-600">{helpfulCount}</span>
-        </button>
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <button
+            onClick={handleHelpfulClick}
+            className={`flex h-10 items-center gap-0.5 rounded-md px-4 text-sm text-gray-500 ${
+              isHelpful ? "bg-blue-500 text-white" : "bg-[#F2F2F2]"
+            }`}
+          >
+            <Image
+              src={"/icons/thumbs-up-solid.svg"}
+              alt=""
+              width={24}
+              height={24}
+              className={isHelpful ? "invert" : ""}
+            />
+            유용해요
+            <span className="text-sm text-gray-600">{helpfulCount}</span>
+          </button>
+        </div>
 
         {/* 신고하기 버튼 */}
-        <div className="mr-5 flex justify-end">
-          <ReportButton postId={shelterPostId} key={shelterPostId} postType="shelter" />
+        <div className="absolute right-0">
+          <ReportButton
+            postId={shelterPostId}
+            key={shelterPostId}
+            postType="daily"
+          />
         </div>
       </section>
 

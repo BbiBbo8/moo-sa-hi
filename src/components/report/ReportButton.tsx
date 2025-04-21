@@ -5,7 +5,7 @@ import SigninDrawer from "@/components/auth/SigninDrawer";
 import ReportModal from "@/components/report/ReportModal";
 import { PostType } from "@/types/reports";
 import { toast } from "sonner";
-import { SupabaseClient } from "@supabase/supabase-js"; // SupabaseClient 타입 import
+import { SupabaseClient } from "@supabase/supabase-js";
 
 interface ReportButtonProps {
   postId: number | null;
@@ -46,7 +46,7 @@ const ReportButton = ({ postId, postType }: ReportButtonProps) => {
 
       return !!data; // 결과 존재 여부 반환
     },
-    [] // 의존성 배열 비어있음 (한 번만 생성)
+    [] 
   );
 
   useEffect(() => {
