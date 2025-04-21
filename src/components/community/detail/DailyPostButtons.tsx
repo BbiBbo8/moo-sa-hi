@@ -126,7 +126,7 @@ const DailyPostButtons = ({ dailyPostId = null }: params) => {
         </button>
 
         {/* 신고하기 버튼 */}
-        <ReportButton postId={123} postType="daily" />
+        <ReportButton postId={dailyPostId} postType="daily" />
       </section>
 
       {/* 로그인 드로어 */}
