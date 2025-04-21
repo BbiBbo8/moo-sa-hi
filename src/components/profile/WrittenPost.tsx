@@ -27,7 +27,7 @@ const WrittenPost = () => {
           shelterPost?.map(post => (
             <div
               key={post.id}
-              className="bg-accent grid aspect-square min-h-32 min-w-32 truncate overflow-hidden bg-center"
+              className="bg-accent relative grid aspect-square min-h-32 min-w-32 truncate overflow-hidden bg-center"
             >
               <Link href={`${PATH.COMMUNITYSHELTER}/${post.id}`}>
                 <div className="min-h-32 min-w-32">
@@ -36,8 +36,7 @@ const WrittenPost = () => {
                     <Image
                       src={post.img_url as string}
                       alt="이미지"
-                      width={640}
-                      height={640}
+                      fill
                       objectFit="cover"
                     />
                   ) : (
@@ -52,7 +51,7 @@ const WrittenPost = () => {
           dailyPost?.map(post => (
             <div
               key={post.id}
-              className="bg-accent grid aspect-square min-h-32 min-w-32 overflow-hidden bg-center"
+              className="bg-accent relative grid aspect-square min-h-32 min-w-32 overflow-hidden bg-center"
             >
               <Link href={`${PATH.COMMUNITYDAILY}/${post.id}`}>
                 <div className="min-h-32 min-w-32">
@@ -60,8 +59,7 @@ const WrittenPost = () => {
                     <Image
                       src={post.img_url as string}
                       alt="이미지"
-                      width={640}
-                      height={640}
+                      fill
                       objectFit="cover"
                     />
                   ) : (
