@@ -16,6 +16,8 @@ import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 import { ChevronDown } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import { ScrollArea } from "../ui/scroll-area";
+import { ScrollAreaViewport } from "@radix-ui/react-scroll-area";
 
 const ShelterDrawer = () => {
   const { visibleShelters } = useMapStore();
@@ -136,8 +138,8 @@ const ShelterDrawer = () => {
       </button>
 
       {/* Drawer */}
-      <Drawer open={isOpen} onOpenChange={setIsOpen}>
-        <DrawerContent className="max-h-[80vh] overflow-auto px-5 pb-0">
+      <Drawer open={isOpen} onOpenChange={setIsOpen} modal={false}>
+        <DrawerContent className="mt-0 max-h-[80vh] px-5 pb-0">
           <DrawerHeader className="p-0">
             <DrawerTitle className="sr-only">주변 대피소 목록</DrawerTitle>
             <div className="flex items-center justify-between">
@@ -154,6 +156,7 @@ const ShelterDrawer = () => {
           </DrawerHeader>
 
           {/* 리스트 렌더링 먼저 거리 정렬은 후에 */}
+
           <ShelterList
             shelters={
               sortOption === "distance" && userLocation

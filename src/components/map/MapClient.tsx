@@ -8,7 +8,7 @@ import CrosshairButton from "./CrosshairButton";
 
 const MapClient = () => {
   return (
-    <div className="relative mx-auto flex h-[852px] max-w-[393px] flex-col items-center justify-center overflow-hidden">
+    <div className="relative mx-auto flex h-[852px] max-w-[393px] flex-col items-center justify-center">
       <div className="relative flex flex-row justify-center">
         <div className="flex justify-center">
           <InputSearch />
