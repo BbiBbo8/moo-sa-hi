@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 import createClient from "@/supabase/client";
 import getUserData from "@/supabase/getUserData";
 import SigninDrawer from "@/components/auth/SigninDrawer";
+import ReportButton from "@/components/report/ReportButton";
 
 interface params {
   dailyPostId?: number | null;
-  onClickReport: () => void;
 }
 
 // NOTE: 이후 tanStackQuery로 리팩토링 필요
-const DailyPostButtons = ({ dailyPostId = null, onClickReport }: params) => {
+const DailyPostButtons = ({ dailyPostId = null }: params) => {
   const [isHelpful, setIsHelpful] = useState(false);
   const [helpfulCount, setHelpfulCount] = useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -80,11 +80,7 @@ const DailyPostButtons = ({ dailyPostId = null, onClickReport }: params) => {
       } else {
         setIsHelpful(false);
         setHelpfulCount(prevCount => prevCount - 1);
-        console.log("유용해요 삭제!");
       }
-    } else {
-      console.log("데이터 추가 시 dailyPostId:", dailyPostId);
-      console.log("데이터 추가 시 userId:", user.id);
 
       const { error: insertError } = await supabase.from("helpfuls").insert([
         {
@@ -99,42 +95,42 @@ const DailyPostButtons = ({ dailyPostId = null, onClickReport }: params) => {
       } else {
         setIsHelpful(true);
         setHelpfulCount(prevCount => prevCount + 1);
-        console.log("유용해요 추가");
       }
     }
   };
 
   return (
     <>
-      <section className="relative flex w-full flex-row items-center justify-center">
+      <section className="relative flex w-full flex-row items-center mb-12">
         {/* 유용해요 버튼 */}
-        <button
-          onClick={handleHelpfulClick}
-          className={`flex h-10 w-30 items-center gap-0.5 rounded-md px-4 text-sm text-gray-500 ${
-            isHelpful ? "bg-blue-500 text-white" : "bg-[#F2F2F2]"
-          }`}
-        >
-          <Image
-            src={"/icons/thumbs-up-solid.svg"}
-            alt=""
-            width={24}
-            height={24}
-            className={isHelpful ? "invert" : ""}
-          />
-          유용해요
-          <span className="text-sm text-gray-600">{helpfulCount}</span>
-        </button>
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <button
+            onClick={handleHelpfulClick}
+            className={`flex h-10 items-center gap-0.5 rounded-md px-4 text-sm text-gray-500 ${
+              isHelpful ? "bg-blue-500 text-white" : "bg-[#F2F2F2]"
+            }`}
+          >
+            <Image
+              src={"/icons/thumbs-up-solid.svg"}
+              alt=""
+              width={24}
+              height={24}
+              className={isHelpful ? "invert" : ""}
+            />
+            유용해요
+            <span className="text-sm text-gray-600">{helpfulCount}</span>
+          </button>
+        </div>
 
         {/* 신고하기 버튼 */}
-        <button
-          type="button"
-          onClick={onClickReport}
-          className="absolute right-0 px-1 py-0.5 text-sm text-gray-500"
-        >
-          신고하기
-        </button>
+        <div className="absolute right-0">
+          <ReportButton
+            postId={dailyPostId}
+            key={dailyPostId}
+            postType="daily"
+          />
+        </div>
       </section>
-
       {/* 로그인 드로어 */}
       <SigninDrawer isOpen={isDrawerOpen} onOpenChange={setIsDrawerOpen} />
     </>
