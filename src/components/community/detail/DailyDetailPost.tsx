@@ -81,7 +81,6 @@ const DailyDetailPost = ({ id }: { id: number }) => {
 
         <DailyPostButtons
           dailyPostId={data.id}
-          onClickReport={handleConfirmationModal}
         />
       </article>
 

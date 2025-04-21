@@ -5,6 +5,7 @@ export type Json =
   | null
   | { [key: string]: Json | undefined }
   | Json[]
+  | Json[]
 
 export type Database = {
   public: {
@@ -18,7 +19,21 @@ export type Database = {
           shelter_post_id: number | null
           user_id: string | null
         }
+          comments: string | null
+          created_at: string
+          daily_post_id: number | null
+          id: number
+          shelter_post_id: number | null
+          user_id: string | null
+        }
         Insert: {
+          comments?: string | null
+          created_at?: string
+          daily_post_id?: number | null
+          id?: number
+          shelter_post_id?: number | null
+          user_id?: string | null
+        }
           comments?: string | null
           created_at?: string
           daily_post_id?: number | null
@@ -41,8 +56,18 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "daily_post"
             referencedColumns: ["id"]
+            foreignKeyName: "comments_daily_post_id_fkey"
+            columns: ["daily_post_id"]
+            isOneToOne: false
+            referencedRelation: "daily_post"
+            referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "comments_shelter_post_id_fkey"
+            columns: ["shelter_post_id"]
+            isOneToOne: false
+            referencedRelation: "shelter_post"
+            referencedColumns: ["id"]
             foreignKeyName: "comments_shelter_post_id_fkey"
             columns: ["shelter_post_id"]
             isOneToOne: false
@@ -55,6 +80,11 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
+            foreignKeyName: "comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "fk_comment_user"
@@ -62,7 +92,14 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
+            foreignKeyName: "fk_comment_user"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
           },
+        ]
+      }
         ]
       }
       daily_post: {
@@ -206,6 +243,55 @@ export type Database = {
           },
         ]
       }
+      reports: {
+        Row: {
+          created_at: string | null
+          daily_post_id: number | null
+          id: number
+          reason: string | null
+          shelter_post_id: number | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          daily_post_id?: number | null
+          id?: number
+          reason?: string | null
+          shelter_post_id?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          daily_post_id?: number | null
+          id?: number
+          reason?: string | null
+          shelter_post_id?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reports_daily_post_id_fkey"
+            columns: ["daily_post_id"]
+            isOneToOne: false
+            referencedRelation: "daily_post"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reports_shelter_post_id_fkey"
+            columns: ["shelter_post_id"]
+            isOneToOne: false
+            referencedRelation: "shelter_post"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reports_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       shelter_post: {
         Row: {
           cleanliness: Database["public"]["Enums"]["cleanliness_tags"] | null
@@ -276,9 +362,9 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      cleanliness_tags: "깨끗함" | "보통" | "더러움"
-      people_tags: "한산" | "보통" | "만원"
-    }
+      cleanliness_tags: "깨끗함" | "보통" | "더러움";
+      people_tags: "한산" | "보통" | "만원";
+    };
     CompositeTypes: {
       [_ in never]: never
     }
