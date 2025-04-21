@@ -21,7 +21,6 @@ export const PostUploadImg = async (
 
   // 사용자 ID 기반으로 디렉토리 경로 구성
   const path = `posts/${userId}/${safeFileName}`;
-  console.log(path);
 
   // 이미지 Supabase 스토리지 업로드 수행
   const { error: uploadError } = await supabase.storage
