@@ -11,11 +11,13 @@ interface shelterPost {
   title: string | null;
   id: number;
   shelter_name: string | null;
+  img_url: string | null;
 }
 
 interface dailyPost {
   title: string | null;
   id: number;
+  img_url: string | null;
 }
 
 export const useMyComments = () => {
@@ -33,11 +35,11 @@ export const useMyComments = () => {
 
       const { data: shelterPosts, error: shelterError } = await supabase
         .from("shelter_post")
-        .select("title, id, shelter_name");
+        .select("title, id, shelter_name, img_url");
 
       const { data: dailyPosts, error: dailyError } = await supabase
         .from("daily_post")
-        .select("title, id");
+        .select("title, id, img_url");
 
       if (shelterError || dailyError) {
         console.error("불러오기 오류 발생", shelterError, dailyError);

@@ -14,6 +14,15 @@ const CommentPost = () => {
   const shelter = posts?.matchedShelterPost;
   const daily = posts?.matchedDailtyPost;
 
+  // 이미지 존재 여부 판단하는 함수
+  const isImage = (postUrl: string | null) => {
+    if (postUrl === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   return (
     <>
       <section className="grid grid-cols-3 gap-0.5 text-center">
@@ -25,7 +34,17 @@ const CommentPost = () => {
           >
             <Link href={`${PATH.COMMUNITYSHELTER}/${post.id}`}>
               <div className="min-h-32 min-w-32">
-                <p className="mt-[42%]">{post.title}</p>
+                {/* 이미지가 존재할 때 썸네일 띄우기 */}
+                {isImage(post.img_url) ? (
+                  <Image
+                    src={post.img_url as string}
+                    alt="이미지"
+                    fill
+                    objectFit="cover"
+                  />
+                ) : (
+                  <p className="mt-[42%]">{post.title}</p>
+                )}
               </div>
             </Link>
           </div>
@@ -38,7 +57,17 @@ const CommentPost = () => {
           >
             <Link href={`${PATH.COMMUNITYDAILY}/${post.id}`}>
               <div className="min-h-32 min-w-32">
-                <p className="mt-[42%]">{post.title}</p>
+                {/* 이미지가 존재할 때 썸네일 띄우기 */}
+                {isImage(post.img_url) ? (
+                  <Image
+                    src={post.img_url as string}
+                    alt="이미지"
+                    fill
+                    objectFit="cover"
+                  />
+                ) : (
+                  <p className="mt-[42%]">{post.title}</p>
+                )}
               </div>
             </Link>
           </div>
