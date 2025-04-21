@@ -325,9 +325,9 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      cleanliness_tags: "깨끗함" | "보통" | "더러움"
-      people_tags: "한산" | "보통" | "만원"
-    }
+      cleanliness_tags: "깨끗함" | "보통" | "더러움";
+      people_tags: "한산" | "보통" | "만원";
+    };
     CompositeTypes: {
       [_ in never]: never
     }

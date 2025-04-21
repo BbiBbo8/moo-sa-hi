@@ -8,15 +8,16 @@ import CrosshairButton from "./CrosshairButton";
 
 const MapClient = () => {
   return (
-    <div className="relative mx-auto flex h-[852px] max-w-[393px] flex-col items-center justify-center overflow-hidden">
-      <div className="relative flex flex-row justify-center">
-        <div className="flex justify-center">
-          <InputSearch />
-        </div>
+    <div className="relative flex h-screen w-screen flex-col items-center justify-center">
+      <div className="flex justify-center">
+        <InputSearch />
       </div>
+
       <MainMap />
-      <CrosshairButton />
-      <ZoomControl />
+      <div className="absolute top-[80px] right-8 z-40 flex flex-col gap-3">
+        <CrosshairButton />
+        <ZoomControl />
+      </div>
       <div className="flex w-full justify-center">
         <ShelterDrawer />
       </div>
