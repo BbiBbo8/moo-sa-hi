@@ -80,11 +80,7 @@ const DailyPostButtons = ({ dailyPostId = null }: params) => {
       } else {
         setIsHelpful(false);
         setHelpfulCount(prevCount => prevCount - 1);
-        console.log("유용해요 삭제!");
       }
-    } else {
-      console.log("데이터 추가 시 dailyPostId:", dailyPostId);
-      console.log("데이터 추가 시 userId:", user.id);
 
       const { error: insertError } = await supabase.from("helpfuls").insert([
         {
@@ -99,7 +95,6 @@ const DailyPostButtons = ({ dailyPostId = null }: params) => {
       } else {
         setIsHelpful(true);
         setHelpfulCount(prevCount => prevCount + 1);
-        console.log("유용해요 추가");
       }
     }
   };

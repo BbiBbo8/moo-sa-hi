@@ -109,12 +109,8 @@ const ShelterPostButtons = ({
           setIsHelpful(previousIsHelpful);
           setHelpfulCount(previousHelpfulCount);
         } else {
-          console.log("유용해요 삭제!");
           toast.success("유용해요 취소"); // 사용자 피드백
         }
-      } else {
-        console.log("데이터 추가 시 shelterPostId:", shelterPostId);
-        console.log("데이터 추가 시 userId:", user.id);
 
         const { error: insertError } = await supabase.from("helpfuls").insert([
           {
@@ -131,7 +127,6 @@ const ShelterPostButtons = ({
           setIsHelpful(previousIsHelpful);
           setHelpfulCount(previousHelpfulCount);
         } else {
-          console.log("유용해요 추가");
           toast.success("유용해요"); // 사용자 피드백
         }
       }
