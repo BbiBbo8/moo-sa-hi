@@ -21,6 +21,7 @@ const CommentPost = () => {
   return (
     <>
       <section className="grid grid-cols-3 gap-0.5 text-center">
+        {/* 대피소 먼저 렌더링 */}
         {shelter?.map(post => (
           <div
             key={post.id}
@@ -33,6 +34,7 @@ const CommentPost = () => {
             </Link>
           </div>
         ))}
+        {/* 일상 렌더링 */}
         {daily?.map(post => (
           <div
             key={post.id}
