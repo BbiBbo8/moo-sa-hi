@@ -72,9 +72,18 @@ const WrittenPost = () => {
       </section>
       {/* 작성 게시글이 없으면 보이기 */}
       {shelterPost?.length === 0 && dailyPost?.length === 0 && (
-        <section className="text-center">
-          <div>여기에 아이콘</div>
-          <p>아직 작성된 게시글이 없어요</p>
+        <section className="flex flex-col gap-3 text-center">
+          <div className="mt-[20%] flex justify-center">
+            <Image
+              src="/icons/pen-solid.svg"
+              alt="pensil"
+              width={48}
+              height={48}
+            />
+          </div>
+          <p className="font-[16px] text-[#999999]">
+            아직 작성된 게시글이 없어요
+          </p>
         </section>
       )}
     </>
