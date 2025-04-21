@@ -71,6 +71,7 @@ export type Database = {
           created_at: string
           id: number
           img_url: string | null
+          reportcount: number | null
           title: string | null
           user_id: string | null
         }
@@ -79,6 +80,7 @@ export type Database = {
           created_at?: string
           id?: number
           img_url?: string | null
+          reportcount?: number | null
           title?: string | null
           user_id?: string | null
         }
@@ -87,6 +89,7 @@ export type Database = {
           created_at?: string
           id?: number
           img_url?: string | null
+          reportcount?: number | null
           title?: string | null
           user_id?: string | null
         }
@@ -263,6 +266,7 @@ export type Database = {
           id: number
           img_url: string | null
           people: Database["public"]["Enums"]["people_tags"] | null
+          reportcount: number | null
           shelter_name: string | null
           title: string | null
           user_id: string | null
@@ -274,6 +278,7 @@ export type Database = {
           id?: number
           img_url?: string | null
           people?: Database["public"]["Enums"]["people_tags"] | null
+          reportcount?: number | null
           shelter_name?: string | null
           title?: string | null
           user_id?: string | null
@@ -285,6 +290,7 @@ export type Database = {
           id?: number
           img_url?: string | null
           people?: Database["public"]["Enums"]["people_tags"] | null
+          reportcount?: number | null
           shelter_name?: string | null
           title?: string | null
           user_id?: string | null
@@ -325,9 +331,9 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      cleanliness_tags: "깨끗함" | "보통" | "더러움";
-      people_tags: "한산" | "보통" | "만원";
-    };
+      cleanliness_tags: "깨끗함" | "보통" | "더러움"
+      people_tags: "한산" | "보통" | "만원"
+    }
     CompositeTypes: {
       [_ in never]: never
     }
