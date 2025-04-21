@@ -4,21 +4,12 @@ import { create } from "zustand";
 interface MarkerState {
   markedShelter: Shelter[];
   setMarkedShelter: (shelters: Shelter[]) => void;
-
-  // 사용자가 마커를 선택한 대피소의 이름을 저장, 선택된 대피소가 없으면 null 처리
-  selectedShelterName: string | null;
-
-  // Name 상태를 업데이트하는 함수
-  setSelectedShelterName: (name: string | null) => void;
 }
 
 export const useMarkerStore = create<MarkerState>(set => ({
+  // 리스트에 표시될 마커 배열, 초기 상태
   markedShelter: [],
+  // 대피소 목록을 설정하는 함수(외부에서 이걸 호출해서 상태를 변경)
+  // 매개변수 shelters는 새로운 대피소 배열
   setMarkedShelter: shelters => set({ markedShelter: shelters }),
-
-  // 마커 선택되지 않았을경우 대피소는 초기값 null 처리
-  selectedShelterName: null,
-
-  // 특정 대피소를 선택했을 때 상태를 업데이트 함.
-  setSelectedShelterName: name => set({ selectedShelterName: name }),
 }));
