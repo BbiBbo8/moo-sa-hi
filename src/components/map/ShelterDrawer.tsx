@@ -15,9 +15,6 @@ import { useDistance } from "@/hooks/useDistance";
 import { useOnClickOutside } from "@/hooks/useOnClickOutside";
 import { ChevronDown } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
-import { ScrollArea } from "../ui/scroll-area";
-import { ScrollAreaViewport } from "@radix-ui/react-scroll-area";
 
 const ShelterDrawer = () => {
   const { visibleShelters } = useMapStore();
