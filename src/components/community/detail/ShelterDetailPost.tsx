@@ -8,7 +8,6 @@ import MainMap from "../../map/MainMap";
 import { useMapStore } from "@/store/useMapStore";
 import { useEffect, useState } from "react";
 import { useShelters } from "@/hooks/shelter/useShelters";
-import { toast } from "sonner";
 import Error from "@/app/(pages)/Error";
 import ConfirmModal from "./ShelterConfirmModal";
 import ShelterPostButtons from "./ShelterPostButton";
@@ -24,15 +23,12 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
   // TODO : 해당 페이지에서 선택된 주소를 기반으로 대피소를 선택해 주소를 zustand에 저장
   useEffect(() => {
     if (!isShelterLoading && shelters.length === 0) {
-      console.log("대피소 목록이 비어 있습니다.");
       return;
     }
     const matchedShelter = shelters.find(e => e.name === data?.shelter_name);
     if (matchedShelter) {
       setCenter({ lat: matchedShelter.lat, lng: matchedShelter.lng });
       setLevel(4);
-    } else {
-      toast("해당 이름의 대피소를 찾을 수 없어요.");
     }
   }, [data?.shelter_name, shelters, setCenter, setLevel]); // 리팩토링 진행할 때 MainMap 대신 DetailMap 사용 필요할 듯
 
@@ -40,7 +36,6 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
     return <Loading />;
   }
   if (error) {
-    console.log("shelterDetailPost 로딩 에러", error);
     return <Error />;
   }
   if (!data) {
@@ -104,7 +99,6 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
 
       <ShelterPostButtons
         shelterPostId={data.id}
-        onClickReport={handleConfirmationModal}
       />
 
       {/* 모달창 */}

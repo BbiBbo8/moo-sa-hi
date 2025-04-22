@@ -71,6 +71,7 @@ export type Database = {
           created_at: string
           id: number
           img_url: string | null
+          reportcount: number | null
           title: string | null
           user_id: string | null
         }
@@ -79,6 +80,7 @@ export type Database = {
           created_at?: string
           id?: number
           img_url?: string | null
+          reportcount?: number | null
           title?: string | null
           user_id?: string | null
         }
@@ -87,6 +89,7 @@ export type Database = {
           created_at?: string
           id?: number
           img_url?: string | null
+          reportcount?: number | null
           title?: string | null
           user_id?: string | null
         }
@@ -206,6 +209,55 @@ export type Database = {
           },
         ]
       }
+      reports: {
+        Row: {
+          created_at: string | null
+          daily_post_id: number | null
+          id: number
+          reason: string | null
+          shelter_post_id: number | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          daily_post_id?: number | null
+          id?: number
+          reason?: string | null
+          shelter_post_id?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          daily_post_id?: number | null
+          id?: number
+          reason?: string | null
+          shelter_post_id?: number | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reports_daily_post_id_fkey"
+            columns: ["daily_post_id"]
+            isOneToOne: false
+            referencedRelation: "daily_post"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reports_shelter_post_id_fkey"
+            columns: ["shelter_post_id"]
+            isOneToOne: false
+            referencedRelation: "shelter_post"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reports_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       shelter_post: {
         Row: {
           cleanliness: Database["public"]["Enums"]["cleanliness_tags"] | null
@@ -214,6 +266,7 @@ export type Database = {
           id: number
           img_url: string | null
           people: Database["public"]["Enums"]["people_tags"] | null
+          reportcount: number | null
           shelter_name: string | null
           title: string | null
           user_id: string | null
@@ -225,6 +278,7 @@ export type Database = {
           id?: number
           img_url?: string | null
           people?: Database["public"]["Enums"]["people_tags"] | null
+          reportcount?: number | null
           shelter_name?: string | null
           title?: string | null
           user_id?: string | null
@@ -236,6 +290,7 @@ export type Database = {
           id?: number
           img_url?: string | null
           people?: Database["public"]["Enums"]["people_tags"] | null
+          reportcount?: number | null
           shelter_name?: string | null
           title?: string | null
           user_id?: string | null

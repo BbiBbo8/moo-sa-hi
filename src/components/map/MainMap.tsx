@@ -34,7 +34,7 @@ const MainMap = () => {
     if (shelters.length > 0) {
       setAllShelters(shelters);
     }
-  }, [shelters]);
+  }, [shelters, setAllShelters]);
 
   useEffect(() => {
     // shelters 데이터가 없으면 아무것도 않함함
@@ -50,7 +50,7 @@ const MainMap = () => {
 
     // 필터링된 대피소 목록을 useMarkerStore 전역 상태로 저장장
     setVisibleShelters(check);
-  }, [shelters, center, level]);
+  }, [shelters, center, level, setVisibleShelters]);
 
   // 지도 생성 시 실행되는 함수
   const handleCreate = (map: kakao.maps.Map) => {
@@ -64,7 +64,7 @@ const MainMap = () => {
   // 새로고침 시 축소된 지도로 되돌아가기
   useEffect(() => {
     reset();
-  }, []);
+  }, [reset]);
 
   // 확대/축소 레벨이 변경되면 지도에 적용
   useEffect(() => {
@@ -108,7 +108,7 @@ const MainMap = () => {
     <Map
       center={center}
       level={level}
-      className="h-full w-full"
+      className="z-0 h-full w-full"
       onCreate={handleCreate}
       onZoomChanged={map => {
         setLevel(map.getLevel());

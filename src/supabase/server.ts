@@ -20,7 +20,7 @@ const createSC = async () => {
               cookieStore.set(name, value, options),
             );
           } catch (error) {
-            console.log(
+            console.error(
               "서버 클라이언트에서 쿠키 설정 중 오류 발생 ==> ",
               error,
             );

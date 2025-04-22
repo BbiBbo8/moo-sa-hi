@@ -30,7 +30,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
   }
 
   if (error) {
-    console.log("dailyDetailPost 로딩 에러", error);
+    console.error("dailyDetailPost 로딩 에러", error);
     return <Error />;
   }
 
@@ -81,7 +81,6 @@ const DailyDetailPost = ({ id }: { id: number }) => {
 
         <DailyPostButtons
           dailyPostId={data.id}
-          onClickReport={handleConfirmationModal}
         />
       </article>
 
