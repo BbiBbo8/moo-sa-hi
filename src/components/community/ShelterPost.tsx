@@ -33,7 +33,7 @@ const ShelterPost = ({ post }: PostCardProps) => {
     >
       <Card
         key={post.id}
-        className="h-[142px] w-full gap-3 rounded-none border-b-1 border-[#F2F2F2] px-5 py-4 shadow-none"
+        className="h-[142px] w-full gap-3 rounded-none border-b-1 border-gray-50 px-5 py-4 shadow-none"
       >
         <CardContent className="px-0">
           <section className="flex h-full w-full flex-col items-start justify-center gap-2">
