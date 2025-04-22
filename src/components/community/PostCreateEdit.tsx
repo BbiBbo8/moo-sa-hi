@@ -73,7 +73,7 @@ function PostCreateEdit() {
     },
   });
 
-  // ✅ 등록 버튼 활성화 조건 설정 (입력값 충족 시 활성화되도록)
+  // 등록 버튼 활성화 조건 설정 (입력값 충족 시 활성화되도록)
   const isFormValid =
     category === "shelter"
       ? !!selectedShelter?.id &&
@@ -185,7 +185,7 @@ function PostCreateEdit() {
             />
           </div>
 
-          {/* ✅ 등록 버튼: 입력 조건 충족 시 색상 변경 */}
+          {/* 등록 버튼: 입력 조건 충족 시 색상 변경 */}
           <Button
             type="submit"
             disabled={!isFormValid}
