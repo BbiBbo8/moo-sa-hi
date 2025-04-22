@@ -4,35 +4,27 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --size-icon-sm: var(--icon-sm);
-  --size-icon-md: var(--icon-md);
-  --size-icon-lg: var(--icon-lg);
+  /* NOTE: @theme에 있는 건 모두 className에서 tailwind처럼 사용가능해요!
+  --가 아닌 -이후에 오는 이름부터 사용할 수 있습니다.
+  위에 주석으로 "(아래에서 커스텀 CSS 클래스 생성)"가 나와있는건 바로 사용 못하니 아래 CSS 클래스 선언한 걸 참고하세요! */
 
-  --border-gray-btn-default: var(--gray-btn-default);
-  --border-gray-focused: var(--gray-focused);
-  --border-gray-community-btn: var(--gray-community-btn);
-  --border-gray-modal-btn: var(--gray-modal-btn);
-  --border-primary-default: var(--primary-default);
-  --border-primary-focused: var(--primary-focused);
-  --border-red-btn: var(--red-btn);
+  /* <<참고사항>> 아이콘은 순숫자값으로 Image태그에서 width와 height 값으로 들어가야하기 때문에 변수로 선언하지 않았습니다. */
+  /* <<논의사항>> 저희 폰트도 font-sans와 font-mono를 할까요..? */
+  /* --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono); */
 
-  --border-width: var(--border-width);
-  --opacity: var(--semitransparent);
-  --default-transition-timing-function: var(--transition-timing-function);
-  --default-transition-duration: var(--transition-duration);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* Shadow (완료)*/
-  --drop-shadow: var(--drop-shadow);
-  --shadow-drawer: var(--shadow-drawer);
-  --shadow-community-search: var(--shadow-community-search);
+  /* Shadow (아래에서 커스텀 CSS 클래스 생성) */
+  --shadow-button: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+  --shadow-drawer: 0px -4px 16px 0px rgba(0, 0, 0, 0.05);
+  --shadow-community-search: 0px 4px 12px 0px rgba(0, 0, 0, 0.05);
 
-  /* Border-Radius (완료)*/
-  --radius-sm: calc(var(--radius) - 12px);
-  --radius-md: calc(var(--radius) - 8px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 9979px);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
 
-  /* Colors Types (완료) */
   --color-primary: var(--primary);
   --color-white: var(--white);
   --color-black: var(--black);
@@ -55,11 +47,6 @@
   --color-gray-850: var(--gray-850);
   --color-gray-900: var(--gray-900);
 
-  /* Font Types (이건 폰트 바꿔야할듯 아니근데 바꿔도 되나? 아니면 새거 만들어? 새거 만들면 적용이 된긴하나...? 흠....오므라이스 먹고싶다*/
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-
-  /* Text Types (완료) */
   --text-numEng: var(--numEng);
   --text-headlineL: var(--headlineL);
   --text-headlineM: var(--headlineM);
@@ -111,34 +98,9 @@
 /* -----------------------------root 시작---------------------------------- */
 
 :root {
-  /* Icon Size (완료) */
-  --icon-sm: 20px;
-  --icon-md: 24px;
-  --icon-lg: 32px;
+  /* NOTE: :root에 있는 건 모두 className에서 tailwind처럼 사용하는 게 아닙니다!
+  @theme에서 더 편하게 사용할 수 있도록, 말하자면 전역 변수처리를 해논 것이니 다른 파일에선 사용 불가능합니다! */
 
-  /* border color (완료) */
-  --gray-btn-default: #b3b3b3;
-  --gray-focused: #1a1a1a;
-  --gray-community-btn: #999999;
-  --gray-modal-btn: #cccccc;
-  --primary-default: #f2f2f2;
-  --primary-focused: #2889e4;
-  --red-btn: #ea3436;
-
-  --border-width: 1px;
-  --semitransparent: 0.4;
-  --transition-timing-function: move-in: ease-in;
-  --transition-duration: 300ms;
-
-  /* Shadow Types (완료) */
-  --drop-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
-  --shadow-drawer: 0px -4px 16px 0px rgba(0, 0, 0, 0.05);
-  --shadow-community-search: 0px 4px 12px 0px rgba(0, 0, 0, 0.05);
-
-  /* border radius (완료) */
-  --radius: 20px;
-
-  /* Text Types (완료) */
   --numEng: 14px;
   --headlineL: 32px;
   --headlineM: 24px;
@@ -152,9 +114,8 @@
   --labelL: 16px;
   --labelM: 14px;
   --labelS: 12px;
-  ---labelXS: 11px;
+  --labelXS: 11px;
 
-  /* Colors Types (완료) */
   --primary: #2889e4;
   --white: #ffffff;
   --black: #000000;
@@ -253,102 +214,118 @@
     scrollbar-width: none;
   }
 
+  .btn-shadow {
+    @apply shadow-button;
+  }
+  .drawer-shadow {
+    @apply shadow-drawer;
+  }
+  .comm-search-shadow {
+    @apply shadow-community-search;
+  }
+
+  /* drawer 어두운 배경 (완료) */
+  .drawer-bg {
+    @apply bg-gray-100;
+  }
+
+  /* transition ease-in-out 효과 (완료) */
+  .transition-navigate {
+    @apply ease-in-out;
+  }
+
+  .transition-duration {
+    @apply duration-300;
+  }
+}
+
+@layer components {
   .text-numEng {
-    font-size: var(--text-bodyM);
+    font-size: var(--text-numEng);
     font-weight: 400;
-    line-height: "150%";
-    letter-spacing: "-0.04em";
+    line-height: 150%;
   }
 
   .text-headlineL {
-    font-size: var(--text-titleL);
+    font-size: var(--headlineL);
     font-weight: 600;
-    line-height: "135%";
-    letter-spacing: "-0.02em";
+    line-height: 135%;
   }
 
   .text-headlineM {
-    font-size: var(--text-titleL);
+    font-size: var(--text-headlineM);
     font-weight: 600;
-    line-height: "135%";
-    letter-spacing: "-0.02em";
+    line-height: 135%;
   }
 
   .text-titleL {
     font-size: var(--text-titleL);
     font-weight: 600;
-    line-height: "135%";
-    letter-spacing: "-0.02em";
+    line-height: 135%;
   }
 
   .text-titleM {
-    font-size: var(--text-titleL);
+    font-size: var(--text-titleM);
     font-weight: 600;
-    line-height: "135%";
-    letter-spacing: "-0.02em";
+    line-height: 135%;
   }
 
   .text-titleS {
-    font-size: var(--text-titleL);
+    font-size: var(--text-titleS);
     font-weight: 600;
-    line-height: "135%";
-    letter-spacing: "-0.02em";
+    line-height: 135%;
   }
 
   .text-bodyXL {
-    font-size: var(--text-titleL);
+    font-size: var(--text-bodyXL);
     font-weight: 500;
-    line-height: "150%";
-    letter-spacing: "-0.02em";
+    line-height: 150%;
   }
 
   .text-bodyL {
-    font-size: var(--text-titleL);
+    font-size: var(--text-bodyL);
     font-weight: 400;
-    line-height: "150%";
-    letter-spacing: "-0.02em";
+    line-height: 150%;
   }
 
   .text-bodyM {
-    font-size: var(--text-titleL);
+    font-size: var(--text-bodyM);
     font-weight: 400;
-    line-height: "150%";
-    letter-spacing: "-0.02em";
+    line-height: 150%;
   }
 
   .text-bodyS {
-    font-size: var(--text-titleL);
+    font-size: var(--text-bodyS);
     font-weight: 400;
-    line-height: "150%";
-    letter-spacing: "-0.02em";
+    line-height: 150%;
   }
 
   .text-labelL {
-    font-size: var(--text-titleL);
+    font-size: var(--text-labelL);
     font-weight: 500;
-    line-height: "135%";
-    letter-spacing: "0em";
+    line-height: 135%;
+    letter-spacing: 0em;
   }
 
   .text-labelM {
-    font-size: var(--text-titleL);
+    font-size: var(--text-labelM);
     font-weight: 500;
-    line-height: "135%";
-    letter-spacing: "0em";
+    line-height: 135%;
+    letter-spacing: 0em;
   }
 
   .text-labelS {
-    font-size: var(--text-titleL);
+    font-size: var(--text-labelS);
     font-weight: 500;
-    line-height: "135%";
-    letter-spacing: "0em";
+    line-height: 135%;
+    letter-spacing: 0em;
   }
 
   .text-labelXS {
-    font-size: var(--text-titleL);
+    font-size: var(--text-labelXS);
     font-weight: 500;
-    line-height: "135%";
-    letter-spacing: "0em";
+    line-height: 135%;
+    letter-spacing: 0em;
   }
 }
 
@@ -360,4 +337,30 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* ------ NOTE: 아래부터는 CSS 클래스들로, tailwind처럼 className으로 변수이름을 넣어 사용 가능합니다!
+.이후에 오는 이름을 사용해주세요! */
+
+/* 버튼 별 테두리 (완료) */
+.gray-btn {
+  @apply border-gray-10 border-1;
+}
+.gray-btn-focus {
+  @apply border-1 border-gray-900;
+}
+.gray-btn-comm {
+  @apply border-1 border-gray-400;
+}
+.gray-btn-modal {
+  @apply border-1 border-gray-200;
+}
+.btn-primary {
+  @apply border-1 border-gray-50;
+}
+.btn-primary-focus {
+  @apply border-primary border-1;
+}
+.btn-red {
+  @apply border-error border-1;
 }
