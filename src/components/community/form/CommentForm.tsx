@@ -78,8 +78,8 @@ const CommentForm = ({ postId }: { postId: number }) => {
   // 값이 있을 때 아이콘 변경
   const currentIconSrc =
     commentContent && commentContent.length > 0
-      ? "/icons/Property-1-Activate.svg"
-      : "/icons/Property-1-Disabled.svg";
+      ? "/icons/Property-Activate.svg"
+      : "/icons/Property-Disabled.svg";
 
   return (
     <>
