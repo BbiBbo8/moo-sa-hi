@@ -13,7 +13,6 @@ export const useShelterStore = create<ShelterStore>(set => ({
   error: null,
   fetchSheltersData: async () => {
     const data = await fetchSheltersApi();
-    console.log("store에서 받은 데이터:", data);
     set(prev => ({
       ...prev,
       shelters: data,

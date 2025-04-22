@@ -2,6 +2,7 @@
 
 import PATH from "@/constants/PATH";
 import useGetPosts from "@/hooks/useGetPosts";
+import Image from "next/image";
 import Link from "next/link";
 
 const WrittenPost = () => {
@@ -9,14 +10,14 @@ const WrittenPost = () => {
   const shelterPost = posts?.shelter_post;
   const dailyPost = posts?.daily_post;
 
-  // FIXME: 이미지 여부 판단. 지금은 사용하지 않는 함수
-  // const isImage = (postUrl: string | null) => {
-  //   if (postUrl === null) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
+  // 이미지 존재 여부 판단하는 함수
+  const isImage = (postUrl: string | null) => {
+    if (postUrl === "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   return (
     <>
@@ -26,11 +27,21 @@ const WrittenPost = () => {
           shelterPost?.map(post => (
             <div
               key={post.id}
-              className="bg-accent grid min-h-32 min-w-32 truncate overflow-hidden bg-center"
+              className="bg-accent relative grid aspect-square min-h-32 min-w-32 truncate overflow-hidden bg-center"
             >
-              <Link href={PATH.COMMUNITYSHELTER + `/${post.id}`}>
-                <div className="mt-12 h-full w-full">
-                  <p>{post.title}</p>
+              <Link href={`${PATH.COMMUNITYSHELTER}/${post.id}`}>
+                <div className="min-h-32 min-w-32">
+                  {/* 이미지가 존재할 때 썸네일 띄우기 */}
+                  {isImage(post.img_url) ? (
+                    <Image
+                      src={post.img_url as string}
+                      alt="이미지"
+                      fill
+                      objectFit="cover"
+                    />
+                  ) : (
+                    <p className="mt-[42%]">{post.title}</p>
+                  )}
                 </div>
               </Link>
             </div>
@@ -40,11 +51,20 @@ const WrittenPost = () => {
           dailyPost?.map(post => (
             <div
               key={post.id}
-              className="bg-accent grid min-h-32 min-w-32 truncate overflow-hidden bg-center"
+              className="bg-accent relative grid aspect-square min-h-32 min-w-32 overflow-hidden bg-center"
             >
-              <Link href={PATH.COMMUNITYDAILY + `/${post.id}`}>
-                <div className="mt-12 h-full w-full">
-                  <p>{post.title}</p>
+              <Link href={`${PATH.COMMUNITYDAILY}/${post.id}`}>
+                <div className="min-h-32 min-w-32">
+                  {isImage(post.img_url) ? (
+                    <Image
+                      src={post.img_url as string}
+                      alt="이미지"
+                      fill
+                      objectFit="cover"
+                    />
+                  ) : (
+                    <p className="mt-[42%]">{post.title}</p>
+                  )}
                 </div>
               </Link>
             </div>
@@ -52,9 +72,19 @@ const WrittenPost = () => {
       </section>
       {/* 작성 게시글이 없으면 보이기 */}
       {shelterPost?.length === 0 && dailyPost?.length === 0 && (
-        <div>
-          <p>지금 바로 게시글을 작성해보세요!</p>
-        </div>
+        <section className="flex flex-col gap-3 text-center">
+          <div className="mt-[20%] flex justify-center">
+            <Image
+              src="/icons/pen-solid.svg"
+              alt="pensil"
+              width={48}
+              height={48}
+            />
+          </div>
+          <p className="font-[16px] text-[#999999]">
+            아직 작성된 게시글이 없어요
+          </p>
+        </section>
       )}
     </>
   );
