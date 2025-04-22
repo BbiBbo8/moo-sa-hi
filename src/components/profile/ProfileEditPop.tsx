@@ -67,7 +67,7 @@ const ProfileEditPop = ({ userId }: ProfileEditPopProps) => {
       </PopoverTrigger>
       <div className="text-center">
         <PopoverContent className="flex w-fit flex-col rounded-lg p-4">
-          <div className="grid gap-4">
+          <div className="grid gap-3">
             <button
               onClick={() => setOpen(false)}
               className="flex h-7 w-full justify-end"
@@ -102,13 +102,13 @@ const ProfileEditPop = ({ userId }: ProfileEditPopProps) => {
                     disabled={isPending || !editNickname.trim()}
                     className={`h-fit w-full border border-[#CCCCCC] py-3 text-sm ${
                       editNickname.trim()
-                        ? "cursor-pointer bg-[#58999E] text-white"
+                        ? "cursor-pointer bg-[#2889E4] text-white"
                         : "cursor-not-allowed bg-transparent text-[#CCCCCC]"
                     } `}
                   >
                     확인
                   </Button>
-                  <div className="w-full text-center">
+                  <div className="mt-3 w-full text-center">
                     <LogoutButton />
                   </div>
                 </div>
