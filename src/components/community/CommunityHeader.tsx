@@ -19,7 +19,7 @@ const CommunityHeader: React.FC<CommunityHeaderProps> = ({ setSearchTerm }) => {
           href={PATH.COMMUNITYSHELTER}
           className={
             pathname === PATH.COMMUNITYSHELTER
-              ? "underline underline-offset-8"
+              ? "text-bodyXL text-gray-900 underline underline-offset-8"
               : "text-gray-400"
           }
         >
@@ -29,7 +29,7 @@ const CommunityHeader: React.FC<CommunityHeaderProps> = ({ setSearchTerm }) => {
           href={PATH.COMMUNITYDAILY}
           className={
             pathname === PATH.COMMUNITYDAILY
-              ? "underline underline-offset-8"
+              ? "text-bodyXL text-gray-900 underline underline-offset-8"
               : "text-gray-400"
           }
         >
