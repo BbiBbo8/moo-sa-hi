@@ -9,21 +9,111 @@ import {
 } from "@/components/ui/drawer";
 import ShelterList from "./ShelterList";
 import { useMarkerStore } from "@/store/useMarkerStore";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useOnClickOutside } from "@/hooks/useOnClickOutside";
+import { useGeolocationMutation } from "@/hooks/useMapGeolocation";
+import { useDistance } from "@/hooks/useDistance";
+import { ChevronDown } from "lucide-react";
 
 const ShelterDrawer = () => {
   const markedShelter = useMarkerStore(state => state.markedShelter);
   const selectedShelterName = useMarkerStore(
     state => state.selectedShelterName,
   );
+  const userLocation = useMarkerStore(state => state.userLocation); // userLocation을 store에서 가져옴
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [sortOption, setSortOption] = useState<"relevance" | "distance">(
+    "relevance",
+  );
+
+  useOnClickOutside(dropdownRef, () => setIsDropdownOpen(false));
+
+  const { mutate } = useGeolocationMutation();
+
+  // userLocation이 없으면 mutate를 통해 사용자 위치를 가져오고 store에 저장
+  useEffect(() => {
+    if (!userLocation) {
+      mutate({
+        onSuccess: location => {
+          useMarkerStore.setState({ userLocation: location }); // 위치 정보를 store에 저장
+        },
+      });
+    }
+  }, [userLocation, mutate]);
+
+  const sheltersWithDistance = useDistance(
+    userLocation ?? { lat: 0, lng: 0 },
+    markedShelter, // visibleShelters 대신 markedShelter 사용
+  );
 
   useEffect(() => {
     if (selectedShelterName) {
       setIsOpen(true);
     }
   }, [selectedShelterName]);
+
+  const sortedShelters = [...sheltersWithDistance].sort((a, b) => {
+    if (sortOption === "distance") {
+      return (a.distance || 0) - (b.distance || 0);
+    }
+    return 0; // 관련도순은 기본 순서 유지
+  });
+
+  // 정렬 드롭다운 컴포넌트 (이미지와 같은 형식)
+  const SortDropdown = () => (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        className="flex items-center gap-1 rounded border border-gray-300 bg-white px-3 py-1 text-xs"
+        onClick={e => {
+          e.stopPropagation(); // Link의 기본 동작을 막기 위해
+          setIsDropdownOpen(!isDropdownOpen);
+        }}
+      >
+        {sortOption === "relevance" ? "관련도순" : "거리순"}
+        <ChevronDown size={14} />
+      </button>
+
+      {isDropdownOpen && (
+        <div className="absolute top-full right-0 z-50 mt-1 w-[120px] rounded-md border border-gray-200 bg-white shadow-lg">
+          <div className="border-b border-gray-100 px-4 py-1 text-sm text-gray-500">
+            정렬 기준
+          </div>
+          <button
+            className={`block w-full px-4 py-2 text-left text-sm ${
+              sortOption === "distance"
+                ? "font-medium text-black"
+                : "text-gray-700"
+            }`}
+            onClick={e => {
+              e.stopPropagation(); // Link의 기본 동작을 막기 위해
+              setSortOption("distance");
+              setIsDropdownOpen(false);
+            }}
+          >
+            거리순
+          </button>
+          <button
+            className={`block w-full px-4 py-2 text-left text-sm ${
+              sortOption === "relevance"
+                ? "font-medium text-black"
+                : "text-gray-700"
+            }`}
+            onClick={e => {
+              e.stopPropagation(); // Link의 기본 동작을 막기 위해
+              setSortOption("relevance");
+              setIsDropdownOpen(false);
+            }}
+          >
+            관련도순
+          </button>
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <>
       {/* 목록 버튼 (중앙 하단) */}
@@ -64,13 +154,17 @@ const ShelterDrawer = () => {
                   {markedShelter.length}
                 </span>
               </DrawerDescription>
-              {/* <SortDropdown /> */}
+              <SortDropdown />
             </div>
           </DrawerHeader>
 
-          {/* 리스트 렌더링 먼저 거리 정렬은 후에 */}
-
-          <ShelterList isDrawerOpen={isOpen} />
+          {/* 리스트 렌더링, 정렬 옵션도 함께 넘김 */}
+          <ShelterList
+            isDrawerOpen={isOpen}
+            shelters={sortedShelters} // 정렬된 대피소 목록 전달
+            sortOption={sortOption} // 정렬 옵션 전달
+            setSortOption={setSortOption} // 정렬 옵션 변경 함수 전달
+          />
         </DrawerContent>
       </Drawer>
     </>

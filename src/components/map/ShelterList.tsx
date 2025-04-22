@@ -6,13 +6,22 @@ import { ScrollArea } from "../ui/scroll-area";
 import { ScrollAreaViewport } from "@radix-ui/react-scroll-area";
 import Link from "next/link";
 import PATH from "@/constants/PATH";
-import { useEffect, useRef } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { Shelter } from "@/types/shelter";
 
 interface ShelterListProps {
   isDrawerOpen: boolean;
+  shelters: Shelter[];
+  sortOption: "relevance" | "distance";
+  setSortOption: Dispatch<SetStateAction<"relevance" | "distance">>;
 }
 
-const ShelterList = ({ isDrawerOpen }: ShelterListProps) => {
+const ShelterList = ({
+  isDrawerOpen,
+  shelters,
+  sortOption,
+  setSortOption,
+}: ShelterListProps) => {
   const markedShelter = useMarkerStore(state => state.markedShelter); // MarkerStore의 저장된 데이터 불러오기
   const selectedShelterName = useMarkerStore(
     state => state.selectedShelterName,
