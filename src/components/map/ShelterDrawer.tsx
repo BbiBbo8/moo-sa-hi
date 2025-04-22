@@ -15,12 +15,13 @@ import { useDistance } from "@/hooks/useDistance";
 import { ChevronDown } from "lucide-react";
 import { Button } from "../ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
 
 const ShelterDrawer = () => {
   const markedShelter = useMarkerStore(state => state.markedShelter);
@@ -59,39 +60,48 @@ const ShelterDrawer = () => {
   });
 
   // 정렬 드롭다운 컴포넌트 (이미지와 같은 형식)
-  const SortDropdown = () => (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+  const SortDialog = () => (
+    <Dialog>
+      <DialogTrigger asChild>
         <Button
           variant="outline"
           size="sm"
-          className="flex items-center gap-1 border-none text-base font-medium text-[#999]"
+          className="flex items-center gap-1 border-none text-base text-[#999]"
         >
           {sortOption === "relevance" ? "관련도순" : "거리순"}
           <ChevronDown size={14} />
         </Button>
-      </DropdownMenuTrigger>
+      </DialogTrigger>
 
-      <DropdownMenuContent align="end" className="w-[120px]">
-        <DropdownMenuLabel className="text-xs text-gray-500">
-          정렬 기준
-        </DropdownMenuLabel>
-        <DropdownMenuItem
-          onClick={() => setSortOption("distance")}
-          className={sortOption === "distance" ? "font-medium text-black" : ""}
-        >
-          거리순
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setSortOption("relevance")}
-          className={
-            sortOption === "relevance" ? "font-medium text-[#999]" : ""
-          }
-        >
-          관련도순
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      <DialogContent className="max-w-[312px] rounded-xl px-0 pt-7 pb-5">
+        <DialogHeader className="gap-0">
+          <DialogTitle className="text-lg font-medium text-[#1A1A1A]">
+            정렬 기준
+          </DialogTitle>
+          <DialogDescription />
+        </DialogHeader>
+        <div className="mt-4 flex flex-col">
+          <Button
+            className="p-3 text-base font-normal text-[#666]"
+            variant="ghost"
+            onClick={() => {
+              setSortOption("distance");
+            }}
+          >
+            거리순
+          </Button>
+          <Button
+            className="p-3 text-base font-normal text-[#666]"
+            variant="ghost"
+            onClick={() => {
+              setSortOption("relevance");
+            }}
+          >
+            관련도순
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 
   return (
@@ -121,7 +131,7 @@ const ShelterDrawer = () => {
       </button>
 
       {/* Drawer */}
-      <Drawer open={isOpen} onOpenChange={setIsOpen}>
+      <Drawer open={isOpen} onOpenChange={setIsOpen} modal={false}>
         <DrawerContent className="mt-0 max-h-[80vh] px-5 pb-0">
           <DrawerHeader className="p-0">
             <DrawerTitle className="sr-only">주변 대피소 목록</DrawerTitle>
@@ -136,7 +146,7 @@ const ShelterDrawer = () => {
                   </span>
                 )}
               </DrawerDescription>
-              <SortDropdown />
+              <SortDialog />
             </div>
           </DrawerHeader>
 
