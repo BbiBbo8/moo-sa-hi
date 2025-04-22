@@ -62,7 +62,7 @@ const LandingMapPreview = () => {
         {/* 지역 검색하기 버튼 */}
         <Button
           onClick={handleMapClick}
-          className="absolute bottom-4 left-1/2 z-40 h-12 w-[calc(100%-32px)] -translate-x-1/2 rounded-lg bg-[#58999E] text-base font-semibold text-white shadow-md"
+          className="absolute bottom-4 left-1/2 z-40 h-12 w-[calc(100%-32px)] -translate-x-1/2 rounded-lg bg-[#2889E4] text-base font-medium text-white shadow-md"
         >
           지역 검색하기
         </Button>
