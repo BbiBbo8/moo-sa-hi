@@ -52,7 +52,14 @@ const SigninDrawer = ({
       {/* 제어 모드가 아닐 때만 트리거 표시 */}
       {!isControlled && (
         <DrawerTrigger asChild>
-          {children || <Button variant="outline">로그인</Button>}
+          {children || (
+            <Button
+              variant="outline"
+              className="h-fit w-fit rounded-full px-4 py-3 text-[#666666]"
+            >
+              로그인 하기
+            </Button>
+          )}
         </DrawerTrigger>
       )}
       <DrawerContent className="rounded-t-2xl p-6">
