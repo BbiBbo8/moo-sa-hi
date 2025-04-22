@@ -100,11 +100,11 @@ const CommentForm = ({ postId }: { postId: number }) => {
                     <Textarea
                       placeholder="댓글을 입력해주세요."
                       {...field}
-                      className="focus:ring-muted resize-none rounded-[8px] border-transparent bg-[#FAFAFA] text-base font-normal text-[#1A1A1A] shadow-none placeholder:text-base placeholder:text-[#999999]"
+                      className="focus:ring-muted h-fit resize-none rounded-[8px] border-transparent bg-[#FAFAFA] text-base font-normal text-[#1A1A1A] placeholder:text-base placeholder:text-[#999999]"
                     />
                     <Button
                       type="submit"
-                      className="box-border:none w-fit border-none bg-transparent shadow-none"
+                      className="box-border:none relative w-fit border-none bg-transparent align-text-bottom shadow-none"
                       disabled={
                         !commentContent ||
                         commentContent.length < 5 ||
