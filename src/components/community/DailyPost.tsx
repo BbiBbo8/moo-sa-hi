@@ -18,17 +18,19 @@ const DailyPost = ({ post }: PostCardProps) => {
 
   return (
     <Link href={`${PATH.COMMUNITYDAILY}/${post.id}`} className="h-full w-full">
-      <Card className="w-full rounded-none border-0 border-b border-gray-200 p-0 py-5 shadow-none">
-        <CardContent className="right-0 bottom-4 left-0 flex flex-row items-center justify-between p-0">
-          <div className="h-[80px] flex-1">
+      <Card className="w-full rounded-none border-0 border-b border-gray-50 py-5 shadow-none">
+        <CardContent className="right-0 bottom-4 left-0 flex flex-row items-center justify-between gap-5 p-0 px-5">
+          <div className="relative h-[80px] flex-1">
             <CardHeader className="p-0 text-[12px] text-gray-500">
               <section className="flex flex-row items-center gap-2">
                 <span>{post.user?.nickname}</span>
               </section>
             </CardHeader>
 
-            <CardTitle className="mb-2 text-lg">{post.title}</CardTitle>
-            <p className="text-[12px] text-gray-500">
+            <CardTitle className="mb-2 truncate text-lg">
+              {post.title}
+            </CardTitle>
+            <p className="truncate text-[12px] text-gray-500">
               {timeCreated} · 댓글 {post.comments?.length || 0}
             </p>
           </div>
