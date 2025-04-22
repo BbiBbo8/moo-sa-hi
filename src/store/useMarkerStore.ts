@@ -10,8 +10,6 @@ interface MarkerState {
 
   visibleShelters: Shelter[]; // 추가된 상태
   setVisibleShelters: (shelters: Shelter[]) => void; // visibleShelters 업데이트 함수 추가
-  userLocation: { lat: number; lng: number } | null; // 사용자 위치
-  setUserLocation: (location: { lat: number; lng: number }) => void; // 위치 업데이트 함수
 }
 
 export const useMarkerStore = create<MarkerState>(set => ({
@@ -23,7 +21,4 @@ export const useMarkerStore = create<MarkerState>(set => ({
 
   visibleShelters: [],
   setVisibleShelters: shelters => set({ visibleShelters: shelters }),
-
-  userLocation: null,
-  setUserLocation: location => set({ userLocation: location }),
 }));

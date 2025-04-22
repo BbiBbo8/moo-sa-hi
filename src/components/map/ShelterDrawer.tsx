@@ -20,7 +20,6 @@ const ShelterDrawer = () => {
   const selectedShelterName = useMarkerStore(
     state => state.selectedShelterName,
   );
-  const userLocation = useMarkerStore(state => state.userLocation); // userLocation을 store에서 가져옴
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -31,18 +30,13 @@ const ShelterDrawer = () => {
 
   useOnClickOutside(dropdownRef, () => setIsDropdownOpen(false));
 
-  const { mutate } = useGeolocationMutation();
+  const { mutate, data: userLocation } = useGeolocationMutation();
 
-  // userLocation이 없으면 mutate를 통해 사용자 위치를 가져오고 store에 저장
   useEffect(() => {
     if (!userLocation) {
-      mutate({
-        onSuccess: location => {
-          useMarkerStore.setState({ userLocation: location }); // 위치 정보를 store에 저장
-        },
-      });
+      mutate();
     }
-  }, [userLocation, mutate]);
+  }, [userLocation]);
 
   const sheltersWithDistance = useDistance(
     userLocation ?? { lat: 0, lng: 0 },
@@ -160,10 +154,9 @@ const ShelterDrawer = () => {
 
           {/* 리스트 렌더링, 정렬 옵션도 함께 넘김 */}
           <ShelterList
+            shelters={sortedShelters}
             isDrawerOpen={isOpen}
-            shelters={sortedShelters} // 정렬된 대피소 목록 전달
-            sortOption={sortOption} // 정렬 옵션 전달
-            setSortOption={setSortOption} // 정렬 옵션 변경 함수 전달
+            sortBy={sortOption}
           />
         </DrawerContent>
       </Drawer>
