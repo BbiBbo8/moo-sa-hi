@@ -49,7 +49,7 @@ const Header = () => {
       {/* 중앙 로고 자리 */}
       <button onClick={handleHome}>
         <Image
-          src="/typos/logo.svg"
+          src="/typos/logo-blue.svg"
           alt="중앙로고"
           height={24}
           width={65}
