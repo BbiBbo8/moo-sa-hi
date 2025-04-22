@@ -53,7 +53,7 @@ const ShelterPost = ({ post }: PostCardProps) => {
               <p>{timeCreated}</p>
               <div className="flex items-center gap-1">
                 <Image
-                  src={"/icons/thumbs-up-solid.svg"}
+                  src={"/icons/community/thumbs-up-gray.svg"}
                   alt={"icon"}
                   width={20}
                   height={20}
