@@ -85,26 +85,23 @@ const CommentForm = ({ postId }: { postId: number }) => {
   return (
     <>
       <Form {...form}>
-        <form
-          onClick={handleCommentInputClick}
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="m-4"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="m-4">
           <FormField
             control={form.control}
             name="content"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <div className="flex rounded-[8px] bg-[#FAFAFA] focus-within:border focus-within:border-[#999999] focus-within:outline-none active:outline-none">
+                  <div className="relative flex items-center rounded-[8px] bg-[#FAFAFA] focus-within:border focus-within:border-[#999999] focus-within:outline-none active:outline-none">
                     <Textarea
                       placeholder="댓글을 입력해주세요."
                       {...field}
-                      className="focus:ring-muted h-fit resize-none rounded-[8px] border-transparent bg-[#FAFAFA] text-base font-normal text-[#1A1A1A] placeholder:text-base placeholder:text-[#999999]"
+                      className="h-fit resize-none rounded-[8px] border-transparent bg-[#FAFAFA] pr-10 text-base font-normal text-[#1A1A1A] placeholder:text-base placeholder:text-[#999999] focus:ring-transparent focus:outline-none"
+                      onClick={handleCommentInputClick}
                     />
                     <Button
                       type="submit"
-                      className="box-border:none relative w-fit border-none bg-transparent align-text-bottom shadow-none"
+                      className="box-border:none absolute right-2 bottom-2 w-fit border-none bg-transparent shadow-none"
                       disabled={
                         !commentContent ||
                         commentContent.length < 5 ||
