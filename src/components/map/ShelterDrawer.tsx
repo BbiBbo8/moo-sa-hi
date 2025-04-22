@@ -9,26 +9,28 @@ import {
 } from "@/components/ui/drawer";
 import ShelterList from "./ShelterList";
 import { useMarkerStore } from "@/store/useMarkerStore";
-import { useEffect, useRef, useState } from "react";
-import { useOnClickOutside } from "@/hooks/useOnClickOutside";
+import { useEffect, useState } from "react";
 import { useGeolocationMutation } from "@/hooks/useMapGeolocation";
 import { useDistance } from "@/hooks/useDistance";
 import { ChevronDown } from "lucide-react";
+import { Button } from "../ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 const ShelterDrawer = () => {
   const markedShelter = useMarkerStore(state => state.markedShelter);
   const selectedShelterName = useMarkerStore(
     state => state.selectedShelterName,
   );
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
-
   const [isOpen, setIsOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [sortOption, setSortOption] = useState<"relevance" | "distance">(
     "relevance",
   );
-
-  useOnClickOutside(dropdownRef, () => setIsDropdownOpen(false));
 
   const { mutate, data: userLocation } = useGeolocationMutation();
 
@@ -58,54 +60,38 @@ const ShelterDrawer = () => {
 
   // 정렬 드롭다운 컴포넌트 (이미지와 같은 형식)
   const SortDropdown = () => (
-    <div className="relative" ref={dropdownRef}>
-      <button
-        className="flex items-center gap-1 rounded border border-gray-300 bg-white px-3 py-1 text-xs"
-        onClick={e => {
-          e.stopPropagation(); // Link의 기본 동작을 막기 위해
-          setIsDropdownOpen(!isDropdownOpen);
-        }}
-      >
-        {sortOption === "relevance" ? "관련도순" : "거리순"}
-        <ChevronDown size={14} />
-      </button>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="outline"
+          size="sm"
+          className="flex items-center gap-1 border-none text-base font-medium text-[#999]"
+        >
+          {sortOption === "relevance" ? "관련도순" : "거리순"}
+          <ChevronDown size={14} />
+        </Button>
+      </DropdownMenuTrigger>
 
-      {isDropdownOpen && (
-        <div className="absolute top-full right-0 z-50 mt-1 w-[120px] rounded-md border border-gray-200 bg-white shadow-lg">
-          <div className="border-b border-gray-100 px-4 py-1 text-sm text-gray-500">
-            정렬 기준
-          </div>
-          <button
-            className={`block w-full px-4 py-2 text-left text-sm ${
-              sortOption === "distance"
-                ? "font-medium text-black"
-                : "text-gray-700"
-            }`}
-            onClick={e => {
-              e.stopPropagation(); // Link의 기본 동작을 막기 위해
-              setSortOption("distance");
-              setIsDropdownOpen(false);
-            }}
-          >
-            거리순
-          </button>
-          <button
-            className={`block w-full px-4 py-2 text-left text-sm ${
-              sortOption === "relevance"
-                ? "font-medium text-black"
-                : "text-gray-700"
-            }`}
-            onClick={e => {
-              e.stopPropagation(); // Link의 기본 동작을 막기 위해
-              setSortOption("relevance");
-              setIsDropdownOpen(false);
-            }}
-          >
-            관련도순
-          </button>
-        </div>
-      )}
-    </div>
+      <DropdownMenuContent align="end" className="w-[120px]">
+        <DropdownMenuLabel className="text-xs text-gray-500">
+          정렬 기준
+        </DropdownMenuLabel>
+        <DropdownMenuItem
+          onClick={() => setSortOption("distance")}
+          className={sortOption === "distance" ? "font-medium text-black" : ""}
+        >
+          거리순
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => setSortOption("relevance")}
+          className={
+            sortOption === "relevance" ? "font-medium text-[#999]" : ""
+          }
+        >
+          관련도순
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 
   return (
@@ -143,10 +129,12 @@ const ShelterDrawer = () => {
               <DrawerDescription className="flex items-center gap-2 py-4">
                 <span className="text-[20px] font-semibold text-[#1A1A1A]">
                   주변 대피소
-                </span>{" "}
-                <span className="text-[20px] font-semibold text-[#58999E]">
-                  {markedShelter.length}
                 </span>
+                {markedShelter.length > 0 && (
+                  <span className="text-[20px] font-semibold text-[#58999E]">
+                    {markedShelter.length}
+                  </span>
+                )}
               </DrawerDescription>
               <SortDropdown />
             </div>
