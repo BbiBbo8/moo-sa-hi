@@ -96,6 +96,7 @@ const CommentForm = ({ postId }: { postId: number }) => {
                     <Textarea
                       placeholder="댓글을 입력해주세요."
                       {...field}
+                      rows={1}
                       className="h-fit resize-none rounded-[8px] border-transparent bg-[#FAFAFA] pr-10 text-base font-normal text-[#1A1A1A] placeholder:text-base placeholder:text-[#999999] focus:ring-transparent focus:outline-none"
                       onClick={handleCommentInputClick}
                     />
