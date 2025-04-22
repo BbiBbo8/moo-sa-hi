@@ -31,7 +31,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 z-50 flex w-full items-center justify-between border-b bg-white px-4 py-4">
+    <header className="fixed top-0 z-50 flex w-full items-center justify-between border-b bg-white px-5 py-5">
       {/* 뒤로가기 버튼 (랜딩 페이지에서는 숨김) */}
       {isLandingPage ? (
         <div className="h-5 w-5" /> // 공간만 유지
