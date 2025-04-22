@@ -24,7 +24,7 @@ import { Textarea } from "@/components/ui/textarea";
 const commentSchema = z.object({
   content: z
     .string()
-    .min(5, "댓글은 최소 5자 이상 입력해 주세요.")
+    .min(2, "댓글은 최소 2자 이상 입력해 주세요.")
     .max(30, "댓글은 최대 30자까지만 입력할 수 있습니다."),
 });
 
@@ -95,7 +95,7 @@ const CommentForm = ({ postId }: { postId: number }) => {
                     <Textarea
                       placeholder="댓글을 입력해주세요."
                       {...field}
-                      rows={1}
+                      maxLength={30}
                       className="h-fit resize-none rounded-[8px] border-transparent bg-[#FAFAFA] pr-10 text-base font-normal text-[#1A1A1A] placeholder:text-base placeholder:text-[#999999] focus:ring-transparent focus:outline-none"
                       onClick={handleCommentInputClick}
                     />
@@ -104,7 +104,7 @@ const CommentForm = ({ postId }: { postId: number }) => {
                       className="box-border:none absolute right-2 bottom-2 w-fit border-none bg-transparent shadow-none"
                       disabled={
                         !commentContent ||
-                        commentContent.length < 5 ||
+                        commentContent.length < 2 ||
                         commentContent.length > 30
                       }
                     >
