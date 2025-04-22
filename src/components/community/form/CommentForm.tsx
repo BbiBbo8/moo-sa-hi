@@ -20,6 +20,7 @@ import getUserData from "@/supabase/getUserData";
 import { useState } from "react";
 import SigninDrawer from "@/components/auth/SigninDrawer";
 import Image from "next/image";
+import { Textarea } from "@/components/ui/textarea";
 
 const commentSchema = z.object({
   content: z
@@ -96,10 +97,10 @@ const CommentForm = ({ postId }: { postId: number }) => {
               <FormItem>
                 <FormControl>
                   <div className="flex rounded-[8px] bg-[#FAFAFA] focus-within:border focus-within:border-[#999999] focus-within:outline-none active:outline-none">
-                    <Input
+                    <Textarea
                       placeholder="댓글을 입력해주세요."
                       {...field}
-                      className="focus:ring-muted rounded-[8px] border-transparent bg-[#FAFAFA] text-base font-normal text-[#1A1A1A] shadow-none placeholder:text-base placeholder:text-[#999999]"
+                      className="focus:ring-muted resize-none rounded-[8px] border-transparent bg-[#FAFAFA] text-base font-normal text-[#1A1A1A] shadow-none placeholder:text-base placeholder:text-[#999999]"
                     />
                     <Button
                       type="submit"
