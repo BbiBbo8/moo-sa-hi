@@ -59,7 +59,7 @@ const ProfileCard = () => {
           </div>
         )}
       </section>
-      {user && <ProfileTabs />}
+      <ProfileTabs />
     </>
   );
 };
