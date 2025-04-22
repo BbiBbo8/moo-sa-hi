@@ -55,7 +55,7 @@ const SigninDrawer = ({
           {children || (
             <Button
               variant="outline"
-              className="h-fit w-fit rounded-full border-[#CCCCCC] px-4 py-3 font-normal text-[#666666]"
+              className="h-fit w-fit rounded-full border-[#CCCCCC] px-4 py-3 font-medium text-[#666666]"
             >
               로그인 하기
             </Button>
