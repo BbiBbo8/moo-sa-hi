@@ -44,6 +44,7 @@ const CommentList = ({ postId }: { postId: number }) => {
     <section className="mb-12 flex flex-col">
       {comments?.map((comment, index) => (
         <div key={comment.id}>
+          {/* 댓글이 1개 이상일 때 구분선 추가 */}
           {index > 0 && <div className="h-0.25 w-full bg-[#F2F2F2]" />}
           <Card className="border-none shadow-none">
             <CardContent>
