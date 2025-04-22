@@ -49,11 +49,12 @@ const ProfileCard = () => {
         </div>
         {/* 유저가 존재하지 않으면 닉네임 없애고 로그인 버튼 생기기 */}
         {!user && (
-          <div className="flex flex-col items-center">
-            <h3 className="mb-4 p-5 text-lg font-medium">
-              로그인이 필요한 서비스입니다.
+          <div className="mt-4 flex flex-row justify-evenly">
+            <h3 className="text-lg font-medium">
+              로그인 하면 더 많은
+              <br /> 기능을 사용할 수 있어요!
             </h3>
-            <div className="pt-5 text-center">
+            <div className="text-center">
               <SigninDrawer />
             </div>
           </div>
