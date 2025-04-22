@@ -41,6 +41,7 @@ function ShelterForm({ onShelterSelect }: ShelterFormProps) {
           </FormItem>
         )}
       />
+
       {/* 제목 입력 */}
       <FormField
         control={form.control}
@@ -53,7 +54,7 @@ function ShelterForm({ onShelterSelect }: ShelterFormProps) {
                 {...field}
                 maxLength={15}
                 placeholder="제목"
-                className="text-[16px]"
+                className="bg-[#F7F7F7] text-[16px]"
               />
             </FormControl>
             <FormMessage />
@@ -61,7 +62,7 @@ function ShelterForm({ onShelterSelect }: ShelterFormProps) {
         )}
       />
 
-      {/* 혼잡도 */}
+      {/* 혼잡도 버튼 */}
       <FormField
         control={form.control}
         name="congestion"
@@ -78,7 +79,7 @@ function ShelterForm({ onShelterSelect }: ShelterFormProps) {
                   className={`h-[40px] flex-1 rounded-[10px] px-[12px] text-[14px] ${
                     field.value === level
                       ? "bg-[#3A7E8D] text-white hover:bg-[#60A1B0] active:bg-[#2B5D6C]"
-                      : "border border-gray-300 text-black hover:border-[#60A1B0] active:border-[#2B5D6C]"
+                      : "border border-gray-300 text-gray-400 hover:border-[#60A1B0] active:border-[#2B5D6C]"
                   }`}
                 >
                   {level}
@@ -90,7 +91,7 @@ function ShelterForm({ onShelterSelect }: ShelterFormProps) {
         )}
       />
 
-      {/* 위생 상태 */}
+      {/* 위생 상태 버튼 */}
       <FormField
         control={form.control}
         name="hygiene"
@@ -107,7 +108,7 @@ function ShelterForm({ onShelterSelect }: ShelterFormProps) {
                   className={`h-[40px] flex-1 rounded-[8px] px-[12px] text-[14px] ${
                     field.value === level
                       ? "bg-[#3A7E8D] text-white hover:bg-[#60A1B0] active:bg-[#2B5D6C]"
-                      : "border border-gray-300 text-black hover:border-[#60A1B0] active:border-[#2B5D6C]"
+                      : "border border-gray-300 text-gray-400 hover:border-[#60A1B0] active:border-[#2B5D6C]"
                   }`}
                 >
                   {level}
@@ -130,8 +131,8 @@ function ShelterForm({ onShelterSelect }: ShelterFormProps) {
               <Textarea
                 {...field}
                 maxLength={500}
-                placeholder="내용을 입력해주세요"
-                className="min-h-[140px] text-[16px]"
+                placeholder="상세 내용을 입력해주세요"
+                className="max-h-[160px] min-h-[96px] overflow-y-auto bg-[#F7F7F7] text-[16px]"
               />
             </FormControl>
             <p className="text-muted-foreground text-right text-sm">

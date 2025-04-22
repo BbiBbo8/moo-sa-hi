@@ -28,7 +28,7 @@ function DailyForm() {
                 {...field}
                 maxLength={15}
                 placeholder="제목"
-                className="text-[16px]"
+                className="bg-[#F7F7F7] text-[16px]"
               />
             </FormControl>
             <FormMessage />
@@ -48,7 +48,7 @@ function DailyForm() {
                 {...field}
                 placeholder="오늘의 안전을 작성해주세요!!"
                 maxLength={500}
-                className="min-h-[140px] text-[16px]"
+                className="max-h-[160px] min-h-[96px] overflow-y-auto bg-[#F7F7F7] text-[16px]"
               />
             </FormControl>
             <p className="text-muted-foreground text-right text-sm">
