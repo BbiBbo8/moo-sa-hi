@@ -64,7 +64,7 @@ function NotificationDropdown({ open, onOpenChange }: NotificationDropdownProps)
       } else if (notification.post_type === 'daily_post') {
         router.push(`${PATH.COMMUNITYDAILY}/${notification.post_id}`);
       }
-      // 필요하다면 읽음 상태 업데이트 API 호출 추가
+      // TODO: 필요하다면 읽음 상태 업데이트 API 호출 추가
     }
   };
 
