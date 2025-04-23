@@ -101,7 +101,7 @@ const DailyPostButtons = ({ dailyPostId = null }: params) => {
 
   return (
     <>
-      <section className="relative flex w-full flex-row items-center mb-12">
+      <section className="relative mb-12 flex w-full flex-row items-center">
         {/* 유용해요 버튼 */}
         <div className="absolute left-1/2 -translate-x-1/2">
           <button

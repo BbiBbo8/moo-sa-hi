@@ -11,9 +11,7 @@ interface params {
 }
 
 // TODO: 이후 tanStackQuery로 리팩토링 필요
-const ShelterPostButtons = ({
-  shelterPostId = null,
-}: params) => {
+const ShelterPostButtons = ({ shelterPostId = null }: params) => {
   const [isHelpful, setIsHelpful] = useState(false);
   const [helpfulCount, setHelpfulCount] = useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -90,8 +88,8 @@ const ShelterPostButtons = ({
     const previousIsHelpful = isHelpful;
     const previousHelpfulCount = helpfulCount;
     setIsHelpful(!previousIsHelpful);
-    setHelpfulCount((prevCount) =>
-      previousIsHelpful ? prevCount - 1 : prevCount + 1
+    setHelpfulCount(prevCount =>
+      previousIsHelpful ? prevCount - 1 : prevCount + 1,
     );
 
     try {
@@ -112,13 +110,16 @@ const ShelterPostButtons = ({
           toast.success("유용해요 취소"); // 사용자 피드백
         }
 
-        const { error: insertError } = await supabase.from("helpfuls").insert([
-          {
-            user_id: user.id,
-            daily_post_id: null, // daily_post_id 명시적으로 null 설정
-            shelter_post_id: shelterPostId,
-          },
-        ]).select(); // 필요하다면 삽입된 데이터 반환
+        const { error: insertError } = await supabase
+          .from("helpfuls")
+          .insert([
+            {
+              user_id: user.id,
+              daily_post_id: null, // daily_post_id 명시적으로 null 설정
+              shelter_post_id: shelterPostId,
+            },
+          ])
+          .select(); // 필요하다면 삽입된 데이터 반환
 
         if (insertError) {
           console.error("유용해요 추가 오류:", insertError);
@@ -141,13 +142,15 @@ const ShelterPostButtons = ({
 
   return (
     <>
-      <section className="relative flex w-full flex-row items-center mb-12">
+      <section className="relative mb-12 flex w-full flex-row items-center">
         {/* 유용해요 버튼 */}
         <div className="absolute left-1/2 -translate-x-1/2">
           <button
             onClick={handleHelpfulClick}
             className={`flex h-10 items-center gap-0.5 rounded-md px-4 text-sm ${
-              isHelpful ? "bg-blue-500 text-white" : "bg-[#F2F2F2] text-gray-500" // 텍스트 색상 일관성 유지
+              isHelpful
+                ? "bg-blue-500 text-white"
+                : "bg-[#F2F2F2] text-gray-500" // 텍스트 색상 일관성 유지
             }`}
             // shelterPostId가 null이거나 초기 데이터 로딩 중에는 버튼 비활성화
             disabled={shelterPostId === null}
