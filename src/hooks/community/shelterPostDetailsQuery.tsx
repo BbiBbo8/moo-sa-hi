@@ -34,7 +34,7 @@ const fetchShelterPostDetail = async (id: number) => {
   return data;
 };
 
-const useShelterPostDetailQuery = (id: number) => {
+export const useShelterPostDetailQuery = (id: number) => {
   return useQuery({
     queryKey: ["shelterPostDetails", id],
     queryFn: () => fetchShelterPostDetail(id),

@@ -29,36 +29,38 @@ const ShelterPost = ({ post }: PostCardProps) => {
   return (
     <Link
       href={`${PATH.COMMUNITYSHELTER}/${post.id}`}
-      className="h-full w-full"
+      className="h-full w-screen"
     >
       <Card
         key={post.id}
-        className="h-[142px] w-full gap-3 border-none bg-[#F7F7F7] p-5 shadow-none"
+        className="h-[142px] w-full gap-3 rounded-none border-b-1 border-gray-50 px-5 py-4 shadow-none"
       >
-        <CardContent className="h-full p-0">
+        <CardContent className="px-0">
           <section className="flex h-full w-full flex-col items-start justify-center gap-2">
             <CardTitle
-              className={`flex h-7 w-10 items-center justify-center rounded-lg text-sm text-[16px] text-[#1A1A1A] text-white ${colorForPopulation}`}
+              className={`flex items-center justify-center rounded-[8px] px-2 py-1 text-sm text-[14px] font-medium text-[#1A1A1A] ${colorForPopulation}`}
             >
               {populationDensity}
             </CardTitle>
             <article className="flex w-[321px] flex-col gap-0">
-              <h2 className="truncate text-[16px] font-semibold">
+              <h2 className="text-titleM truncate text-gray-800">
                 {post.title}
               </h2>
-              <span className="truncate text-sm">{post.shelter_name}</span>
+              <span className="text-bodyL truncate text-gray-500">
+                {post.shelter_name}
+              </span>
             </article>
 
-            <section className="flex w-full flex-row justify-between text-sm text-[#B3B3B3]">
+            <section className="text-numEng flex w-full flex-row justify-between text-gray-300">
               <p>{timeCreated}</p>
-              <div className="flex items-center gap-1">
+              <div className="text-numEng flex items-center gap-1 text-gray-300">
                 <Image
-                  src={"/icons/thumbs-up-solid.svg"}
+                  src={"/icons/community/thumbs-up-gray.svg"}
                   alt={"icon"}
                   width={20}
                   height={20}
                 />
-                <span className="text-sm">{post.helpfuls?.length ?? 0}</span>
+                <span>{post.helpfuls?.length ?? 0}</span>
               </div>
             </section>
           </section>

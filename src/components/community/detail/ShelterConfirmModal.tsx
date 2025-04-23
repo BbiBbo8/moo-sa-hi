@@ -1,6 +1,6 @@
 "use client";
 
-import { useDailyPostDetailQuery } from "@/hooks/community/useDailyPostDetailQuery";
+import { useShelterPostDetailQuery } from "@/hooks/community/shelterPostDetailsQuery";
 import getUserData from "@/supabase/getUserData";
 import { useEffect, useState } from "react";
 
@@ -10,9 +10,9 @@ type params = {
   onClose: () => void;
 };
 
-const ConfirmModal = ({ id, onOpen, onClose }: params) => {
+const ShelterConfirmModal = ({ id, onOpen, onClose }: params) => {
   const [currentUser, setCurrentUser] = useState<string | null>(null);
-  const { data } = useDailyPostDetailQuery(id);
+  const { data } = useShelterPostDetailQuery(id);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -63,4 +63,4 @@ const ConfirmModal = ({ id, onOpen, onClose }: params) => {
   );
 };
 
-export default ConfirmModal;
+export default ShelterConfirmModal;

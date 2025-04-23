@@ -11,51 +11,53 @@ import {
   FormMessage,
 } from "../../ui/form";
 import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
 import { useUserData } from "@/hooks/useUserData";
 import { useInsertComment } from "@/hooks/comment/useCommentMutation";
 import Error from "@/app/(pages)/Error";
 import Loading from "@/app/(pages)/Loading";
 import getUserData from "@/supabase/getUserData";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import PATH from "@/constants/PATH";
 import SigninDrawer from "@/components/auth/SigninDrawer";
+import Image from "next/image";
+import { Textarea } from "@/components/ui/textarea";
 
 const commentSchema = z.object({
   content: z
     .string()
-    .min(5, "댓글은 최소 5자 이상 입력해 주세요.")
+    .min(2, "댓글은 최소 2자 이상 입력해 주세요.")
     .max(30, "댓글은 최대 30자까지만 입력할 수 있습니다."),
 });
 
 type CommentFormData = z.infer<typeof commentSchema>;
 
 const CommentForm = ({ postId }: { postId: number }) => {
-  const router = useRouter();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { data, error, isLoading } = useUserData();
   const userId = data?.user?.id;
   const userData = getUserData();
 
+  const insertCommentMutation = useInsertComment();
+
+  const form = useForm<z.infer<typeof commentSchema>>({
+    resolver: zodResolver(commentSchema),
+    defaultValues: {
+      content: "",
+    },
+  });
+
   if (isLoading) {
-    <Loading />;
+    return <Loading />;
   }
   if (error) {
-    <Error />;
+    return <Error />;
   }
 
   const handleCommentInputClick = async () => {
     const { user } = await userData;
     if (!user) {
       setIsDrawerOpen(true);
-    } else {
-      router.push(PATH.CREATE);
     }
   };
-
-  // supabase에 작성된 댓글을 넣는 함수 호출
-  const insertCommentMutation = useInsertComment();
 
   const onSubmit = (formData: CommentFormData) => {
     if (!userId) {
@@ -67,35 +69,55 @@ const CommentForm = ({ postId }: { postId: number }) => {
       userId,
       postId,
     });
-    // 댓글 입력 후 리셋
     form.reset();
   };
 
-  const form = useForm<z.infer<typeof commentSchema>>({
-    resolver: zodResolver(commentSchema),
-    defaultValues: {
-      content: "",
-    },
-  });
+  const { watch } = form;
+  const commentContent = watch("content");
+
+  // 값이 있을 때 아이콘 변경
+  const currentIconSrc =
+    commentContent && commentContent.length > 0
+      ? "/icons/Property-Activate.svg"
+      : "/icons/Property-Disabled.svg";
 
   return (
     <>
       <Form {...form}>
-        <form
-          onClick={handleCommentInputClick}
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="m-4"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="m-4">
           <FormField
             control={form.control}
             name="content"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="댓글을 입력해주세요." {...field} />
+                  <div className="relative flex items-center rounded-[8px] bg-[#FAFAFA] focus-within:border focus-within:border-[#999999] focus-within:outline-none active:outline-none">
+                    <Textarea
+                      placeholder="댓글을 입력해주세요."
+                      {...field}
+                      maxLength={30}
+                      className="h-fit resize-none rounded-[8px] border-transparent bg-[#FAFAFA] pr-10 text-base font-normal text-[#1A1A1A] placeholder:text-base placeholder:text-[#999999] focus:ring-transparent focus:outline-none"
+                      onClick={handleCommentInputClick}
+                    />
+                    <Button
+                      type="submit"
+                      className="box-border:none absolute right-2 bottom-2 w-fit border-none bg-transparent shadow-none"
+                      disabled={
+                        !commentContent ||
+                        commentContent.length < 2 ||
+                        commentContent.length > 30
+                      }
+                    >
+                      <Image
+                        src={currentIconSrc}
+                        alt="등록"
+                        width={24}
+                        height={24}
+                      />
+                    </Button>
+                  </div>
                 </FormControl>
-                <FormMessage />
-                <Button type="submit">등록</Button>
+                <FormMessage className="text-[#1A1A1A]" />
               </FormItem>
             )}
           />

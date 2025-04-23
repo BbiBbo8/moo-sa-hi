@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import PATH from "@/constants/PATH";
 import { useEffect, useState } from "react";
-import ConfirmModal from "./ConfirmModal";
+import DailyConfirmModal from "./DailyConfirmModal";
 import { formatTime } from "@/utils/formatTime";
 import DailyPostButtons from "./DailyPostButtons";
 
@@ -30,7 +30,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
   }
 
   if (error) {
-    console.log("dailyDetailPost 로딩 에러", error);
+    console.error("dailyDetailPost 로딩 에러", error);
     return <Error />;
   }
 
@@ -45,24 +45,24 @@ const DailyDetailPost = ({ id }: { id: number }) => {
   };
 
   return (
-    <section className="mx-5 mt-20 flex flex-col items-center gap-5">
+    <section className="mx-5 mt-20 flex flex-col items-center">
       <article className="w-full flex-col items-center">
         <header className="mb-7 flex w-full flex-col items-baseline justify-between">
-          <h1 className="text-[18px] leading-[27px] font-medium text-[#1A1A1A]">
-            {data.title}
-          </h1>
+          <h1 className="text-bodyXL text-gray-900">{data.title}</h1>
           <div className="flex w-full flex-row justify-between">
-            <span className="text-sm text-gray-500">{data.user?.nickname}</span>
-            <span className="text-sm text-[#B3B3B3]">{timeCreated}</span>
+            <span className="text-bodyM text-gray-500">
+              {data.user?.nickname}
+            </span>
+            <span className="text-numEng text-gray-300">{timeCreated}</span>
           </div>
         </header>
 
         {data.img_url?.startsWith("http") || data.img_url?.startsWith("/") ? (
           <div className="mb-5 flex items-center justify-center">
-            <figure className="relative flex h-[353px] w-[353px] items-center justify-center overflow-hidden rounded-3xl border-1 border-gray-400">
+            <figure className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-sm border-1 border-gray-400">
               <Image
                 src={data.img_url}
-                alt="이미지가 없습니다."
+                alt="이미지를 불러오지 못했습니다."
                 fill
                 className="object-cover"
               />
@@ -74,26 +74,18 @@ const DailyDetailPost = ({ id }: { id: number }) => {
           {data.contents}
         </p>
 
-        {/* <PostButtons
-          numOfHelpfuls={data.helpfulCount}
-          onClickReport={handleConfirmationModal}
-        /> */}
-
-        <DailyPostButtons
-          dailyPostId={data.id}
-          onClickReport={handleConfirmationModal}
-        />
+        <DailyPostButtons dailyPostId={data.id} />
       </article>
 
       {/* 모달창 */}
-      <ConfirmModal
+      <DailyConfirmModal
         id={id}
         onOpen={toggleConfirmModal}
         onClose={handleConfirmationModal}
       />
 
       {/* NOTE: 화면에 보이는 회색 줄 */}
-      <div className="mb-11 h-2 min-w-screen bg-[#F7F7F7]"></div>
+      <div className="mt-5 mb-8 h-3 min-w-screen bg-[#F7F7F7]"></div>
     </section>
   );
 };

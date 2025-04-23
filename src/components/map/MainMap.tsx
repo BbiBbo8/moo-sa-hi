@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useRef, useState } from "react";
 import { Map, MapMarker, MarkerClusterer } from "react-kakao-maps-sdk";
 import { useMapStore } from "@/store/useMapStore";
@@ -10,14 +9,13 @@ import { useMarkerStore } from "@/store/useMarkerStore";
 import Image from "next/image";
 
 const MainMap = () => {
-  const mapRef = useRef<kakao.maps.Map | null>(null); // 카카오 지도 객체를 저장
-  const { data: shelters = [], isLoading, error } = useShelters(); // tanstackquery로 이용한 hook기능
+  const mapRef = useRef<kakao.maps.Map | null>(null);
+  const { data: shelters = [], isLoading, error } = useShelters();
   const [selectMarker, setSelectMarker] = useState<string | null>(null);
 
-  const setAllShelters = useMapStore(state => state.setAllShelters);
-  const setVisibleShelters = useMapStore(state => state.setVisibleShelters);
+  // 대피소 중 현재 지도에 보이는 것만 필터링해서 zustand useMarkerStore에 저장
+  const setMarkedShelter = useMarkerStore(state => state.setMarkedShelter);
 
-  // 마커에 선택된 대피소 이름을 전역 상태에 저장하는 Store
   const setSelectedShelterName = useMarkerStore(
     state => state.setSelectedShelterName,
   );
@@ -29,76 +27,57 @@ const MainMap = () => {
   const setCenter = useMapStore(state => state.setCenter);
   const reset = useMapStore(state => state.reset);
 
-  // 대피소 데이터 받아오면 상태 저장
+  // 지도에 표시된 대피소 목록만 필터링하여 상태에 저장
   useEffect(() => {
-    if (shelters.length > 0) {
-      setAllShelters(shelters);
-    }
-  }, [shelters]);
-
-  useEffect(() => {
-    // shelters 데이터가 없으면 아무것도 않함함
     if (!mapRef.current || !shelters) return;
 
-    // 현재 지도의 영역 보이는 범위를 가져옴옴
+    // 현재 지도의 영역 보이는 범위를 가져옴
     const bounds = mapRef.current.getBounds();
 
+    if (level >= 10) {
+      setMarkedShelter([]); // 리스트 비우기
+      return;
+    }
+
     // 전체 대피소 지도 화면 안에 있는 대피소만 필터링
-    const check = shelters.filter(shelter =>
+    const visibleShelters = shelters.filter(shelter =>
       bounds.contain(new kakao.maps.LatLng(shelter.lat, shelter.lng)),
     );
 
-    // 필터링된 대피소 목록을 useMarkerStore 전역 상태로 저장장
-    setVisibleShelters(check);
+    // 필터링된 대피소 목록을 useMarkerStore 전역 상태로 저장
+    setMarkedShelter(visibleShelters);
   }, [shelters, center, level]);
+
+  useEffect(() => {
+    reset();
+  }, [reset]);
 
   // 지도 생성 시 실행되는 함수
   const handleCreate = (map: kakao.maps.Map) => {
     mapRef.current = map;
-
-    // zustand에 저장된 초기값을 지도에 직접 반영
-    map.setLevel(level); // 확대 레벨 설정
-    map.setCenter(new kakao.maps.LatLng(center.lat, center.lng)); // 중심 좌표설정
+    map.setLevel(level);
+    map.setCenter(new kakao.maps.LatLng(center.lat, center.lng));
   };
 
-  // 새로고침 시 축소된 지도로 되돌아가기
-  useEffect(() => {
-    reset();
-  }, []);
-
-  // 확대/축소 레벨이 변경되면 지도에 적용
-  useEffect(() => {
-    if (mapRef.current) {
-      mapRef.current.setLevel(level);
-    }
-  }, [level]);
-
-  // 중심 좌표가 변경되면 지도 이동
-  useEffect(() => {
-    if (mapRef.current) {
-      mapRef.current.panTo(new kakao.maps.LatLng(center.lat, center.lng));
-    }
-  }, [center]);
-
-  // 마커 클러스터 이동 로직
+  // 마커 클러스터 클릭 시, 해당 클러스터에 포함된 모든 마커들을 지도 중심으로 이동시킴
   const handleClusterClick = (
     _target: kakao.maps.MarkerClusterer,
     cluster: kakao.maps.Cluster,
   ) => {
-    const center = cluster.getCenter(); // 중심 위치 구하기
+    const center = cluster.getCenter(); // 클러스터의 중심 좌표 가져오기
     if (center && mapRef.current) {
       mapRef.current.panTo(center); // 지도 이동
       setCenter({ lat: center.getLat(), lng: center.getLng() }); // 상태 업데이트
     }
   };
 
-  // 마커 클릭 로직
+  // 마커 클릭 시, 해당 대피소로 이동
   const handleMarkerClick = (lat: number, lng: number, name: string) => {
     const newCenter = new kakao.maps.LatLng(lat, lng);
     mapRef.current?.panTo(newCenter); // 지도 이동
     setCenter({ lat, lng }); // 상태 업데이트
     setSelectMarker(name);
-    setSelectedShelterName(name); // 마커가 클릭 됬을때 전역 상태에 저장
+    setSelectedShelterName(name);
   };
 
   if (isLoading) return <Loading />;
@@ -108,7 +87,7 @@ const MainMap = () => {
     <Map
       center={center}
       level={level}
-      className="h-full w-full"
+      className="z-0 h-full w-full"
       onCreate={handleCreate}
       onZoomChanged={map => {
         setLevel(map.getLevel());
@@ -131,9 +110,9 @@ const MainMap = () => {
               <div className="relative min-w-[150px] p-2 text-sm whitespace-nowrap text-black">
                 <Image
                   alt="close"
-                  width={14} // px 단위로 지정
-                  height={13}
                   src="https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
+                  width={14}
+                  height={13}
                   className="absolute top-1 right-1"
                   onClick={() => setSelectMarker(null)}
                 />
@@ -149,5 +128,4 @@ const MainMap = () => {
     </Map>
   );
 };
-
 export default MainMap;

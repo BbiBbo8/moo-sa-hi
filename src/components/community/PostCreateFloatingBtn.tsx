@@ -23,15 +23,17 @@ const PostCreateFloatingBtn = () => {
     <>
       <button
         onClick={handleWritingBtnClick}
-        className="flex h-[48px] w-[102px] items-center justify-center gap-1 rounded-full border-1 border-gray-400 bg-white text-sm text-gray-500"
+        // 고민사항 : 원래 디자인 시안대로라면 다른 drop-shadow가 들어가지만 왜인지 디자인 변수가 적용이 안되서 해당 파일 수정 후 다시 시도하겠습니다!
+        className="shadow-button flex h-[64px] w-[64px] items-center justify-center gap-1 rounded-full bg-white text-sm"
       >
-        <Image
-          src={"/icons/PencilSimple.svg"}
-          alt={"icon"}
-          width={20}
-          height={20}
-        />
-        글 작성
+        <div className="relative h-8 w-8">
+          <Image
+            src={"/icons/community/pen-solid.svg"}
+            alt={"icon"}
+            fill
+            className="object-cover"
+          />
+        </div>
       </button>
       {/* 로그인 드로어 */}
       <SigninDrawer isOpen={isDrawerOpen} onOpenChange={setIsDrawerOpen} />{" "}
