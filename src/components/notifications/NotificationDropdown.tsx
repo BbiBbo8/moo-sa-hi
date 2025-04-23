@@ -1,12 +1,8 @@
-// components/notifications/NotificationDropdown.tsx
 "use client";
 
 import { useEffect, useState, useRef } from "react";
 import getUserData from "@/supabase/getUserData";
-import {
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
 import useNotificationSubscription from "@/hooks/useNotificationSubscription";
@@ -27,33 +23,28 @@ interface NotificationDropdownProps {
   open: boolean;
 }
 
-function NotificationDropdown({
-  open,
-  onOpenChange,
-}: NotificationDropdownProps) {
+function NotificationDropdown({ open, onOpenChange }: NotificationDropdownProps) {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // 사용자 ID 가져오기
   useEffect(() => {
     const fetchId = async () => {
       const userData = await getUserData();
       setUserId(userData?.user?.id || null);
     };
-
     fetchId();
   }, []);
 
+  // Realtime 알림 구독
   useNotificationSubscription(userId, (payload) => {
-    console.log("드롭다운 새로운 알림 도착! - Hook!", payload.new);
     const newNotification = payload.new as Notification;
-    setNotifications(prevNotifications => [
-      newNotification,
-      ...prevNotifications,
-    ]);
+    setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
     toast.success(newNotification.message);
   });
 
+  // 알림 목록 불러오기 (드롭다운 열릴 때)
   useEffect(() => {
     if (open && userId) {
       const fetchNotifications = async () => {
@@ -70,7 +61,6 @@ function NotificationDropdown({
           setNotifications(data);
         }
       };
-
       fetchNotifications();
     } else {
       setNotifications([]);
@@ -89,12 +79,12 @@ function NotificationDropdown({
         <button
           onClick={() => onOpenChange(false)}
           className="text-gray-500 hover:text-gray-700 focus:outline-none"
-        ></button>
+        />
       </div>
       <ScrollArea className="max-h-96">
         <ul className="divide-y divide-gray-200">
           {notifications.length > 0 ? (
-            notifications.map(notification => (
+            notifications.map((notification) => (
               <DropdownMenuItem
                 key={notification.id}
                 className="px-4 py-3 hover:bg-gray-50"
@@ -119,9 +109,6 @@ function NotificationDropdown({
             className="rounded bg-gray-300 px-4 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-400 focus:outline-none"
           >
             닫기
-          </button>
-          <button className="ml-2 rounded bg-blue-500 px-4 py-2 text-xs font-semibold text-white hover:bg-blue-700 focus:outline-none">
-            모두 읽음
           </button>
         </div>
       )}
