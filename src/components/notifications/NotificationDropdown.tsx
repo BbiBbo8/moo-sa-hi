@@ -10,19 +10,7 @@ import createClient from "@/supabase/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import PATH from "@/constants/PATH";
-
-interface Notification {
-  created_at: string | null;
-  id: string;
-  is_read: boolean | null;
-  message: string;
-  comment_id: number | null;
-  type: string;
-  user_id: string;
-  post_id: number;
-  post_type: 'shelter_post' | 'daily_post'; 
-
-}
+import {Notification} from "@/types/notification"
 
 interface NotificationDropdownProps {
   onOpenChange: (open: boolean) => void;

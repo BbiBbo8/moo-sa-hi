@@ -60,7 +60,7 @@ export const useInsertComment = () => {
   //   mutation으로 동기화
   return useMutation({
     mutationFn: handleInsertComments,
-    onSuccess: async ({ comment, userId, postId, content, postType }) => {
+    onSuccess: async ({ comment, userId, postId, postType }) => {
       queryClient.invalidateQueries({ queryKey: ["comments"] });
       toast.success("댓글 작성 완료!");
 
