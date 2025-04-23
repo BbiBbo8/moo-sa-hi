@@ -56,7 +56,7 @@ const NewsCard = () => {
           {newsData.map((news, index) => (
             <Card
               key={index}
-              className="max-w-[300px] min-w-[300px] flex-shrink-0"
+              className="max-w-[300px] min-w-[300px] flex-shrink-0 bg-[#F7F7F7]"
             >
               <Link href={news.link} target="_blank" rel="noopener noreferrer">
                 <CardHeader className="pb-2">
