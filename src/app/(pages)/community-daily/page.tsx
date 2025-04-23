@@ -44,17 +44,27 @@ const CommunityDailyPage = () => {
   }
 
   return (
-    <main className="flex min-h-screen min-w-screen flex-col items-center px-5 pt-16 pb-16">
-      <CommunityHeader setSearchTerm={setSearchTerm} />
+    <main className="flex min-h-screen min-w-screen flex-col items-center pt-16 pb-16">
+      <div className="fixed top-0 z-50 w-full">
+        <CommunityHeader setSearchTerm={setSearchTerm} />
+      </div>
 
-      <div className="flex h-12 w-full items-center gap-2 bg-white text-sm text-gray-600">
+      <div className="top-16 left-5 flex w-screen flex-row items-center justify-between gap-2 bg-[#F7F7F7] px-5 py-2">
+        <div className="flex flex-row items-center justify-center gap-1 text-sm text-gray-600">
+          <Image
+            src={"/icons/community/bullhorn-solid.svg"}
+            alt={"icon"}
+            width={24}
+            height={24}
+          />
+          <span>대피소 관련 경험과 정보를 솔직하게 공유해주세요.</span>
+        </div>
         <Image
-          src={"/icons/bullhorn-solid1.svg"}
+          src={"/icons/community/xmark-solid.svg"}
           alt={"icon"}
-          width={24}
-          height={24}
+          width={20}
+          height={20}
         />
-        대피소 관련 경험과 정보를 솔직하게 공유해주세요.
       </div>
 
       {/* 필터링된 게시글 반환 */}
@@ -64,7 +74,7 @@ const CommunityDailyPage = () => {
             return <DailyPost key={post.id} post={post} />;
           })
         ) : (
-          <div className="col-span-2 box-border flex h-40 w-full items-center justify-center text-gray-500">
+          <div className="col-span-2 flex h-40 items-center justify-center text-gray-500">
             검색 결과가 없습니다.
           </div>
         )}
