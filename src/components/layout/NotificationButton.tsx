@@ -13,7 +13,7 @@ const NotificationButton = () => {
   const [newalarm, setNewalarm] = useState(false); // 새로운 알림 상태
 
   // userId를 가져오는 useQuery 훅
-  const { data: userData, isLoading, isError } = useQuery({
+  const { data: userData } = useQuery({
     queryKey: ["userId"],
     queryFn: getUserData,
     staleTime: Infinity, // userId는 자주 변하지 않으므로 캐시 유지
@@ -21,7 +21,7 @@ const NotificationButton = () => {
 
   const userId = userData?.user?.id || null;
 
-  useNotificationSubscription(userId, (payload) => {
+  useNotificationSubscription(userId, () => { // payload 파라미터 제거
     setNewalarm(true);
   });
 
