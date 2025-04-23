@@ -39,18 +39,18 @@ const CommunityDailyPage = () => {
     return <Loading />;
   }
   if (error) {
-    console.error("commuity-daily  에러",error);
+    console.error("commuity-daily  에러", error);
     return <Error />;
   }
 
   return (
-    <main className="flex min-h-screen min-w-screen flex-col items-center px-5 pt-16 pb-16">
-      <div className="fixed top-0 w-full">
+    <main className="flex min-h-screen min-w-screen flex-col items-center pt-16 pb-16">
+      <div className="fixed top-0 z-50 w-full">
         <CommunityHeader setSearchTerm={setSearchTerm} />
       </div>
 
-      <div className="top-16 left-5 flex h-10 w-screen flex-row items-center justify-between gap-2 bg-[#F7F7F7] px-5 text-sm text-gray-600">
-        <div className="flex flex-row items-center justify-center gap-1">
+      <div className="top-16 left-5 flex w-screen flex-row items-center justify-between gap-2 bg-[#F7F7F7] px-5 py-2">
+        <div className="flex flex-row items-center justify-center gap-1 text-sm text-gray-600">
           <Image
             src={"/icons/community/bullhorn-solid.svg"}
             alt={"icon"}
@@ -74,7 +74,7 @@ const CommunityDailyPage = () => {
             return <DailyPost key={post.id} post={post} />;
           })
         ) : (
-          <div className="col-span-2 box-border flex h-40 w-full items-center justify-center text-gray-500">
+          <div className="col-span-2 flex h-40 items-center justify-center text-gray-500">
             검색 결과가 없습니다.
           </div>
         )}

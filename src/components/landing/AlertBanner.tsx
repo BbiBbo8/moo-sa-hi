@@ -6,7 +6,11 @@ import { useQuery } from "@tanstack/react-query";
 import fetchDisasterAlert from "@/app/api/fetchDisasterAlert";
 
 const AlertBanner = () => {
-  const { data: alerts, isLoading, error } = useQuery({
+  const {
+    data: alerts,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["disaster-alerts"],
     queryFn: fetchDisasterAlert,
     refetchInterval: 1000 * 60,
@@ -23,7 +27,7 @@ const AlertBanner = () => {
         {/* 왼쪽: 아이콘 + 메시지 */}
         <div className="flex items-start gap-2 pr-2">
           <Image
-            src="/icons/megaphone.svg"
+            src="/icons/bullhorn-solid1.svg"
             alt="경고 아이콘"
             width={18}
             height={18}
