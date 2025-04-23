@@ -37,13 +37,6 @@ function NotificationDropdown({ open, onOpenChange }: NotificationDropdownProps)
     fetchId();
   }, []);
 
-  // Realtime 알림 구독
-  useNotificationSubscription(userId, (payload) => {
-    const newNotification = payload.new as Notification;
-    setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
-    toast.success(newNotification.message);
-  });
-
   // 알림 목록 불러오기 (드롭다운 열릴 때)
   useEffect(() => {
     if (open && userId) {
@@ -66,6 +59,13 @@ function NotificationDropdown({ open, onOpenChange }: NotificationDropdownProps)
       setNotifications([]);
     }
   }, [open, userId]);
+
+  // Realtime 알림 구독
+  useNotificationSubscription(userId, (payload) => {
+    const newNotification = payload.new as Notification;
+    setNotifications((prevNotifications) => [newNotification, ...prevNotifications]);
+    toast.success(newNotification.message);
+  });
 
   return (
     <DropdownMenuContent
