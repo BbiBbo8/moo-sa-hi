@@ -24,6 +24,11 @@ const bannerItems = [
     alt: "배너 4",
     href: "https://kasem.safekorea.go.kr/ptlCont.do?url=sftCnterRgnMng#none",
   },
+  {
+    src: "/landing/survey_banner.svg",
+    alt: "배너 5",
+    href: "https://docs.google.com/forms/d/12UQZEvRB410aZ9_Aqlawjx0al-aLI3yX71QkfSr_E8E/viewform?pli=1&pli=1&edit_requested=true",
+  },
 ];
 
 const BannerSection = () => {
@@ -43,7 +48,7 @@ const BannerSection = () => {
         href={item.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="min-w-[280px] sm:min-w-[320px] max-w-[320px] snap-start flex-shrink-0 rounded-xl overflow-hidden shadow-md"
+        className="min-w-[280px] sm:min-w-[320px] max-w-[320px] snap-start flex-shrink-0 rounded-xl overflow-hidden shadow-sm border-1"
       >
         <Image
           src={item.src}
