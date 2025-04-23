@@ -111,7 +111,7 @@ const DailyPostButtons = ({ dailyPostId = null }: params) => {
             }`}
           >
             <Image
-              src={"/icons/thumbs-up-solid.svg"}
+              src={"/icons/community/thumbs-up-solid.svg"}
               alt=""
               width={24}
               height={24}
