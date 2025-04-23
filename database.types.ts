@@ -209,6 +209,44 @@ export type Database = {
           },
         ]
       }
+      notifications: {
+        Row: {
+          comment_id: number | null
+          created_at: string | null
+          id: string
+          is_read: boolean | null
+          message: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          comment_id?: number | null
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          comment_id?: number | null
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       reports: {
         Row: {
           created_at: string | null
