@@ -16,7 +16,7 @@ export const useInsertComment = () => {
   const supabaseAdmin = createClient(); // 관리자 권한 클라이언트 (알림 삽입용)
   const queryClient = useQueryClient();
 
-//   댓글을 입력하는 함수
+  //   댓글을 입력하는 함수
   const handleInsertComments = async ({
     content,
     userId,
@@ -46,7 +46,15 @@ export const useInsertComment = () => {
       .single();
 
     if (error) throw error;
-    return { comment, userId, postId, content, postType: pathname.includes(PATH.COMMUNITYSHELTER) ? "shelter_post" : "daily_post" }; // 필요한 정보를 반환
+    return {
+      comment,
+      userId,
+      postId,
+      content,
+      postType: pathname.includes(PATH.COMMUNITYSHELTER)
+        ? "shelter_post"
+        : "daily_post",
+    }; // 필요한 정보를 반환
   };
 
   //   mutation으로 동기화
@@ -59,6 +67,9 @@ export const useInsertComment = () => {
       // 댓글 작성 성공 후 알림 생성 로직
       if (comment?.id) {
         let postResult;
+        let postIdForNotification: number | string | null = null;
+        let postTypeForNotification: "shelter_post" | "daily_post" | null =
+          null;
 
         if (postType === "shelter_post" && postId) {
           postResult = await supabaseAdmin
@@ -66,21 +77,29 @@ export const useInsertComment = () => {
             .select("user_id, title")
             .eq("id", postId)
             .single();
+          postIdForNotification = postId;
+          postTypeForNotification = "shelter_post";
         } else if (postType === "daily_post" && postId) {
           postResult = await supabaseAdmin
             .from("daily_post")
             .select("user_id, title")
             .eq("id", postId)
             .single();
+          postIdForNotification = postId;
+          postTypeForNotification = "daily_post";
         }
 
         if (postResult?.data?.user_id && postResult.data.user_id !== userId) {
-          const { error: notificationError } = await supabaseAdmin.from("notifications").insert({
-            user_id: postResult.data.user_id,
-            type: "new_comment",
-            comment_id: comment.id, // bigint 타입으로 저장
-            message: `'${postResult.data.title}'에 새로운 댓글이 달렸습니다.`,
-          });
+          const { error: notificationError } = await supabaseAdmin
+            .from("notifications")
+            .insert({
+              user_id: postResult.data.user_id,
+              type: "new_comment",
+              comment_id: comment.id,
+              message: `'${postResult.data.title}'에 새로운 댓글이 달렸습니다.`,
+              post_id: postIdForNotification, // 게시물 ID 저장
+              post_type: postTypeForNotification, // 게시물 타입 저장
+            });
 
           if (notificationError) {
             console.error("알림 생성 실패:", notificationError);
@@ -110,7 +129,7 @@ export const useDeleteComment = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments"] });
     },
-    onError: (error) => {
+    onError: error => {
       console.error(error);
       toast.error("댓글 삭제 오류!");
     },

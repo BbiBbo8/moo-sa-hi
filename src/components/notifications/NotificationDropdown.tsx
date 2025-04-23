@@ -8,6 +8,8 @@ import { toast } from "sonner";
 import useNotificationSubscription from "@/hooks/useNotificationSubscription";
 import createClient from "@/supabase/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import PATH from "@/constants/PATH";
 
 interface Notification {
   created_at: string | null;
@@ -17,6 +19,9 @@ interface Notification {
   comment_id: number | null;
   type: string;
   user_id: string;
+  post_id: number;
+  post_type: 'shelter_post' | 'daily_post'; 
+
 }
 
 interface NotificationDropdownProps {
@@ -28,6 +33,7 @@ function NotificationDropdown({ open, onOpenChange }: NotificationDropdownProps)
   const [userId, setUserId] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   // 사용자 ID 가져오기
   useEffect(() => {
@@ -38,7 +44,7 @@ function NotificationDropdown({ open, onOpenChange }: NotificationDropdownProps)
     fetchId();
   }, []);
 
-  // 알림 목록 불러오기 (드롭다운 열릴 때) - useQuery로 대체
+  // 알림 목록 불러오기 (드롭다운 열릴 때)
   const { data: notifications } = useQuery<Notification[], Error>({
     queryKey: ["notifications", userId],
     queryFn: async () => {
@@ -61,6 +67,19 @@ function NotificationDropdown({ open, onOpenChange }: NotificationDropdownProps)
     toast.success((payload.new as Notification).message);
   });
 
+  const handleNotificationClick = (notification: Notification) => {
+    onOpenChange(false); // 드롭다운 닫기
+    if (notification.post_id && notification.post_type) {
+      if (notification.post_type === 'shelter_post') {
+        router.push(`${PATH.COMMUNITYSHELTER}/${notification.post_id}`);
+        console.log(notification.post_id)
+      } else if (notification.post_type === 'daily_post') {
+        router.push(`${PATH.COMMUNITYDAILY}/${notification.post_id}`);
+      }
+      // 필요하다면 읽음 상태 업데이트 API 호출 추가
+    }
+  };
+
   return (
     <DropdownMenuContent
       ref={dropdownRef}
@@ -76,9 +95,10 @@ function NotificationDropdown({ open, onOpenChange }: NotificationDropdownProps)
         <ul className="divide-y divide-gray-200">
           {notifications && notifications.length > 0 ? (
             notifications.map((notification) => (
-              <DropdownMenuItem
+                <DropdownMenuItem
                 key={notification.id}
-                className="px-4 py-3 hover:bg-gray-50"
+                className="px-4 py-3 hover:bg-gray-50 cursor-pointer" // 클릭 가능하도록 cursor 추가
+                onClick={() => handleNotificationClick(notification)}
               >
                 <p className="text-sm text-gray-600">{notification.message}</p>
                 <p className="text-xs text-gray-400">{new Date(notification.created_at!).toLocaleString()}</p>
