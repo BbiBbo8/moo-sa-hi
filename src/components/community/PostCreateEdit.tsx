@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -46,14 +46,7 @@ function PostCreateEdit() {
     name: string;
   } | null>(null);
 
-  const { data: clientUser, isLoading: isUserLoading } = useUserData();
-
-  useEffect(() => {
-    if (!isUserLoading && !clientUser?.user) {
-      toast.error("로그인이 필요한 페이지입니다.");
-      router.replace("/login");
-    }
-  }, [isUserLoading, clientUser, router]);
+  const { data: clientUser } = useUserData();
 
   const { isPending, isError } = useQuery({
     queryKey: ["user"],
@@ -73,7 +66,6 @@ function PostCreateEdit() {
     },
   });
 
-  // 등록 버튼 활성화 조건 설정 (입력값 충족 시 활성화되도록)
   const isFormValid =
     category === "shelter"
       ? !!selectedShelter?.id &&
@@ -143,7 +135,7 @@ function PostCreateEdit() {
       toast.success("게시글이 성공적으로 저장되었습니다.");
       const redirectPath =
         category === "shelter" ? PATH.COMMUNITYSHELTER : PATH.COMMUNITYDAILY;
-      window.location.href = redirectPath;
+      router.push(redirectPath);
     },
 
     onError: error => {
@@ -154,7 +146,7 @@ function PostCreateEdit() {
 
   const onSubmit = async (values: FormData) => {
     if (!clientUser?.user?.id) {
-      toast.error("로그인 상태를 확인해주세요.");
+      toast.error("세션이 만료되었습니다. 다시 로그인해주세요.");
       return;
     }
 
@@ -162,18 +154,15 @@ function PostCreateEdit() {
   };
 
   if (isPending) return <div>로딩 중...</div>;
-  if (isError || !clientUser?.user) {
-    toast.error("로그인 정보를 불러올 수 없습니다.");
-    return null;
-  }
+  if (isError) return null;
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-[20px] px-[16px] pb-[32px] font-['IBM_Plex_Sans_KR']"
+        className="mx-auto w-full [max-width:640px] space-y-[20px] px-[16px] pb-[32px] font-['IBM_Plex_Sans_KR']"
       >
-        {/* 상단 헤더: 뒤로가기 + 드롭다운 + 등록 버튼 */}
+        {/* 반응형 최대 너비 + 가운데 정렬 처리 완료 */}
         <div className="flex w-full items-center justify-between px-[16px]">
           <BackButton />
           <div className="flex-1 text-center font-['IBM_Plex_Sans_KR'] text-[18px]">
@@ -185,7 +174,6 @@ function PostCreateEdit() {
             />
           </div>
 
-          {/* 등록 버튼: 입력 조건 충족 시 색상 변경 */}
           <Button
             type="submit"
             disabled={!isFormValid}
@@ -199,7 +187,6 @@ function PostCreateEdit() {
           </Button>
         </div>
 
-        {/* 글쓰기 Form 입력 영역 */}
         {category === "shelter" ? (
           <ShelterForm
             onShelterSelect={shelter => {
@@ -211,7 +198,6 @@ function PostCreateEdit() {
           <DailyForm />
         )}
 
-        {/* 이미지 업로드 */}
         <div className="px-[16px]">
           <ImageDropzone value={imgUrls} onChange={setImgUrls} maxFiles={5} />
         </div>
