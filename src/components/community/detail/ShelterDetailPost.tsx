@@ -48,7 +48,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
 
   return (
     <section className="mx-5 mt-20 flex flex-col items-center gap-5">
-      <article className="mb-5 w-full flex-col">
+      <article className="mb-10 w-full flex-col">
         <header className="mb-4 flex flex-col">
           <h1 className="text-bodyXL leading-[27px] font-medium text-gray-900">
             {data.title}
@@ -84,7 +84,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
 
         {data.img_url?.startsWith("http") || data.img_url?.startsWith("/") ? (
           <div className="mb-5 flex items-center justify-center">
-            <figure className="relative flex h-[350px] w-[350px] items-center justify-center overflow-hidden rounded-sm border-1 border-gray-400">
+            <figure className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-sm border-1 border-gray-400">
               <Image
                 src={data.img_url}
                 alt="이미지를 불러오지 못했습니다."
@@ -117,7 +117,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
         onClose={handleConfirmationModal}
       />
       {/* NOTE: 화면에 보이는 회색 줄 */}
-      <div className="mb-11 h-3 min-w-screen bg-[#F7F7F7]"></div>
+      <div className="mb-8 h-3 w-full bg-[#F7F7F7]"></div>
     </section>
   );
 };
