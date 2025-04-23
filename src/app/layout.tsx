@@ -10,7 +10,7 @@ import { defaultFonts } from "@/fonts/defaultFonts";
 export const metadata: Metadata = {
   title: "무사히",
   description: "재난이 닥쳤을때, 가장 먼저 무사히 확인하세요.",
-  icons: "/typos/logo.svg",
+  icons: "/typos/logo-blue.svg",
   openGraph: {
     title: "재난이 닥쳤을때, 가장 먼저 무사히 확인하세요.",
     description:

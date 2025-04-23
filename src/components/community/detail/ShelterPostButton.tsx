@@ -156,7 +156,7 @@ const ShelterPostButtons = ({ shelterPostId = null }: params) => {
             disabled={shelterPostId === null}
           >
             <Image
-              src={"/icons/thumbs-up-solid.svg"}
+              src={"/icons/community/thumbs-up-gray.svg"}
               alt="유용해요 아이콘" // 대체 텍스트 추가
               width={24}
               height={24}
