@@ -34,7 +34,7 @@ const Header = () => {
   return (
     <header className="fixed top-0 z-50 flex w-full items-center justify-between border-b bg-white px-4 py-4">
       {/* 뒤로가기 버튼 (랜딩 페이지에서는 숨김) */}
-      {isLandingPage ? <div className="h-5 w-5" /> : (
+      {isLandingPage ? <div className="w-7" /> : (
         <button onClick={handleBack}>
           <Image
             src="/icons/chevron-left-solid 1.svg"
@@ -56,7 +56,9 @@ const Header = () => {
       </button>
 
       {/* 오른쪽 알림 버튼 */}
+      <div className="mt-1">
       <NotificationButton />
+      </div>
     </header>
   );
 };

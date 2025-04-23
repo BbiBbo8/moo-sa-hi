@@ -1,29 +1,27 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import NotificationDropdown from "@/components/notifications/NotificationDropdown";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import getUserData from "@/supabase/getUserData";
 import useNotificationSubscription from "@/hooks/useNotificationSubscription";
+import { useQuery } from "@tanstack/react-query";
 
 const NotificationButton = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [newalarm, setNewalarm] = useState(false); // 새로운 알림 상태
-  const [userId, setUserId] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchId = async () => {
-      const userData = await getUserData();
-      setUserId(userData?.user?.id || null);
-    };
-    fetchId();
-  }, []);
+  // userId를 가져오는 useQuery 훅
+  const { data: userData, isLoading, isError } = useQuery({
+    queryKey: ["userId"],
+    queryFn: getUserData,
+    staleTime: Infinity, // userId는 자주 변하지 않으므로 캐시 유지
+  });
 
-  useNotificationSubscription(userId, payload => {
+  const userId = userData?.user?.id || null;
+
+  useNotificationSubscription(userId, (payload) => {
     setNewalarm(true);
   });
 
@@ -35,8 +33,8 @@ const NotificationButton = () => {
             <Image
               src={newalarm ? "/icons/alarm1.svg" : "/icons/alarm.svg"}
               alt="알림로고"
-              height={24}
-              width={24}
+              height={21}
+              width={21}
             />
           </button>
         </DropdownMenuTrigger>
