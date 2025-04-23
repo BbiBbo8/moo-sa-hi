@@ -4,8 +4,6 @@ import getUserData from "@/supabase/getUserData";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";

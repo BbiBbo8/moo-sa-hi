@@ -3,10 +3,17 @@
 import { usePathname, useRouter } from "next/navigation";
 import PATH from "@/constants/PATH";
 import Image from "next/image";
+import { useState } from "react";
+import NotificationDropdown from "@/components/notifications/NotificationDropdown";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // 현재 랜딩 페이지인지 확인하기
   const isLandingPage = pathname === PATH.HOME;
@@ -56,8 +63,27 @@ const Header = () => {
         ></Image>
       </button>
 
-      {/* 오른쪽 여백 (뒤로가기와 균형 맞추기용) */}
-      <div className="h-5 w-5" />
+      {/* 오른쪽 알림 아이콘 및 드롭다운 */}
+      <div className="relative">
+        <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
+          <DropdownMenuTrigger asChild>
+            <button className="relative ml-4">
+              <Image
+                src="/icons/alarm.svg"
+                alt="알림로고"
+                height={24}
+                width={24}
+              />
+              
+              
+            </button>
+          </DropdownMenuTrigger>
+          <NotificationDropdown
+            open={isDropdownOpen}
+            onOpenChange={setIsDropdownOpen}
+          />
+        </DropdownMenu>
+      </div>
     </header>
   );
 };
