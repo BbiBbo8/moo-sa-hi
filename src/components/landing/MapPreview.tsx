@@ -42,7 +42,7 @@ const LandingMapPreview = () => {
       </div>
 
       {/* 지도 + 버튼 영역 */}
-      <div className="relative mx-auto h-[353px] w-full max-w-[353px] overflow-hidden rounded-lg">
+      <div className="relative mx-auto h-[353px] w-full overflow-hidden rounded-lg">
         <MapGeolocationComponent location={center} setCenter={setCenter} />
 
         {/* GPS 버튼 */}
