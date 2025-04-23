@@ -22,8 +22,8 @@ const AlertBanner = () => {
   if (isLoading || error || !alert) return null;
 
   return (
-    <div className="px-[20px]">
-      <div className="flex w-full items-start justify-between rounded-lg bg-white px-4 py-3 shadow">
+    <div>
+      <div className="flex w-full items-start justify-between rounded-sm bg-[#F7F7F7] px-4 py-4 shadow">
         {/* 왼쪽: 아이콘 + 메시지 */}
         <div className="flex items-start gap-2 pr-2">
           <Image
@@ -35,7 +35,7 @@ const AlertBanner = () => {
           />
           <p
             className={`text-[16px] text-gray-800 ${
-              isOpen ? "whitespace-pre-wrap" : "max-w-[250px] truncate"
+              isOpen ? "whitespace-pre-wrap max-w-[290px]" : "max-w-[270px] truncate"
             }`}
           >
             [ {alert.region}] &nbsp;{alert.message}
@@ -43,18 +43,20 @@ const AlertBanner = () => {
         </div>
 
         {/* 오른쪽: 드롭다운 버튼 */}
-        <button onClick={() => setIsOpen(prev => !prev)} className="shrink-0">
-          <Image
-            src={
-              isOpen
-                ? "/icons/chevron-up-solid.svg"
-                : "/icons/chevron-down-solid.svg"
-            }
-            alt="드롭다운"
-            width={20}
-            height={20}
-          />
-        </button>
+        <div className="py-[0.9px]">
+          <button onClick={() => setIsOpen(prev => !prev)} className="shrink-0">
+            <Image
+              src={
+                isOpen
+                  ? "/icons/chevron-up-solid.svg"
+                  : "/icons/chevron-down-solid.svg"
+              }
+              alt="드롭다운"
+              width={20}
+              height={20}
+            />
+          </button>
+        </div>
       </div>
     </div>
   );
