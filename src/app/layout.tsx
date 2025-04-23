@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: "무사히",
     images: [
       {
-        url: "https://moo-sa-hi.vercel.app/landing/landing.svg",
+        url: "/opengraph-img.png",
         width: 1200,
         height: 630,
         alt: "미리보기 이미지",
