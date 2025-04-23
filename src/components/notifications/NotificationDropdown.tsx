@@ -1,5 +1,7 @@
+// components/notifications/NotificationDropdown.tsx
+"use client";
+
 import { useEffect, useState, useRef } from "react";
-import createClient from "@/supabase/client";
 import getUserData from "@/supabase/getUserData";
 import {
   DropdownMenuContent,
@@ -7,6 +9,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
+import useNotificationSubscription from "@/hooks/useNotificationSubscription";
+import createClient from "@/supabase/client";
 
 interface Notification {
   created_at: string | null;
@@ -40,37 +44,15 @@ function NotificationDropdown({
     fetchId();
   }, []);
 
-  useEffect(() => {
-    if (!userId) return;
-
-    const supabase = createClient();
-
-    const notificationSubscription = supabase
-      .channel(`notifications:${userId}`)
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "notifications",
-          filter: `user_id=eq.${userId}`,
-        },
-        payload => {
-          console.log("드롭다운 새로운 알림 도착!", payload.new);
-          const newNotification = payload.new as Notification;
-          setNotifications(prevNotifications => [
-            newNotification,
-            ...prevNotifications,
-          ]);
-          toast.success(newNotification.message);
-        },
-      )
-      .subscribe();
-
-    return () => {
-      notificationSubscription.unsubscribe();
-    };
-  }, [userId]);
+  useNotificationSubscription(userId, (payload) => {
+    console.log("드롭다운 새로운 알림 도착! - Hook!", payload.new);
+    const newNotification = payload.new as Notification;
+    setNotifications(prevNotifications => [
+      newNotification,
+      ...prevNotifications,
+    ]);
+    toast.success(newNotification.message);
+  });
 
   useEffect(() => {
     if (open && userId) {
