@@ -1,17 +1,18 @@
 "use client";
-import PATH from "@/constants/PATH";
+
 import { useMarkerStore } from "@/store/useMarkerStore";
-import { Shelter } from "@/types/shelter";
 import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 import { ScrollAreaViewport } from "@radix-ui/react-scroll-area";
+import Link from "next/link";
+import PATH from "@/constants/PATH";
+import { useEffect, useRef } from "react";
+import { Shelter } from "@/types/shelter";
 
 interface ShelterListProps {
   isDrawerOpen: boolean;
   shelters: Shelter[];
-  sortBy: "relevance" | "distance"; // 정렬 기준
+  sortBy: "relevance" | "distance";
 }
 
 const ShelterList = ({ isDrawerOpen, shelters, sortBy }: ShelterListProps) => {
@@ -21,7 +22,6 @@ const ShelterList = ({ isDrawerOpen, shelters, sortBy }: ShelterListProps) => {
 
   const refs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
-  // Drawer가 열리고 선택된 대피소가 있으면 그 대피소로 스크롤 이동
   useEffect(() => {
     if (
       isDrawerOpen &&
@@ -39,12 +39,11 @@ const ShelterList = ({ isDrawerOpen, shelters, sortBy }: ShelterListProps) => {
     refs.current[name] = el;
   };
 
-  // 거리순 정렬 함수 (distance 기준)
+  // ✅ 정렬 적용
   const sortedShelters =
     sortBy === "distance"
-      ? shelters.sort((a, b) => {
-          // distance 값이 존재하면 정렬
-          if (a.distance && b.distance) {
+      ? [...shelters].sort((a, b) => {
+          if (a.distance != null && b.distance != null) {
             return a.distance - b.distance;
           }
           return 0;
@@ -70,13 +69,14 @@ const ShelterList = ({ isDrawerOpen, shelters, sortBy }: ShelterListProps) => {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex w-[200px] flex-col gap-1 text-start">
-                      <h5 className="truncate text-[16px] font-semibold text-[#333333]">
+                      <h5 className="truncate text-base font-semibold text-[#333333]">
                         {shelter.name}
                       </h5>
-                      <span className="truncate text-[14px] font-thin text-[#808080]">
+                      <span className="truncate text-sm font-thin text-[#808080]">
                         {shelter.address}
                       </span>
                     </div>
+
                     {typeof shelter.distance === "number" && (
                       <span className="flex items-center text-sm font-normal text-[#666666]">
                         {(shelter.distance / 1000).toFixed(1)} km

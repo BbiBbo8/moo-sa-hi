@@ -1,9 +1,27 @@
+"use client";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import WrittenPost from "./WrittenPost";
 import CommentPost from "./CommentPost";
 import UsefulPost from "./UsefulPost";
+import BlankPost from "./BlankPost";
+import Error from "@/app/(pages)/Error";
+import Loading from "@/app/(pages)/Loading";
+import { useUserData } from "@/hooks/useUserData";
 
 const ProfileTabs = () => {
+  const { data, isLoading, error } = useUserData();
+  // 불러온 데이터 정의
+  const user = data?.userMetaData;
+
+  if (isLoading) {
+    return <Loading />;
+  }
+  // 불러오기 오류일 때 오류 컴포넌트 표시
+  if (error) {
+    return <Error />;
+  }
+
   return (
     <div className="mt-18 text-center">
       <Tabs defaultValue="post" className="mt-4">
@@ -15,13 +33,16 @@ const ProfileTabs = () => {
         </TabsList>
         {/* 트리거에 맞는 내용 */}
         <TabsContent value="post">
-          <WrittenPost />
+          {user && <WrittenPost />}
+          {!user && <BlankPost />}
         </TabsContent>
         <TabsContent value="comment">
-          <CommentPost />
+          {user && <CommentPost />}
+          {!user && <BlankPost />}
         </TabsContent>
         <TabsContent value="useful">
-          <UsefulPost />
+          {user && <UsefulPost />}
+          {!user && <BlankPost />}
         </TabsContent>
       </Tabs>
     </div>
