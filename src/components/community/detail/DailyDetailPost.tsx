@@ -59,7 +59,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
 
         {data.img_url?.startsWith("http") || data.img_url?.startsWith("/") ? (
           <div className="mb-5 flex items-center justify-center">
-            <figure className="relative flex h-[353px] w-[353px] items-center justify-center overflow-hidden rounded-3xl border-1 border-gray-400">
+            <figure className="relative flex h-[353px] w-[353px] items-center justify-center overflow-hidden rounded-sm border-1 border-gray-400">
               <Image
                 src={data.img_url}
                 alt="이미지가 없습니다."
@@ -79,9 +79,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
           onClickReport={handleConfirmationModal}
         /> */}
 
-        <DailyPostButtons
-          dailyPostId={data.id}
-        />
+        <DailyPostButtons dailyPostId={data.id} />
       </article>
 
       {/* 모달창 */}

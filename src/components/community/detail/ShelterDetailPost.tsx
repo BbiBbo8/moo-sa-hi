@@ -84,7 +84,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
 
         {data.img_url?.startsWith("http") || data.img_url?.startsWith("/") ? (
           <div className="mb-5 flex items-center justify-center">
-            <figure className="relative flex h-[350px] w-[350px] items-center justify-center overflow-hidden rounded-3xl border-1 border-gray-400">
+            <figure className="relative flex h-[350px] w-[350px] items-center justify-center overflow-hidden rounded-sm border-1 border-gray-400">
               <Image
                 src={data.img_url}
                 alt="이미지를 불러오지 못했습니다."
@@ -99,7 +99,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
           {data.contents}
         </p>
 
-        <figure className="mb-1 flex h-40 overflow-hidden rounded-2xl">
+        <figure className="mb-1 flex h-40 overflow-hidden rounded-md">
           <MainMap />
           {/* TEST: (고민 내용) 포함정보가 많아 무거운 MainMap보다 DetailMap을 쓰는 걸 추천받았지만
           그렇게 되면 테이블과 게시글 정보 입력 함수도 고치게 되서 고민중이다. 아침에 회의 하기 */}

@@ -15,6 +15,7 @@ const DailyPostButtons = ({ dailyPostId = null }: params) => {
   const [helpfulCount, setHelpfulCount] = useState(0);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const supabase = createClient();
+  // NOTE: getUserData는 Promise를 반환하는 함수이므로 비동기 처리가 필요함
   const userData = getUserData();
 
   useEffect(() => {
@@ -54,6 +55,7 @@ const DailyPostButtons = ({ dailyPostId = null }: params) => {
         }
       } else {
         // dailyPostId가 아직 로딩되지 않았을 경우 또는 undefined인 경우
+        setIsHelpful(false);
         setHelpfulCount(0); // 초기 helpfulCount를 0으로 설정하거나 유지
       }
     };
@@ -104,22 +106,40 @@ const DailyPostButtons = ({ dailyPostId = null }: params) => {
       <section className="relative mb-12 flex w-full flex-row items-center">
         {/* 유용해요 버튼 */}
         <div className="absolute left-1/2 -translate-x-1/2">
-          <button
-            onClick={handleHelpfulClick}
-            className={`flex h-10 items-center gap-0.5 rounded-md px-4 text-sm text-gray-500 ${
-              isHelpful ? "bg-blue-500 text-white" : "bg-[#F2F2F2]"
-            }`}
-          >
-            <Image
-              src={"/icons/thumbs-up-solid.svg"}
-              alt=""
-              width={24}
-              height={24}
-              className={isHelpful ? "invert" : ""}
-            />
-            유용해요
-            <span className="text-sm text-gray-600">{helpfulCount}</span>
-          </button>
+          {/* shelterPostId가 유효할 때만 개수 표시 */}
+          {isHelpful ? (
+            <button
+              onClick={handleHelpfulClick}
+              className="border-primary text-primary flex h-10 items-center gap-0.5 rounded-md border-1 px-4 text-sm"
+              // shelterPostId가 null이거나 초기 데이터 로딩 중에는 버튼 비활성화
+              disabled={dailyPostId === null}
+            >
+              <Image
+                src={"/icons/community/thumbs-up-blue.svg"}
+                alt=""
+                width={24}
+                height={24}
+              />
+              유용해요
+              <span className="ml-1">{helpfulCount}</span>
+            </button>
+          ) : (
+            <button
+              onClick={handleHelpfulClick}
+              className="flex h-10 items-center gap-0.5 rounded-md border-1 border-gray-200 px-4 text-sm text-gray-300"
+              // shelterPostId가 null이거나 초기 데이터 로딩 중에는 버튼 비활성화
+              disabled={dailyPostId === null}
+            >
+              <Image
+                src={"/icons/community/thumbs-up-gray.svg"}
+                alt=""
+                width={24}
+                height={24}
+              />
+              유용해요
+              <span className="ml-1">{helpfulCount}</span>
+            </button>
+          )}
         </div>
 
         {/* 신고하기 버튼 */}
