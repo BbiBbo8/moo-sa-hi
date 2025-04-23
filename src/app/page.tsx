@@ -7,14 +7,14 @@ import Image from "next/image";
 
 const HomePage = () => {
   return (
-    <main className="space-y-[20px] pb-[60px] pt-[50px]">
+    <main className="space-y-[20px] pt-[50px] pb-[60px]">
       <section className="relative h-[500px] w-full">
         {/* 배경 이미지 */}
         <Image
-          src="/landing/landing.svg"
+          src="/landing/landing1.svg"
           alt="랜딩페이지 표지 이미지"
           fill
-          className="object-cover"
+          className="mt-21 object-cover"
         />
 
         {/* AlertBanner 오버레이 */}

@@ -1,23 +1,32 @@
 "use client";
 
+import Error from "@/app/(pages)/Error";
+import Loading from "@/app/(pages)/Loading";
 import PATH from "@/constants/PATH";
 import useGetPosts from "@/hooks/useGetPosts";
 import Image from "next/image";
 import Link from "next/link";
 
 const WrittenPost = () => {
-  const { data: posts } = useGetPosts();
+  const { data: posts, isLoading, error } = useGetPosts();
   const shelterPost = posts?.shelter_post;
   const dailyPost = posts?.daily_post;
 
   // 이미지 존재 여부 판단하는 함수
   const isImage = (postUrl: string | null) => {
-    if (postUrl === "") {
+    if (postUrl === "" || postUrl === null) {
       return false;
     } else {
       return true;
     }
   };
+
+  if (isLoading) {
+    <Loading />;
+  }
+  if (error) {
+    <Error />;
+  }
 
   return (
     <>
