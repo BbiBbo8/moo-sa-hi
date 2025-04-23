@@ -11,7 +11,6 @@ import {
   FormMessage,
 } from "../../ui/form";
 import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
 import { useUserData } from "@/hooks/useUserData";
 import { useInsertComment } from "@/hooks/comment/useCommentMutation";
 import Error from "@/app/(pages)/Error";
@@ -20,11 +19,12 @@ import getUserData from "@/supabase/getUserData";
 import { useState } from "react";
 import SigninDrawer from "@/components/auth/SigninDrawer";
 import Image from "next/image";
+import { Textarea } from "@/components/ui/textarea";
 
 const commentSchema = z.object({
   content: z
     .string()
-    .min(5, "댓글은 최소 5자 이상 입력해 주세요.")
+    .min(2, "댓글은 최소 2자 이상 입력해 주세요.")
     .max(30, "댓글은 최대 30자까지만 입력할 수 있습니다."),
 });
 
@@ -78,35 +78,33 @@ const CommentForm = ({ postId }: { postId: number }) => {
   // 값이 있을 때 아이콘 변경
   const currentIconSrc =
     commentContent && commentContent.length > 0
-      ? "/icons/Property-1-Activate.svg"
-      : "/icons/Property-1-Disabled.svg";
+      ? "/icons/Property-Activate.svg"
+      : "/icons/Property-Disabled.svg";
 
   return (
     <>
       <Form {...form}>
-        <form
-          onClick={handleCommentInputClick}
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="m-4"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="m-4">
           <FormField
             control={form.control}
             name="content"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <div className="flex rounded-[8px] bg-[#FAFAFA] focus-within:border focus-within:border-[#999999] focus-within:outline-none active:outline-none">
-                    <Input
+                  <div className="relative flex items-center rounded-[8px] bg-[#FAFAFA] focus-within:border focus-within:border-[#999999] focus-within:outline-none active:outline-none">
+                    <Textarea
                       placeholder="댓글을 입력해주세요."
                       {...field}
-                      className="focus:ring-muted rounded-[8px] border-transparent bg-[#FAFAFA] text-base font-normal text-[#1A1A1A] shadow-none placeholder:text-base placeholder:text-[#999999]"
+                      maxLength={30}
+                      className="h-fit resize-none rounded-[8px] border-transparent bg-[#FAFAFA] pr-10 text-base font-normal text-[#1A1A1A] placeholder:text-base placeholder:text-[#999999] focus:ring-transparent focus:outline-none"
+                      onClick={handleCommentInputClick}
                     />
                     <Button
                       type="submit"
-                      className="box-border:none w-fit border-none bg-transparent shadow-none"
+                      className="box-border:none absolute right-2 bottom-2 w-fit border-none bg-transparent shadow-none"
                       disabled={
                         !commentContent ||
-                        commentContent.length < 5 ||
+                        commentContent.length < 2 ||
                         commentContent.length > 30
                       }
                     >

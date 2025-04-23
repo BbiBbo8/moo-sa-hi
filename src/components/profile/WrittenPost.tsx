@@ -1,12 +1,14 @@
 "use client";
 
+import Error from "@/app/(pages)/Error";
+import Loading from "@/app/(pages)/Loading";
 import PATH from "@/constants/PATH";
 import useGetPosts from "@/hooks/useGetPosts";
 import Image from "next/image";
 import Link from "next/link";
 
 const WrittenPost = () => {
-  const { data: posts } = useGetPosts();
+  const { data: posts, isLoading, error } = useGetPosts();
   const shelterPost = posts?.shelter_post;
   const dailyPost = posts?.daily_post;
 
@@ -18,6 +20,13 @@ const WrittenPost = () => {
       return true;
     }
   };
+
+  if (isLoading) {
+    <Loading />;
+  }
+  if (error) {
+    <Error />;
+  }
 
   return (
     <>

@@ -39,7 +39,7 @@ const CommunityDailyPage = () => {
     return <Loading />;
   }
   if (error) {
-    console.error("commuity-daily  에러",error);
+    console.error("commuity-daily  에러", error);
     return <Error />;
   }
 
@@ -49,7 +49,7 @@ const CommunityDailyPage = () => {
 
       <div className="flex h-12 w-full items-center gap-2 bg-white text-sm text-gray-600">
         <Image
-          src={"/icons/bullhorn-solid 1.svg"}
+          src={"/icons/bullhorn-solid1.svg"}
           alt={"icon"}
           width={24}
           height={24}
