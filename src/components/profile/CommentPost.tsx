@@ -16,7 +16,7 @@ const CommentPost = () => {
 
   // 이미지 존재 여부 판단하는 함수
   const isImage = (postUrl: string | null) => {
-    if (postUrl === "") {
+    if (postUrl === "" || postUrl === null) {
       return false;
     } else {
       return true;
