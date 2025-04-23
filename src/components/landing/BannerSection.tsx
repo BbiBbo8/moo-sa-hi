@@ -28,7 +28,7 @@ const bannerItems = [
   {
     src: "/landing/survey_banner.svg",
     alt: "배너 5",
-    href: "https://docs.google.com/forms/d/12UQZEvRB410aZ9_Aqlawjx0al-aLI3yX71QkfSr_E8E/viewform?pli=1&pli=1&edit_requested=true",
+    href: "https://forms.gle/cDWurtF1iretHftk7",
   },
 ];
 
