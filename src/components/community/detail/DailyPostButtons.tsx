@@ -4,6 +4,7 @@ import createClient from "@/supabase/client";
 import getUserData from "@/supabase/getUserData";
 import SigninDrawer from "@/components/auth/SigninDrawer";
 import ReportButton from "@/components/report/ReportButton";
+import { toast } from "sonner";
 
 interface params {
   dailyPostId?: number | null;
@@ -70,34 +71,64 @@ const DailyPostButtons = ({ dailyPostId = null }: params) => {
       return;
     }
 
-    if (isHelpful) {
-      const { error: deleteError } = await supabase
-        .from("helpfuls")
-        .delete()
-        .eq("user_id", user.id)
-        .eq("daily_post_id", dailyPostId!);
+    // dailyPostId가 null인 경우 처리
+    if (dailyPostId === null) {
+      console.error("유용해요 액션 불가: dailyPostId가 null입니다.");
+      return;
+    }
 
-      if (deleteError) {
-        console.error("유용해요 삭제 오류:", deleteError);
+    // 낙관적 UI 업데이트
+    const previousIsHelpful = isHelpful;
+    const previousHelpfulCount = helpfulCount;
+    setIsHelpful(!previousIsHelpful);
+    setHelpfulCount(prevCount =>
+      previousIsHelpful ? prevCount - 1 : prevCount + 1,
+    );
+
+    try {
+      if (previousIsHelpful) {
+        // 유용해요 취소
+        const { error: deleteError } = await supabase
+          .from("helpfuls")
+          .delete()
+          .eq("user_id", user.id)
+          .eq("daily_post_id", dailyPostId);
+
+        if (deleteError) {
+          console.error("유용해요 삭제 오류:", deleteError);
+          toast.error("유용해요 취소 실패");
+          setIsHelpful(previousIsHelpful);
+          setHelpfulCount(previousHelpfulCount);
+        } else {
+          toast.success("유용해요 취소");
+        }
       } else {
-        setIsHelpful(false);
-        setHelpfulCount(prevCount => prevCount - 1);
-      }
+        // 유용해요 등록
+        const { error: insertError } = await supabase
+          .from("helpfuls")
+          .insert([
+            {
+              user_id: user.id,
+              daily_post_id: dailyPostId,
+              shelter_post_id: null,
+            },
+          ])
+          .select();
 
-      const { error: insertError } = await supabase.from("helpfuls").insert([
-        {
-          user_id: user.id,
-          daily_post_id: dailyPostId,
-          shelter_post_id: null,
-        },
-      ]);
-
-      if (insertError) {
-        console.error("유용해요 추가 오류:", insertError);
-      } else {
-        setIsHelpful(true);
-        setHelpfulCount(prevCount => prevCount + 1);
+        if (insertError) {
+          console.error("유용해요 추가 오류:", insertError);
+          toast.error("유용해요 추가 실패");
+          setIsHelpful(previousIsHelpful);
+          setHelpfulCount(previousHelpfulCount);
+        } else {
+          toast.success("유용해요");
+        }
       }
+    } catch (err) {
+      console.error("유용해요 액션 중 예기치 않은 오류:", err);
+      toast.error("작업 중 오류 발생");
+      setIsHelpful(previousIsHelpful);
+      setHelpfulCount(previousHelpfulCount);
     }
   };
 
