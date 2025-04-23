@@ -13,12 +13,13 @@ export const metadata: Metadata = {
   icons: "/typos/logo.svg",
   openGraph: {
     title: "재난이 닥쳤을때, 가장 먼저 무사히 확인하세요.",
-    description: "대피소 위치부터 실시간 정보까지 무사히에서 빠르게 확인하세요.",
+    description:
+      "대피소 위치부터 실시간 정보까지 무사히에서 빠르게 확인하세요.",
     url: "https://yourdomain.com/page-url",
     siteName: "무사히",
     images: [
       {
-        url: "https://moo-sa-hi.vercel.app/landing/landing.svg",
+        url: "/opengraph-img.png",
         width: 1200,
         height: 630,
         alt: "미리보기 이미지",
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     ],
     locale: "ko_KR",
   },
-  };
+};
 
 const API = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&libraries=services,clusterer&autoload=false`;
 
