@@ -30,7 +30,7 @@ const LandingMapPreview = () => {
   };
 
   return (
-    <section className="mx-[20px] mt-[100px]">
+    <section className="mx-[20px] mt-[160px]">
       {/* 텍스트 헤더 */}
       <div className="mb-4">
         <h2 className="text-[20px] leading-[27px] font-semibold text-[#1A1A1A]">
