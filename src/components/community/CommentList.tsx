@@ -16,17 +16,6 @@ const CommentList = ({ postId }: { postId: number }) => {
   const { data, error, isLoading } = useUserData();
   const user = data?.user;
 
-  const pathname = usePathname();
-
-  // 현재 위치 확인
-  const isShelter = () => {
-    if (pathname.includes(PATH.COMMUNITYSHELTER)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
   const {
     data: commentsData,
     error: commentError,
