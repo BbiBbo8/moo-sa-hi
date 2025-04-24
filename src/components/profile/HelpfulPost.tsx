@@ -1,6 +1,6 @@
 import React from "react";
 
-const UsefulPost = () => {
+const HelpfulPost = () => {
   return (
     // 프레임만 존재
     <section className="grid grid-cols-3 gap-0.5 text-center">
@@ -12,4 +12,4 @@ const UsefulPost = () => {
   );
 };
 
-export default UsefulPost;
+export default HelpfulPost;
