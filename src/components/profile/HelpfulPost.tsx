@@ -33,6 +33,7 @@ const HelpfulPost = () => {
           key={helpful.id}
           className="bg-accent relative grid aspect-square min-h-32 min-w-32 truncate overflow-hidden bg-center"
         >
+          {/* 대피소 커뮤니티일 때 */}
           {helpful.daily_post === null && (
             <Link href={`${PATH.COMMUNITYSHELTER}/${helpful.shelter_post?.id}`}>
               <div className="min-h-32 min-w-32">
@@ -50,6 +51,7 @@ const HelpfulPost = () => {
               </div>
             </Link>
           )}
+          {/* 일상 커뮤니티일 때 */}
           {helpful.shelter_post === null && (
             <Link href={`${PATH.COMMUNITYDAILY}/${helpful.daily_post?.id}`}>
               <div className="min-h-32 min-w-32">
