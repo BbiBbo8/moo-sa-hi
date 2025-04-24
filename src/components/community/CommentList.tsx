@@ -9,8 +9,6 @@ import Error from "@/app/(pages)/Error";
 import { useComments } from "@/hooks/comment/useComments";
 import { useDeleteComment } from "@/hooks/comment/useCommentMutation";
 import { elapsedTime } from "@/utils/formatTime";
-import { usePathname } from "next/navigation";
-import PATH from "@/constants/PATH";
 
 const CommentList = ({ postId }: { postId: number }) => {
   const { data, error, isLoading } = useUserData();
