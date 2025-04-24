@@ -8,6 +8,7 @@ import Error from "@/app/(pages)/Error";
 import { useMarkerStore } from "@/store/useMarkerStore";
 import Image from "next/image";
 import { debounce } from "lodash";
+import { getMarkerImage } from "@/utils/markerImage";
 
 const MainMap = () => {
   const mapRef = useRef<kakao.maps.Map | null>(null);
@@ -133,6 +134,7 @@ const MainMap = () => {
           <MapMarker
             key={`${shelter.name}-${index}`}
             position={{ lat: shelter.lat, lng: shelter.lng }}
+            image={getMarkerImage("selected")}
             onClick={() =>
               handleMarkerClick(shelter.lat, shelter.lng, shelter.name)
             }
