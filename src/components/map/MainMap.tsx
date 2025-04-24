@@ -27,14 +27,14 @@ const MainMap = () => {
   // 필터링 로직을 useCallback으로 메모이제이션
   const filterVisibleShelters = useCallback(() => {
     if (!mapRef.current || !shelters.length) return [];
-    
+
     // 현재 지도의 영역 보이는 범위를 가져옴
     const bounds = mapRef.current.getBounds();
-    
+
     if (level >= 14) {
       return []; // 확대 레벨이 14 이상이면 빈 배열 반환
     }
-    
+
     // 전체 대피소 지도 화면 안에 있는 대피소만 필터링
     return shelters.filter(shelter =>
       bounds.contain(new kakao.maps.LatLng(shelter.lat, shelter.lng))
@@ -44,7 +44,7 @@ const MainMap = () => {
   // 지도에 표시된 대피소 목록만 필터링하여 상태에 저장
   useEffect(() => {
     if (!mapRef.current) return;
-    
+
     // 현재 확대 레벨에서 보이는 대피소만 필터링하여 저장
     const visibleShelters = filterVisibleShelters();
     setMarkedShelter(visibleShelters);
@@ -60,6 +60,7 @@ const MainMap = () => {
     mapRef.current = map;
     map.setLevel(level);
     map.setCenter(new kakao.maps.LatLng(center.lat, center.lng));
+    // map.setZoomable(false); // 기본 줌 기능 활성화 (제거)
   }, [center, level]);
 
   // 마커 클러스터 클릭 시, 해당 클러스터에 포함된 모든 마커들을 지도 중심으로 이동시킴
@@ -98,9 +99,6 @@ const MainMap = () => {
       level={level}
       className="z-0 h-full w-full"
       onCreate={handleCreate}
-      onZoomChanged={map => {
-        setLevel(map.getLevel());
-      }}
     >
       <MarkerClusterer
         averageCenter={true}
