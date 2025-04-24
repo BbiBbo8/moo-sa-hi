@@ -74,7 +74,7 @@ const ShelterDrawer = () => {
       </DialogTrigger>
 
       <DialogContent className="max-w-[312px] rounded-xl px-0 pt-7 pb-5">
-        <DialogHeader className="gap-0">
+        <DialogHeader className="flex items-center justify-center gap-0">
           <DialogTitle className="text-lg font-medium text-[#1A1A1A]">
             정렬 기준
           </DialogTitle>
