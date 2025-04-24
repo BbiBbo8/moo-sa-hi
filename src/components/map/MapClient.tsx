@@ -14,7 +14,7 @@ const MapClient = () => {
       </div>
 
       <MainMap />
-      <div className="absolute top-[80px] right-8 z-40 flex flex-col gap-3">
+      <div className="absolute top-[90px] right-8 z-40 flex flex-col gap-3">
         <CrosshairButton />
         <ZoomControl />
       </div>
