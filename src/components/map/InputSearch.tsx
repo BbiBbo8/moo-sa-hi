@@ -39,18 +39,16 @@ const InputSearch = () => {
   };
 
   return (
-    <div className="absolute top-6 z-50 mx-auto w-[333px]">
+    <div className="absolute top-10 z-50 w-full px-5">
       {/* wrapper: input + 결과 리스트 포함, 포커스 시 테두리 강조 */}
-      <div
-        className={`rounded-md bg-white shadow-md transition-all focus-within:ring-1 focus-within:ring-[#58999E]`}
-      >
+      <div className="rounded-md bg-white shadow-md transition-all focus-within:ring-1 focus-within:ring-[#58999E]">
         <div className="relative">
           <Search className="absolute top-2 right-4 h-5 w-5 bg-white text-gray-400" />
 
           <Input
             type="search"
             placeholder="대피소,장소,지역,주소 검색"
-            className="border-0 px-5 py-3 text-base font-normal text-[1A1A1A] placeholder:text-base placeholder:font-normal placeholder:text-gray-400 focus:outline-none focus-visible:ring-0"
+            className="w-full border-0 px-5 py-3 text-base font-normal text-[1A1A1A] placeholder:text-base placeholder:font-normal placeholder:text-gray-400 focus:outline-none focus-visible:ring-0"
             value={searchQuery}
             onChange={e => handleSearch(e.target.value)}
             onFocus={() => setIsFocused(true)}
