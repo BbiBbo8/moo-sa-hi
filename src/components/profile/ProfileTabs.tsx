@@ -29,7 +29,7 @@ const ProfileTabs = () => {
           {/* 탭 메뉴 */}
           <TabsTrigger value="post">작성 게시글</TabsTrigger>
           <TabsTrigger value="comment">댓글 단 게시글</TabsTrigger>
-          <TabsTrigger value="useful">저장된 게시글</TabsTrigger>
+          <TabsTrigger value="useful">저장 된 게시글</TabsTrigger>
         </TabsList>
         {/* 트리거에 맞는 내용 */}
         <TabsContent value="post">
