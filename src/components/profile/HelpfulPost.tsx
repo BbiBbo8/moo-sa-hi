@@ -38,7 +38,7 @@ const HelpfulPost = () => {
             <Link href={`${PATH.COMMUNITYSHELTER}/${helpful.shelter_post?.id}`}>
               <div className="min-h-32 min-w-32">
                 {/* 이미지가 존재할 때 썸네일 띄우기 */}
-                {isImage(helpful.shelter_post?.img_url!) ? (
+                {isImage(helpful?.shelter_post?.img_url!) ? (
                   <Image
                     src={helpful.shelter_post?.img_url as string}
                     alt="이미지"
@@ -56,7 +56,7 @@ const HelpfulPost = () => {
             <Link href={`${PATH.COMMUNITYDAILY}/${helpful.daily_post?.id}`}>
               <div className="min-h-32 min-w-32">
                 {/* 이미지가 존재할 때 썸네일 띄우기 */}
-                {isImage(helpful.daily_post?.img_url!) ? (
+                {isImage(helpful?.daily_post?.img_url!) ? (
                   <Image
                     src={helpful.daily_post?.img_url as string}
                     alt="이미지"
