@@ -38,7 +38,7 @@ export const useGetHelpfuls = () => {
 
       return helpfulData;
     } catch (error) {
-      return console.error("불러오기 오류 발생");
+      return console.error("불러오기 오류 발생", error);
     }
   };
   return useQuery({
