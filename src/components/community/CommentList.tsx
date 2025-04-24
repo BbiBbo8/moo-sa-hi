@@ -9,21 +9,40 @@ import Error from "@/app/(pages)/Error";
 import { useComments } from "@/hooks/comment/useComments";
 import { useDeleteComment } from "@/hooks/comment/useCommentMutation";
 import { elapsedTime } from "@/utils/formatTime";
+import { usePathname } from "next/navigation";
+import PATH from "@/constants/PATH";
 
 const CommentList = ({ postId }: { postId: number }) => {
   const { data, error, isLoading } = useUserData();
   const user = data?.user;
 
+  const pathname = usePathname();
+
+  // 현재 위치 확인
+  const isShelter = () => {
+    if (pathname.includes(PATH.COMMUNITYSHELTER)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const {
-    data: commentsData, 
+    data: commentsData,
     error: commentError,
     isLoading: isCommentLoading,
   } = useComments({ postId });
 
+  console.log(commentsData);
+
   // 최신 댓글이 위로 오도록 정렬
-  const sortedComments = commentsData ? [...commentsData].sort((a, b) => {
-    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-  }) : [];
+  const sortedComments = commentsData
+    ? [...commentsData].sort((a, b) => {
+        return (
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+      })
+    : [];
 
   // 댓글 작성자 여부 확인
   const isOwned = (commentUserId: string | null) => {
@@ -53,17 +72,20 @@ const CommentList = ({ postId }: { postId: number }) => {
           {index > 0 && <div className="h-0.25 w-full bg-[#F2F2F2]" />}
           <Card className="border-none shadow-none">
             <CardContent>
-              <CardDescription className="text-[#1A1A1A]">
+              <CardDescription className="text-sm text-[#808080]">
+                {comment.users?.nickname}
+              </CardDescription>
+              <CardDescription className="mt-0.5 text-base text-[#1A1A1A]">
                 {comment.comments}
               </CardDescription>
               <div className="mt-3 flex flex-row">
-                <CardDescription className="py-2 text-[#B3B3B3]">
+                <CardDescription className="py-2 text-sm text-[#B3B3B3]">
                   {elapsedTime(comment.created_at)}
                 </CardDescription>
                 {isOwned(comment.user_id) && (
                   <Button
                     onClick={() => deleteCommentMutation.mutate(comment.id)}
-                    className="border-block h-fit w-fit bg-transparent font-normal text-[#B3B3B3]"
+                    className="border-block h-fit w-fit bg-transparent text-sm font-normal text-[#B3B3B3]"
                   >
                     댓글 삭제
                   </Button>
