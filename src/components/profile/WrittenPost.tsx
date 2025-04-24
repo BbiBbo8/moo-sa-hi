@@ -3,7 +3,7 @@
 import Error from "@/app/(pages)/Error";
 import Loading from "@/app/(pages)/Loading";
 import PATH from "@/constants/PATH";
-import useGetPosts from "@/hooks/useGetPosts";
+import useGetPosts from "@/hooks/profile/useGetPosts";
 import Image from "next/image";
 import Link from "next/link";
 
