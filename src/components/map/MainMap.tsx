@@ -72,8 +72,12 @@ const MainMap = () => {
     if (clusterCenter && mapRef.current) {
       mapRef.current.panTo(clusterCenter); // 지도 이동
       setCenter({ lat: clusterCenter.getLat(), lng: clusterCenter.getLng() }); // 상태 업데이트
+
+      const currentLevel = mapRef.current.getLevel();
+      mapRef.current.setLevel(currentLevel - 1); // 현재 레벨에서 1 감소 (확대)
+      setLevel(currentLevel - 1); // Zustand 상태 업데이트
     }
-  }, [setCenter]);
+  }, [setCenter, setLevel]);
 
   // 마커 클릭 시, 해당 대피소로 이동
   const handleMarkerClick = useCallback((lat: number, lng: number, name: string) => {
@@ -101,7 +105,7 @@ const MainMap = () => {
       onCreate={handleCreate}
     >
       <MarkerClusterer
-        averageCenter={true}
+        averageCenter={false}
         minLevel={10}
         onClusterclick={handleClusterClick}
       >
