@@ -3,11 +3,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import WrittenPost from "./WrittenPost";
 import CommentPost from "./CommentPost";
-import UsefulPost from "./UsefulPost";
 import BlankPost from "./BlankPost";
 import Error from "@/app/(pages)/Error";
 import Loading from "@/app/(pages)/Loading";
 import { useUserData } from "@/hooks/useUserData";
+import HelpfulPost from "./HelpfulPost";
 
 const ProfileTabs = () => {
   const { data, isLoading, error } = useUserData();
@@ -41,7 +41,7 @@ const ProfileTabs = () => {
           {!user && <BlankPost />}
         </TabsContent>
         <TabsContent value="useful">
-          {user && <UsefulPost />}
+          {user && <HelpfulPost />}
           {!user && <BlankPost />}
         </TabsContent>
       </Tabs>
