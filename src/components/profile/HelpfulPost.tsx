@@ -34,7 +34,7 @@ const HelpfulPost = () => {
           className="bg-accent relative grid aspect-square min-h-32 min-w-32 truncate overflow-hidden bg-center"
         >
           {helpful.daily_post === null && (
-            <Link href={`${PATH.COMMUNITYSHELTER}/${helpful.id}`}>
+            <Link href={`${PATH.COMMUNITYSHELTER}/${helpful.shelter_post?.id}`}>
               <div className="min-h-32 min-w-32">
                 {/* 이미지가 존재할 때 썸네일 띄우기 */}
                 {isImage(helpful.shelter_post?.img_url!) ? (
@@ -51,7 +51,7 @@ const HelpfulPost = () => {
             </Link>
           )}
           {helpful.shelter_post === null && (
-            <Link href={`${PATH.COMMUNITYDAILY}/${helpful.id}`}>
+            <Link href={`${PATH.COMMUNITYDAILY}/${helpful.daily_post?.id}`}>
               <div className="min-h-32 min-w-32">
                 {/* 이미지가 존재할 때 썸네일 띄우기 */}
                 {isImage(helpful.daily_post?.img_url!) ? (
