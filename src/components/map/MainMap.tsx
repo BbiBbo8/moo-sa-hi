@@ -7,6 +7,7 @@ import Loading from "@/app/(pages)/Loading";
 import Error from "@/app/(pages)/Error";
 import { useMarkerStore } from "@/store/useMarkerStore";
 import Image from "next/image";
+import { debounce } from "lodash";
 
 const MainMap = () => {
   const mapRef = useRef<kakao.maps.Map | null>(null);
@@ -15,7 +16,9 @@ const MainMap = () => {
 
   // 대피소 중 현재 지도에 보이는 것만 필터링해서 zustand useMarkerStore에 저장
   const setMarkedShelter = useMarkerStore(state => state.setMarkedShelter);
-  const setSelectedShelterName = useMarkerStore(state => state.setSelectedShelterName);
+  const setSelectedShelterName = useMarkerStore(
+    state => state.setSelectedShelterName,
+  );
 
   // zustand의 지도 상태 값 가져오기
   const center = useMapStore(state => state.center);
@@ -37,7 +40,7 @@ const MainMap = () => {
 
     // 전체 대피소 지도 화면 안에 있는 대피소만 필터링
     return shelters.filter(shelter =>
-      bounds.contain(new kakao.maps.LatLng(shelter.lat, shelter.lng))
+      bounds.contain(new kakao.maps.LatLng(shelter.lat, shelter.lng)),
     );
   }, [shelters, level]);
 
@@ -56,37 +59,54 @@ const MainMap = () => {
   }, [reset]);
 
   // 지도 생성 시 실행되는 함수
-  const handleCreate = useCallback((map: kakao.maps.Map) => {
-    mapRef.current = map;
-    map.setLevel(level);
-    map.setCenter(new kakao.maps.LatLng(center.lat, center.lng));
-    // map.setZoomable(false); // 기본 줌 기능 활성화 (제거)
-  }, [center, level]);
+  const handleCreate = useCallback(
+    (map: kakao.maps.Map) => {
+      mapRef.current = map;
+      map.setLevel(level);
+      map.setCenter(new kakao.maps.LatLng(center.lat, center.lng));
+
+      // 지도 영역 변경 이벤트 리스너 추가 (디바운스 적용)
+      kakao.maps.event.addListener(
+        map,
+        "bounds_changed",
+        debounce(() => {
+          if (mapRef.current) {
+            const visible = filterVisibleShelters();
+            setMarkedShelter(visible);
+          }
+        }, 300),
+      ); // 300ms 동안 이벤트이 없으면 실행
+    },
+    [center, level, filterVisibleShelters, setMarkedShelter],
+  ); // filterVisibleShelters와 setMarkedShelter를 의존성 배열에 추가
 
   // 마커 클러스터 클릭 시, 해당 클러스터에 포함된 모든 마커들을 지도 중심으로 이동시킴
-  const handleClusterClick = useCallback((
-    _target: kakao.maps.MarkerClusterer,
-    cluster: kakao.maps.Cluster,
-  ) => {
-    const clusterCenter = cluster.getCenter(); // 클러스터의 중심 좌표 가져오기
-    if (clusterCenter && mapRef.current) {
-      mapRef.current.panTo(clusterCenter); // 지도 이동
-      setCenter({ lat: clusterCenter.getLat(), lng: clusterCenter.getLng() }); // 상태 업데이트
+  const handleClusterClick = useCallback(
+    (_target: kakao.maps.MarkerClusterer, cluster: kakao.maps.Cluster) => {
+      const clusterCenter = cluster.getCenter(); // 클러스터의 중심 좌표 가져오기
+      if (clusterCenter && mapRef.current) {
+        mapRef.current.panTo(clusterCenter); // 지도 이동
+        setCenter({ lat: clusterCenter.getLat(), lng: clusterCenter.getLng() }); // 상태 업데이트
 
-      const currentLevel = mapRef.current.getLevel();
-      mapRef.current.setLevel(currentLevel - 1); // 현재 레벨에서 1 감소 (확대)
-      setLevel(currentLevel - 1); // Zustand 상태 업데이트
-    }
-  }, [setCenter, setLevel]);
+        const currentLevel = mapRef.current.getLevel();
+        mapRef.current.setLevel(currentLevel - 1); // 현재 레벨에서 1 감소 (확대)
+        setLevel(currentLevel - 1); // Zustand 상태 업데이트
+      }
+    },
+    [setCenter, setLevel],
+  );
 
   // 마커 클릭 시, 해당 대피소로 이동
-  const handleMarkerClick = useCallback((lat: number, lng: number, name: string) => {
-    const newCenter = new kakao.maps.LatLng(lat, lng);
-    mapRef.current?.panTo(newCenter); // 지도 이동
-    setCenter({ lat, lng }); // 상태 업데이트
-    setSelectMarker(name);
-    setSelectedShelterName(name);
-  }, [setCenter, setSelectedShelterName]);
+  const handleMarkerClick = useCallback(
+    (lat: number, lng: number, name: string) => {
+      const newCenter = new kakao.maps.LatLng(lat, lng);
+      mapRef.current?.panTo(newCenter); // 지도 이동
+      setCenter({ lat, lng }); // 상태 업데이트
+      setSelectMarker(name);
+      setSelectedShelterName(name);
+    },
+    [setCenter, setSelectedShelterName],
+  );
 
   // 렌더링에 필요한 대피소만 메모이제이션하여 사용
   const visibleShelters = useMemo(() => {
