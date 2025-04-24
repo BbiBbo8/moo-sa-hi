@@ -106,7 +106,7 @@ const MainMap = () => {
     >
       <MarkerClusterer
         averageCenter={false}
-        minLevel={10}
+        minLevel={7}
         onClusterclick={handleClusterClick}
       >
         {visibleShelters.map((shelter, index) => (
