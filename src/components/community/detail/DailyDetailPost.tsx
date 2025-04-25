@@ -85,7 +85,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
       />
 
       {/* NOTE: 화면에 보이는 회색 줄 */}
-      <div className="mb-11 h-3 w-full bg-[#F7F7F7]"></div>
+      <div className="mb-11 h-3 w-full bg-[#F7F7F7]" />
     </section>
   );
 };
