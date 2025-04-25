@@ -160,7 +160,6 @@ const ShelterPostButtons = ({ shelterPostId = null }: params) => {
               alt="유용해요 아이콘" // 대체 텍스트 추가
               width={24}
               height={24}
-              className={isHelpful ? "invert" : ""}
             />
             유용해요
             {/* shelterPostId가 유효할 때만 개수 표시 */}

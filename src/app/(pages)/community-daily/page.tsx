@@ -44,7 +44,7 @@ const CommunityDailyPage = () => {
   }
 
   return (
-    <main className="flex min-h-screen w-full max-w-[640px] flex-col items-center pb-16">
+    <main className="flex min-h-screen w-full flex-col items-center pb-16">
       <div className="fixed top-0 z-50 w-full">
         <CommunityHeader setSearchTerm={setSearchTerm} />
       </div>
@@ -68,7 +68,7 @@ const CommunityDailyPage = () => {
       </div>
 
       {/* 필터링된 게시글 반환 */}
-      <section className="flex w-full flex-col items-center justify-center">
+      <section className="flex w-full max-w-[640px] flex-col items-center justify-center overflow-auto">
         {filteredPosts?.length > 0 ? (
           filteredPosts.map(post => {
             return <DailyPost key={post.id} post={post} />;

@@ -49,7 +49,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
   const timeCreated = formatTime({ time: data.created_at });
 
   return (
-    <section className="mx-5 mt-20 flex flex-col items-center gap-5">
+    <section className="mx-5 mt-20 flex max-w-[640px] flex-col items-center gap-5">
       <article className="mb-5 w-full flex-col">
         <header className="mb-4 flex flex-col">
           <h1 className="text-[18px] leading-[27px] font-medium text-[#1A1A1A]">
@@ -107,7 +107,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
       />
 
       {/* NOTE: 화면에 보이는 회색 줄 */}
-      <div className="mb-11 h-2 min-w-screen bg-[#F7F7F7]"></div>
+      <div className="mb-11 h-3 w-full bg-[#F7F7F7]"></div>
     </section>
   );
 };

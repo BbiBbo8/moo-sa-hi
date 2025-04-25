@@ -11,7 +11,7 @@ const DailyDetailPage = async ({
   const numericId = Number(id);
 
   return (
-    <main>
+    <main className="mx-auto w-full max-w-[640px]">
       <DailyDetailPost id={numericId} />
       <CommentForm postId={numericId} />
       <CommentList postId={numericId} />

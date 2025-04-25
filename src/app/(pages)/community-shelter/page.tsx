@@ -42,7 +42,7 @@ const CommunityShelterPage = () => {
   }
 
   return (
-    <main className="flex min-h-screen max-w-[640] flex-col items-center pt-16 pb-16">
+    <main className="flex min-h-screen flex-col items-center pt-16 pb-16">
       <div className="fixed top-0 z-50 w-full">
         <CommunityHeader setSearchTerm={setSearchTerm} />
       </div>

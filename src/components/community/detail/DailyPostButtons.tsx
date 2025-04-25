@@ -111,11 +111,10 @@ const DailyPostButtons = ({ dailyPostId = null }: params) => {
             }`}
           >
             <Image
-              src={"/icons/community/thumbs-up-solid.svg"}
+              src={"/icons/community/thumbs-up-gray.svg"}
               alt=""
               width={24}
               height={24}
-              className={isHelpful ? "invert" : ""}
             />
             유용해요
             <span className="text-sm text-gray-600">{helpfulCount}</span>
