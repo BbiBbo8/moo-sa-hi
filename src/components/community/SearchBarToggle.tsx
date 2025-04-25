@@ -35,8 +35,8 @@ const SearchBarToggle: React.FC<SearchBarToggleProps> = ({ onSearch }) => {
 
   const switchSearchIcon =
     !searchValue.length === null
-      ? "/icons/Property-1-Disabled.svg"
-      : "/icons/Property-1-Activate.svg";
+      ? "/icons/Property-Disabled.svg"
+      : "/icons/Property-Activate.svg";
 
   return (
     <div className="relative">
@@ -53,17 +53,17 @@ const SearchBarToggle: React.FC<SearchBarToggleProps> = ({ onSearch }) => {
       {/* 검색창 영역 */}
       {isSearchOpen && (
         <div className="shadow-community-search fixed top-16 right-0 left-0 z-50 flex items-center bg-white px-5 pt-2 pb-3">
-          <div className="flex items-center gap-3">
-            <div className="relative">
+          <div className="flex w-full items-center gap-3">
+            <div className="relative w-full">
               <Input
                 autoFocus
                 placeholder="검색어를 입력하세요"
                 value={searchValue}
                 onChange={handleSearchChange}
-                className="border-primary h-10 w-[312px] border-1"
+                className="border-primary h-10 w-full min-w-[312px] border-1"
               />
               <Image
-                src={"/icons/Property-1-Disabled.svg"}
+                src={"/icons/Property-Disabled.svg"}
                 alt={"icon"}
                 width={28}
                 height={28}
