@@ -6,6 +6,7 @@ const CrosshairButton = () => {
   const { mutate, isPending } = useGeolocationMutation();
   const setCenter = useMapStore(state => state.setCenter);
   const setLevel = useMapStore(state => state.setLevel);
+  const setCurrentLocation = useMapStore(state => state.setCurrentLocation);
 
   // 현재 위치 가져오기
   const handleGetLocation = () => {
@@ -13,6 +14,7 @@ const CrosshairButton = () => {
       onSuccess: data => {
         setCenter(data);
         setLevel(3);
+        setCurrentLocation(data);
       },
     });
   };

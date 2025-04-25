@@ -27,6 +27,7 @@ const MainMap = () => {
   const setLevel = useMapStore(state => state.setLevel);
   const setCenter = useMapStore(state => state.setCenter);
   const reset = useMapStore(state => state.reset);
+  const currentLocation = useMapStore(state => state.currentLocation);
 
   // 필터링 로직을 useCallback으로 메모이제이션
   const filterVisibleShelters = useCallback(() => {
@@ -120,6 +121,11 @@ const MainMap = () => {
 
   return (
     <Map
+      key={
+        currentLocation
+          ? `${currentLocation.lat}-${currentLocation.lng}`
+          : "map"
+      }
       center={center}
       level={level}
       className="z-0 h-full w-full"
@@ -157,6 +163,16 @@ const MainMap = () => {
             )}
           </MapMarker>
         ))}
+        {currentLocation && (
+          <MapMarker
+            position={currentLocation}
+            image={{
+              src: "/icons/map/my-location.svg", // 혹은 data URL로 svg 직접 넣기
+              size: { width: 24, height: 24 },
+              options: { offset: { x: 12, y: 12 } }, // 중심 정렬
+            }}
+          />
+        )}
       </MarkerClusterer>
     </Map>
   );
