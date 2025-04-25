@@ -3,8 +3,9 @@
 import { usePathname, useRouter } from "next/navigation";
 import PATH from "@/constants/PATH";
 import Image from "next/image";
+import NotificationButton from "@/components/layout/NotificationButton"; // 새로 만든 컴포넌트 임포트
 
-const Header = () => {
+const Header = () => {  
   const router = useRouter();
   const pathname = usePathname();
 
@@ -33,9 +34,7 @@ const Header = () => {
   return (
     <header className="fixed top-0 z-50 flex w-full items-center justify-between border-b bg-white px-5 py-5">
       {/* 뒤로가기 버튼 (랜딩 페이지에서는 숨김) */}
-      {isLandingPage ? (
-        <div className="h-5 w-5" /> // 공간만 유지
-      ) : (
+      {isLandingPage ? <div className="w-7" /> : (
         <button onClick={handleBack}>
           <Image
             src="/icons/chevron-left-solid 1.svg"
@@ -56,8 +55,10 @@ const Header = () => {
         ></Image>
       </button>
 
-      {/* 오른쪽 여백 (뒤로가기와 균형 맞추기용) */}
-      <div className="h-5 w-5" />
+      {/* 오른쪽 알림 버튼 */}
+      <div className="mt-1">
+      <NotificationButton />
+      </div>
     </header>
   );
 };

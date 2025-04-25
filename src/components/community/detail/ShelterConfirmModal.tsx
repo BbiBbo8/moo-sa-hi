@@ -1,6 +1,6 @@
 "use client";
 
-import { useShelterPostDetailQuery } from "@/hooks/community/shelterPostDetailsQuery";
+import useShelterPostDetailQuery from "@/hooks/community/shelterPostDetailsQuery";
 import getUserData from "@/supabase/getUserData";
 import { useEffect, useState } from "react";
 

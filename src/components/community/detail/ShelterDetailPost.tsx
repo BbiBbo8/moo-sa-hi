@@ -1,6 +1,5 @@
 "use client";
 
-import { useShelterPostDetailQuery } from "@/hooks/community/shelterPostDetailsQuery";
 import Image from "next/image";
 import { formatTime } from "@/utils/formatTime";
 import Loading from "@/app/(pages)/Loading";
@@ -11,8 +10,7 @@ import { useShelters } from "@/hooks/shelter/useShelters";
 import Error from "@/app/(pages)/Error";
 import ConfirmModal from "./ShelterConfirmModal";
 import ShelterPostButtons from "./ShelterPostButton";
-import { ShieldCheck } from "lucide-react";
-import { UsersRound } from "lucide-react";
+import useShelterPostDetailQuery from "@/hooks/community/shelterPostDetailsQuery";
 
 const ShelterDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useShelterPostDetailQuery(id);
@@ -52,25 +50,35 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
     <section className="mx-5 mt-20 flex max-w-[640px] flex-col items-center gap-5">
       <article className="mb-5 w-full flex-col">
         <header className="mb-4 flex flex-col">
-          <h1 className="text-[18px] leading-[27px] font-medium text-[#1A1A1A]">
+          <h1 className="text-bodyXL leading-[27px] font-medium text-gray-900">
             {data.title}
           </h1>
           <div className="flex w-full flex-row items-baseline justify-between">
-            <span className="text-[14px] text-[#808080]">
+            <span className="text-bodyM text-gray-500">
               {data.user?.nickname}
             </span>
-            <span className="text-[14px] text-[#B3B3B3]">{timeCreated}</span>
+            <span className="text-numEng text-gray-300">{timeCreated}</span>
           </div>
         </header>
 
-        <section className="mb-7 flex flex-col gap-2 text-[#666666]">
+        <section className="text-numEng mb-7 flex flex-col justify-center gap-2 text-gray-500">
           <span className="flex flex-row gap-1">
-            <UsersRound />
-            혼잡도: {data.people}
+            <Image
+              src={"/icons/community/thumbtack.svg"}
+              alt=""
+              width={24}
+              height={24}
+            />
+            혼잡도: <span className="text-gray-800">{data.people}</span>
           </span>
           <span className="flex flex-row gap-1">
-            <ShieldCheck />
-            위생상태: {data.cleanliness}
+            <Image
+              src={"/icons/community/thumbtack.svg"}
+              alt=""
+              width={24}
+              height={24}
+            />
+            위생상태: <span className="text-gray-800">{data.cleanliness}</span>
           </span>
         </section>
 
@@ -87,7 +95,9 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
           </div>
         ) : null}
 
-        <p className="mb-10 min-h-10 w-full text-[16px]">{data.contents}</p>
+        <p className="text-bodyL mb-8 min-h-10 w-full text-gray-800">
+          {data.contents}
+        </p>
 
         <figure className="flex aspect-[2/1] max-w-[640px] min-w-[280px] overflow-hidden rounded-2xl">
           <MainMap />
@@ -95,6 +105,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
           그렇게 되면 테이블과 게시글 정보 입력 함수도 고치게 되서 고민중이다. 아침에 회의 하기 */}
           {/* <DetailMap lat={37.5503} lng={126.9971} name={"우리동네"} /> */}
         </figure>
+        <span className="text-bodyL text-gray-600">{data.shelter_name}</span>
       </article>
 
       <ShelterPostButtons shelterPostId={data.id} />
@@ -105,7 +116,6 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
         onOpen={toggleConfirmModal}
         onClose={handleConfirmationModal}
       />
-
       {/* NOTE: 화면에 보이는 회색 줄 */}
       <div className="mb-11 h-3 w-full bg-[#F7F7F7]" />
     </section>

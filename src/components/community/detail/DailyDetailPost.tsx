@@ -45,15 +45,15 @@ const DailyDetailPost = ({ id }: { id: number }) => {
   };
 
   return (
-    <section className="mx-5 mt-20 flex flex-col items-center gap-5">
+    <section className="mx-5 mt-20 flex flex-col items-center">
       <article className="w-full flex-col items-center">
         <header className="mb-7 flex w-full flex-col items-baseline justify-between">
-          <h1 className="text-[18px] leading-[27px] font-medium text-[#1A1A1A]">
-            {data.title}
-          </h1>
+          <h1 className="text-bodyXL text-gray-900">{data.title}</h1>
           <div className="flex w-full flex-row justify-between">
-            <span className="text-sm text-gray-500">{data.user?.nickname}</span>
-            <span className="text-sm text-[#B3B3B3]">{timeCreated}</span>
+            <span className="text-bodyM text-gray-500">
+              {data.user?.nickname}
+            </span>
+            <span className="text-numEng text-gray-300">{timeCreated}</span>
           </div>
         </header>
 
@@ -62,7 +62,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
             <figure className="relative flex aspect-[1/1] w-full max-w-[640px] min-w-[280px] items-center justify-center overflow-hidden rounded-3xl border-1 border-gray-400">
               <Image
                 src={data.img_url}
-                alt="이미지가 없습니다."
+                alt="이미지를 불러오지 못했습니다."
                 fill
                 className="object-cover"
               />

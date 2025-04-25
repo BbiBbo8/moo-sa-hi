@@ -42,8 +42,8 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={defaultFonts.className}>
-        <Header />
         <QueryProviders>
+          <Header />
           {children}
           <Toaster />
         </QueryProviders>

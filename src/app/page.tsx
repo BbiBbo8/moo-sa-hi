@@ -4,6 +4,7 @@ import LandingBanner from "@/components/landing/BannerSection";
 import NewsCard from "@/components/landing/NewsCard";
 import SectionDivider from "@/components/landing/SectionDivider";
 import Image from "next/image";
+import Footer from "@/components/landing/Footer";
 
 const HomePage = () => {
   return (
@@ -37,6 +38,8 @@ const HomePage = () => {
       <NewsCard />
       <SectionDivider />
       <LandingBanner />
+      <SectionDivider />
+      <Footer />
     </main>
   );
 };

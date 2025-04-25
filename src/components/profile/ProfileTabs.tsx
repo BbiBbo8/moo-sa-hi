@@ -3,11 +3,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import WrittenPost from "./WrittenPost";
 import CommentPost from "./CommentPost";
-import UsefulPost from "./UsefulPost";
 import BlankPost from "./BlankPost";
 import Error from "@/app/(pages)/Error";
 import Loading from "@/app/(pages)/Loading";
 import { useUserData } from "@/hooks/useUserData";
+import HelpfulPost from "./HelpfulPost";
 
 const ProfileTabs = () => {
   const { data, isLoading, error } = useUserData();
@@ -29,7 +29,7 @@ const ProfileTabs = () => {
           {/* 탭 메뉴 */}
           <TabsTrigger value="post">작성 게시글</TabsTrigger>
           <TabsTrigger value="comment">댓글 단 게시글</TabsTrigger>
-          <TabsTrigger value="useful">저장된 게시글</TabsTrigger>
+          <TabsTrigger value="useful">저장 된 게시글</TabsTrigger>
         </TabsList>
         {/* 트리거에 맞는 내용 */}
         <TabsContent value="post">
@@ -41,7 +41,7 @@ const ProfileTabs = () => {
           {!user && <BlankPost />}
         </TabsContent>
         <TabsContent value="useful">
-          {user && <UsefulPost />}
+          {user && <HelpfulPost />}
           {!user && <BlankPost />}
         </TabsContent>
       </Tabs>
