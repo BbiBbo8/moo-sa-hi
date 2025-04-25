@@ -38,7 +38,7 @@ const ShelterPost = ({ post }: PostCardProps) => {
         <CardContent className="px-0">
           <section className="flex h-full w-full flex-col items-start justify-center gap-2">
             <CardTitle
-              className={`flex items-center justify-center rounded-[8px] px-2 py-1 text-sm text-[14px] font-medium text-[#1A1A1A] ${colorForPopulation}`}
+              className={`flex items-center justify-center rounded-[8px] px-2 py-1 text-sm text-[14px] font-medium text-white ${colorForPopulation}`}
             >
               {populationDensity}
             </CardTitle>
