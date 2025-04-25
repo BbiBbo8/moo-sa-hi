@@ -101,7 +101,7 @@ const CommentForm = ({ postId }: { postId: number }) => {
                     />
                     <Button
                       type="submit"
-                      className="box-border:none absolute right-2 bottom-2 w-fit border-none bg-transparent shadow-none"
+                      className="box-border:none absolute right-2 bottom-2 w-fit border-none bg-transparent shadow-none hover:bg-transparent"
                       disabled={
                         !commentContent ||
                         commentContent.length < 2 ||
