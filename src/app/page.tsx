@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const HomePage = () => {
   return (
-    <main className="min-w-[320px] space-y-[35px] pt-[50px] pb-[60px]">
+    <main className="mx-auto w-full max-w-[640px] min-w-[320px] space-y-[35px] pt-[50px] pb-[60px]">
       <section className="flex w-full flex-col items-center justify-center">
         <div className="z-10 w-full pt-3 pb-11">
           <AlertBanner />
