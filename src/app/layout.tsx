@@ -42,13 +42,11 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={defaultFonts.className}>
-        <div className="mx-auto w-full max-w-[640px]">
-          <Header />
-          <QueryProviders>
-            {children}
-            <Toaster />
-          </QueryProviders>
-        </div>
+        <Header />
+        <QueryProviders>
+          {children}
+          <Toaster />
+        </QueryProviders>
         <TabNavigateBar />
         <Script src={API} strategy="beforeInteractive" />
       </body>

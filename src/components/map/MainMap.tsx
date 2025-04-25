@@ -87,7 +87,7 @@ const MainMap = () => {
     <Map
       center={center}
       level={level}
-      className="z-0 h-full w-full"
+      className="z-0 h-screen w-screen"
       onCreate={handleCreate}
       onZoomChanged={map => {
         setLevel(map.getLevel());
