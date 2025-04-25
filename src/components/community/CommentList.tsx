@@ -64,13 +64,13 @@ const CommentList = ({ postId }: { postId: number }) => {
                 {comment.comments}
               </CardDescription>
               <div className="mt-3 flex flex-row">
-                <CardDescription className="py-2 pr-3 text-sm text-[#B3B3B3]">
+                <CardDescription className="py-2 text-sm text-[#B3B3B3]">
                   {elapsedTime(comment.created_at)}
                 </CardDescription>
                 {isOwned(comment.user_id) && (
                   <Button
                     onClick={() => deleteCommentMutation.mutate(comment.id)}
-                    className="border-block h-fit w-fit bg-transparent px-0 text-sm font-normal text-[#B3B3B3] hover:border-1 hover:border-[#B3B3B3] hover:bg-transparent"
+                    className="border-block h-fit w-fit bg-transparent text-sm font-normal text-[#B3B3B3] hover:bg-[#F2F2F2]"
                   >
                     댓글 삭제
                   </Button>
