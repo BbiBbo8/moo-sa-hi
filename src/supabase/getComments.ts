@@ -5,7 +5,12 @@ const getComments = async (postId: string) => {
   try {
     const { data: comments } = await supabase
       .from("comments")
-      .select("*")
+      .select(
+        `
+  *,
+  users!comments_user_id_fkey (*)
+`,
+      )
       /* 대피소 글과 일상 글 전부 가져오기 */
       .or(`shelter_post_id.eq.${postId}, daily_post_id.eq.${postId}`);
     return comments;

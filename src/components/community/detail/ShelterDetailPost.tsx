@@ -1,6 +1,5 @@
 "use client";
 
-import { useShelterPostDetailQuery } from "@/hooks/community/shelterPostDetailsQuery";
 import Image from "next/image";
 import { formatTime } from "@/utils/formatTime";
 import Loading from "@/app/(pages)/Loading";
@@ -11,6 +10,7 @@ import { useShelters } from "@/hooks/shelter/useShelters";
 import Error from "@/app/(pages)/Error";
 import ConfirmModal from "./ShelterConfirmModal";
 import ShelterPostButtons from "./ShelterPostButton";
+import useShelterPostDetailQuery from "@/hooks/community/shelterPostDetailsQuery";
 
 const ShelterDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useShelterPostDetailQuery(id);
