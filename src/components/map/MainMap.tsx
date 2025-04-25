@@ -140,7 +140,7 @@ const MainMap = () => {
           <MapMarker
             key={`${shelter.name}-${index}`}
             position={{ lat: shelter.lat, lng: shelter.lng }}
-            image={getMarkerImage("selected")}
+            image={getMarkerImage()}
             onClick={() =>
               handleMarkerClick(shelter.lat, shelter.lng, shelter.name)
             }
