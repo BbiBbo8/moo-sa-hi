@@ -20,8 +20,6 @@ const CommentList = ({ postId }: { postId: number }) => {
     isLoading: isCommentLoading,
   } = useComments({ postId });
 
-  console.log(commentsData);
-
   // 최신 댓글이 위로 오도록 정렬
   const sortedComments = commentsData
     ? [...commentsData].sort((a, b) => {
