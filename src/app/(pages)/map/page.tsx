@@ -2,7 +2,7 @@ import MapClient from "@/components/map/MapClient";
 
 const MapPage = () => {
   return (
-    <div className="pt-[50px]">
+    <div className="flex items-center justify-center pt-[50px]">
       <MapClient />
     </div>
   );

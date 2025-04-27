@@ -19,9 +19,9 @@ const ShelterPost = ({ post }: PostCardProps) => {
 
   const colorForPopulation =
     populationDensity === "한산"
-      ? "bg-[#58999E]"
+      ? "bg-[#24C300]"
       : populationDensity === "보통"
-        ? "bg-[#0671FD]"
+        ? "bg-[#FEB600]"
         : populationDensity === "만원"
           ? "bg-[#EF282A]"
           : "";
@@ -29,16 +29,16 @@ const ShelterPost = ({ post }: PostCardProps) => {
   return (
     <Link
       href={`${PATH.COMMUNITYSHELTER}/${post.id}`}
-      className="h-full w-screen"
+      className="h-full w-full"
     >
       <Card
         key={post.id}
-        className="h-[142px] w-full gap-3 rounded-none border-b-1 border-gray-50 px-5 py-4 shadow-none"
+        className="h-[142px] w-full gap-3 rounded-none border-0 border-b-1 border-gray-50 px-5 py-4 shadow-none"
       >
         <CardContent className="px-0">
           <section className="flex h-full w-full flex-col items-start justify-center gap-2">
             <CardTitle
-              className={`flex items-center justify-center rounded-[8px] px-2 py-1 text-sm text-[14px] font-medium text-[#1A1A1A] ${colorForPopulation}`}
+              className={`flex items-center justify-center rounded-[8px] px-2 py-1 text-sm text-[14px] font-medium text-white ${colorForPopulation}`}
             >
               {populationDensity}
             </CardTitle>

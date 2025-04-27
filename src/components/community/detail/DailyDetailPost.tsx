@@ -59,7 +59,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
 
         {data.img_url?.startsWith("http") || data.img_url?.startsWith("/") ? (
           <div className="mb-5 flex items-center justify-center">
-            <figure className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-sm border-1 border-gray-400">
+            <figure className="relative flex aspect-[1/1] w-full max-w-[640px] min-w-[280px] items-center justify-center overflow-hidden rounded-3xl border-1 border-gray-400">
               <Image
                 src={data.img_url}
                 alt="이미지를 불러오지 못했습니다."
@@ -85,7 +85,7 @@ const DailyDetailPost = ({ id }: { id: number }) => {
       />
 
       {/* NOTE: 화면에 보이는 회색 줄 */}
-      <div className="mt-5 mb-8 h-3 min-w-screen bg-[#F7F7F7]"></div>
+      <div className="mb-11 h-3 w-full bg-[#F7F7F7]" />
     </section>
   );
 };

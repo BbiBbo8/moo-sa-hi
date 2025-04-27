@@ -30,7 +30,7 @@ const LandingMapPreview = () => {
   };
 
   return (
-    <section className="mx-[20px] mt-[160px]">
+    <section className="mx-[20px] mt-8">
       {/* 텍스트 헤더 */}
       <div className="mb-4">
         <h2 className="text-[20px] leading-[27px] font-semibold text-[#1A1A1A]">
@@ -42,7 +42,7 @@ const LandingMapPreview = () => {
       </div>
 
       {/* 지도 + 버튼 영역 */}
-      <div className="relative mx-auto h-[353px] w-full overflow-hidden rounded-lg">
+      <div className="relative mx-auto aspect-square w-full max-w-[640px] overflow-hidden rounded-lg">
         <MapGeolocationComponent location={center} setCenter={setCenter} />
 
         {/* GPS 버튼 */}
