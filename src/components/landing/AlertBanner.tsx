@@ -35,7 +35,9 @@ const AlertBanner = () => {
           />
           <p
             className={`text-[16px] text-gray-800 ${
-              isOpen ? "whitespace-pre-wrap max-w-[290px]" : "max-w-[270px] truncate"
+              isOpen
+                ? "max-w-[290px] whitespace-pre-wrap"
+                : "max-w-[270px] truncate"
             }`}
           >
             [ {alert.region}] &nbsp;{alert.message}

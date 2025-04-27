@@ -31,7 +31,7 @@ const HomePage = () => {
       <SectionDivider />
       <LandingBanner />
       <SectionDivider />
-      <Footer/>
+      <Footer />
     </main>
   );
 };
