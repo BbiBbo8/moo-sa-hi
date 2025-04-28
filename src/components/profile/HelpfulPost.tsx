@@ -42,7 +42,9 @@ const HelpfulPost = () => {
                     objectFit="cover"
                   />
                 ) : (
-                  <p className="mt-[42%]">{helpful.shelter_post.title}</p>
+                  <p className="m-3 md:mt-[42%]">
+                    {helpful.shelter_post.title}
+                  </p>
                 )}
               </div>
             </Link>
@@ -60,7 +62,7 @@ const HelpfulPost = () => {
                     objectFit="cover"
                   />
                 ) : (
-                  <p className="mt-[42%]">{helpful.daily_post.title}</p>
+                  <p className="m-3 md:mt-[42%]">{helpful.daily_post.title}</p>
                 )}
               </div>
             </Link>

@@ -43,7 +43,7 @@ const CommentPost = () => {
                     objectFit="cover"
                   />
                 ) : (
-                  <p className="mt-[42%]">{post.title}</p>
+                  <p className="m-3 md:mt-[42%]">{post.title}</p>
                 )}
               </div>
             </Link>
@@ -66,7 +66,7 @@ const CommentPost = () => {
                     objectFit="cover"
                   />
                 ) : (
-                  <p className="mt-[42%]">{post.title}</p>
+                  <p className="m-3 md:mt-[42%]">{post.title}</p>
                 )}
               </div>
             </Link>
