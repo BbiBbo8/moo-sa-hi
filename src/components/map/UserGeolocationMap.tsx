@@ -12,15 +12,8 @@ const UserGeolocationMap = ({
   }
 
   return (
-    <Map
-      center={location}
-      style={{ width: "100%", height: "350px" }}
-      level={3}
-    >
-      <MapMarker
-        position={location}
-        onClick={() => setCenter(location)}
-      >
+    <Map center={location} style={{ width: "100%", height: "100%" }} level={3}>
+      <MapMarker position={location} onClick={() => setCenter(location)}>
         <div>현재 위치</div>
       </MapMarker>
     </Map>

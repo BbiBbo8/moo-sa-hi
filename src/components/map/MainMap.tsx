@@ -8,6 +8,7 @@ import Error from "@/app/(pages)/Error";
 import { useMarkerStore } from "@/store/useMarkerStore";
 import Image from "next/image";
 import { debounce } from "lodash";
+import { getMarkerImage } from "@/utils/markerImage";
 
 const MainMap = () => {
   const mapRef = useRef<kakao.maps.Map | null>(null);
@@ -26,6 +27,7 @@ const MainMap = () => {
   const setLevel = useMapStore(state => state.setLevel);
   const setCenter = useMapStore(state => state.setCenter);
   const reset = useMapStore(state => state.reset);
+  const currentLocation = useMapStore(state => state.currentLocation);
 
   // 필터링 로직을 useCallback으로 메모이제이션
   const filterVisibleShelters = useCallback(() => {
@@ -119,9 +121,14 @@ const MainMap = () => {
 
   return (
     <Map
+      key={
+        currentLocation
+          ? `${currentLocation.lat}-${currentLocation.lng}`
+          : "map"
+      }
       center={center}
       level={level}
-      className="z-0 h-full w-full"
+      className="z-0 h-screen w-screen"
       onCreate={handleCreate}
     >
       <MarkerClusterer
@@ -133,6 +140,7 @@ const MainMap = () => {
           <MapMarker
             key={`${shelter.name}-${index}`}
             position={{ lat: shelter.lat, lng: shelter.lng }}
+            image={getMarkerImage()}
             onClick={() =>
               handleMarkerClick(shelter.lat, shelter.lng, shelter.name)
             }
@@ -155,6 +163,16 @@ const MainMap = () => {
             )}
           </MapMarker>
         ))}
+        {currentLocation && (
+          <MapMarker
+            position={currentLocation}
+            image={{
+              src: "/icons/map/my-location.svg", // 혹은 data URL로 svg 직접 넣기
+              size: { width: 24, height: 24 },
+              options: { offset: { x: 12, y: 12 } }, // 중심 정렬
+            }}
+          />
+        )}
       </MarkerClusterer>
     </Map>
   );
