@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import PATH from "@/constants/PATH";
 import Image from "next/image";
 import NotificationButton from "@/components/layout/NotificationButton";
-import Logo from "@Images/typos/logo.svg"
+import Logo from "public/typos/logo.svg"
 
 const Header = () => {  
   const router = useRouter();
@@ -49,10 +49,10 @@ const Header = () => {
       {/* 중앙 로고 자리 */}
       <button onClick={handleHome}>
         <Image
-          src="/typos/logo.svg"
+          src={Logo}
           alt="중앙로고"
-          height={100}
-          width={65}
+          height={96}
+          width={96}
         ></Image>
       </button>
 
