@@ -60,7 +60,7 @@ const ProfileEditPop = ({ userId }: ProfileEditPopProps) => {
       <PopoverTrigger asChild>
         <Button
           size="sm"
-          className="h-fit w-fit rounded-full border border-[#CCCCCC] bg-white px-4 py-3 font-medium text-[#666666]"
+          className="h-fit w-fit rounded-full border border-[#CCCCCC] bg-white px-4 py-3 font-medium text-[#666666] hover:bg-[#F2F2F2]"
         >
           프로필 설정
         </Button>
