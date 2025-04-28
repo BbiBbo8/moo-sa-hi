@@ -36,7 +36,7 @@ const WrittenPost = () => {
           shelterPost?.map(post => (
             <div
               key={post.id}
-              className="bg-accent relative grid aspect-square min-h-32 min-w-32 truncate overflow-hidden bg-center"
+              className="relative grid aspect-square min-h-32 min-w-32 truncate overflow-hidden bg-[#F7F7F7] bg-center"
             >
               <Link href={`${PATH.COMMUNITYSHELTER}/${post.id}`}>
                 <div className="min-h-32 min-w-32">
