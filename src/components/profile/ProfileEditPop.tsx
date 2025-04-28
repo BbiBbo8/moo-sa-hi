@@ -98,7 +98,10 @@ const ProfileEditPop = ({ userId }: ProfileEditPopProps) => {
                 <div className="mt-2 flex flex-col focus:outline-none">
                   <Button
                     size="sm"
-                    onClick={() => mutate(editNickname)}
+                    onClick={() => {
+                      mutate(editNickname);
+                      setOpen(false);
+                    }}
                     disabled={isPending || !editNickname.trim()}
                     className={`h-fit w-full border border-[#CCCCCC] py-3 text-sm ${
                       editNickname.trim()
