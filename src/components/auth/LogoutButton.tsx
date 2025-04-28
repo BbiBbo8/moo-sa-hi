@@ -1,12 +1,10 @@
 'use client';
 
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import PATH from "@/constants/PATH";
 
 export default function LogoutButton() {
-  const router = useRouter();
 
   const handleLogout = async () => {
     const res = await fetch("/api/signout", { method: "POST" });
