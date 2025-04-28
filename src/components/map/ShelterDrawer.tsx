@@ -22,6 +22,8 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import Image from "next/image";
+import BarsSolid from "public/icons/map/bars-solid.svg";
+import Chervon from "public/icons/map/chevron-down-solid.svg";
 
 const ShelterDrawer = () => {
   const markedShelter = useMarkerStore(state => state.markedShelter);
@@ -69,12 +71,7 @@ const ShelterDrawer = () => {
           className="flex items-center gap-1 border-none text-base text-[#999]"
         >
           {sortOption === "relevance" ? "관련도순" : "거리순"}
-          <Image
-            src="/icons/map/chevron-down-solid.svg"
-            width={16}
-            height={16}
-            alt="정렬 모달 버튼"
-          />
+          <Image src={Chervon} width={16} height={16} alt="정렬 모달 버튼" />
         </Button>
       </DialogTrigger>
 
@@ -117,12 +114,7 @@ const ShelterDrawer = () => {
         className="fixed bottom-6 left-1/2 flex -translate-x-1/2 flex-row items-center gap-2 rounded-full bg-[#1A1A1A] px-5 py-2"
         aria-label="대피소 목록 열기"
       >
-        <Image
-          src="/icons/map/bars-solid.svg"
-          width={24}
-          height={24}
-          alt="목록 아이콘"
-        />
+        <Image src={BarsSolid} width={24} height={24} alt="목록 아이콘" />
         <p className="text-base font-medium text-white">목록보기</p>
       </button>
 
