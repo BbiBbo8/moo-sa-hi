@@ -1,6 +1,8 @@
 "use client";
 import { useMapStore } from "@/store/useMapStore";
 import Image from "next/image";
+import Plus from "public/icons/map/plus-solid.svg";
+import Minus from "public/icons/map/minus-solid.svg";
 
 const ZoomControl = () => {
   const setLevel = useMapStore(state => state.setLevel);
@@ -20,23 +22,13 @@ const ZoomControl = () => {
         onClick={handleZoomIn}
         className="flex h-10 w-10 items-center justify-center bg-white"
       >
-        <Image
-          src={"/icons/map/plus-solid.svg"}
-          alt="확대"
-          width={20}
-          height={20}
-        />
+        <Image src={Plus} alt="확대" width={20} height={20} />
       </button>
       <button
         onClick={handleZoomOut}
         className="flex h-10 w-10 items-center justify-center border-t-gray-400 bg-white"
       >
-        <Image
-          src={"/icons/map/minus-solid.svg"}
-          alt="축소"
-          width={20}
-          height={20}
-        />
+        <Image src={Minus} alt="축소" width={20} height={20} />
       </button>
     </div>
   );
