@@ -12,8 +12,9 @@ import { useMarkerStore } from "@/store/useMarkerStore";
 import { useEffect, useState } from "react";
 import { useGeolocationMutation } from "@/hooks/useMapGeolocation";
 import { useDistance } from "@/hooks/useDistance";
-import { ChevronDown } from "lucide-react";
 import { Button } from "../ui/button";
+import "/icons/chevron-down.svg";
+import Image from "next/image";
 import {
   Dialog,
   DialogContent,
@@ -69,7 +70,7 @@ const ShelterDrawer = () => {
           className="flex items-center gap-1 border-none text-base text-[#999]"
         >
           {sortOption === "relevance" ? "관련도순" : "거리순"}
-          <ChevronDown size={14} />
+          <Image src="/public/icons/chevron-down-solid.svg" alt="손잡이" width={24} height={24}  />
         </Button>
       </DialogTrigger>
 
