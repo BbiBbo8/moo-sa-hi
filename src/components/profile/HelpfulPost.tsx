@@ -27,7 +27,7 @@ const HelpfulPost = () => {
       {helpfuls?.map(helpful => (
         <div
           key={helpful.id}
-          className="relative grid aspect-square min-h-32 min-w-32 truncate overflow-hidden bg-[#F7F7F7] bg-center"
+          className="relative grid aspect-square min-h-32 min-w-32 overflow-hidden bg-[#F7F7F7] bg-center"
         >
           {/* 대피소 커뮤니티일 때 */}
           {helpful.daily_post === null && helpful.shelter_post && (
