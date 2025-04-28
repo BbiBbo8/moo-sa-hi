@@ -11,6 +11,9 @@ import { useDeleteComment } from "@/hooks/comment/useCommentMutation";
 import { elapsedTime } from "@/utils/formatTime";
 
 const CommentList = ({ postId }: { postId: number }) => {
+  // 댓글 삭제 함수 호출
+  const deleteCommentMutation = useDeleteComment();
+
   const { data, error, isLoading } = useUserData();
   const user = data?.user;
 
@@ -19,8 +22,6 @@ const CommentList = ({ postId }: { postId: number }) => {
     error: commentError,
     isLoading: isCommentLoading,
   } = useComments({ postId });
-
-  console.log(commentsData);
 
   // 최신 댓글이 위로 오도록 정렬
   const sortedComments = commentsData
@@ -40,8 +41,6 @@ const CommentList = ({ postId }: { postId: number }) => {
     }
   };
 
-  // 댓글 삭제 함수 호출
-  const deleteCommentMutation = useDeleteComment();
   // 로딩 중일 때 로딩중 컴포넌트 표시
   if (isLoading || isCommentLoading) {
     return <Loading />;
@@ -72,7 +71,7 @@ const CommentList = ({ postId }: { postId: number }) => {
                 {isOwned(comment.user_id) && (
                   <Button
                     onClick={() => deleteCommentMutation.mutate(comment.id)}
-                    className="border-block h-fit w-fit bg-transparent text-sm font-normal text-[#B3B3B3]"
+                    className="border-block h-fit w-fit bg-transparent text-sm font-normal text-[#B3B3B3] hover:bg-[#F2F2F2]"
                   >
                     댓글 삭제
                   </Button>
