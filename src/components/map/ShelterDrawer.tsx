@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { useGeolocationMutation } from "@/hooks/useMapGeolocation";
 import { useDistance } from "@/hooks/useDistance";
 import { Button } from "../ui/button";
-import "/icons/chevron-down.svg";
+import chevron from "public/icons/chevron-down-solid.svg";
 import Image from "next/image";
 import {
   Dialog,
@@ -70,7 +70,7 @@ const ShelterDrawer = () => {
           className="flex items-center gap-1 border-none text-base text-[#999]"
         >
           {sortOption === "relevance" ? "관련도순" : "거리순"}
-          <Image src="/public/icons/chevron-down-solid.svg" alt="손잡이" width={24} height={24}  />
+          <Image src={chevron} alt="정렬선택" width={19} height={19}  />
         </Button>
       </DialogTrigger>
 
