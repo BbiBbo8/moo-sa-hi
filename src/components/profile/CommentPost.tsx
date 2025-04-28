@@ -30,7 +30,7 @@ const CommentPost = () => {
         {shelter?.map(post => (
           <div
             key={post.id}
-            className="bg-accent relative grid aspect-square min-h-32 min-w-32 truncate overflow-hidden bg-center"
+            className="relative grid aspect-square min-h-32 min-w-32 overflow-hidden bg-[#F7F7F7] bg-center"
           >
             <Link href={`${PATH.COMMUNITYSHELTER}/${post.id}`}>
               <div className="min-h-32 min-w-32">
@@ -43,7 +43,7 @@ const CommentPost = () => {
                     objectFit="cover"
                   />
                 ) : (
-                  <p className="mt-[42%]">{post.title}</p>
+                  <p className="m-3 md:mt-[42%]">{post.title}</p>
                 )}
               </div>
             </Link>
@@ -53,7 +53,7 @@ const CommentPost = () => {
         {daily?.map(post => (
           <div
             key={post.id}
-            className="bg-accent relative grid aspect-square min-h-32 min-w-32 truncate overflow-hidden bg-center"
+            className="bg-accent relative grid aspect-square min-h-32 min-w-32 overflow-hidden bg-center"
           >
             <Link href={`${PATH.COMMUNITYDAILY}/${post.id}`}>
               <div className="min-h-32 min-w-32">
@@ -66,7 +66,7 @@ const CommentPost = () => {
                     objectFit="cover"
                   />
                 ) : (
-                  <p className="mt-[42%]">{post.title}</p>
+                  <p className="m-3 md:mt-[42%]">{post.title}</p>
                 )}
               </div>
             </Link>

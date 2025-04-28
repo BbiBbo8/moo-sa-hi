@@ -27,7 +27,7 @@ const HelpfulPost = () => {
       {helpfuls?.map(helpful => (
         <div
           key={helpful.id}
-          className="bg-accent relative grid aspect-square min-h-32 min-w-32 truncate overflow-hidden bg-center"
+          className="relative grid aspect-square min-h-32 min-w-32 overflow-hidden bg-[#F7F7F7] bg-center"
         >
           {/* 대피소 커뮤니티일 때 */}
           {helpful.daily_post === null && helpful.shelter_post && (
@@ -42,7 +42,9 @@ const HelpfulPost = () => {
                     objectFit="cover"
                   />
                 ) : (
-                  <p className="mt-[42%]">{helpful.shelter_post.title}</p>
+                  <p className="m-3 md:mt-[42%]">
+                    {helpful.shelter_post.title}
+                  </p>
                 )}
               </div>
             </Link>
@@ -60,7 +62,7 @@ const HelpfulPost = () => {
                     objectFit="cover"
                   />
                 ) : (
-                  <p className="mt-[42%]">{helpful.daily_post.title}</p>
+                  <p className="m-3 md:mt-[42%]">{helpful.daily_post.title}</p>
                 )}
               </div>
             </Link>

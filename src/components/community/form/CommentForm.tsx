@@ -31,12 +31,12 @@ const commentSchema = z.object({
 type CommentFormData = z.infer<typeof commentSchema>;
 
 const CommentForm = ({ postId }: { postId: number }) => {
+  const insertCommentMutation = useInsertComment();
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { data, error, isLoading } = useUserData();
   const userId = data?.user?.id;
   const userData = getUserData();
-
-  const insertCommentMutation = useInsertComment();
 
   const form = useForm<z.infer<typeof commentSchema>>({
     resolver: zodResolver(commentSchema),
@@ -44,13 +44,6 @@ const CommentForm = ({ postId }: { postId: number }) => {
       content: "",
     },
   });
-
-  if (isLoading) {
-    return <Loading />;
-  }
-  if (error) {
-    return <Error />;
-  }
 
   const handleCommentInputClick = async () => {
     const { user } = await userData;
@@ -75,6 +68,12 @@ const CommentForm = ({ postId }: { postId: number }) => {
   const { watch } = form;
   const commentContent = watch("content");
 
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error />;
+  }
   // 값이 있을 때 아이콘 변경
   const currentIconSrc =
     commentContent && commentContent.length > 0
@@ -101,7 +100,7 @@ const CommentForm = ({ postId }: { postId: number }) => {
                     />
                     <Button
                       type="submit"
-                      className="box-border:none absolute right-2 bottom-2 w-fit border-none bg-transparent shadow-none"
+                      className="box-border:none absolute right-2 bottom-2 w-fit border-none bg-transparent shadow-none hover:bg-transparent"
                       disabled={
                         !commentContent ||
                         commentContent.length < 2 ||
