@@ -9,11 +9,13 @@ export default function LogoutButton() {
   const router = useRouter();
 
   const handleLogout = async () => {
-    const res = await fetch("/api/logout", { method: "POST" });
+    const res = await fetch("/api/signout", { method: "POST" });
 
     if (res.ok) {
       toast.success("로그아웃 성공");
-      router.push(PATH.HOME);
+      setTimeout(() => {
+        window.location.href = PATH.HOME;
+      }, 500);
     } else {
       toast.error("로그아웃 실패");
     }
