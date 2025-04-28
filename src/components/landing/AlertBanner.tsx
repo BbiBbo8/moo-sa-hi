@@ -22,7 +22,7 @@ const AlertBanner = () => {
   if (isLoading || error || !alert) return null;
 
   return (
-    <div className="bg-gray-20 flex w-full items-start justify-between px-5 py-3">
+    <div className="bg-gray-20 flex w-full items-start justify-between px-5 py-5">
       {/* 왼쪽: 아이콘 + 메시지 */}
       <div className="flex items-start gap-2 pr-2">
         <Image
