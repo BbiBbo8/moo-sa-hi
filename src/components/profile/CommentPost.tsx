@@ -5,6 +5,7 @@ import { useMyComments } from "@/hooks/comment/useMyCommets";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import Pencil from "/icons/pen-solid.svg";
 
 const CommentPost = () => {
   const { data: posts, isLoading } = useMyComments();
@@ -41,6 +42,7 @@ const CommentPost = () => {
                     alt="이미지"
                     fill
                     objectFit="cover"
+                    unoptimized
                   />
                 ) : (
                   <p className="m-3 md:mt-[42%]">{post.title}</p>
@@ -64,6 +66,7 @@ const CommentPost = () => {
                     alt="이미지"
                     fill
                     objectFit="cover"
+                    unoptimized
                   />
                 ) : (
                   <p className="m-3 md:mt-[42%]">{post.title}</p>
@@ -77,12 +80,7 @@ const CommentPost = () => {
       {shelter?.length === 0 && daily?.length === 0 && (
         <section className="flex flex-col gap-3 text-center">
           <div className="mt-[20%] flex justify-center">
-            <Image
-              src="/icons/pen-solid.svg"
-              alt="pensil"
-              width={48}
-              height={48}
-            />
+            <Image src={Pencil} alt="pencil" width={48} height={48} />
           </div>
           <p className="font-[16px] text-[#999999]">
             아직 참여한 게시글이 없어요
