@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import {
   Card,
@@ -11,27 +11,22 @@ import {
   CardFooter,
 } from "../ui/card";
 import fetchNewsApi from "@/app/action/fetchNewsApi";
-import { NewsItem } from "@/types/news";
+import { useQuery } from "@tanstack/react-query";
 
 const NewsCard = () => {
-  const [newsData, setNewsData] = useState<NewsItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const getNews = async () => {
-      try {
-        setIsLoading(true);
-        const news = await fetchNewsApi();
-        setNewsData(news.slice(0, 5)); // 최신 뉴스 5개만 가져오기
-        setIsLoading(false);
-      } catch (err) {
-        setIsLoading(false);
-        console.error("News fetching error:", err);
-      }
-    };
-
-    getNews();
-  }, []);
+  const {
+    data: newsData,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["news"],
+    queryFn: async () => {
+      const news = await fetchNewsApi();
+      return news.slice(0, 5); // 최신 뉴스 5개만 가져오기
+    },
+    refetchInterval: 60000, // 1분마다 자동으로 refetch
+  });
 
   if (isLoading) {
     return (
@@ -49,6 +44,24 @@ const NewsCard = () => {
     );
   }
 
+  if (error) {
+    return (
+      <div className="mx-5">
+        <h2 className="text-[20px] leading-[27px] font-semibold text-[#1A1A1A]">
+          무사히 재난 뉴스
+        </h2>
+        <p className="mt-1 text-[16px] text-[#666666]">
+          전국 각지에서 일어난 재난 정보
+        </p>
+        <div className="flex items-center justify-center py-10">
+          <div className="text-center text-red-500">
+            뉴스를 불러오는 데 실패했습니다.
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mx-[20px]">
       <h2 className="text-[20px] leading-[27px] font-semibold text-[#1A1A1A]">
@@ -59,7 +72,7 @@ const NewsCard = () => {
       </p>
       <section className="overflow-x-auto">
         <div className="flex w-max gap-4 py-[12px]">
-          {newsData.map((news) => (
+          {newsData?.map((news) => (
             <Card
               key={news.id}
               className="max-w-[300px] min-w-[300px] flex-shrink-0 bg-[#F7F7F7]"
