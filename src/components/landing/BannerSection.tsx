@@ -3,30 +3,35 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import banner1 from "/public/landing/banner1.svg";
+import banner2 from "/public/landing/banner2.svg";
+import banner3 from "/public/landing/banner3.svg";
+import banner4 from "/public/landing/banner4.svg";
+import surveyBanner from "/public/landing/survey_banner.svg";
 
 const bannerItems = [
   {
-    src: "/landing/banner1.svg",
+    src: banner1,
     alt: "배너 1",
     href: "https://simte.xyz/childsafe4",
   },
   {
-    src: "/landing/banner2.svg",
+    src: banner2,
     alt: "배너 2",
     href: "https://simte.xyz/childsafe3",
   },
   {
-    src: "/landing/banner3.svg",
+    src: banner3,
     alt: "배너 3",
     href: "https://www.mois.go.kr/frt/a01/frtMain.do",
   },
   {
-    src: "/landing/banner4.svg",
+    src: banner4,
     alt: "배너 4",
     href: "https://kasem.safekorea.go.kr/ptlCont.do?url=sftCnterRgnMng#none",
   },
   {
-    src: "/landing/survey_banner.svg",
+    src: surveyBanner,
     alt: "배너 5",
     href: "https://forms.gle/cDWurtF1iretHftk7",
   },

@@ -6,6 +6,7 @@ import MapGeolocationComponent from "@/components/map/UserGeolocationMap";
 import { Button } from "@/components/ui/button";
 import PATH from "@/constants/PATH";
 import Image from "next/image";
+import gps from "/public/icons/gps.svg"
 
 const DEFAULT_CENTER = {
   lat: 37.5665,
@@ -30,7 +31,7 @@ const LandingMapPreview = () => {
   };
 
   return (
-    <section className="mx-[20px] mt-[160px]">
+    <section className="mx-[20px] mt-8">
       {/* 텍스트 헤더 */}
       <div className="mb-4">
         <h2 className="text-[20px] leading-[27px] font-semibold text-[#1A1A1A]">
@@ -42,7 +43,7 @@ const LandingMapPreview = () => {
       </div>
 
       {/* 지도 + 버튼 영역 */}
-      <div className="relative mx-auto h-[353px] w-full overflow-hidden rounded-lg">
+      <div className="relative mx-auto aspect-square w-full max-w-[640px] overflow-hidden rounded-lg">
         <MapGeolocationComponent location={center} setCenter={setCenter} />
 
         {/* GPS 버튼 */}
@@ -52,7 +53,7 @@ const LandingMapPreview = () => {
           aria-label="내 위치로 이동"
         >
           <Image
-            src="/icons/gps.svg"
+            src={gps}
             alt="내 위치 아이콘"
             width={20}
             height={20}

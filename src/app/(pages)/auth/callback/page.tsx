@@ -27,7 +27,7 @@ const CallbackPage = () => {
         .from("users")
         .select("nickname")
         .eq("id", user.id)
-        .maybeSingle();
+        .single();
 
       // 유저 조회 실패 에러 처리
       if (fetchError) throw new Error("유저 조회 실패");

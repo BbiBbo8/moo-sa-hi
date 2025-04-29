@@ -43,7 +43,7 @@ const CommunityShelterPage = () => {
   }
 
   return (
-    <main className="flex min-h-screen min-w-screen flex-col items-center pt-16 pb-16">
+    <main className="mx-auto flex min-h-screen w-full max-w-[640px] min-w-[320px] flex-col items-center pt-16 pb-16">
       <div className="fixed top-0 z-50 w-full">
         <CommunityHeader setSearchTerm={setSearchTerm} />
       </div>
@@ -51,7 +51,7 @@ const CommunityShelterPage = () => {
       <CommunityBanner />
 
       {/* 필터링된 게시글 반환 */}
-      <section className="top-30 flex max-w-screen flex-col overflow-auto">
+      <section className="top-30 flex w-full max-w-[640px] flex-col overflow-auto">
         {filteredPosts?.length > 0 ? (
           filteredPosts.map(post => {
             return <ShelterPost key={post.id} post={post} />;

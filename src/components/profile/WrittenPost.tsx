@@ -6,6 +6,7 @@ import PATH from "@/constants/PATH";
 import useGetPosts from "@/hooks/profile/useGetPosts";
 import Image from "next/image";
 import Link from "next/link";
+import Pencil from "public/icons/pen-solid.svg";
 
 const WrittenPost = () => {
   const { data: posts, isLoading, error } = useGetPosts();
@@ -36,7 +37,7 @@ const WrittenPost = () => {
           shelterPost?.map(post => (
             <div
               key={post.id}
-              className="bg-accent relative grid aspect-square min-h-32 min-w-32 truncate overflow-hidden bg-center"
+              className="relative grid aspect-square min-h-32 min-w-32 overflow-hidden bg-[#F7F7F7] bg-center"
             >
               <Link href={`${PATH.COMMUNITYSHELTER}/${post.id}`}>
                 <div className="min-h-32 min-w-32">
@@ -47,9 +48,10 @@ const WrittenPost = () => {
                       alt="이미지"
                       fill
                       objectFit="cover"
+                      unoptimized
                     />
                   ) : (
-                    <p className="mt-[42%]">{post.title}</p>
+                    <p className="m-3 md:mt-[42%]">{post.title}</p>
                   )}
                 </div>
               </Link>
@@ -70,9 +72,10 @@ const WrittenPost = () => {
                       alt="이미지"
                       fill
                       objectFit="cover"
+                      unoptimized
                     />
                   ) : (
-                    <p className="mt-[42%]">{post.title}</p>
+                    <p className="m-3 md:mt-[42%]">{post.title}</p>
                   )}
                 </div>
               </Link>
@@ -83,12 +86,7 @@ const WrittenPost = () => {
       {shelterPost?.length === 0 && dailyPost?.length === 0 && (
         <section className="flex flex-col gap-3 text-center">
           <div className="mt-[20%] flex justify-center">
-            <Image
-              src="/icons/pen-solid.svg"
-              alt="pensil"
-              width={48}
-              height={48}
-            />
+            <Image src={Pencil} alt="pencil" width={48} height={48} />
           </div>
           <p className="font-[16px] text-[#999999]">
             아직 작성된 게시글이 없어요

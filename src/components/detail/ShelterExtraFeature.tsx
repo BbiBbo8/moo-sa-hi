@@ -1,8 +1,11 @@
 "use client";
 
 import React from "react";
-import { Copy, Navigation, Share2 } from "lucide-react";
 import { toast } from "sonner";
+import Image from "next/image";
+import copy from "public/icons/shelter-detail/copy-solid.svg";
+import share1 from "public/icons/shelter-detail/share-solid.svg";
+import share2 from "public/icons/shelter-detail/share-nodes-solid 2.svg";
 
 interface ShelterExtraFeatureProps {
   address?: string;
@@ -25,7 +28,7 @@ const ShelterExtraFeature = ({ address }: ShelterExtraFeatureProps) => {
       {/* 주소 복사 영역 */}
       <div className="text-md flex w-full items-center justify-evenly gap-1 rounded-lg border-1 border-[#999999] px-5 py-2">
         <button onClick={() => handleCopyText(address ?? "주소 정보 없음")}>
-          <Copy className="w-6" />
+          <Image src={copy} alt="주소복사" width={24} height={24} />
         </button>
         <h5 className="truncate">{address ?? "정보 없음"}</h5>
       </div>
@@ -50,7 +53,7 @@ const ShelterExtraFeature = ({ address }: ShelterExtraFeatureProps) => {
           }}
           className="text-md flex w-1/2 items-center justify-center gap-2 rounded-lg border-1 border-[#999999] px-4 py-3"
         >
-          <Share2 className="w-6" />
+          <Image src={share2} alt="장소공유" width={24} height={24} />
           <p>장소 공유</p>
         </button>
 
@@ -61,7 +64,7 @@ const ShelterExtraFeature = ({ address }: ShelterExtraFeatureProps) => {
           rel="noopener noreferrer"
           className="text-md flex w-1/2 items-center justify-center gap-2 rounded-lg border-1 border-[#999999] px-4 py-3"
         >
-          <Navigation className="w-6" />
+          <Image src={share1} alt="길안내" width={24} height={24} />
           <p>길 안내</p>
         </a>
       </nav>

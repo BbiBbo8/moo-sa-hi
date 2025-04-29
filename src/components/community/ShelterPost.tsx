@@ -30,11 +30,11 @@ const ShelterPost = ({ post }: PostCardProps) => {
   return (
     <Link
       href={`${PATH.COMMUNITYSHELTER}/${post.id}`}
-      className="h-full w-screen"
+      className="h-full w-full"
     >
       <Card
         key={post.id}
-        className="h-[142px] w-full gap-3 rounded-none border-b-1 border-gray-50 px-5 py-4 shadow-none"
+        className="h-[142px] w-full gap-3 rounded-none border-0 border-b-1 border-gray-50 px-5 py-4 shadow-none"
       >
         <CardContent className="px-0">
           <section className="flex h-full w-full flex-col items-start justify-center gap-2">
