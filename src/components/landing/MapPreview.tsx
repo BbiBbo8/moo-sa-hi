@@ -6,6 +6,7 @@ import MapGeolocationComponent from "@/components/map/UserGeolocationMap";
 import { Button } from "@/components/ui/button";
 import PATH from "@/constants/PATH";
 import Image from "next/image";
+import gps from "/public/icons/gps.svg"
 
 const DEFAULT_CENTER = {
   lat: 37.5665,
@@ -52,7 +53,7 @@ const LandingMapPreview = () => {
           aria-label="내 위치로 이동"
         >
           <Image
-            src="/icons/gps.svg"
+            src={gps}
             alt="내 위치 아이콘"
             width={20}
             height={20}

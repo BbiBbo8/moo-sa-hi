@@ -5,6 +5,7 @@ import NewsCard from "@/components/landing/NewsCard";
 import SectionDivider from "@/components/landing/SectionDivider";
 import Image from "next/image";
 import Footer from "@/components/landing/Footer";
+import main from "/public/landing/main-image.svg"
 
 const HomePage = () => {
   return (
@@ -25,7 +26,7 @@ const HomePage = () => {
         <div className="relative h-[290px] w-[292px]">
           {/* 배경 이미지 */}
           <Image
-            src="/landing/main-image.svg"
+            src={main}
             alt="랜딩페이지 표지 이미지"
             fill
             className="object-cover"
