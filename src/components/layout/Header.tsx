@@ -18,7 +18,7 @@ const Header = () => {
     PATH.COMMUNITYSHELTER,
     PATH.COMMUNITYDAILY,
   ];
-  // 병합에러로(커밋을 위해) 임시 주석
+  
   // 특정 페이지에서 헤더 안 보이게
   if (hiddenRoutes.includes(pathname)) {
     return null;
