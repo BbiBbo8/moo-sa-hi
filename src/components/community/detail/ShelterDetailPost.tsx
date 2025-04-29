@@ -11,6 +11,7 @@ import Error from "@/app/(pages)/Error";
 import ConfirmModal from "./ShelterConfirmModal";
 import ShelterPostButtons from "./ShelterPostButton";
 import useShelterPostDetailQuery from "@/hooks/community/shelterPostDetailsQuery";
+import thumbTack from "public/icons/community/thumbtack.svg";
 
 const ShelterDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useShelterPostDetailQuery(id);
@@ -63,21 +64,11 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
 
         <section className="text-numEng mb-7 flex flex-col justify-center gap-2 text-gray-500">
           <span className="flex flex-row gap-1">
-            <Image
-              src={"/icons/community/thumbtack.svg"}
-              alt=""
-              width={24}
-              height={24}
-            />
+            <Image src={thumbTack} alt="" width={24} height={24} />
             혼잡도: <span className="text-gray-800">{data.people}</span>
           </span>
           <span className="flex flex-row gap-1">
-            <Image
-              src={"/icons/community/thumbtack.svg"}
-              alt=""
-              width={24}
-              height={24}
-            />
+            <Image src={thumbTack} alt="" width={24} height={24} />
             위생상태: <span className="text-gray-800">{data.cleanliness}</span>
           </span>
         </section>

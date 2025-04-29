@@ -4,9 +4,9 @@ import Image from "next/image";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import fetchDisasterAlert from "@/app/api/fetchDisasterAlert";
-import chevronUp from "/public/icons/chevron-up-solid.svg"
-import chevronDown from "/public/icons/chevron-down-solid.svg"
-import bullhorn from "/public/icons/community/bullhorn-solid.svg"
+import chevronUp from "/public/icons/chevron-up-solid.svg";
+import chevronDown from "/public/icons/chevron-down-solid.svg";
+import bullhorn from "/public/icons/community/bullhorn-solid.svg";
 
 const AlertBanner = () => {
   const {
@@ -36,7 +36,7 @@ const AlertBanner = () => {
           className="mt-1"
         />
         <p
-          className={`text-[16px] text-gray-800 leading-none py-1.5 ${
+          className={`py-1.5 text-[16px] leading-none text-gray-800 ${
             isOpen ? "whitespace-pre-wrap" : "max-w-[280px] truncate"
           }`}
         >
@@ -45,7 +45,10 @@ const AlertBanner = () => {
       </div>
 
       {/* 오른쪽: 드롭다운 버튼 */}
-      <button onClick={() => setIsOpen(prev => !prev)} className="shrink-0 flex items-center justify-center py-2">
+      <button
+        onClick={() => setIsOpen(prev => !prev)}
+        className="flex shrink-0 items-center justify-center py-2"
+      >
         <Image
           src={isOpen ? chevronUp : chevronDown}
           alt="드롭다운"

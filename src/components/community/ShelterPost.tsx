@@ -4,6 +4,7 @@ import { ShelterPostType } from "@/types/communityPost";
 import { formatTime } from "@/utils/formatTime";
 import PATH from "@/constants/PATH";
 import Image from "next/image";
+import thumbsUp from "public/icons/community/thumbs-up-gray.svg";
 
 // NOTE: 한 줄짜리 타입지정이라 interface가 아닌 type을 사용했습니다.
 type PostCardProps = {
@@ -54,12 +55,7 @@ const ShelterPost = ({ post }: PostCardProps) => {
             <section className="text-numEng flex w-full flex-row justify-between text-gray-300">
               <p>{timeCreated}</p>
               <div className="text-numEng flex items-center gap-1 text-gray-300">
-                <Image
-                  src={"/icons/community/thumbs-up-gray.svg"}
-                  alt={"icon"}
-                  width={20}
-                  height={20}
-                />
+                <Image src={thumbsUp} alt={"icon"} width={20} height={20} />
                 <span>{post.helpfuls?.length ?? 0}</span>
               </div>
             </section>
