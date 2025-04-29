@@ -19,26 +19,26 @@ interface signInDropProps {
 }
 
 const SigninDrawer = ({
-  isOpen = false,
+  isOpen: initialIsOpen = false, // open 대신 isOpen 사용
   onOpenChange,
   children,
 }: signInDropProps) => {
   const router = useRouter();
 
   // 내부 상태 관리 (isOpen이 제공되지 않았을 때 사용)
-  const [internalOpen, setInternalOpen] = useState(false);
+  const [internalIsOpen, setInternalIsOpen] = useState(false); // open 대신 isOpen 사용
 
   // 외부에서 제어되는지 여부
-  const isControlled = isOpen !== undefined && onOpenChange !== undefined;
+  const isControlled = initialIsOpen !== undefined && onOpenChange !== undefined;
 
   // 현재 열린 상태 (외부 제어 또는 내부 상태)
-  const isCurrentlyOpen = isControlled ? isOpen : internalOpen;
+  const isCurrentlyOpen = isControlled ? initialIsOpen : internalIsOpen;
 
   // 상태 변경 핸들러
   const handleOpenChange = (open: boolean) => {
     // 내부 상태 업데이트 (비제어 모드에서만)
     if (!isControlled) {
-      setInternalOpen(open);
+      setInternalIsOpen(open);
     }
 
     // 외부 핸들러가 있으면 호출
@@ -54,8 +54,8 @@ const SigninDrawer = ({
         <DrawerTrigger asChild>
           {children || (
             <Button
-              variant="outline"
-              className="h-fit w-fit rounded-full border-[#CCCCCC] px-4 py-3 font-medium text-[#666666]"
+              variant="ghost" // ghost 버튼 사용
+              className="h-fit w-fit rounded-full px-4 py-2 font-medium text-[#666666] hover:bg-gray-100"
             >
               로그인 하기
             </Button>

@@ -3,7 +3,8 @@
 import { usePathname, useRouter } from "next/navigation";
 import PATH from "@/constants/PATH";
 import Image from "next/image";
-import NotificationButton from "@/components/layout/NotificationButton"; // 새로 만든 컴포넌트 임포트
+import NotificationButton from "@/components/layout/NotificationButton";
+import Logo from "public/typos/logo.svg"
 
 const Header = () => {  
   const router = useRouter();
@@ -17,7 +18,7 @@ const Header = () => {
     PATH.COMMUNITYSHELTER,
     PATH.COMMUNITYDAILY,
   ];
-
+  
   // 특정 페이지에서 헤더 안 보이게
   if (hiddenRoutes.includes(pathname)) {
     return null;
@@ -48,10 +49,10 @@ const Header = () => {
       {/* 중앙 로고 자리 */}
       <button onClick={handleHome}>
         <Image
-          src="/typos/logo-blue.svg"
+          src={Logo}
           alt="중앙로고"
-          height={24}
-          width={65}
+          height={96}
+          width={96}
         ></Image>
       </button>
 
