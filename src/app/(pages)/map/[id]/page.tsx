@@ -38,34 +38,32 @@ const ShelterDetailPage = async ({
   };
 
   return (
-    <section className="flex flex-col pt-[58px] pb-16">
+    <section className="mx-auto flex w-full max-w-[640px] min-w-[320px] flex-col items-center justify-center pt-[58px] pb-15">
       {/* 지도 */}
-      <div className="bg-accent h-[393px] w-full text-center [&>*]:object-cover">
+      <div className="bg-accent mx-auto aspect-1/1 w-full max-w-[640px] min-w-[320px] text-center [&>*]:object-cover">
         {shelter?.lat && shelter?.lng && (
           <DetailMap lat={shelter.lat} lng={shelter.lng} name={shelter.name} />
         )}
       </div>
-      <div className="mb-[27px] px-5 pt-5">
-        {/* 제목 + 출처 */}
-        <header className="mb-4 flex-col">
-          <p className="text-left text-xs text-gray-400">행정 안전부 제공</p>
-          <h1 className="text-[20px] font-semibold">
-            {shelter?.name ?? "정보없음"}
-          </h1>
-        </header>
-
+      <div className="w-full px-5 pt-5">
         {/* 복사/공유 등 부가 기능 */}
         <aside className="mb-4">
-          <ShelterExtraFeature address={shelter?.address} />
+          <ShelterExtraFeature
+            address={shelter?.address}
+            name={shelter?.name}
+          />
         </aside>
 
         {/* 상세 정보 */}
-        <section className="flex w-full flex-col gap-2 text-[14px] text-[#666666]">
+        <section className="text-numEng flex w-full flex-col gap-2 text-gray-600">
           <p className="flex flex-row items-center gap-1">
             <Image src={phone} alt="" width={24} height={24} />
             담당 전화:{" "}
             {shelter?.phone ? (
-              <Link href={`tel:${shelter.phone}`} className="text-indigo-500">
+              <Link
+                href={`tel:${shelter.phone}`}
+                className="text-indigo-500 underline underline-offset-3"
+              >
                 {shelter.phone}
               </Link>
             ) : (
@@ -107,13 +105,16 @@ const ShelterDetailPage = async ({
               {shelter?.usageType ?? "정보없음"}
             </span>
           </p>
+          <span className="text-bodyS w-full text-right text-gray-400">
+            행정안전부 제공
+          </span>
         </section>
       </div>
 
-      <div className="mx-5 h-[1px] bg-[#f2f2f2]"></div>
+      <div className="mx-5 my-5 h-[1px] w-full bg-gray-50" />
 
       {/* 신고 안내 */}
-      <footer className="flex flex-col gap-2 px-5 pt-2 text-sm text-[#666666]">
+      <footer className="flex flex-col gap-2 px-5 pt-2 text-sm text-gray-600">
         <p>대피소 정보 오류는 행정안전부 콜센터로 제보 바랍니다.</p>
         <p className="text-md">
           행정안전부 콜센터:{" "}
