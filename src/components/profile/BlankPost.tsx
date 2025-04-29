@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Pencil from "/icons/pen-solid.svg";
+import Pencil from "public/icons/pen-solid.svg";
 
 const BlankPost = () => {
   return (

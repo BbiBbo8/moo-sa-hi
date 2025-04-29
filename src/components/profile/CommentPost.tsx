@@ -5,7 +5,7 @@ import { useMyComments } from "@/hooks/comment/useMyCommets";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import Pencil from "/icons/pen-solid.svg";
+import Pencil from "public/icons/pen-solid.svg";
 
 const CommentPost = () => {
   const { data: posts, isLoading } = useMyComments();

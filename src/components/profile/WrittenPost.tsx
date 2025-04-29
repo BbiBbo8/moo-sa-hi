@@ -6,7 +6,7 @@ import PATH from "@/constants/PATH";
 import useGetPosts from "@/hooks/profile/useGetPosts";
 import Image from "next/image";
 import Link from "next/link";
-import Pencil from "/icons/pen-solid.svg";
+import Pencil from "public/icons/pen-solid.svg";
 
 const WrittenPost = () => {
   const { data: posts, isLoading, error } = useGetPosts();
