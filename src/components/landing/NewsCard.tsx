@@ -18,7 +18,6 @@ const NewsCard = () => {
     data: newsData,
     isLoading,
     error,
-    refetch,
   } = useQuery({
     queryKey: ["news"],
     queryFn: async () => {
