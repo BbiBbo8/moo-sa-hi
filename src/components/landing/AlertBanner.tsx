@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import fetchDisasterAlert from "@/app/api/fetchDisasterAlert";
+import fetchDisasterAlert from "@/app/action/fetchDisasterAlert";
 import chevronUp from "/public/icons/chevron-up-solid.svg"
 import chevronDown from "/public/icons/chevron-down-solid.svg"
 import bullhorn from "/public/icons/community/bullhorn-solid.svg"
