@@ -74,9 +74,12 @@ const NewsCard = () => {
           {newsData?.map((news) => (
             <Card
               key={news.id}
-              className="max-w-[300px] min-w-[300px] flex-shrink-0 bg-[#F7F7F7]"
+              className="max-w-[300px] min-w-[300px] flex-shrink-0 bg-[#F7F7F7] flex flex-col"
             >
-              <Link href={`/news/${news.id}`}>
+              <Link
+                href={`/news/${news.id}`}
+                className="block flex-grow" // 남은 공간을 채우도록 설정
+              >
                 <CardHeader className="pb-2">
                   <CardTitle className="truncate">{news.title}</CardTitle>
                   <CardDescription className="mt-2 line-clamp-4">
@@ -85,9 +88,7 @@ const NewsCard = () => {
                 </CardHeader>
                 <CardContent />
               </Link>
-              <CardFooter className="text-xs">
-                {news.date} | {news.writer}
-              </CardFooter>
+              <CardFooter className="text-xs">{news.date} | {news.writer}</CardFooter>
             </Card>
           ))}
         </div>
