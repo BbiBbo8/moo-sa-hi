@@ -20,6 +20,8 @@ import { useState } from "react";
 import SigninDrawer from "@/components/auth/SigninDrawer";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
+import uploadActivated from "public/icons/Property-Activate.svg";
+import uploadDisabled from "public/icons/Property-Disabled.svg";
 
 const commentSchema = z.object({
   content: z
@@ -78,8 +80,8 @@ const CommentForm = ({ postId }: { postId: number }) => {
   // 값이 있을 때 아이콘 변경
   const currentIconSrc =
     commentContent && commentContent.length > 0
-      ? "/icons/Property-Activate.svg"
-      : "/icons/Property-Disabled.svg";
+      ? uploadActivated
+      : uploadDisabled;
 
   return (
     <>
