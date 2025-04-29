@@ -2,7 +2,6 @@
 
 import axios from "axios";
 import { NewsItem } from "@/types/news";
-import page from "../(pages)/news/[id]/page";
 
 const fetchNewsApi = async (): Promise<NewsItem[]> => {
   const apiKey = process.env.NEXT_NEWS_API_KEY!;
