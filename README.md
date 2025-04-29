@@ -205,9 +205,9 @@
   👤 마이페이지 & 커뮤니티 활동 (by 나현)
   </summary>
 
-- 유저 정보 조회: 로그인한 사용자의 정보 표시
+- 유저 정보 조회 · 수정 : 로그인한 사용자의 정보 표시 · 수정
 
-- 커뮤니티 활동 조회: 내가 쓴 글 / 댓글 조회 가능
+- 커뮤니티 활동 조회: 내가 쓴 글 · 댓글 남긴 게시글 · 유용해요 남긴 게시글 조회 가능
 
 - 탭 네비게이션
 
@@ -218,6 +218,7 @@
 - 댓글 기능
 
   - 각 게시글에 댓글 작성
+  - 본인 포함 작성자의 닉네임, 작성 시간, 작성 내용 확인
 
   - 내가 작성한 댓글만 삭제 가능
 
@@ -300,7 +301,8 @@
 
 ## 🚀 트러블 슈팅
 
-- #### [Supabase OAuth 인증 트러블슈팅](https://velog.io/@33hyun/Supabase-OAuth-%EC%9D%B8%EC%A6%9D-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85)
+- #### [Supabase OAuth 인증 오류가 끊기질 않아](https://velog.io/@33hyun/Supabase-OAuth-%EC%9D%B8%EC%A6%9D-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85)
+- #### [쿠키를 사용하자 - 로그인 정보 파싱하기](https://velog.io/@pna9904/%EC%BF%A0%ED%82%A4-%EC%82%AC%EC%9A%A9%EC%97%90-%EB%8F%99%EC%9D%98%ED%95%98%EB%83%90%EA%B3%A0-%EB%84%88-%EB%88%84%EA%B5%B0%EB%8D%B0)
 - #### [버튼 클릭에 따른 데이터 추가와 삭제?](https://velog.io/@suminlee0409/%EB%B2%84%ED%8A%BC-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B6%94%EA%B0%80%EC%99%80-%EC%B7%A8%EC%86%8C-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%82%AD%EC%A0%9C-%EC%89%BD%EC%A7%80-%EB%9D%BC%EA%B3%A0-%EB%A7%90%ED%95%98%EB%8A%94-%EA%B3%BC%EA%B1%B0%EC%9D%98-%EB%82%98)
 
 <br />
