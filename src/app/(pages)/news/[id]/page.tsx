@@ -36,7 +36,7 @@ const NewsDetailPage = () => {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
+    <div className="mx-auto max-w-3xl px-4 py-25">
       <h1 className="text-3xl font-bold leading-tight text-[#1A1A1A] mb-4">
         {newsDetail.title}
       </h1>
