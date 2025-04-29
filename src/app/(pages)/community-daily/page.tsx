@@ -8,7 +8,6 @@ import Error from "../Error";
 import PostCreateFloatingBtn from "@/components/community/PostCreateFloatingBtn";
 import CommunityHeader from "@/components/community/CommunityHeader";
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import CommunityBanner from "@/components/community/detail/banner";
 
 const CommunityDailyPage = () => {

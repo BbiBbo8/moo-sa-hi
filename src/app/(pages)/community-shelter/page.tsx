@@ -8,7 +8,6 @@ import Error from "../Error";
 import PostCreateFloatingBtn from "@/components/community/PostCreateFloatingBtn";
 import { useState, useMemo } from "react";
 import CommunityHeader from "@/components/community/CommunityHeader";
-import Image from "next/image";
 import CommunityBanner from "@/components/community/detail/banner";
 
 const CommunityShelterPage = () => {
