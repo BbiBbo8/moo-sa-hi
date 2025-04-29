@@ -14,7 +14,7 @@ const fetchNewsApi = async (): Promise<NewsItem[]> => {
       numofRows: 1000,
     },
   });
-  const items = res.data.articles;
+  const items = res.data.body;
   if (!Array.isArray(items)) throw new Error("데이터 형식 오류");
 
   const filtered = items.map(item => ({

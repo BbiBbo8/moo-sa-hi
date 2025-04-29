@@ -16,7 +16,6 @@ import { NewsItem } from "@/types/news";
 const NewsCard = () => {
   const [newsData, setNewsData] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getNews = async () => {
@@ -26,7 +25,6 @@ const NewsCard = () => {
         setNewsData(news.slice(0, 5)); // 최신 뉴스 5개만 가져오기
         setIsLoading(false);
       } catch (err) {
-        setError("뉴스를 불러오는데 실패했습니다.");
         setIsLoading(false);
         console.error("News fetching error:", err);
       }
@@ -46,22 +44,6 @@ const NewsCard = () => {
         </p>
         <div className="flex items-center justify-center py-10">
           <div className="text-center">뉴스를 불러오는 중...</div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="mx-5">
-        <h2 className="text-[20px] leading-[27px] font-semibold text-[#1A1A1A]">
-          무사히 재난 뉴스
-        </h2>
-        <p className="mt-1 text-[16px] text-[#666666]">
-          전국 각지에서 일어난 재난 정보
-        </p>
-        <div className="flex items-center justify-center py-10">
-          <div className="text-center text-red-500">{error}</div>
         </div>
       </div>
     );
