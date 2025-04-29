@@ -58,7 +58,8 @@ const BannerSection = () => {
         // 스크롤이 일시 정지되지 않았을 때만 실행
         if (!isPaused) {
           // 스크롤 가능한 최대 위치 계산
-          const maxScroll = scrollContainer.scrollWidth - scrollContainer.offsetWidth;
+          const maxScroll =
+            scrollContainer.scrollWidth - scrollContainer.offsetWidth;
           // 현재 스크롤 위치가 최대 스크롤 위치 근처에 도달했을 때
           if (scrollPosition >= maxScroll - 1) {
             // 스크롤 일시 정지
@@ -67,12 +68,17 @@ const BannerSection = () => {
             setTimeout(() => {
               setScrollPosition(0);
               setIsPaused(false);
-              scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+              scrollContainer.scrollTo({ left: 0, behavior: "smooth" });
             }, pauseDuration);
           } else {
             // 스크롤 위치 업데이트 및 스크롤 이동
-            setScrollPosition((prevPosition) => prevPosition + bannerWidthWithGap);
-            scrollContainer.scrollTo({ left: scrollPosition + bannerWidthWithGap, behavior: 'smooth' });
+            setScrollPosition(
+              prevPosition => prevPosition + bannerWidthWithGap,
+            );
+            scrollContainer.scrollTo({
+              left: scrollPosition + bannerWidthWithGap,
+              behavior: "smooth",
+            });
           }
         }
       }, 3000); // 3초마다 스크롤
@@ -83,17 +89,19 @@ const BannerSection = () => {
   }, [isPaused, scrollPosition]); // isPaused 또는 scrollPosition이 변경되면 useEffect 다시 실행 (여기서는 의도적으로 처음 한 번만 실행되도록 함)
 
   return (
-    <section className="pb-8 mx-[20px]">
+    <section className="mx-[20px] pb-8">
       <div className="mb-4">
-        <h2 className="text-[20px] font-semibold text-[#1A1A1A] leading-[26px]">
+        <h2 className="text-[20px] leading-[26px] font-semibold text-[#1A1A1A]">
           재난을 무사히 준비하세요
         </h2>
-        <p className="text-[16px] text-[#666666] mt-1">대피소 · 정보 · 퀴즈까지</p>
+        <p className="mt-1 text-[16px] text-[#666666]">
+          대피소 · 정보 · 퀴즈까지
+        </p>
       </div>
 
       <div
         ref={containerRef}
-        className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory"
+        className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth"
       >
         {bannerItems.map((item, index) => (
           <Link
@@ -101,14 +109,14 @@ const BannerSection = () => {
             href={item.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="min-w-[280px] sm:min-w-[320px] max-w-[320px] snap-start flex-shrink-0 rounded-xl overflow-hidden shadow-sm border-1"
+            className="max-w-[320px] min-w-[280px] flex-shrink-0 snap-start overflow-hidden rounded-xl border-1 shadow-sm sm:min-w-[320px]"
           >
             <Image
               src={item.src}
               alt={item.alt}
               width={320}
               height={140}
-              className="object-cover w-full h-full"
+              className="h-full w-full object-cover"
             />
           </Link>
         ))}

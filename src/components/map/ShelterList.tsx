@@ -8,6 +8,7 @@ import Link from "next/link";
 import PATH from "@/constants/PATH";
 import { useEffect, useRef } from "react";
 import { Shelter } from "@/types/shelter";
+import locationDot from "public/icons/map/map-location-dot-solid.png";
 
 interface ShelterListProps {
   isDrawerOpen: boolean;
@@ -94,7 +95,7 @@ const ShelterList = ({ isDrawerOpen, shelters, sortBy }: ShelterListProps) => {
                   width={80}
                   height={80}
                   className="px-[10px] py-[13.333px]"
-                  src={"/icons/map/map-location-dot-solid.png"}
+                  src={locationDot}
                 />
                 <span>주변에 대피소를 찾을 수 없어요</span>
                 <span>위치를 다시 확인해주세요</span>
