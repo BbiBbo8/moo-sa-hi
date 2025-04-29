@@ -4,6 +4,9 @@ import Image from "next/image";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import fetchDisasterAlert from "@/app/api/fetchDisasterAlert";
+import chevronUp from "/public/icons/chevron-up-solid.svg"
+import chevronDown from "/public/icons/chevron-down-solid.svg"
+import bullhorn from "/public/icons/community/bullhorn-solid.svg"
 
 const AlertBanner = () => {
   const {
@@ -26,7 +29,7 @@ const AlertBanner = () => {
       {/* 왼쪽: 아이콘 + 메시지 */}
       <div className="flex items-start gap-2 pr-2">
         <Image
-          src="/icons/bullhorn-solid1.svg"
+          src={bullhorn}
           alt="경고 아이콘"
           width={18}
           height={18}
@@ -44,11 +47,7 @@ const AlertBanner = () => {
       {/* 오른쪽: 드롭다운 버튼 */}
       <button onClick={() => setIsOpen(prev => !prev)} className="shrink-0">
         <Image
-          src={
-            isOpen
-              ? "/icons/chevron-up-solid.svg"
-              : "/icons/chevron-down-solid.svg"
-          }
+          src={isOpen ? chevronUp : chevronDown}
           alt="드롭다운"
           width={20}
           height={20}
