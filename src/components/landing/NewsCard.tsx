@@ -23,7 +23,7 @@ const NewsCard = () => {
       try {
         setIsLoading(true);
         const news = await fetchNewsApi();
-        setNewsData(news.slice(0, 5)); // Get first 5 news items
+        setNewsData(news.slice(0, 5)); // 최신 뉴스 5개만 가져오기
         setIsLoading(false);
       } catch (err) {
         setError("뉴스를 불러오는데 실패했습니다.");

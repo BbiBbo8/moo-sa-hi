@@ -1,8 +1,9 @@
 "use server";
 
 import axios from "axios";
+import { NewsItem } from "@/types/news";
 
-const fetchNewsApi = async () => {
+const fetchNewsApi = async (): Promise<NewsItem[]> => {
   const apiKey = process.env.NEXT_NEWS_API_KEY!;
   const apiBase = process.env.NEXT_NEWS_API_BASE_URL!;
 
