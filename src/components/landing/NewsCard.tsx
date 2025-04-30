@@ -63,18 +63,18 @@ const NewsCard = () => {
 
   return (
     <div className="mx-[20px]">
-      <h2 className="text-[20px] leading-[27px] font-semibold text-[#1A1A1A]">
+      <h2 className="text-[20px] leading-[27px] font-semibold text-gray-900">
         무사히 재난 뉴스
       </h2>
-      <p className="mt-1 text-[16px] text-[#666666]">
+      <p className="mt-1 text-[16px] text-gray-600">
         전국 각지에서 일어난 재난 정보
       </p>
       <section className="overflow-x-auto">
         <div className="flex w-max gap-4 py-[12px]">
-          {newsData?.map((news) => (
+          {newsData?.map(news => (
             <Card
               key={news.id}
-              className="max-w-[300px] min-w-[300px] flex-shrink-0 bg-[#F7F7F7] flex flex-col"
+              className="flex max-w-[300px] min-w-[300px] flex-shrink-0 flex-col bg-[#F7F7F7]"
             >
               <Link
                 href={`/news/${news.id}`}
@@ -88,7 +88,9 @@ const NewsCard = () => {
                 </CardHeader>
                 <CardContent />
               </Link>
-              <CardFooter className="text-xs">{news.date} | {news.writer}</CardFooter>
+              <CardFooter className="text-xs">
+                {news.date} | {news.writer}
+              </CardFooter>
             </Card>
           ))}
         </div>

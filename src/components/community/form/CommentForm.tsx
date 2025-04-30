@@ -92,12 +92,12 @@ const CommentForm = ({ postId }: { postId: number }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <div className="relative flex items-center rounded-[8px] bg-[#FAFAFA] focus-within:border focus-within:border-[#999999] focus-within:outline-none active:outline-none">
+                  <div className="bg-gray-10 relative flex items-center rounded-sm focus-within:border focus-within:border-gray-400 focus-within:outline-none active:outline-none">
                     <Textarea
                       placeholder="댓글을 입력해주세요."
                       {...field}
                       maxLength={30}
-                      className="h-fit resize-none rounded-[8px] border-transparent bg-[#FAFAFA] pr-10 text-base font-normal text-[#1A1A1A] placeholder:text-base placeholder:text-[#999999] focus:ring-transparent focus:outline-none"
+                      className="bg-gray-10 text-gray-10 h-fit resize-none rounded-sm border-transparent pr-10 text-base font-normal placeholder:text-base placeholder:text-gray-400 focus:ring-transparent focus:outline-none"
                       onClick={handleCommentInputClick}
                     />
                     <Button
@@ -118,7 +118,7 @@ const CommentForm = ({ postId }: { postId: number }) => {
                     </Button>
                   </div>
                 </FormControl>
-                <FormMessage className="text-[#1A1A1A]" />
+                <FormMessage className="text-gray-900" />
               </FormItem>
             )}
           />

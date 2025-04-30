@@ -108,7 +108,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
         onClose={handleConfirmationModal}
       />
       {/* NOTE: 화면에 보이는 회색 줄 */}
-      <div className="mb-11 h-3 w-full bg-[#F7F7F7]" />
+      <div className="bg-gray-20 mb-11 h-3 w-full" />
     </section>
   );
 };

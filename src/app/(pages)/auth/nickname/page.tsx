@@ -19,7 +19,7 @@ const NicknamePage = async () => {
 
   return (
     <div className="p-6 pt-20">
-      <h1 className="mb-4 text-2xl font-semibold">닉네임 등록</h1>
+      <h1 className="text-headlineM mb-4">닉네임 등록</h1>
       <NicknameForm userId={user.id} />
     </div>
   );

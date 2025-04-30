@@ -27,7 +27,7 @@ const MapGeolocation = () => {
         onClick={handleGetLocation}
         disabled={isPending}
         style={{ marginBottom: "10px", padding: "8px 12px", cursor: "pointer" }}
-        className="rounded-[4px] bg-blue-500 p-5 font-bold text-white"
+        className="bg-primary rounded-[4px] p-5 font-bold text-white"
       >
         {isPending ? "위치 가져오는 중..." : "현재 위치 가져오기"}
       </button>
@@ -37,7 +37,7 @@ const MapGeolocation = () => {
 
       {/*  위치가 설정된 경우 지도 표시 */}
       {center && <UserGeolocationMap location={center} setCenter={setCenter} />}
-      <h1 className="text-2xl font-bold">geolocation 현재 위치 불러오기</h1>
+      <h1 className="text-headlineM">geolocation 현재 위치 불러오기</h1>
     </div>
   );
 };

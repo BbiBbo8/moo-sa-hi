@@ -39,7 +39,7 @@ const ShelterPost = ({ post }: PostCardProps) => {
         <CardContent className="px-0">
           <section className="flex h-full w-full flex-col items-start justify-center gap-2">
             <CardTitle
-              className={`flex items-center justify-center rounded-[8px] px-2 py-1 text-sm text-[14px] font-medium text-white ${colorForPopulation}`}
+              className={`flex items-center justify-center rounded-sm px-2 py-1 text-sm text-[14px] font-medium text-white ${colorForPopulation}`}
             >
               {populationDensity}
             </CardTitle>
@@ -55,7 +55,7 @@ const ShelterPost = ({ post }: PostCardProps) => {
             <section className="text-numEng flex w-full flex-row justify-between text-gray-300">
               <p>{timeCreated}</p>
               <div className="text-numEng flex items-center gap-1 text-gray-300">
-                <Image src={thumbsUp} alt={"icon"} width={20} height={20} />
+                <Image src={thumbsUp} alt="icon" width={20} height={20} />
                 <span>{post.helpfuls?.length ?? 0}</span>
               </div>
             </section>

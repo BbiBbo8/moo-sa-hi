@@ -44,14 +44,12 @@ const CommunityDailyPage = () => {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-[640px] min-w-[320px] flex-col items-center pb-16">
+    <main className="mx-auto flex min-h-screen w-full max-w-[640px] min-w-[320px] flex-col items-center pt-16 pb-16">
       <div className="fixed top-0 z-50 w-full">
         <CommunityHeader setSearchTerm={setSearchTerm} />
       </div>
 
-      <div className="z-40 w-full">
-        <CommunityBanner />
-      </div>
+      <CommunityBanner />
 
       {/* 필터링된 게시글 반환 */}
       <section className="flex w-full max-w-[640px] flex-col items-center justify-center overflow-auto">

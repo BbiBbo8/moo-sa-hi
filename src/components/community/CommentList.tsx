@@ -55,23 +55,23 @@ const CommentList = ({ postId }: { postId: number }) => {
       {sortedComments.map((comment, index) => (
         <div key={comment.id}>
           {/* 댓글이 1개 이상일 때 구분선 추가 */}
-          {index > 0 && <div className="h-0.25 w-full bg-[#F2F2F2]" />}
+          {index > 0 && <div className="h-0.25 w-full bg-gray-50" />}
           <Card className="border-none shadow-none">
             <CardContent>
-              <CardDescription className="text-sm text-[#808080]">
+              <CardDescription className="text-sm text-gray-500">
                 {comment.users?.nickname}
               </CardDescription>
-              <CardDescription className="mt-0.5 text-base text-[#1A1A1A]">
+              <CardDescription className="mt-0.5 text-base text-gray-900">
                 {comment.comments}
               </CardDescription>
               <div className="mt-3 flex flex-row">
-                <CardDescription className="py-2 text-sm text-[#B3B3B3]">
+                <CardDescription className="py-2 text-sm text-gray-300">
                   {elapsedTime(comment.created_at)}
                 </CardDescription>
                 {isOwned(comment.user_id) && (
                   <Button
                     onClick={() => deleteCommentMutation.mutate(comment.id)}
-                    className="border-block h-fit w-fit bg-transparent text-sm font-normal text-[#B3B3B3] hover:bg-[#F2F2F2]"
+                    className="border-block h-fit w-fit bg-transparent text-sm font-normal text-gray-300 hover:bg-gray-50"
                   >
                     댓글 삭제
                   </Button>

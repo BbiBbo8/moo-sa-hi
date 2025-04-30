@@ -9,9 +9,10 @@ import share2 from "public/icons/shelter-detail/share-nodes-solid 2.svg";
 
 interface ShelterExtraFeatureProps {
   address?: string;
+  name?: string;
 }
 
-const ShelterExtraFeature = ({ address }: ShelterExtraFeatureProps) => {
+const ShelterExtraFeature = ({ address, name }: ShelterExtraFeatureProps) => {
   const handleCopyText = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -24,17 +25,27 @@ const ShelterExtraFeature = ({ address }: ShelterExtraFeatureProps) => {
   };
 
   return (
-    <aside className="flex flex-col gap-2 text-[16px] text-[#666666] [&>*]:h-12">
-      {/* 주소 복사 영역 */}
-      <div className="text-md flex w-full items-center justify-evenly gap-1 rounded-lg border-1 border-[#999999] px-5 py-2">
-        <button onClick={() => handleCopyText(address ?? "주소 정보 없음")}>
-          <Image src={copy} alt="주소복사" width={24} height={24} />
-        </button>
-        <h5 className="truncate">{address ?? "정보 없음"}</h5>
-      </div>
+    <aside className="flex flex-col text-[16px] text-[#666666]">
+      {/* 제목 + 출처 */}
+      <header className="mb-5 flex flex-col gap-1">
+        <h1 className="text-titleL text-gray-900">{name ?? "정보없음"}</h1>
+        <div className="flex flex-col gap-2">
+          <h5 className="text-bodyL text-left text-gray-600">
+            {address ?? "정보 없음"}
+          </h5>
+          {/* 주소 복사 영역 */}
+          <button
+            onClick={() => handleCopyText(address ?? "주소 정보 없음")}
+            className="text-bodyM bg-gray-20 flex w-fit flex-row gap-1 rounded-sm px-2 py-1 text-gray-600"
+          >
+            <Image src={copy} alt="주소복사" width={20} height={20} />
+            주소 복사
+          </button>
+        </div>
+      </header>
 
       {/* 공유 및 길 안내 */}
-      <nav className="flex justify-evenly gap-2 text-center">
+      <nav className="flex justify-evenly gap-2 text-center [&>*]:h-12">
         {/* 공유 */}
         <button
           onClick={() => {
@@ -51,7 +62,7 @@ const ShelterExtraFeature = ({ address }: ShelterExtraFeatureProps) => {
               toast.error("이 브라우저는 공유를 지원하지 않아요");
             }
           }}
-          className="text-md flex w-1/2 items-center justify-center gap-2 rounded-lg border-1 border-[#999999] px-4 py-3"
+          className="text-md flex w-1/2 items-center justify-center gap-2 rounded-full border-1 border-gray-200 px-4 py-3 text-gray-600"
         >
           <Image src={share2} alt="장소공유" width={24} height={24} />
           <p>장소 공유</p>
@@ -62,7 +73,7 @@ const ShelterExtraFeature = ({ address }: ShelterExtraFeatureProps) => {
           href={`https://map.kakao.com/?q=${encodeURIComponent(address ?? "")}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-md flex w-1/2 items-center justify-center gap-2 rounded-lg border-1 border-[#999999] px-4 py-3"
+          className="text-md flex w-1/2 items-center justify-center gap-2 rounded-full border-1 border-gray-200 px-4 py-3 text-gray-600"
         >
           <Image src={share1} alt="길안내" width={24} height={24} />
           <p>길 안내</p>
