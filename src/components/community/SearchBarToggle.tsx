@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import Image from "next/image";
+import searchIcon from "public//icons/Property-Activate.svg";
 
 interface SearchBarToggleProps {
   onSearch: (searchTerm: string) => void;
@@ -33,11 +34,6 @@ const SearchBarToggle: React.FC<SearchBarToggleProps> = ({ onSearch }) => {
     onSearch(""); // 검색어 지울 때 부모 컴포넌트에도 알림
   };
 
-  const switchSearchIcon =
-    !searchValue.length === null
-      ? "/icons/Property-Disabled.svg"
-      : "/icons/Property-Activate.svg";
-
   return (
     <div className="relative">
       {/* 검색 아이콘 버튼 */}
@@ -62,24 +58,12 @@ const SearchBarToggle: React.FC<SearchBarToggleProps> = ({ onSearch }) => {
                 onChange={handleSearchChange}
                 className="border-primary h-10 w-full min-w-[312px] border-1"
               />
-              <Image
-                src={"/icons/Property-Disabled.svg"}
-                alt={"icon"}
-                width={28}
-                height={28}
-                className="absolute top-1/2 right-3 -translate-y-1/2"
-              />
               {searchValue && (
                 <button
                   className="absolute top-1/2 right-3 -translate-y-1/2"
                   onClick={handleClear}
                 >
-                  <Image
-                    src={switchSearchIcon}
-                    alt={"icon"}
-                    width={28}
-                    height={28}
-                  />
+                  <Image src={searchIcon} alt={"icon"} width={28} height={28} />
                 </button>
               )}
             </div>

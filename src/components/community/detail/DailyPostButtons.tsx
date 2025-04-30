@@ -5,6 +5,8 @@ import getUserData from "@/supabase/getUserData";
 import SigninDrawer from "@/components/auth/SigninDrawer";
 import ReportButton from "@/components/report/ReportButton";
 import { toast } from "sonner";
+import thumbsUpBlue from "public/icons/community/thumbs-up-blue.svg";
+import thumbsUpGray from "public/icons/community/thumbs-up-gray.svg";
 
 interface params {
   dailyPostId?: number | null;
@@ -145,12 +147,7 @@ const DailyPostButtons = ({ dailyPostId = null }: params) => {
               // shelterPostId가 null이거나 초기 데이터 로딩 중에는 버튼 비활성화
               disabled={dailyPostId === null}
             >
-              <Image
-                src={"/icons/community/thumbs-up-blue.svg"}
-                alt=""
-                width={24}
-                height={24}
-              />
+              <Image src={thumbsUpBlue} alt="" width={24} height={24} />
               유용해요
               <span className="ml-1">{helpfulCount}</span>
             </button>
@@ -161,12 +158,7 @@ const DailyPostButtons = ({ dailyPostId = null }: params) => {
               // shelterPostId가 null이거나 초기 데이터 로딩 중에는 버튼 비활성화
               disabled={dailyPostId === null}
             >
-              <Image
-                src={"/icons/community/thumbs-up-gray.svg"}
-                alt=""
-                width={24}
-                height={24}
-              />
+              <Image src={thumbsUpGray} alt="" width={24} height={24} />
               유용해요
               <span className="ml-1">{helpfulCount}</span>
             </button>

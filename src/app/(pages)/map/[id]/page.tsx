@@ -4,6 +4,12 @@ import React from "react";
 import fetchSheltersApi from "@/app/action/fetchSheltersApi";
 import DetailMap from "@/components/detail/DetailMap";
 import Image from "next/image";
+import phone from "public/icons/shelter-detail/phone-solid.svg";
+import user from "public/icons/shelter-detail/user-group-solid.svg";
+import flag from "public/icons/shelter-detail/flag-solid.svg";
+import locationDot from "public/icons/shelter-detail/location-dot-solid.svg";
+import clock from "public/icons/shelter-detail/clock-solid.svg";
+import info from "public/icons/shelter-detail/circle-info-solid.svg";
 
 const ShelterDetailPage = async ({
   params,
@@ -56,12 +62,7 @@ const ShelterDetailPage = async ({
         {/* 상세 정보 */}
         <section className="flex w-full flex-col gap-2 text-[14px] text-[#666666]">
           <p className="flex flex-row items-center gap-1">
-            <Image
-              src={"/icons/shelter-detail/phone-solid.svg"}
-              alt=""
-              width={24}
-              height={24}
-            />
+            <Image src={phone} alt="" width={24} height={24} />
             담당 전화:{" "}
             {shelter?.phone ? (
               <Link href={`tel:${shelter.phone}`} className="text-indigo-500">
@@ -72,60 +73,35 @@ const ShelterDetailPage = async ({
             )}
           </p>
           <p className="flex flex-row items-center gap-1">
-            <Image
-              src={"/icons/shelter-detail/user-group-solid.svg"}
-              alt=""
-              width={24}
-              height={24}
-            />
+            <Image src={user} alt="" width={24} height={24} />
             수용인원:{" "}
             <span className="text-[#1A1A1A]">
               {shelter?.capacity ?? "정보없음"}명
             </span>
           </p>
           <p className="flex flex-row items-center gap-1">
-            <Image
-              src={"/icons/shelter-detail/flag-solid.svg"}
-              alt=""
-              width={24}
-              height={24}
-            />
+            <Image src={flag} alt="" width={24} height={24} />
             시설 규모:{" "}
             <span className="text-[#1A1A1A]">
               {shelter?.scale ?? "정보없음"}
             </span>
           </p>
           <p className="flex flex-row items-center gap-1">
-            <Image
-              src={"/icons/shelter-detail/location-dot-solid.svg"}
-              alt=""
-              width={24}
-              height={24}
-            />
+            <Image src={locationDot} alt="" width={24} height={24} />
             대피 장소:{" "}
             <span className="text-[#1A1A1A]">
               {FloorType(shelter?.locationType ?? "정보없음")}
             </span>
           </p>
           <p className="flex flex-row items-center gap-1">
-            <Image
-              src={"/icons/shelter-detail/clock-solid.svg"}
-              alt=""
-              width={24}
-              height={24}
-            />
+            <Image src={clock} alt="" width={24} height={24} />
             개방 여부:{" "}
             <span className="text-[#1A1A1A]">
               {OpenStatus(shelter?.isOpen ?? "정보없음")}
             </span>
           </p>
           <p className="flex flex-row items-center gap-1">
-            <Image
-              src={"/icons/shelter-detail/circle-info-solid.svg"}
-              alt=""
-              width={24}
-              height={24}
-            />
+            <Image src={info} alt="" width={24} height={24} />
             평상시 활용유형:{" "}
             <span className="text-[#1A1A1A]">
               {shelter?.usageType ?? "정보없음"}
