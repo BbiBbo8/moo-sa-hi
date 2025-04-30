@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "재난이 닥쳤을때, 가장 먼저 무사히 확인하세요.",
     description:
       "대피소 위치부터 실시간 정보까지 무사히에서 빠르게 확인하세요.",
-    url: "https://yourdomain.com/page-url",
+    url: "https://moo-sa-hi.com",
     siteName: "무사히",
     images: [
       {
