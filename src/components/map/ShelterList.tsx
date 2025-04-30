@@ -80,7 +80,7 @@ const ShelterList = ({ isDrawerOpen, shelters, sortBy }: ShelterListProps) => {
 
                     {typeof shelter.distance === "number" && (
                       <span className="flex items-center text-sm font-normal text-[#666666]">
-                        {(shelter.distance / 1000).toFixed(1)} km
+                        {(shelter.distance / 1000).toFixed(1)} km 
                       </span>
                     )}
                   </div>

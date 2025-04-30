@@ -15,7 +15,7 @@ const CrosshairButton = () => {
     mutate(undefined, {
       onSuccess: data => {
         setCenter(data);
-        setLevel(3);
+        setLevel(7);
         setCurrentLocation(data);
       },
     });
