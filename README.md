@@ -4,7 +4,7 @@
 
 <br>
 
-# 무사히 [바로가기](https://moo-sa-hi.vercel.app/)
+# 무사히 [바로가기](https://moo-sa-hi.com)
 
 > 무사히 당신이 있을 곳으로, 돌아갈 수 있도록.
 >
