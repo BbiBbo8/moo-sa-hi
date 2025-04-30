@@ -40,7 +40,7 @@ const ShelterDetailPage = async ({
   return (
     <section className="mx-auto flex w-full max-w-[640px] min-w-[320px] flex-col items-center justify-center pt-[58px] pb-15">
       {/* 지도 */}
-      <div className="bg-accent mx-auto mt-4 aspect-2/1 w-full max-w-[640px] min-w-[320px] text-center [&>*]:object-cover">
+      <div className="bg-accent mx-auto mt-4 h-80 w-full max-w-[640px] min-w-[320px] text-center [&>*]:object-cover">
         {shelter?.lat && shelter?.lng && (
           <DetailMap lat={shelter.lat} lng={shelter.lng} name={shelter.name} />
         )}
