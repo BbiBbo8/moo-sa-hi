@@ -12,7 +12,7 @@ function BackButton() {
     >
       <Image
         src="./icons/postcreate/chevron-left-solid1.svg"
-        alt=""
+        alt="왼쪽으로 이동"
         width={24}
         height={24}
       />
