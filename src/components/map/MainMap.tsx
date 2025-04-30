@@ -29,6 +29,21 @@ const MainMap = () => {
   const reset = useMapStore(state => state.reset);
   const currentLocation = useMapStore(state => state.currentLocation);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (mapRef.current) {
+        const koreaCenter = new kakao.maps.LatLng(36.5, 127.5);
+        mapRef.current.setCenter(koreaCenter); // 지도 중심 이동
+      }
+      setCenter({ lat: 36.5, lng: 127.5 }); // zustand 상태도 동기화
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [setCenter]);
+
   // 필터링 로직을 useCallback으로 메모이제이션
   const filterVisibleShelters = useCallback(() => {
     if (!mapRef.current || !shelters.length) return [];
