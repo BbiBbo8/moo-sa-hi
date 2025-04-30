@@ -62,7 +62,7 @@ const ShelterDetailPage = async ({
             {shelter?.phone ? (
               <Link
                 href={`tel:${shelter.phone}`}
-                className="text-indigo-500 underline underline-offset-3"
+                className="text-primary underline underline-offset-3"
               >
                 {shelter.phone}
               </Link>
@@ -73,35 +73,35 @@ const ShelterDetailPage = async ({
           <p className="flex flex-row items-center gap-1">
             <Image src={user} alt="" width={24} height={24} />
             수용인원:{" "}
-            <span className="text-[#1A1A1A]">
+            <span className="text-gray-900">
               {shelter?.capacity ?? "정보없음"}명
             </span>
           </p>
           <p className="flex flex-row items-center gap-1">
             <Image src={flag} alt="" width={24} height={24} />
             시설 규모:{" "}
-            <span className="text-[#1A1A1A]">
+            <span className="text-gray-900">
               {shelter?.scale ?? "정보없음"}
             </span>
           </p>
           <p className="flex flex-row items-center gap-1">
             <Image src={locationDot} alt="" width={24} height={24} />
             대피 장소:{" "}
-            <span className="text-[#1A1A1A]">
+            <span className="text-gray-900">
               {FloorType(shelter?.locationType ?? "정보없음")}
             </span>
           </p>
           <p className="flex flex-row items-center gap-1">
             <Image src={clock} alt="" width={24} height={24} />
             개방 여부:{" "}
-            <span className="text-[#1A1A1A]">
+            <span className="text-gray-900">
               {OpenStatus(shelter?.isOpen ?? "정보없음")}
             </span>
           </p>
           <p className="flex flex-row items-center gap-1">
             <Image src={info} alt="" width={24} height={24} />
             평상시 활용유형:{" "}
-            <span className="text-[#1A1A1A]">
+            <span className="text-gray-900">
               {shelter?.usageType ?? "정보없음"}
             </span>
           </p>
@@ -118,7 +118,7 @@ const ShelterDetailPage = async ({
         <p>대피소 정보 오류는 행정안전부 콜센터로 제보 바랍니다.</p>
         <p className="text-md">
           행정안전부 콜센터:{" "}
-          <Link href={`tel:02-2100-3399`} className="text-indigo-500">
+          <Link href={`tel:02-2100-3399`} className="text-primary">
             02-2100-3399
           </Link>
         </p>

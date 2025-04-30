@@ -91,10 +91,10 @@ const BannerSection = () => {
   return (
     <section className="mx-[20px] pb-8">
       <div className="mb-4">
-        <h2 className="text-[20px] leading-[26px] font-semibold text-[#1A1A1A]">
+        <h2 className="text-[20px] leading-[26px] font-semibold text-gray-900">
           재난을 무사히 준비하세요
         </h2>
-        <p className="mt-1 text-[16px] text-[#666666]">
+        <p className="mt-1 text-[16px] text-gray-600">
           대피소 · 정보 · 퀴즈까지
         </p>
       </div>

@@ -37,18 +37,18 @@ const NewsCard = () => {
     {
       title: "강원소방, 석가탄신일 앞두고 사찰·다중이용시설 현장 점검",
       description:
-        '(춘천=연합뉴스) 강태현 기자 = 강원특별자치도소방본부는 석가탄신일을 앞두고 사찰과 다중이용시설에서 화재 예방을 위한 현장점검을 벌였다고 23일 밝혔다.도 소방본부는 전날부터 이틀간 양양국제공항, 모나용평리조트, 양양 낙산사, 평창 월정사 등에서 피난 유도체계, 방재실 실시간 대응력, 위험물 저장관리 실태 등 시스템 전반을 점검했다.',
+        "(춘천=연합뉴스) 강태현 기자 = 강원특별자치도소방본부는 석가탄신일을 앞두고 사찰과 다중이용시설에서 화재 예방을 위한 현장점검을 벌였다고 23일 밝혔다.도 소방본부는 전날부터 이틀간 양양국제공항, 모나용평리조트, 양양 낙산사, 평창 월정사 등에서 피난 유도체계, 방재실 실시간 대응력, 위험물 저장관리 실태 등 시스템 전반을 점검했다.",
       link: "https://www.safekorea.go.kr/idsiSFK/neo/sfk/cs/sfc/dis/disasterNewsView.jsp?menuSeq=619&cno=764365",
       footer: "2025-04-23 16:42 | 행정안전부 공공누리",
-    }
+    },
   ];
 
   return (
     <div className="mx-[20px]">
-      <h2 className="text-[20px] leading-[27px] font-semibold text-[#1A1A1A]">
+      <h2 className="text-[20px] leading-[27px] font-semibold text-gray-900">
         무사히 재난 뉴스
       </h2>
-      <p className="mt-1 text-[16px] text-[#666666]">
+      <p className="mt-1 text-[16px] text-gray-600">
         전국 각지에서 일어난 재난 정보
       </p>
       <section className="overflow-x-auto">
@@ -56,7 +56,7 @@ const NewsCard = () => {
           {newsData.map((news, index) => (
             <Card
               key={index}
-              className="max-w-[300px] min-w-[300px] flex-shrink-0 bg-[#F7F7F7]"
+              className="bg-gray-20 max-w-[300px] min-w-[300px] flex-shrink-0"
             >
               <Link href={news.link} target="_blank" rel="noopener noreferrer">
                 <CardHeader className="pb-2">
