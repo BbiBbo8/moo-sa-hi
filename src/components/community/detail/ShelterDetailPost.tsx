@@ -29,7 +29,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
       setCenter({ lat: matchedShelter.lat, lng: matchedShelter.lng });
       setLevel(4);
     }
-  }, [data?.shelter_name, shelters, setCenter, setLevel]); // 리팩토링 진행할 때 MainMap 대신 DetailMap 사용 필요할 듯
+  }, [data?.shelter_name, shelters, isShelterLoading, setCenter, setLevel]); // 리팩토링 진행할 때 MainMap 대신 DetailMap 사용 필요할 듯
 
   if (isLoading) {
     return <Loading />;
@@ -64,11 +64,21 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
 
         <section className="text-numEng mb-7 flex flex-col justify-center gap-2 text-gray-500">
           <span className="flex flex-row gap-1">
-            <Image src={thumbTack} alt="" width={24} height={24} />
+            <Image
+              src={thumbTack}
+              alt="혼잡도/위생상태 아이콘"
+              width={24}
+              height={24}
+            />
             혼잡도: <span className="text-gray-800">{data.people}</span>
           </span>
           <span className="flex flex-row gap-1">
-            <Image src={thumbTack} alt="" width={24} height={24} />
+            <Image
+              src={thumbTack}
+              alt="혼잡도/위생상태 아이콘"
+              width={24}
+              height={24}
+            />
             위생상태: <span className="text-gray-800">{data.cleanliness}</span>
           </span>
         </section>

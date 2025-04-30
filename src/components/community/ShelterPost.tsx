@@ -55,7 +55,12 @@ const ShelterPost = ({ post }: PostCardProps) => {
             <section className="text-numEng flex w-full flex-row justify-between text-gray-300">
               <p>{timeCreated}</p>
               <div className="text-numEng flex items-center gap-1 text-gray-300">
-                <Image src={thumbsUp} alt="icon" width={20} height={20} />
+                <Image
+                  src={thumbsUp}
+                  alt="유용해요 아이콘"
+                  width={20}
+                  height={20}
+                />
                 <span>{post.helpfuls?.length ?? 0}</span>
               </div>
             </section>

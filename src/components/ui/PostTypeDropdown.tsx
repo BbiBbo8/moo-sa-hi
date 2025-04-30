@@ -22,7 +22,7 @@ function PostTypeDropdown({ current, onChange }: PostTypeDropdownProps) {
         <span>
           <Image
             src="./icons/postcreate/chevron-down-solid.svg"
-            alt=""
+            alt="아래로 이동"
             width={24}
             height={24}
           />

@@ -40,7 +40,7 @@ const ShelterDetailPage = async ({
   return (
     <section className="mx-auto flex w-full max-w-[640px] min-w-[320px] flex-col items-center justify-center pt-[58px] pb-15">
       {/* 지도 */}
-      <div className="bg-accent mx-auto aspect-1/1 w-full max-w-[640px] min-w-[320px] text-center [&>*]:object-cover">
+      <div className="bg-accent mx-auto mt-4 h-80 w-full max-w-[640px] min-w-[320px] text-center [&>*]:object-cover">
         {shelter?.lat && shelter?.lng && (
           <DetailMap lat={shelter.lat} lng={shelter.lng} name={shelter.name} />
         )}
@@ -57,7 +57,7 @@ const ShelterDetailPage = async ({
         {/* 상세 정보 */}
         <section className="text-numEng flex w-full flex-col gap-2 text-gray-600">
           <p className="flex flex-row items-center gap-1">
-            <Image src={phone} alt="" width={24} height={24} />
+            <Image src={phone} alt="폰 아이콘" width={24} height={24} />
             담당 전화:{" "}
             {shelter?.phone ? (
               <Link
@@ -71,14 +71,14 @@ const ShelterDetailPage = async ({
             )}
           </p>
           <p className="flex flex-row items-center gap-1">
-            <Image src={user} alt="" width={24} height={24} />
+            <Image src={user} alt="유저 아이콘" width={24} height={24} />
             수용인원:{" "}
             <span className="text-gray-900">
               {shelter?.capacity ?? "정보없음"}명
             </span>
           </p>
           <p className="flex flex-row items-center gap-1">
-            <Image src={flag} alt="" width={24} height={24} />
+            <Image src={flag} alt="깃발 아이콘" width={24} height={24} />
             시설 규모:{" "}
             <span className="text-gray-900">
               {shelter?.scale ?? "정보없음"}
@@ -92,14 +92,14 @@ const ShelterDetailPage = async ({
             </span>
           </p>
           <p className="flex flex-row items-center gap-1">
-            <Image src={clock} alt="" width={24} height={24} />
+            <Image src={clock} alt="시계 아이콘" width={24} height={24} />
             개방 여부:{" "}
             <span className="text-gray-900">
               {OpenStatus(shelter?.isOpen ?? "정보없음")}
             </span>
           </p>
           <p className="flex flex-row items-center gap-1">
-            <Image src={info} alt="" width={24} height={24} />
+            <Image src={info} alt="정보 아이콘" width={24} height={24} />
             평상시 활용유형:{" "}
             <span className="text-gray-900">
               {shelter?.usageType ?? "정보없음"}

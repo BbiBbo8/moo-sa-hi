@@ -12,27 +12,27 @@ import surveyBanner from "/public/landing/survey_banner.svg";
 const bannerItems = [
   {
     src: banner1,
-    alt: "배너 1",
+    alt: "배너 1 (보호자 안전 퀴즈)",
     href: "https://simte.xyz/childsafe4",
   },
   {
     src: banner2,
-    alt: "배너 2",
+    alt: "배너 2 (어린이 안전 퀴즈)",
     href: "https://simte.xyz/childsafe3",
   },
   {
     src: banner3,
-    alt: "배너 3",
+    alt: "배너 3 (산불 국민 행동 요령)",
     href: "https://www.mois.go.kr/frt/a01/frtMain.do",
   },
   {
     src: banner4,
-    alt: "배너 4",
+    alt: "배너 4 (안전체험관)",
     href: "https://kasem.safekorea.go.kr/ptlCont.do?url=sftCnterRgnMng#none",
   },
   {
     src: surveyBanner,
-    alt: "배너 5",
+    alt: "배너 5 (웹사이트 만족도 설문조사)",
     href: "https://forms.gle/cDWurtF1iretHftk7",
   },
 ];
