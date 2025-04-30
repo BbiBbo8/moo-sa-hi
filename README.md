@@ -1,23 +1,25 @@
 <div align="center">
-  <img alt="" src="" />
+  <img alt="헤더" src="https://i.imgur.com/WQykh6t.jpeg" />
 </div>
 
-# 무사히
+<br>
+
+# 무사히 [바로가기](https://moo-sa-hi.vercel.app/)
 
 > 무사히 당신이 있을 곳으로, 돌아갈 수 있도록.
 >
 > 무사히 잘 돌아와.
 
-<br>
+
 <br>
 
 ## 💬 프로젝트 소개
 
 <br>
 
-🦺 프로젝트 **무사히** 는 어떠한 재난 상황에서도 **당신의 안전**을 최우선으로 생각합니다.
+### 🦺 프로젝트 무사히는 어떠한 재난 상황에서도 당신의 안전을 최우선으로 생각합니다.
 
-#### ⛑️ 무사히의 핵심 기능
+### ⛑️ 무사히의 핵심 기능
 
 - **대피소 정보 제공**: 사용자는 재난 발생 시 인근 대피소의 위치와 정보를 실시간으로 확인할 수 있습니다.
 
@@ -25,17 +27,16 @@
 
 - **위치 기반 서비스**: 사용자의 현재 위치를 기반으로 가장 가까운 대피소를 안내합니다.
 
-#### ⛑️ 무사히의 장점
+### ⛑️ 무사히의 장점
 
 - **누구나** 로그인하지 않아도 **모든 정보**를 확인할 수 있습니다.
+  
 - 안전 문자로는 확인하기 어려운 **대피소 현황을 실시간**으로 확인할 수 있습니다.
+  
 - 재난 상황이 아니어도 **안전 관련 정보**를 확인할 수 있습니다.
 
 <br/>
 
-<img src="https://i.imgur.com/IDXE06M.jpeg" width="300"/>
-
-### [지금 바로 확인하세요!](https://moo-sa-hi.vercel.app/)
 
 <br />
 
@@ -304,6 +305,8 @@
 - #### [Supabase OAuth 인증 오류가 끊기질 않아](https://velog.io/@33hyun/Supabase-OAuth-%EC%9D%B8%EC%A6%9D-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85)
 - #### [쿠키를 사용하자 - 로그인 정보 파싱하기](https://velog.io/@pna9904/%EC%BF%A0%ED%82%A4-%EC%82%AC%EC%9A%A9%EC%97%90-%EB%8F%99%EC%9D%98%ED%95%98%EB%83%90%EA%B3%A0-%EB%84%88-%EB%88%84%EA%B5%B0%EB%8D%B0)
 - #### [버튼 클릭에 따른 데이터 추가와 삭제?](https://velog.io/@suminlee0409/%EB%B2%84%ED%8A%BC-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%B6%94%EA%B0%80%EC%99%80-%EC%B7%A8%EC%86%8C-%ED%81%B4%EB%A6%AD-%EC%8B%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%82%AD%EC%A0%9C-%EC%89%BD%EC%A7%80-%EB%9D%BC%EA%B3%A0-%EB%A7%90%ED%95%98%EB%8A%94-%EA%B3%BC%EA%B1%B0%EC%9D%98-%EB%82%98)
+- #### [게시글 작성하면서 데이터 무결성 확보하기](https://yuuuuukko.tistory.com/169)
+- #### [카카오 지도 완전 정복기](https://velog.io/@apfhdfhrrl/%EB%B6%80%ED%8A%B8-%EC%BA%A0%ED%94%84-%EC%B5%9C%EC%A2%85-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85)
 
 <br />
 
@@ -311,34 +314,45 @@
 
 ```markdown
 📁
-moo-sa-hi/
-├── public/ # 정적 이미지 파일
-│ └── ...
-├── src/ # 소스 코드 루트
-│ ├── app/ # Next.js App Router 구조
-│ │ ├── layout.tsx # 공통 레이아웃
-│ │ ├── page.tsx # 홈 페이지
-│ │ └── (기타 경로)/ # 라우팅되는 각 페이지 폴더
-│ ├── components/ # 재사용 가능한 UI 컴포넌트
-│ │ └── ...
-│ ├── constants/ # 상수 정의
-│ │ └── ...
-│ ├── fonts/ # 사용하는 폰트
-│ │ └── ...
-│ ├── hooks/ # 커스텀 훅
-│ │ └── ...
-│ ├── libs/ # 외부 라이브러리 래퍼나 유틸 함수
-│ │ └── ...
-│ ├── providers/ # 전역 상태 provider 정의
-│ │ └── ...
-│ ├── store/ # zustand 스토어
-│ │ └── ...
-│ ├── supabase/ # supabse api 정의
-│ │ └── ...
-│ ├── types/ # 공통 타입 정의
-│ │ └── ...
-│ └── utils/ # 유틸리티 함수
-│ └── ...
+
+moo-sa-hi
+├─ public
+│  ├─ icons // 아이콘 assets 정리
+│  └─ typos // 로고 assets 정리
+├─ src
+│  ├─ app
+│  │  ├─ (pages) // 페이지를 한 눈에 보이도록 Route Group 사용
+│  │  │  ├─ auth
+│  │  │  │  ├─ auth-code-error // 소셜 로그인 오류 시 안내 페이지
+│  │  │  │  ├─ callback  // 소셜 로그인에 사용되는 콜백 페이지
+│  │  │  │  └─ nickname  // 소셜 로그인 후 닉네임 설정 페이지
+│  │  │  ├─ ... // 기타 페이지
+│  │  │  ├─ Error.tsx  // 오류 컴포넌트
+│  │  │  ├─ Loading.tsx // 로딩 컴포넌트
+│  │  ├─ api // 외부 api fetch 함수 정리
+│  │  ├─ globals.css  // tailwind config 대신 쓰이는 css 
+│  │  ├─ layout.tsx // 공통 레이아웃
+│  │  ├─ opengraph-image.jpg // 오픈 그래프로 사용될 이미지
+│  │  └─ page.tsx // 랜딩(홈) 페이지
+│  ├─ components
+│  │  ├─ ...
+│  │  └─ ui  // 공통 컴포넌트 정리
+│  ├─ constants // 자주 쓰이는 상수
+│  ├─ fonts // 폰트 설정 파일
+│  ├─ hooks // 커스텀 훅 
+│  ├─ lib // 라이브러리 관련 함수 정리
+│  ├─ providers // provider 정리
+│  ├─ store // zustand store
+│  ├─ supabase // supabase 클라이언트와 함수 정리
+│  ├─ types // 공통으로 쓰이는 타입 정리
+│  └─ utils // 유틸함수 정리
+├─ .prettierrc // 코드 일관성 유지를 위한 prettier 설정
+├─ database.types.ts // supabase에서 쓰이는 테이블 데이터 정리
+├─ eslint.config.mjs
+├─ middleware.ts
+├─ next.config.ts
+├─ ...
+└─ tsconfig.json
 ```
 
 <br />
@@ -374,7 +388,8 @@ moo-sa-hi/
 <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white"/>
 <img src="https://img.shields.io/badge/React%20Hook%20Form-%23EC5990.svg?style=for-the-badge&logo=reacthookform&logoColor=white"/>
 <img src="https://img.shields.io/badge/zod-%233068b7.svg?style=for-the-badge&logo=zod&logoColor=white"/>
+<img src ="https://img.shields.io/badge/Lodash-cdcdcd.svg?&style=for-the-badge&logo=Lodash&logoColor=%2f7f7f7"/>
 <img src="https://img.shields.io/badge/shadcn%2Fui-000?logo=shadcnui&logoColor=fff&style=for-the-badge"/>
-<img src="https://img.shields.io/badge/axios.js-854195?style=for-the-badge&logo=axios&logoColor=5A29E4"/>
+<img src="https://img.shields.io/badge/axios.js-FFFFFF?style=for-the-badge&logo=axios&logoColor=5A29E4"/>
 
 </div>
