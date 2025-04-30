@@ -4,6 +4,7 @@ import { ShelterPostType } from "@/types/communityPost";
 import { formatTime } from "@/utils/formatTime";
 import PATH from "@/constants/PATH";
 import Image from "next/image";
+import thumbsUp from "public/icons/community/thumbs-up-gray.svg";
 
 // NOTE: 한 줄짜리 타입지정이라 interface가 아닌 type을 사용했습니다.
 type PostCardProps = {
@@ -19,9 +20,9 @@ const ShelterPost = ({ post }: PostCardProps) => {
 
   const colorForPopulation =
     populationDensity === "한산"
-      ? "bg-[#58999E]"
+      ? "bg-[#24C300]"
       : populationDensity === "보통"
-        ? "bg-[#0671FD]"
+        ? "bg-[#FEB600]"
         : populationDensity === "만원"
           ? "bg-[#EF282A]"
           : "";
@@ -29,16 +30,16 @@ const ShelterPost = ({ post }: PostCardProps) => {
   return (
     <Link
       href={`${PATH.COMMUNITYSHELTER}/${post.id}`}
-      className="h-full w-screen"
+      className="h-full w-full"
     >
       <Card
         key={post.id}
-        className="h-[142px] w-full gap-3 rounded-none border-b-1 border-gray-50 px-5 py-4 shadow-none"
+        className="h-[142px] w-full gap-3 rounded-none border-0 border-b-1 border-gray-50 px-5 py-4 shadow-none"
       >
         <CardContent className="px-0">
           <section className="flex h-full w-full flex-col items-start justify-center gap-2">
             <CardTitle
-              className={`flex items-center justify-center rounded-[8px] px-2 py-1 text-sm text-[14px] font-medium text-[#1A1A1A] ${colorForPopulation}`}
+              className={`flex items-center justify-center rounded-sm px-2 py-1 text-sm text-[14px] font-medium text-white ${colorForPopulation}`}
             >
               {populationDensity}
             </CardTitle>
@@ -54,12 +55,7 @@ const ShelterPost = ({ post }: PostCardProps) => {
             <section className="text-numEng flex w-full flex-row justify-between text-gray-300">
               <p>{timeCreated}</p>
               <div className="text-numEng flex items-center gap-1 text-gray-300">
-                <Image
-                  src={"/icons/community/thumbs-up-gray.svg"}
-                  alt={"icon"}
-                  width={20}
-                  height={20}
-                />
+                <Image src={thumbsUp} alt="icon" width={20} height={20} />
                 <span>{post.helpfuls?.length ?? 0}</span>
               </div>
             </section>

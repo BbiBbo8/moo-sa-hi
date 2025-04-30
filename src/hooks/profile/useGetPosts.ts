@@ -1,6 +1,6 @@
 import createClient from "@/supabase/client";
 import { useQuery } from "@tanstack/react-query";
-import { useUserData } from "./useUserData";
+import { useUserData } from "../useUserData";
 
 const useGetPosts = () => {
   const { data } = useUserData();

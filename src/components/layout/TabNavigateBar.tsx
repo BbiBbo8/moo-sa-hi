@@ -5,6 +5,8 @@ import Link from "next/link";
 import PATH from "@/constants/PATH";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import houseBlue from "public/icons/layout/house-solid-blue.svg";
+import houseGray from "public/icons/layout/house-solid-grey.svg";
 
 const TabNavigateBar = () => {
   const pathname = usePathname();
@@ -25,11 +27,7 @@ const TabNavigateBar = () => {
           <div className="flex flex-col items-center">
             {/* 랜딩 페이지(홈)으로 이동 */}
             <Image
-              src={
-                pathname === PATH.HOME
-                  ? "/icons/layout/house-solid-blue.svg"
-                  : "/icons/layout/house-solid-grey.svg"
-              }
+              src={pathname === PATH.HOME ? houseBlue : houseGray}
               alt="홈"
               width={28}
               height={28}

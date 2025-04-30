@@ -8,6 +8,9 @@ import { Toaster } from "sonner";
 import { defaultFonts } from "@/fonts/defaultFonts";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  ),
   title: "무사히",
   description: "재난이 닥쳤을때, 가장 먼저 무사히 확인하세요.",
   icons: "/typos/logo-blue.svg",
@@ -19,7 +22,7 @@ export const metadata: Metadata = {
     siteName: "무사히",
     images: [
       {
-        url: "/opengraph-img.png",
+        url: "/opengraph-image.jpg",
         width: 1200,
         height: 630,
         alt: "미리보기 이미지",

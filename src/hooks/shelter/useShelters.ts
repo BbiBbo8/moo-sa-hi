@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import fetchSheltersApi from "@/app/api/fetchSheltersApi";
+import fetchSheltersApi from "@/app/action/fetchSheltersApi";
 
 export const useShelters = () =>
   useQuery({

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import Image from "next/image";
+import searchIcon from "public//icons/Property-Activate.svg";
 
 interface SearchBarToggleProps {
   onSearch: (searchTerm: string) => void;
@@ -33,11 +34,6 @@ const SearchBarToggle: React.FC<SearchBarToggleProps> = ({ onSearch }) => {
     onSearch(""); // 검색어 지울 때 부모 컴포넌트에도 알림
   };
 
-  const switchSearchIcon =
-    !searchValue.length === null
-      ? "/icons/Property-1-Disabled.svg"
-      : "/icons/Property-1-Activate.svg";
-
   return (
     <div className="relative">
       {/* 검색 아이콘 버튼 */}
@@ -53,33 +49,21 @@ const SearchBarToggle: React.FC<SearchBarToggleProps> = ({ onSearch }) => {
       {/* 검색창 영역 */}
       {isSearchOpen && (
         <div className="shadow-community-search fixed top-16 right-0 left-0 z-50 flex items-center bg-white px-5 pt-2 pb-3">
-          <div className="flex items-center gap-3">
-            <div className="relative">
+          <div className="flex w-full items-center gap-3">
+            <div className="relative w-full">
               <Input
                 autoFocus
                 placeholder="검색어를 입력하세요"
                 value={searchValue}
                 onChange={handleSearchChange}
-                className="border-primary h-10 w-[312px] border-1"
-              />
-              <Image
-                src={"/icons/Property-1-Disabled.svg"}
-                alt={"icon"}
-                width={28}
-                height={28}
-                className="absolute top-1/2 right-3 -translate-y-1/2"
+                className="border-primary h-10 w-full min-w-[312px] border-1"
               />
               {searchValue && (
                 <button
                   className="absolute top-1/2 right-3 -translate-y-1/2"
                   onClick={handleClear}
                 >
-                  <Image
-                    src={switchSearchIcon}
-                    alt={"icon"}
-                    width={28}
-                    height={28}
-                  />
+                  <Image src={searchIcon} alt="icon" width={28} height={28} />
                 </button>
               )}
             </div>

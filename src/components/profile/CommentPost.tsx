@@ -5,6 +5,7 @@ import { useMyComments } from "@/hooks/comment/useMyCommets";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import Pencil from "public/icons/pen-solid.svg";
 
 const CommentPost = () => {
   const { data: posts, isLoading } = useMyComments();
@@ -30,7 +31,7 @@ const CommentPost = () => {
         {shelter?.map(post => (
           <div
             key={post.id}
-            className="bg-accent relative grid aspect-square min-h-32 min-w-32 truncate overflow-hidden bg-center"
+            className="relative grid aspect-square min-h-32 min-w-32 overflow-hidden bg-[#F7F7F7] bg-center"
           >
             <Link href={`${PATH.COMMUNITYSHELTER}/${post.id}`}>
               <div className="min-h-32 min-w-32">
@@ -41,9 +42,10 @@ const CommentPost = () => {
                     alt="이미지"
                     fill
                     objectFit="cover"
+                    unoptimized
                   />
                 ) : (
-                  <p className="mt-[42%]">{post.title}</p>
+                  <p className="m-3 md:mt-[42%]">{post.title}</p>
                 )}
               </div>
             </Link>
@@ -53,7 +55,7 @@ const CommentPost = () => {
         {daily?.map(post => (
           <div
             key={post.id}
-            className="bg-accent relative grid aspect-square min-h-32 min-w-32 truncate overflow-hidden bg-center"
+            className="bg-accent relative grid aspect-square min-h-32 min-w-32 overflow-hidden bg-center"
           >
             <Link href={`${PATH.COMMUNITYDAILY}/${post.id}`}>
               <div className="min-h-32 min-w-32">
@@ -64,9 +66,10 @@ const CommentPost = () => {
                     alt="이미지"
                     fill
                     objectFit="cover"
+                    unoptimized
                   />
                 ) : (
-                  <p className="mt-[42%]">{post.title}</p>
+                  <p className="m-3 md:mt-[42%]">{post.title}</p>
                 )}
               </div>
             </Link>
@@ -77,12 +80,7 @@ const CommentPost = () => {
       {shelter?.length === 0 && daily?.length === 0 && (
         <section className="flex flex-col gap-3 text-center">
           <div className="mt-[20%] flex justify-center">
-            <Image
-              src="/icons/pen-solid.svg"
-              alt="pensil"
-              width={48}
-              height={48}
-            />
+            <Image src={Pencil} alt="pencil" width={48} height={48} />
           </div>
           <p className="font-[16px] text-[#999999]">
             아직 참여한 게시글이 없어요

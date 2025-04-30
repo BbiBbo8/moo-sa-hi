@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { Shelter } from "@/types/shelter";
-import fetchSheltersApi from "@/app/api/fetchSheltersApi";
+import fetchSheltersApi from "@/app/action/fetchSheltersApi";
 
 interface ShelterStore {
   shelters: Shelter[];

@@ -8,7 +8,7 @@ import Error from "../Error";
 import PostCreateFloatingBtn from "@/components/community/PostCreateFloatingBtn";
 import { useState, useMemo } from "react";
 import CommunityHeader from "@/components/community/CommunityHeader";
-import Image from "next/image";
+import CommunityBanner from "@/components/community/detail/banner";
 
 const CommunityShelterPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -42,31 +42,15 @@ const CommunityShelterPage = () => {
   }
 
   return (
-    <main className="flex min-h-screen min-w-screen flex-col items-center pt-16 pb-16">
+    <main className="mx-auto flex min-h-screen w-full max-w-[640px] min-w-[320px] flex-col items-center pt-16 pb-16">
       <div className="fixed top-0 z-50 w-full">
         <CommunityHeader setSearchTerm={setSearchTerm} />
       </div>
 
-      <div className="top-16 left-5 flex w-screen flex-row items-center justify-between gap-2 bg-[#F7F7F7] px-5 py-2">
-        <div className="flex flex-row items-center justify-center gap-1 text-sm text-gray-600">
-          <Image
-            src={"/icons/community/bullhorn-solid.svg"}
-            alt={"icon"}
-            width={24}
-            height={24}
-          />
-          <span>대피소 관련 경험과 정보를 솔직하게 공유해주세요.</span>
-        </div>
-        <Image
-          src={"/icons/community/xmark-solid.svg"}
-          alt={"icon"}
-          width={20}
-          height={20}
-        />
-      </div>
+      <CommunityBanner />
 
       {/* 필터링된 게시글 반환 */}
-      <section className="top-30 flex max-w-screen flex-col overflow-auto">
+      <section className="top-30 flex w-full max-w-[640px] flex-col overflow-auto">
         {filteredPosts?.length > 0 ? (
           filteredPosts.map(post => {
             return <ShelterPost key={post.id} post={post} />;

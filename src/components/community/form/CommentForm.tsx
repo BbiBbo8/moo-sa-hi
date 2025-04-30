@@ -20,6 +20,8 @@ import { useState } from "react";
 import SigninDrawer from "@/components/auth/SigninDrawer";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
+import uploadActivated from "public/icons/Property-Activate.svg";
+import uploadDisabled from "public/icons/Property-Disabled.svg";
 
 const commentSchema = z.object({
   content: z
@@ -31,12 +33,12 @@ const commentSchema = z.object({
 type CommentFormData = z.infer<typeof commentSchema>;
 
 const CommentForm = ({ postId }: { postId: number }) => {
+  const insertCommentMutation = useInsertComment();
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { data, error, isLoading } = useUserData();
   const userId = data?.user?.id;
   const userData = getUserData();
-
-  const insertCommentMutation = useInsertComment();
 
   const form = useForm<z.infer<typeof commentSchema>>({
     resolver: zodResolver(commentSchema),
@@ -44,13 +46,6 @@ const CommentForm = ({ postId }: { postId: number }) => {
       content: "",
     },
   });
-
-  if (isLoading) {
-    return <Loading />;
-  }
-  if (error) {
-    return <Error />;
-  }
 
   const handleCommentInputClick = async () => {
     const { user } = await userData;
@@ -75,11 +70,17 @@ const CommentForm = ({ postId }: { postId: number }) => {
   const { watch } = form;
   const commentContent = watch("content");
 
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error />;
+  }
   // 값이 있을 때 아이콘 변경
   const currentIconSrc =
     commentContent && commentContent.length > 0
-      ? "/icons/Property-Activate.svg"
-      : "/icons/Property-Disabled.svg";
+      ? uploadActivated
+      : uploadDisabled;
 
   return (
     <>
@@ -91,17 +92,17 @@ const CommentForm = ({ postId }: { postId: number }) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <div className="relative flex items-center rounded-[8px] bg-[#FAFAFA] focus-within:border focus-within:border-[#999999] focus-within:outline-none active:outline-none">
+                  <div className="bg-gray-10 relative flex items-center rounded-sm focus-within:border focus-within:border-gray-400 focus-within:outline-none active:outline-none">
                     <Textarea
                       placeholder="댓글을 입력해주세요."
                       {...field}
                       maxLength={30}
-                      className="h-fit resize-none rounded-[8px] border-transparent bg-[#FAFAFA] pr-10 text-base font-normal text-[#1A1A1A] placeholder:text-base placeholder:text-[#999999] focus:ring-transparent focus:outline-none"
+                      className="bg-gray-10 text-gray-10 h-fit resize-none rounded-sm border-transparent pr-10 text-base font-normal placeholder:text-base placeholder:text-gray-400 focus:ring-transparent focus:outline-none"
                       onClick={handleCommentInputClick}
                     />
                     <Button
                       type="submit"
-                      className="box-border:none absolute right-2 bottom-2 w-fit border-none bg-transparent shadow-none"
+                      className="box-border:none absolute right-2 bottom-2 w-fit border-none bg-transparent shadow-none hover:bg-transparent"
                       disabled={
                         !commentContent ||
                         commentContent.length < 2 ||
@@ -117,7 +118,7 @@ const CommentForm = ({ postId }: { postId: number }) => {
                     </Button>
                   </div>
                 </FormControl>
-                <FormMessage className="text-[#1A1A1A]" />
+                <FormMessage className="text-gray-900" />
               </FormItem>
             )}
           />

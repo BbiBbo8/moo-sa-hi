@@ -1,8 +1,10 @@
 "use client";
 
 import createClient from "@/supabase/client";
-import { FcGoogle } from "react-icons/fc";
-import { RiKakaoTalkFill } from "react-icons/ri";
+import kakao from "public/icons/auth/kakao.svg";
+import google from "public/icons/auth/google.svg";
+import Image from "next/image";
+
 
 const SocialLoginButtons = () => {
   const supabase = createClient();
@@ -25,7 +27,7 @@ const SocialLoginButtons = () => {
           onClick={() => handleLogin("kakao")}
           className="flex items-center justify-center gap-2 rounded-md bg-[#FEE500] py-3 text-sm font-bold text-[#3C1E1E] shadow"
         >
-          <RiKakaoTalkFill size={20} />
+          <Image src={kakao} alt="카카오로그인" width={24} height={24} />
           카카오로 로그인하기
         </button>
 
@@ -34,7 +36,7 @@ const SocialLoginButtons = () => {
           onClick={() => handleLogin("google")}
           className="flex items-center justify-center gap-2 rounded-md bg-white py-3 text-sm font-medium text-[#555] shadow border"
         >
-          <FcGoogle size={20} />
+          <Image src={google} alt="카카오로그인" width={24} height={24} />
           구글로 로그인하기
         </button>
       </div>

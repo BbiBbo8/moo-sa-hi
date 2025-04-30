@@ -31,12 +31,10 @@ const ProfileCard = () => {
             {/* 유저가 존재하면 정보 띄우기 */}
             {user && (
               <>
-                <h3 className="m-1 text-lg font-medium text-[#1A1A1A]">
+                <h3 className="m-1 text-lg font-medium text-gray-900">
                   {user.nickname}
                 </h3>
-                <h3 className="m-1 text-sm text-[#666666]">
-                  {userAuth?.email}
-                </h3>
+                <h3 className="m-1 text-sm text-gray-600">{userAuth?.email}</h3>
               </>
             )}
           </div>

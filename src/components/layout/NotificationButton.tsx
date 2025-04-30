@@ -3,10 +3,15 @@
 import { useState } from "react";
 import Image from "next/image";
 import NotificationDropdown from "@/components/notifications/NotificationDropdown";
-import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import getUserData from "@/supabase/getUserData";
 import useNotificationSubscription from "@/hooks/useNotificationSubscription";
 import { useQuery } from "@tanstack/react-query";
+import alarmOn from "public/icons/alarm1.svg";
+import alarmOff from "public/icons/alarm.svg";
 
 const NotificationButton = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -21,7 +26,8 @@ const NotificationButton = () => {
 
   const userId = userData?.user?.id || null;
 
-  useNotificationSubscription(userId, () => { // payload 파라미터 제거
+  useNotificationSubscription(userId, () => {
+    // payload 파라미터 제거
     setNewalarm(true);
   });
 
@@ -31,7 +37,7 @@ const NotificationButton = () => {
         <DropdownMenuTrigger asChild>
           <button className="relative">
             <Image
-              src={newalarm ? "/icons/alarm1.svg" : "/icons/alarm.svg"}
+              src={newalarm ? alarmOn : alarmOff}
               alt="알림로고"
               height={21}
               width={21}

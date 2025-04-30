@@ -1,6 +1,5 @@
 "use client";
 
-import { useShelterPostDetailQuery } from "@/hooks/community/shelterPostDetailsQuery";
 import Image from "next/image";
 import { formatTime } from "@/utils/formatTime";
 import Loading from "@/app/(pages)/Loading";
@@ -11,6 +10,8 @@ import { useShelters } from "@/hooks/shelter/useShelters";
 import Error from "@/app/(pages)/Error";
 import ConfirmModal from "./ShelterConfirmModal";
 import ShelterPostButtons from "./ShelterPostButton";
+import useShelterPostDetailQuery from "@/hooks/community/shelterPostDetailsQuery";
+import thumbTack from "public/icons/community/thumbtack.svg";
 
 const ShelterDetailPost = ({ id }: { id: number }) => {
   const { data, isLoading, error } = useShelterPostDetailQuery(id);
@@ -47,8 +48,8 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
   const timeCreated = formatTime({ time: data.created_at });
 
   return (
-    <section className="mx-5 mt-20 flex flex-col items-center gap-5">
-      <article className="mb-10 w-full flex-col">
+    <section className="mx-5 mt-20 flex max-w-[640px] flex-col items-center gap-5">
+      <article className="mb-5 w-full flex-col">
         <header className="mb-4 flex flex-col">
           <h1 className="text-bodyXL leading-[27px] font-medium text-gray-900">
             {data.title}
@@ -63,28 +64,18 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
 
         <section className="text-numEng mb-7 flex flex-col justify-center gap-2 text-gray-500">
           <span className="flex flex-row gap-1">
-            <Image
-              src={"/icons/community/thumbtack.svg"}
-              alt=""
-              width={24}
-              height={24}
-            />
+            <Image src={thumbTack} alt="" width={24} height={24} />
             혼잡도: <span className="text-gray-800">{data.people}</span>
           </span>
           <span className="flex flex-row gap-1">
-            <Image
-              src={"/icons/community/thumbtack.svg"}
-              alt=""
-              width={24}
-              height={24}
-            />
+            <Image src={thumbTack} alt="" width={24} height={24} />
             위생상태: <span className="text-gray-800">{data.cleanliness}</span>
           </span>
         </section>
 
         {data.img_url?.startsWith("http") || data.img_url?.startsWith("/") ? (
           <div className="mb-5 flex items-center justify-center">
-            <figure className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-sm border-1 border-gray-400">
+            <figure className="relative flex aspect-[1/1] w-full max-w-[640px] min-w-[280px] items-center justify-center overflow-hidden rounded-3xl border-1 border-gray-400">
               <Image
                 src={data.img_url}
                 alt="이미지를 불러오지 못했습니다."
@@ -99,7 +90,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
           {data.contents}
         </p>
 
-        <figure className="mb-1 flex h-40 overflow-hidden rounded-md">
+        <figure className="flex aspect-[2/1] max-w-[640px] min-w-[280px] overflow-hidden rounded-2xl">
           <MainMap />
           {/* TEST: (고민 내용) 포함정보가 많아 무거운 MainMap보다 DetailMap을 쓰는 걸 추천받았지만
           그렇게 되면 테이블과 게시글 정보 입력 함수도 고치게 되서 고민중이다. 아침에 회의 하기 */}
@@ -117,7 +108,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
         onClose={handleConfirmationModal}
       />
       {/* NOTE: 화면에 보이는 회색 줄 */}
-      <div className="mb-8 h-3 w-full bg-[#F7F7F7]"></div>
+      <div className="bg-gray-20 mb-11 h-3 w-full" />
     </section>
   );
 };

@@ -11,19 +11,26 @@ import { useDeleteComment } from "@/hooks/comment/useCommentMutation";
 import { elapsedTime } from "@/utils/formatTime";
 
 const CommentList = ({ postId }: { postId: number }) => {
+  // 댓글 삭제 함수 호출
+  const deleteCommentMutation = useDeleteComment();
+
   const { data, error, isLoading } = useUserData();
   const user = data?.user;
 
   const {
-    data: commentsData, 
+    data: commentsData,
     error: commentError,
     isLoading: isCommentLoading,
   } = useComments({ postId });
 
   // 최신 댓글이 위로 오도록 정렬
-  const sortedComments = commentsData ? [...commentsData].sort((a, b) => {
-    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-  }) : [];
+  const sortedComments = commentsData
+    ? [...commentsData].sort((a, b) => {
+        return (
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+      })
+    : [];
 
   // 댓글 작성자 여부 확인
   const isOwned = (commentUserId: string | null) => {
@@ -34,8 +41,6 @@ const CommentList = ({ postId }: { postId: number }) => {
     }
   };
 
-  // 댓글 삭제 함수 호출
-  const deleteCommentMutation = useDeleteComment();
   // 로딩 중일 때 로딩중 컴포넌트 표시
   if (isLoading || isCommentLoading) {
     return <Loading />;
@@ -50,20 +55,23 @@ const CommentList = ({ postId }: { postId: number }) => {
       {sortedComments.map((comment, index) => (
         <div key={comment.id}>
           {/* 댓글이 1개 이상일 때 구분선 추가 */}
-          {index > 0 && <div className="h-0.25 w-full bg-[#F2F2F2]" />}
+          {index > 0 && <div className="h-0.25 w-full bg-gray-50" />}
           <Card className="border-none shadow-none">
             <CardContent>
-              <CardDescription className="text-[#1A1A1A]">
+              <CardDescription className="text-sm text-gray-500">
+                {comment.users?.nickname}
+              </CardDescription>
+              <CardDescription className="mt-0.5 text-base text-gray-900">
                 {comment.comments}
               </CardDescription>
               <div className="mt-3 flex flex-row">
-                <CardDescription className="py-2 text-[#B3B3B3]">
+                <CardDescription className="py-2 text-sm text-gray-300">
                   {elapsedTime(comment.created_at)}
                 </CardDescription>
                 {isOwned(comment.user_id) && (
                   <Button
                     onClick={() => deleteCommentMutation.mutate(comment.id)}
-                    className="border-block h-fit w-fit bg-transparent font-normal text-[#B3B3B3]"
+                    className="border-block h-fit w-fit bg-transparent text-sm font-normal text-gray-300 hover:bg-gray-50"
                   >
                     댓글 삭제
                   </Button>
