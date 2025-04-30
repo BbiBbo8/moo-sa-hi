@@ -63,7 +63,12 @@ const SearchBarToggle: React.FC<SearchBarToggleProps> = ({ onSearch }) => {
                   className="absolute top-1/2 right-3 -translate-y-1/2"
                   onClick={handleClear}
                 >
-                  <Image src={searchIcon} alt="icon" width={28} height={28} />
+                  <Image
+                    src={searchIcon}
+                    alt="검색 아이콘"
+                    width={28}
+                    height={28}
+                  />
                 </button>
               )}
             </div>

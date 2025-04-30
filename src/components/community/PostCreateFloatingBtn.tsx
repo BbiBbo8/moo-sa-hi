@@ -28,7 +28,12 @@ const PostCreateFloatingBtn = () => {
         className="shadow-button flex h-[64px] w-[64px] items-center justify-center gap-1 rounded-full bg-white text-sm"
       >
         <div className="relative h-8 w-8">
-          <Image src={pen} alt="icon" fill className="object-cover" />
+          <Image
+            src={pen}
+            alt="글 작성 페이지 아이콘"
+            fill
+            className="object-cover"
+          />
         </div>
       </button>
       {/* 로그인 드로어 */}

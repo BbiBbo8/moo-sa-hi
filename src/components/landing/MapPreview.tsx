@@ -31,13 +31,11 @@ const LandingMapPreview = () => {
   };
 
   return (
-    <section className="mx-[20px] mt-8">
+    <section className="mx-5 mt-8">
       {/* 텍스트 헤더 */}
       <div className="mb-4">
-        <h2 className="text-[20px] leading-[27px] font-semibold text-[#1A1A1A]">
-          주변 대피소 확인
-        </h2>
-        <p className="mt-1 text-[16px] text-[#666666]">
+        <h2 className="text-titleL text-gray-900">주변 대피소 확인</h2>
+        <p className="text-bodyL mt-1 text-gray-600">
           재난 시 피신할 대피소를 미리 확인!
         </p>
       </div>
@@ -49,7 +47,7 @@ const LandingMapPreview = () => {
         {/* GPS 버튼 */}
         <button
           onClick={handleGetLocation}
-          className="absolute bottom-[80px] left-4 z-50 flex h-10 w-10 items-center justify-center rounded-[8px] bg-white/90 p-2 shadow-md backdrop-blur-sm"
+          className="absolute bottom-20 left-4 z-50 flex h-10 w-10 items-center justify-center rounded-sm bg-white/90 p-2 shadow-md backdrop-blur-sm"
           aria-label="내 위치로 이동"
         >
           <Image src={gps} alt="내 위치 아이콘" width={20} height={20} />
@@ -58,7 +56,7 @@ const LandingMapPreview = () => {
         {/* 지역 검색하기 버튼 */}
         <Button
           onClick={handleMapClick}
-          className="absolute bottom-4 left-1/2 z-40 h-12 w-[calc(100%-32px)] -translate-x-1/2 rounded-lg bg-[#2889E4] text-base font-medium text-white shadow-md"
+          className="bg-primary absolute bottom-4 left-1/2 z-40 h-12 w-[calc(100%-32px)] -translate-x-1/2 rounded-lg text-base font-medium text-white shadow-md"
         >
           지역 검색하기
         </Button>

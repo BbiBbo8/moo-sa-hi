@@ -154,7 +154,12 @@ const ShelterPostButtons = ({ shelterPostId = null }: params) => {
               // shelterPostId가 null이거나 초기 데이터 로딩 중에는 버튼 비활성화
               disabled={shelterPostId === null}
             >
-              <Image src={thumbsUpBlue} alt="" width={24} height={24} />
+              <Image
+                src={thumbsUpBlue}
+                alt="유용해요 버튼 활성 상태"
+                width={24}
+                height={24}
+              />
               유용해요
               <span className="ml-1">{helpfulCount}</span>
             </button>
@@ -165,7 +170,12 @@ const ShelterPostButtons = ({ shelterPostId = null }: params) => {
               // shelterPostId가 null이거나 초기 데이터 로딩 중에는 버튼 비활성화
               disabled={shelterPostId === null}
             >
-              <Image src={thumbsUpGray} alt="" width={24} height={24} />
+              <Image
+                src={thumbsUpGray}
+                alt="유용해요 버튼 비활성 상태"
+                width={24}
+                height={24}
+              />
               유용해요
               <span className="ml-1">{helpfulCount}</span>
             </button>

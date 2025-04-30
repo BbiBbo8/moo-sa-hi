@@ -91,7 +91,7 @@ const ShelterList = ({ isDrawerOpen, shelters, sortBy }: ShelterListProps) => {
             <div className="flex items-center justify-center px-5 pb-8">
               <div className="flex flex-col items-center text-sm text-gray-500">
                 <Image
-                  alt=""
+                  alt="지도 아이콘"
                   width={80}
                   height={80}
                   className="px-[10px] py-[13.333px]"
