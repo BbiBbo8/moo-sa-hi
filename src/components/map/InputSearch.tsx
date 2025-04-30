@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { CircleX, Search } from "lucide-react";
 
 import {
   Command,
@@ -14,6 +13,9 @@ import { Input } from "@/components/ui/input";
 import { Shelter } from "@/types/shelter";
 import { useMapStore } from "@/store/useMapStore";
 import { useShelters } from "@/hooks/shelter/useShelters";
+import Image from "next/image";
+import Search from "public/icons/map/magnifying-glass-solid.svg";
+import CircleX from "public/icons/map/circle-xmark-solid.svg";
 
 const InputSearch = () => {
   const [searchQuery, setSearchQuery] = useState(""); // 입력값 상태
@@ -41,9 +43,15 @@ const InputSearch = () => {
   return (
     <div className="absolute top-10 z-50 w-full px-5">
       {/* wrapper: input + 결과 리스트 포함, 포커스 시 테두리 강조 */}
-      <div className="rounded-md bg-white shadow-md transition-all focus-within:ring-1 focus-within:ring-[#58999E]">
+      <div className="rounded-md bg-white shadow-md transition-all focus-within:ring-1 focus-within:ring-[#2889E4]">
         <div className="relative">
-          <Search className="absolute top-2 right-4 h-5 w-5 bg-white text-gray-400" />
+          <Image
+            src={Search}
+            width={20}
+            height={20}
+            alt="search"
+            className="absolute top-2 right-4 h-5 w-5 bg-white"
+          />
 
           <Input
             type="search"
@@ -56,8 +64,12 @@ const InputSearch = () => {
           />
 
           {isFocused && searchQuery.length > 0 && (
-            <CircleX
-              className="absolute top-2.5 right-4 h-5 w-5 cursor-pointer bg-white text-gray-400 hover:text-gray-600"
+            <Image
+              src={CircleX}
+              width={20}
+              height={20}
+              alt="circleX"
+              className="absolute top-2 right-4 h-5 w-5 cursor-pointer bg-white"
               onClick={() => {
                 setSearchQuery("");
                 setResults([]);
