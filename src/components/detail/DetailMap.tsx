@@ -1,7 +1,7 @@
 "use client";
 
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useMapStore } from "@/store/useMapStore";
 
 interface DetailMapProps {
@@ -14,7 +14,6 @@ const DetailMap = ({ lat, lng, name }: DetailMapProps) => {
   const setCenter = useMapStore(state => state.setCenter);
   const setLevel = useMapStore(state => state.setLevel);
   const mapRef = useRef<kakao.maps.Map>(null);
-  const [mapCenter, setMapCenter] = useState({ lat, lng });
 
   useEffect(() => {
     setCenter({ lat, lng });

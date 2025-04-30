@@ -41,7 +41,7 @@ const ShelterDrawer = () => {
     if (!userLocation) {
       mutate();
     }
-  }, [userLocation]);
+  }, [userLocation, mutate]);
 
   const sheltersWithDistance = useDistance(
     userLocation ?? { lat: 0, lng: 0 },

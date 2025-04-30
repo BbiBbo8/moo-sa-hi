@@ -29,7 +29,7 @@ const ShelterDetailPost = ({ id }: { id: number }) => {
       setCenter({ lat: matchedShelter.lat, lng: matchedShelter.lng });
       setLevel(4);
     }
-  }, [data?.shelter_name, shelters, setCenter, setLevel]); // 리팩토링 진행할 때 MainMap 대신 DetailMap 사용 필요할 듯
+  }, [data?.shelter_name, shelters, isShelterLoading, setCenter, setLevel]); // 리팩토링 진행할 때 MainMap 대신 DetailMap 사용 필요할 듯
 
   if (isLoading) {
     return <Loading />;
