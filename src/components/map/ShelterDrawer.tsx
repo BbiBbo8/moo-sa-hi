@@ -125,7 +125,7 @@ const ShelterDrawer = () => {
             <DrawerTitle className="sr-only">주변 대피소 목록</DrawerTitle>
             <div className="flex items-center justify-between">
               <DrawerDescription className="flex items-center gap-2 py-4">
-                <span className="text-gray-9 bg-gray-900 text-[20px] font-semibold">
+                <span className="text-[20px] font-semibold text-gray-900">
                   주변 대피소
                 </span>
                 {markedShelter.length > 0 && (
