@@ -10,7 +10,7 @@ const fetchDisasterAlert = async (): Promise<DisasterAlert[]> => {
   const res = await axios.get(apiBase, {
     params: {
       serviceKey: apiKey,
-      pageNo: 30, //30페이지부터 최신 데이터 (추후에 자동으로 최신화 방법 찾기)
+      pageNo: 31, //30페이지부터 최신 데이터 (추후에 자동으로 최신화 방법 찾기)
       returnType: "json",
       numOfRows: 1000,
     },
