@@ -12,51 +12,45 @@ const CallbackPage = () => {
   // 소셜 로그인 후 콜백 처리를 위한 mutation 정의
   const { mutate: handleCallback } = useMutation({
     mutationFn: async () => {
-      // 세션에서 로그인된 유저 정보 가져오기
       const {
         data: { session },
-        error,
+        error: sessionError,
       } = await supabase.auth.getSession();
       const user = session?.user;
 
-      // 인증 에러 처리
-      if (error || !user) throw new Error("인증 실패");
+      console.log("세션 정보:", session);
+      if (sessionError || !user) {
+        console.error("인증 실패:", sessionError);
+        throw new Error("인증 실패");
+      }
 
-      // users 테이블에서 해당 유저의 nickname을 조회
       const { data: existingUser, error: fetchError } = await supabase
         .from("users")
         .select("nickname")
         .eq("id", user.id)
         .single();
 
-      // 유저 조회 실패 에러 처리
-      if (fetchError) throw new Error("유저 조회 실패");
+      // 조회에 실패했거나 기존 유저가 없으면 삽입 시도
+      if (fetchError || !existingUser) {
+        const insertData = { id: user.id, nickname: "" };
+        const { error: insertError } = await supabase
+          .from("users")
+          .insert(insertData);
 
-      // 유저 정보가 존재하지 않으면 새로 삽입
-      if (!existingUser) {
-        const { error: insertError } = await supabase.from("users").insert({
-          id: user.id,
-          nickname: "",
-        });
-
-        // 정보 삽입 실패 에러 처리
-        if (insertError) throw new Error("유저 정보 실패");
-
-        // 삽입 완료 후 닉네임 등록 페이지로 이동
+        if (insertError) {
+          console.error("유저 정보 삽입 실패:", insertError);
+          throw new Error("유저 정보 삽입 실패"); // 삽입 실패 시에만 에러 던지기
+        }
         return { redirectTo: "/auth/nickname" };
       }
 
-      // 기존 유저가 존재하면 닉네임 유무에 따라 라우팅 (랜딩/닉네임)
       return { redirectTo: existingUser.nickname ? "/" : "/auth/nickname" };
     },
-
-    // 인증 성공 시 지정된 경로로 이동
     onSuccess: ({ redirectTo }) => {
       router.replace(redirectTo);
     },
-
-    // 인증 실패 시 에러 안내 페이지로 이동
-    onError: () => {
+    onError: error => {
+      console.error("콜백 처리 에러:", error);
       router.replace("/auth/auth-code-error");
     },
   });
