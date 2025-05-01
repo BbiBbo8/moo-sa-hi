@@ -1,6 +1,7 @@
 import CommentList from "@/components/community/CommentList";
 import DailyDetailPost from "@/components/community/detail/DailyDetailPost";
 import CommentForm from "@/components/community/form/CommentForm";
+import SectionDivider from "@/components/landing/SectionDivider";
 
 const DailyDetailPage = async ({
   params,
@@ -13,6 +14,7 @@ const DailyDetailPage = async ({
   return (
     <main className="mx-auto w-full max-w-[640px]">
       <DailyDetailPost id={numericId} />
+      <SectionDivider />
       <CommentForm postId={numericId} />
       <CommentList postId={numericId} />
     </main>

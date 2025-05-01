@@ -1,6 +1,7 @@
 import CommentList from "@/components/community/CommentList";
 import CommentForm from "@/components/community/form/CommentForm";
 import ShelterDetailPost from "@/components/community/detail/ShelterDetailPost";
+import SectionDivider from "@/components/landing/SectionDivider";
 
 const shelterDetailPage = async ({
   params,
@@ -13,6 +14,7 @@ const shelterDetailPage = async ({
   return (
     <main className="mx-auto w-full max-w-[640px]">
       <ShelterDetailPost id={numericId} />
+      <SectionDivider />
       <CommentForm postId={numericId} />
       <CommentList postId={numericId} />
     </main>
