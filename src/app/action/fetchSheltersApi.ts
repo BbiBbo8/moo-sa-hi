@@ -7,20 +7,53 @@ import { Shelter } from "@/types/shelter";
 const fetchSheltersApi = async (): Promise<Shelter[]> => {
   const apiKey = process.env.NEXT_SHELTER_API_KEY!;
   const apiBase = process.env.NEXT_SHELTER_API_BASE_URL!;
-
-  const res = await axios.get(apiBase, {
-    params: {
-      serviceKey: apiKey,
-      returnType: "json",
-      numOfRows: 10000,
-    },
-  });
-
-  const items = res.data.body;
-  if (!Array.isArray(items)) throw new Error("데이터 형식 오류");
-
   
-  const filtered = items
+  // 최대 데이터 개수 제한
+  const MAX_ITEMS = 3000;
+  
+  // 모든 대피소 데이터를 저장할 배열
+  let allItems: any[] = [];
+  let currentPage = 1;
+  let hasMoreData = true;
+  
+  while (hasMoreData && allItems.length < MAX_ITEMS) {
+    try {
+      const res = await axios.get(apiBase, {
+        params: {
+          serviceKey: apiKey,
+          returnType: "json",
+          numOfRows: 1000,
+          pageNo: currentPage,
+        },
+      });
+      
+      const items = res.data.body;
+      
+      if (!Array.isArray(items) || items.length === 0) {
+        hasMoreData = false;
+      } else {
+        // 남은 공간에 맞게 데이터 추가
+        const remainingSpace = MAX_ITEMS - allItems.length;
+        const itemsToAdd = items.slice(0, remainingSpace);
+        allItems = [...allItems, ...itemsToAdd];
+        
+        console.log(`페이지 ${currentPage} 데이터 ${itemsToAdd.length}개 추가, 총 ${allItems.length}개`);
+        
+        // 다음 페이지로 이동
+        currentPage++;
+        
+        // 최대 개수에 도달하거나 마지막 페이지에 도달한 경우
+        if (allItems.length >= MAX_ITEMS || items.length < 1000) {
+          hasMoreData = false;
+        }
+      }
+    } catch (error) {
+      console.error(`페이지 ${currentPage} 요청 오류:`, error);
+      hasMoreData = false;
+    }
+  }
+  
+  const filtered = allItems
     //SCL_UNIT t(톤) 필터링
     .filter(item => item.SCL_UNIT !== "t(톤)")
     .map(item => ({
