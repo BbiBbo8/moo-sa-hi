@@ -11,7 +11,7 @@ const fetchNewsApi = async (): Promise<NewsItem[]> => {
     params: {
       serviceKey: apiKey,
       returnType: "json",
-      pageNo: 2885, // 2885페이지부터 최신 데이터 (추후에 자동으로 최신화 방법 찾기)
+      pageNo: 2902, // 2885페이지부터 최신 데이터 (추후에 자동으로 최신화 방법 찾기)
       numofRows: 1000,
       sort: "YNA_YMD", // 또는 YNA_YMD 등 날짜 관련 필드명
       order: "desc", // 내림차순 (최신순)
