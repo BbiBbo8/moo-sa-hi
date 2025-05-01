@@ -18,7 +18,6 @@ const CallbackPage = () => {
       } = await supabase.auth.getSession();
       const user = session?.user;
 
-      console.log("세션 정보:", session);
       if (sessionError || !user) {
         console.error("인증 실패:", sessionError);
         throw new Error("인증 실패");
