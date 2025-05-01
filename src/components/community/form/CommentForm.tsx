@@ -97,7 +97,7 @@ const CommentForm = ({ postId }: { postId: number }) => {
                       placeholder="댓글을 입력해주세요."
                       {...field}
                       maxLength={30}
-                      className="bg-gray-10 text-gray-10 h-fit resize-none rounded-sm border-transparent pr-10 text-base font-normal placeholder:text-base placeholder:text-gray-400 focus:ring-transparent focus:outline-none"
+                      className="bg-gray-10 h-fit resize-none rounded-sm border-transparent pr-10 text-base font-normal text-gray-900 placeholder:text-base placeholder:text-gray-400 focus:ring-transparent focus:outline-none"
                       onClick={handleCommentInputClick}
                     />
                     <Button
